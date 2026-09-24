@@ -4031,69 +4031,46 @@ function togglePassword(inputId, button) {
        LINKEDIN
     ===================================================== */
 
-    async function loginWithLinkedIn(
-        messageId
-    ) {
+    async function loginWithLinkedIn(messageId) {
 
-        clearMessage(
-            messageId
-        );
+    clearMessage(messageId);
 
+    try {
 
-        try {
+        const { error } =
+            await db.auth.signInWithOAuth({
 
-            const {
-                error
-            } =
-                await db.auth
-                    .signInWithOAuth({
+                provider: "linkedin_oidc",
 
-                        provider:
-                            "linkedin_oidc",
+                options: {
 
-                        options: {
+                    redirectTo:
+                        "https://esraajo.github.io/ejdesignscommunity/"
 
-                            redirectTo:
-                                window.location.href
-                                .split("#")[0]
+                }
 
-                        }
+            });
 
-                    });
-
-
-            if (error) {
-
-                console.error(
-                    "LinkedIn Login Error:",
-                    error
-                );
-
-
-                showMessage(
-                    messageId,
-                    "error",
-                    error.message
-                );
-            }
-
-
-        } catch (error) {
-
-            console.error(
-                "LinkedIn Error:",
-                error
-            );
-
+        if (error) {
 
             showMessage(
                 messageId,
                 "error",
-                "Unable to connect with LinkedIn. Please try again."
+                error.message
             );
         }
-    }
 
+    } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+            messageId,
+            "error",
+            "Unable to connect with LinkedIn. Please try again."
+        );
+    }
+}
 
     /* =====================================================
        LINKEDIN REGISTER
