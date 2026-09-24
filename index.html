@@ -4040,13 +4040,23 @@ function togglePassword(inputId, button) {
         const { error } =
             await db.auth.signInWithOAuth({
 
-                provider: "linkedin_oidc"
+                provider: "linkedin_oidc",
+
+                options: {
+
+                    redirectTo:
+                        "https://esraajo.github.io/ejdesignscommunity/"
+
+                }
 
             });
 
         if (error) {
 
-            console.error("LinkedIn Error:", error);
+            console.error(
+                "LinkedIn Error:",
+                error
+            );
 
             showMessage(
                 messageId,
