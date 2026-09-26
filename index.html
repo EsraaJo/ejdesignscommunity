@@ -2095,7 +2095,83 @@
   cursor: pointer;
 }
 
+@media (max-width: 600px) {
+  body {
+    overflow-x: hidden;
+  }
 
+  header {
+    padding: 24px 16px;
+  }
+
+  header h1 {
+    font-size: 30px;
+  }
+
+  nav {
+    gap: 8px;
+  }
+
+  nav button {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  main {
+    padding: 32px 12px 20px;
+  }
+
+  .community-page {
+    width: 100%;
+    padding: 0 8px;
+  }
+
+  .create-options {
+    grid-template-columns: 1fr;
+  }
+
+  .share-page-card,
+  .feedback-card {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .feedback-card {
+    gap: 10px;
+  }
+
+  .feedback-avatar {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-heading {
+    text-align: center;
+  }
+
+  .profile-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .corner-logo {
+    width: 90px;
+    height: 90px;
+    right: 8px;
+    bottom: 8px;
+  }
+
+  .contact-links {
+    bottom: 10px;
+    gap: 6px;
+  }
+}
     </style>
 
 </head>
