@@ -3385,21 +3385,22 @@ function togglePassword(inputId, button) {
        MESSAGE
     ===================================================== */
 
-    function showMessage(elementId, type, text) {
+    function showMessage(
+        elementId,
+        type,
+        text
+    ) {
 
-    const element =
-        document.getElementById(elementId);
+       const content =
+    document
+        .getElementById("shareContent")
+        .value
+        .trim();
 
-    if (!element) {
-        return;
-    }
 
-    element.className =
-        "message " + type;
-
-    element.textContent =
-        text;
-}
+        if (!element) {
+            return;
+        }
 
 
         element.className =
