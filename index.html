@@ -5473,39 +5473,73 @@ function escapeHtml(value) {
    CREATE PLACEHOLDERS
 ===================================================== */
 
-function createPost() {
+async function createPost() {
 
     if (!currentUser) {
-
-        showSection(
-            "loginSection"
-        );
-
+        showSection("loginSection");
         return;
     }
 
     const content =
         document
-            .getElementById(
-                "shareContent"
-            )
+            .getElementById("shareContent")
             .value
             .trim();
 
     if (!content) {
-
-        alert(
-            "Please write something first."
-        );
-
+        alert("Please write something first.");
         return;
     }
 
-    alert(
-        "Post creation will be connected to Supabase next."
-    );
-}
+    try {
 
+        const { data, error } =
+            await db
+                .from("posts")
+                .insert([
+                    {
+                        user_id: currentUser.id,
+                        content: content
+                    }
+                ])
+                .select()
+                .single();
+
+        if (error) {
+
+            console.error(
+                "Create post error:",
+                error
+            );
+
+            alert(
+                "Unable to create post: " +
+                error.message
+            );
+
+            return;
+        }
+
+        console.log("Post created:", data);
+
+        document
+            .getElementById("shareContent")
+            .value = "";
+
+        alert("Post created successfully!");
+
+    } catch (error) {
+
+        console.error(
+            "Create post error:",
+            error
+        );
+
+        alert(
+            "Something went wrong while creating the post."
+        );
+    }
+}
 
 function createProject() {
 
