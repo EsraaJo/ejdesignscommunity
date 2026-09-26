@@ -28,6 +28,33 @@
 
     <style>
 
+.connection-requests-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.connection-requests-section h3 {
+    margin-bottom: 15px;
+}
+
+.connection-request-card {
+    width: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+
+    padding: 14px 18px;
+    margin-bottom: 10px;
+}
+
 /* =========================
    PASSWORD TOGGLE
 ========================= */
@@ -3358,22 +3385,21 @@ function togglePassword(inputId, button) {
        MESSAGE
     ===================================================== */
 
-    function showMessage(
-        elementId,
-        type,
-        text
-    ) {
+    function showMessage(elementId, type, text) {
 
-       const content =
-    document
-        .getElementById("shareContent")
-        .value
-        .trim();
+    const element =
+        document.getElementById(elementId);
 
+    if (!element) {
+        return;
+    }
 
-        if (!element) {
-            return;
-        }
+    element.className =
+        "message " + type;
+
+    element.textContent =
+        text;
+}
 
 
         element.className =
