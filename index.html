@@ -1705,16 +1705,108 @@
 
 
 .posts-container {
-
-    max-width: 750px;
-
-    margin: 0 auto;
-
+    width: 100%;
+    max-width: 650px;
+    margin: 28px auto 0;
     display: flex;
-
     flex-direction: column;
+    gap: 14px;
+}
 
-    gap: 15px;
+.post-card {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+
+    background: #000;
+    color: #fff;
+
+    border-radius: 12px;
+    padding: 18px 20px;
+
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-right: 75px;
+    margin-bottom: 14px;
+}
+
+.post-avatar {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #222;
+    border: 1px solid #444;
+}
+
+.post-user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.post-author {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.post-profession {
+    color: #aaa;
+    font-size: 11px;
+    line-height: 1.2;
+}
+
+.post-content {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.65;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.post-date {
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px solid #292929;
+    color: #888;
+    font-size: 10px;
+}
+
+/* DELETE BUTTON */
+.delete-post-btn {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+
+    background: #fff;
+    color: #000;
+
+    border: none;
+    border-radius: 6px;
+
+    padding: 6px 11px;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.delete-post-btn:hover {
+    background: #e8e8e8;
+    transform: translateY(-1px);
 }
 
 
@@ -3168,51 +3260,71 @@ function togglePassword(inputId, button) {
        SECTION NAVIGATION
     ===================================================== */
 
-    function showSection(sectionId) {
+   function showSection(sectionId) {
 
     const sections =
-        document.querySelectorAll(
-            ".page-section"
-        );
+        document.querySelectorAll(".page-section");
 
-    sections.forEach(
-        function(section) {
-
-            section.classList.remove(
-                "active"
-            );
-
-        }
-    );
+    sections.forEach(function(section) {
+        section.classList.remove("active");
+    });
 
     const selectedSection =
-        document.getElementById(
-            sectionId
-        );
+        document.getElementById(sectionId);
 
     if (selectedSection) {
 
-        selectedSection.classList.add(
-            "active"
-        );
+        selectedSection.classList.add("active");
 
         window.scrollTo({
             top: 0,
             behavior: "smooth"
         });
 
-        if (
-            sectionId ===
-            "connectSection"
-        ) {
-
+        if (sectionId === "connectSection") {
             loadMembers();
-
         }
 
+        if (sectionId === "shareSection") {
+            loadPosts();
+        }
     }
 }
+async function deletePost(postId) {
 
+    if (!currentUser) return;
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this post?"
+        );
+
+    if (!confirmed) return;
+
+    const { error } =
+        await db
+            .from("posts")
+            .delete()
+            .eq("id", postId)
+            .eq("user_id", currentUser.id);
+
+    if (error) {
+
+        console.error(
+            "Delete post error:",
+            error
+        );
+
+        alert(
+            "Unable to delete post: " +
+            error.message
+        );
+
+        return;
+    }
+
+    loadPosts();
+}
 
     /* =====================================================
        MESSAGE
@@ -5506,11 +5618,7 @@ async function createPost() {
                 .single();
 
         if (error) {
-
-            console.error(
-                "Create post error:",
-                error
-            );
+            console.error("Create post error:", error);
 
             alert(
                 "Unable to create post: " +
@@ -5520,8 +5628,6 @@ async function createPost() {
             return;
         }
 
-        console.log("Post created:", data);
-
         document
             .getElementById("shareContent")
             .value = "";
@@ -5530,14 +5636,173 @@ async function createPost() {
 
     } catch (error) {
 
-        console.error(
-            "Create post error:",
-            error
-        );
+        console.error(error);
 
         alert(
             "Something went wrong while creating the post."
         );
+    }
+}
+async function loadPosts() {
+
+    const container =
+        document.getElementById("postsContainer");
+
+    if (!container) return;
+
+    container.innerHTML = "Loading posts...";
+
+    try {
+
+        const { data: posts, error } =
+            await db
+                .from("posts")
+                .select("*")
+                .order("created_at", {
+                    ascending: false
+                });
+
+        if (error) {
+            console.error(error);
+            container.innerHTML =
+                "Unable to load posts.";
+            return;
+        }
+
+        if (!posts || posts.length === 0) {
+
+            container.innerHTML =
+                "No posts yet. Be the first to share something!";
+
+            return;
+        }
+
+        const userIds =
+            [...new Set(
+                posts.map(post => post.user_id)
+            )];
+
+        const { data: profiles, error: profileError } =
+            await db
+                .from("profiles")
+                .select(
+                    "id, full_name, profession, avatar_url"
+                )
+                .in("id", userIds);
+
+        if (profileError) {
+            console.error(profileError);
+        }
+
+        const profileMap = {};
+
+        (profiles || []).forEach(profile => {
+            profileMap[profile.id] = profile;
+        });
+
+        container.innerHTML = "";
+
+        posts.forEach(function(post) {
+
+            const profile =
+                profileMap[post.user_id];
+
+            const fullName =
+                profile?.full_name?.trim() || "User";
+
+            const firstName =
+                fullName.split(/\s+/)[0];
+
+            const profession =
+                profile?.profession || "";
+
+            const avatar =
+                profile?.avatar_url || "";
+
+            const isOwner =
+                currentUser &&
+                currentUser.id === post.user_id;
+
+            const postCard =
+                document.createElement("div");
+
+            postCard.className = "post-card";
+
+            postCard.innerHTML = `
+
+                <div class="post-header">
+
+                    ${
+                        avatar
+                        ? `
+                            <img
+                                src="${avatar}"
+                                class="post-avatar"
+                                alt="${firstName}"
+                            >
+                          `
+                        : `
+                            <div
+                                class="post-avatar"
+                            ></div>
+                          `
+                    }
+
+                    <div class="post-user-info">
+
+                        <div class="post-author">
+                            ${firstName}
+                        </div>
+
+                        ${
+                            profession
+                            ? `
+                                <div class="post-profession">
+                                    ${profession}
+                                </div>
+                              `
+                            : ""
+                        }
+
+                    </div>
+
+                </div>
+
+                ${
+                    isOwner
+                    ? `
+                        <button
+                            class="delete-post-btn"
+                            onclick="deletePost('${post.id}')"
+                        >
+                            Delete
+                        </button>
+                      `
+                    : ""
+                }
+
+                <div class="post-content">
+                    ${post.content}
+                </div>
+
+                <div class="post-date">
+                    ${new Date(
+                        post.created_at
+                    ).toLocaleString()}
+                </div>
+
+            `;
+
+            container.appendChild(postCard);
+
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        container.innerHTML =
+            "Unable to load posts.";
     }
 }
 
