@@ -1269,150 +1269,543 @@
 
 
         .home-boxes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 40px;
+}
 
-            display: grid;
 
-            grid-template-columns:
-                repeat(3, 1fr);
+/* MAIN BOX */
 
-            gap: 18px;
+.home-box {
+    background: #ffffff;
+    padding: 35px 20px;
+    min-height: 210px;
 
-            margin-top: 40px;
-        }
+    border-radius: 14px;
+    border: 1px solid #eeeeee;
 
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
 
-        .home-box {
+    text-align: center;
 
-            background: white;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
 
-            padding:
-                30px 20px;
 
-            border-radius: 14px;
+/* MAIN BOX HOVER */
 
-            border:
-                1px solid #ddd;
+.home-box:hover {
+    transform: translateY(-3px);
 
-            transition:
-                transform 0.2s ease,
-                box-shadow 0.2s ease;
-        }
+    box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.08);
 
+    border-color: #e5e5e5;
+}
 
-        .home-box:hover {
 
-            transform:
-                translateY(-4px);
+/* BUTTON */
 
-            box-shadow:
-                0 12px 25px
-                rgba(0,0,0,0.08);
-        }
+.box-button {
+    display: inline-block;
 
+    padding: 9px 20px;
 
-        .home-box h3 {
+    background: #111111;
 
-            margin-top: 0;
-        }
+    color: #ffffff;
 
+    border-radius: 8px;
 
-        .home-box p {
+    font-size: 15px;
 
-            color: #666;
+    font-weight: 500;
 
-            font-size: 14px;
+    letter-spacing: 0.2px;
 
-            line-height: 1.6;
-        }
+    cursor: pointer;
 
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.12);
 
-        /* =====================================================
-           MOBILE
-        ===================================================== */
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
 
-        @media (max-width: 700px) {
 
-            header {
+/* BUTTON HOVER */
 
-                padding:
-                    45px 20px;
-            }
+.home-box:hover .box-button {
+    background: #2a2a2a;
 
+    transform: translateY(-2px);
 
-            header h1 {
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.16);
+}
 
-                font-size: 32px;
-            }
 
+/* TITLE */
 
-            .home-boxes {
+.home-box h3 {
+    margin-top: 0;
 
-                grid-template-columns: 1fr;
-            }
+    margin-bottom: 14px;
+}
 
 
-            .card {
+/* DESCRIPTION */
 
-                padding:
-                    35px 25px;
-            }
+.home-box p {
+    margin: 28px auto 0;
 
+    max-width: 200px;
 
-            .profile-header {
+    color: #666666;
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: center;
+}
 
-                flex-direction: column;
+/* MOBILE */
+/* =====================================================
+   COMMUNITY PAGES
+===================================================== */
 
-                text-align: center;
-            }
+.community-page {
 
+    max-width: 1050px;
 
-            .profile-heading {
+    margin: 0 auto;
+}
 
-                text-align: center;
-            }
 
+/* BACK */
 
-            .profile-main-info {
+.page-back-btn {
 
-                text-align: center;
-            }
+    background: transparent;
 
+    border: none;
 
-            .profile-actions {
+    color: #555;
 
-                grid-template-columns:
-                    1fr;
-            }
+    font-family: inherit;
 
+    font-size: 14px;
 
-            .edit-grid {
+    cursor: pointer;
 
-                grid-template-columns: 1fr;
-            }
+    padding: 8px 12px;
 
+    margin-bottom: 10px;
 
-            .edit-field.full-width {
+    transition: 0.2s ease;
+}
 
-                grid-column: auto;
-            }
 
+.page-back-btn:hover {
 
-            .edit-avatar-section {
+    color: #111;
 
-                flex-direction: column;
+    transform: translateX(-3px);
+}
 
-                text-align: center;
-            }
 
+/* PAGE SUBTITLE */
 
-            .profile-socials {
+.community-page-subtitle {
 
-                justify-content: center;
-            }
+    color: #777;
 
-        }
+    font-size: 14px;
 
+    margin-bottom: 35px;
+}
 
+
+/* =====================================================
+   CONNECT
+===================================================== */
+
+.community-search {
+
+    max-width: 650px;
+
+    margin:
+        0 auto 35px;
+}
+
+
+.community-search input {
+
+    width: 100%;
+
+    background: white;
+
+    color: #222;
+
+    border:
+        1px solid #ddd;
+
+    padding: 14px 16px;
+
+    border-radius: 9px;
+
+    font-family: inherit;
+
+    outline: none;
+}
+
+
+.community-search input:focus {
+
+    border-color: #aaa;
+}
+
+
+.members-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+    text-align: left;
+}
+
+
+.member-card {
+
+    background: white;
+
+    border:
+        1px solid #eeeeee;
+
+    border-radius: 14px;
+
+    padding: 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 4px 14px
+        rgba(0,0,0,0.05);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.member-card:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 8px 22px
+        rgba(0,0,0,0.08);
+}
+
+
+.member-avatar {
+
+    width: 78px;
+
+    height: 78px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    background: #eeeeee;
+
+    margin-bottom: 12px;
+}
+
+
+.member-initials {
+
+    width: 78px;
+
+    height: 78px;
+
+    margin:
+        0 auto 12px;
+
+    border-radius: 50%;
+
+    background: #111;
+
+    color: #D6B84C;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 24px;
+
+    font-weight: 600;
+}
+
+
+.member-card h3 {
+
+    margin:
+        5px 0;
+
+    font-size: 17px;
+}
+
+
+.member-profession {
+
+    color: #666;
+
+    font-size: 13px;
+
+    margin: 5px 0;
+}
+
+
+.member-location {
+
+    color: #999;
+
+    font-size: 12px;
+
+    margin: 5px 0 15px;
+}
+
+
+.member-connect-btn {
+
+    padding:
+        9px 18px;
+
+    background: #111;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.member-connect-btn:hover {
+
+    background: #D6B84C;
+
+    color: #111;
+}
+
+
+.empty-members {
+
+    grid-column:
+        1 / -1;
+
+    padding: 50px;
+
+    color: #777;
+
+    text-align: center;
+}
+
+
+/* =====================================================
+   SHARE
+===================================================== */
+
+.share-page-card {
+
+    max-width: 750px;
+
+    margin: 0 auto 30px;
+
+    background: white;
+
+    border:
+        1px solid #eeeeee;
+
+    border-radius: 14px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 4px 14px
+        rgba(0,0,0,0.05);
+}
+
+
+.share-page-card textarea {
+
+    background: #fafafa;
+
+    color: #222;
+
+    border:
+        1px solid #ddd;
+
+    margin: 0 0 15px;
+}
+
+
+.community-action-btn {
+
+    padding:
+        10px 22px;
+
+    background: #111;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.community-action-btn:hover {
+
+    background: #D6B84C;
+
+    color: #111;
+
+    transform:
+        translateY(-2px);
+}
+
+
+.posts-container {
+
+    max-width: 750px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+
+/* =====================================================
+   CREATE
+===================================================== */
+
+.create-options {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-top: 35px;
+}
+
+
+.create-option {
+
+    background: white;
+
+    border:
+        1px solid #eeeeee;
+
+    border-radius: 14px;
+
+    padding: 30px 22px;
+
+    text-align: center;
+
+    box-shadow:
+        0 4px 14px
+        rgba(0,0,0,0.05);
+}
+
+
+.create-option h3 {
+
+    margin-top: 0;
+
+    font-size: 18px;
+}
+
+
+.create-option p {
+
+    color: #666;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    margin:
+        15px auto 22px;
+
+    max-width: 220px;
+}
+
+
+/* =====================================================
+   MOBILE COMMUNITY PAGES
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .members-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .create-options {
+
+        grid-template-columns:
+            1fr;
+    }
+
+}
+@media (max-width: 700px) {
+
+    .home-boxes {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+        
         @media (max-width: 600px) {
 
             .corner-logo {
@@ -1628,50 +2021,122 @@
             </p>
 
 
-            <div class="home-boxes">
+           <div class="home-boxes">
+
+    <!-- CONNECT -->
+    <div class="home-box">
+
+        <h3>
+            <span
+                class="box-button"
+                onclick="showSection('connectSection')"
+            >
+                Connect
+            </span>
+        </h3>
+
+        <p>
+            Connect with architects,
+            designers and creative
+            professionals.
+        </p>
+
+    </div>
 
 
-                <div class="home-box">
+    <!-- SHARE -->
+    <div class="home-box">
 
-                    <h3>
-                        Connect
-                    </h3>
+        <h3>
+            <span
+                class="box-button"
+                onclick="showSection('shareSection')"
+            >
+                Share
+            </span>
+        </h3>
 
-                    <p>
-                        Connect with architects,
-                        designers and creative
-                        professionals.
-                    </p>
+        <p>
+            Share your work, ideas,
+            projects and experiences.
+        </p>
 
-                </div>
-
-
-                <div class="home-box">
-
-                    <h3>
-                        Share
-                    </h3>
-
-                    <p>
-                        Share your work, ideas,
-                        projects and experiences.
-                    </p>
-
-                </div>
+    </div>
 
 
-                <div class="home-box">
+    <!-- CREATE -->
+    <div class="home-box">
 
-                    <h3>
-                        Create
-                    </h3>
+        <h3>
+            <span
+                class="box-button"
+                onclick="showSection('createSection')"
+            >
+                Create
+            </span>
+        </h3>
 
-                    <p>
-                        Build your professional
-                        presence and discover
-                        new opportunities.
-                    </p>
+        <p>
+            Build your professional
+            presence and discover
+            new opportunities.
+        </p>
 
+    </div>
+
+</div>
+<!-- =====================================================
+     CONNECT PAGE
+===================================================== -->
+
+<section
+    id="connectSection"
+    class="page-section"
+>
+
+    <main>
+
+        <div class="community-page">
+
+            <button
+                class="page-back-btn"
+                onclick="showSection('homeSection')"
+            >
+                ← Home
+            </button>
+
+            <h2>
+                Connect
+            </h2>
+
+            <p class="community-page-subtitle">
+                Discover architects, designers
+                and creative professionals.
+            </p>
+
+
+            <!-- SEARCH -->
+
+            <div class="community-search">
+
+                <input
+                    type="text"
+                    id="connectSearch"
+                    placeholder="Search professionals..."
+                >
+
+            </div>
+
+
+            <!-- MEMBERS -->
+
+            <div
+                id="membersGrid"
+                class="members-grid"
+            >
+
+                <div class="empty-members">
+                    Loading members...
                 </div>
 
             </div>
@@ -1683,6 +2148,175 @@
 </section>
 
 
+<!-- =====================================================
+     SHARE PAGE
+===================================================== -->
+
+<section
+    id="shareSection"
+    class="page-section"
+>
+
+    <main>
+
+        <div class="community-page">
+
+            <button
+                class="page-back-btn"
+                onclick="showSection('homeSection')"
+            >
+                ← Home
+            </button>
+
+            <h2>
+                Share
+            </h2>
+
+            <p class="community-page-subtitle">
+                Share your work, ideas,
+                projects and experiences.
+            </p>
+
+
+            <div class="share-page-card">
+
+                <textarea
+                    id="shareContent"
+                    placeholder="Share something with the community..."
+                ></textarea>
+
+
+                <button
+                    class="community-action-btn"
+                    onclick="createPost()"
+                >
+                    Share
+                </button>
+
+            </div>
+
+
+            <div
+                id="postsContainer"
+                class="posts-container"
+            ></div>
+
+        </div>
+
+    </main>
+
+</section>
+
+
+<!-- =====================================================
+     CREATE PAGE
+===================================================== -->
+
+<section
+    id="createSection"
+    class="page-section"
+>
+
+    <main>
+
+        <div class="community-page">
+
+            <button
+                class="page-back-btn"
+                onclick="showSection('homeSection')"
+            >
+                ← Home
+            </button>
+
+            <h2>
+                Create
+            </h2>
+
+            <p class="community-page-subtitle">
+                Build your professional presence
+                and showcase your work.
+            </p>
+
+
+            <div class="create-options">
+
+
+                <!-- PROFILE -->
+
+                <div class="create-option">
+
+                    <h3>
+                        Professional Profile
+                    </h3>
+
+                    <p>
+                        Build and update your
+                        professional profile.
+                    </p>
+
+                    <button
+                        class="community-action-btn"
+                        onclick="showSection('profileSection')"
+                    >
+                        Edit Profile
+                    </button>
+
+                </div>
+
+
+                <!-- PROJECT -->
+
+                <div class="create-option">
+
+                    <h3>
+                        Project
+                    </h3>
+
+                    <p>
+                        Create a project and
+                        showcase your work.
+                    </p>
+
+                    <button
+                        class="community-action-btn"
+                        onclick="createProject()"
+                    >
+                        New Project
+                    </button>
+
+                </div>
+
+
+                <!-- POST -->
+
+                <div class="create-option">
+
+                    <h3>
+                        Post
+                    </h3>
+
+                    <p>
+                        Share an idea, experience
+                        or professional content.
+                    </p>
+
+                    <button
+                        class="community-action-btn"
+                        onclick="showSection('shareSection')"
+                    >
+                        Create Post
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+</section>
 <!-- =====================================================
      REGISTER
 ===================================================== -->
@@ -2531,47 +3165,48 @@ function togglePassword(inputId, button) {
 
     function showSection(sectionId) {
 
-        const sections =
-            document.querySelectorAll(
-                ".page-section"
-            );
-
-
-        sections.forEach(
-            function(section) {
-
-                section.classList.remove(
-                    "active"
-                );
-
-            }
+    const sections =
+        document.querySelectorAll(
+            ".page-section"
         );
 
+    sections.forEach(
+        function(section) {
 
-        const selectedSection =
-            document.getElementById(
-                sectionId
-            );
-
-
-        if (selectedSection) {
-
-            selectedSection.classList.add(
+            section.classList.remove(
                 "active"
             );
 
+        }
+    );
 
-            window.scrollTo({
+    const selectedSection =
+        document.getElementById(
+            sectionId
+        );
 
-                top: 0,
+    if (selectedSection) {
 
-                behavior: "smooth"
+        selectedSection.classList.add(
+            "active"
+        );
 
-            });
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+        if (
+            sectionId ===
+            "connectSection"
+        ) {
+
+            loadMembers();
 
         }
 
     }
+}
 
 
     /* =====================================================
@@ -4517,7 +5152,371 @@ document
         }
     );
 
+/* =====================================================
+   CONNECT - LOAD MEMBERS
+===================================================== */
 
+async function loadMembers() {
+
+    const membersGrid =
+        document.getElementById(
+            "membersGrid"
+        );
+
+    if (!membersGrid) {
+        return;
+    }
+
+    membersGrid.innerHTML =
+        `<div class="empty-members">
+            Loading members...
+        </div>`;
+
+    try {
+
+        const {
+            data: members,
+            error
+        } = await db
+            .from("profiles")
+            .select(`
+                id,
+                full_name,
+                profession,
+                location,
+                bio,
+                avatar_url,
+                headline
+            `)
+            .order(
+                "full_name",
+                {
+                    ascending: true
+                }
+            );
+
+        if (error) {
+            throw error;
+        }
+
+        if (!members || !members.length) {
+
+            membersGrid.innerHTML =
+                `<div class="empty-members">
+                    No members found yet.
+                </div>`;
+
+            return;
+        }
+
+        renderMembers(members);
+
+    } catch (error) {
+
+        console.error(
+            "Load members error:",
+            error
+        );
+
+        membersGrid.innerHTML =
+            `<div class="empty-members">
+                Unable to load members.
+            </div>`;
+    }
+}
+
+
+/* =====================================================
+   RENDER MEMBERS
+===================================================== */
+
+function renderMembers(members) {
+
+    const membersGrid =
+        document.getElementById(
+            "membersGrid"
+        );
+
+    if (!membersGrid) {
+        return;
+    }
+
+    membersGrid.innerHTML =
+        members.map(
+            function(member) {
+
+                const name =
+                    member.full_name ||
+                    "Member";
+
+                const profession =
+                    member.profession ||
+                    member.headline ||
+                    "Creative Professional";
+
+                const location =
+                    member.location ||
+                    "";
+
+                const initials =
+                    getInitials(name);
+
+                const avatar =
+                    member.avatar_url
+
+                        ? `
+                            <img
+                                class="member-avatar"
+                                src="${escapeHtml(member.avatar_url)}"
+                                alt="${escapeHtml(name)}"
+                            >
+                          `
+
+                        : `
+                            <div class="member-initials">
+                                ${initials}
+                            </div>
+                          `;
+
+
+                return `
+
+                    <div
+                        class="member-card"
+                    >
+
+                        ${avatar}
+
+                        <h3>
+                            ${escapeHtml(name)}
+                        </h3>
+
+                        <div
+                            class="member-profession"
+                        >
+                            ${escapeHtml(profession)}
+                        </div>
+
+                        ${
+                            location
+                                ? `
+                                    <div
+                                        class="member-location"
+                                    >
+                                        ${escapeHtml(location)}
+                                    </div>
+                                  `
+                                : ""
+                        }
+
+                        <button
+                            class="member-connect-btn"
+                            onclick="connectWithMember('${member.id}')"
+                        >
+                            Connect
+                        </button>
+
+                    </div>
+
+                `;
+            }
+        ).join("");
+}
+
+
+/* =====================================================
+   SEARCH MEMBERS
+===================================================== */
+
+document
+    .getElementById("connectSearch")
+    ?.addEventListener(
+        "input",
+        async function() {
+
+            const search =
+                this.value
+                    .trim()
+                    .toLowerCase();
+
+            const {
+                data: members,
+                error
+            } = await db
+                .from("profiles")
+                .select(`
+                    id,
+                    full_name,
+                    profession,
+                    location,
+                    bio,
+                    avatar_url,
+                    headline
+                `)
+                .order(
+                    "full_name",
+                    {
+                        ascending: true
+                    }
+                );
+
+            if (error) {
+
+                console.error(error);
+
+                return;
+            }
+
+            const filtered =
+                members.filter(
+                    function(member) {
+
+                        const text = [
+
+                            member.full_name,
+
+                            member.profession,
+
+                            member.location,
+
+                            member.headline,
+
+                            member.bio
+
+                        ]
+                            .filter(Boolean)
+                            .join(" ")
+                            .toLowerCase();
+
+                        return text.includes(
+                            search
+                        );
+                    }
+                );
+
+            renderMembers(filtered);
+        }
+    );
+
+
+/* =====================================================
+   CONNECT BUTTON
+===================================================== */
+
+function connectWithMember(
+    memberId
+) {
+
+    if (!currentUser) {
+
+        showSection(
+            "loginSection"
+        );
+
+        return;
+    }
+
+    if (
+        memberId ===
+        currentUser.id
+    ) {
+
+        alert(
+            "This is your own profile."
+        );
+
+        return;
+    }
+
+    alert(
+        "Connection system will be connected to Supabase next."
+    );
+}
+
+
+/* =====================================================
+   SAFE HTML
+===================================================== */
+
+function escapeHtml(value) {
+
+    return String(value || "")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+}
+
+
+/* =====================================================
+   CREATE PLACEHOLDERS
+===================================================== */
+
+function createPost() {
+
+    if (!currentUser) {
+
+        showSection(
+            "loginSection"
+        );
+
+        return;
+    }
+
+    const content =
+        document
+            .getElementById(
+                "shareContent"
+            )
+            .value
+            .trim();
+
+    if (!content) {
+
+        alert(
+            "Please write something first."
+        );
+
+        return;
+    }
+
+    alert(
+        "Post creation will be connected to Supabase next."
+    );
+}
+
+
+function createProject() {
+
+    if (!currentUser) {
+
+        showSection(
+            "loginSection"
+        );
+
+        return;
+    }
+
+    alert(
+        "Project creation will be added next."
+    );
+}
     /* =====================================================
        START
     ===================================================== */
