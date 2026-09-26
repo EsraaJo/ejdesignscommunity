@@ -1706,8 +1706,8 @@
 
 .posts-container {
     width: 100%;
-    max-width: 650px;
-    margin: 28px auto 0;
+    max-width: 620px;
+    margin: 25px auto 0;
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -1722,25 +1722,32 @@
     color: #fff;
 
     border-radius: 12px;
-    padding: 18px 20px;
+    padding: 20px 22px;
 
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+    box-shadow: 0 5px 16px rgba(0,0,0,0.15);
 }
+
+
+/* PROFILE */
 
 .post-header {
     display: flex;
     align-items: center;
+    justify-content: center;
+
     gap: 10px;
-    padding-right: 75px;
-    margin-bottom: 14px;
+
+    margin-bottom: 18px;
 }
 
 .post-avatar {
-    width: 40px;
-    height: 40px;
-    min-width: 40px;
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+
     border-radius: 50%;
     object-fit: cover;
+
     background: #222;
     border: 1px solid #444;
 }
@@ -1749,6 +1756,8 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
+
+    text-align: left;
 }
 
 .post-author {
@@ -1759,56 +1768,87 @@
 }
 
 .post-profession {
-    color: #aaa;
+    color: #999;
     font-size: 11px;
     line-height: 1.2;
 }
 
+
+/* POST TEXT */
+
 .post-content {
+    width: 100%;
+    box-sizing: border-box;
+
     color: #fff;
-    font-size: 14px;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 15px;
     font-weight: 400;
-    line-height: 1.65;
+
+    line-height: 1.8;
+
+    text-align: center;
+
     white-space: pre-wrap;
-    word-break: break-word;
+
+    overflow-wrap: break-word;
+
+    margin: 0 auto;
+    padding: 0 15px;
 }
+
+
+/* DATE */
 
 .post-date {
-    margin-top: 14px;
+    margin-top: 15px;
     padding-top: 10px;
-    border-top: 1px solid #292929;
-    color: #888;
+
+    border-top: 1px solid #2b2b2b;
+
+    color: #777;
+
     font-size: 10px;
+
+    text-align: center;
 }
 
-/* DELETE BUTTON */
+
+/* DELETE */
+
 .delete-post-btn {
     position: absolute;
-    top: 16px;
-    right: 18px;
 
-    background: #fff;
-    color: #000;
+    top: 14px;
+    right: 14px;
 
-    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fff !important;
+    color: #000 !important;
+
+    border: none !important;
     border-radius: 6px;
 
-    padding: 6px 11px;
+    padding: 6px 10px;
 
-    font-family: inherit;
+    font-family: "Space Grotesk", sans-serif;
     font-size: 11px;
     font-weight: 600;
 
     cursor: pointer;
 
-    transition: 0.2s ease;
+    z-index: 10;
 }
 
 .delete-post-btn:hover {
-    background: #e8e8e8;
-    transform: translateY(-1px);
+    background: #e5e5e5 !important;
+    color: #000 !important;
 }
-
 
 /* =====================================================
    CREATE
@@ -3289,41 +3329,6 @@ function togglePassword(inputId, button) {
             loadPosts();
         }
     }
-}
-async function deletePost(postId) {
-
-    if (!currentUser) return;
-
-    const confirmed =
-        confirm(
-            "Are you sure you want to delete this post?"
-        );
-
-    if (!confirmed) return;
-
-    const { error } =
-        await db
-            .from("posts")
-            .delete()
-            .eq("id", postId)
-            .eq("user_id", currentUser.id);
-
-    if (error) {
-
-        console.error(
-            "Delete post error:",
-            error
-        );
-
-        alert(
-            "Unable to delete post: " +
-            error.message
-        );
-
-        return;
-    }
-
-    loadPosts();
 }
 
     /* =====================================================
@@ -5592,11 +5597,11 @@ async function createPost() {
         return;
     }
 
+    const textarea =
+        document.getElementById("shareContent");
+
     const content =
-        document
-            .getElementById("shareContent")
-            .value
-            .trim();
+        textarea.value.trim();
 
     if (!content) {
         alert("Please write something first.");
@@ -5628,15 +5633,21 @@ async function createPost() {
             return;
         }
 
-        document
-            .getElementById("shareContent")
-            .value = "";
+        /* Clear text */
+        textarea.value = "";
 
-        alert("Post created successfully!");
+        /* Reload posts immediately */
+        await loadPosts();
+
+        /* Make sure we stay on Share page */
+        showSection("shareSection");
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Create post error:",
+            error
+        );
 
         alert(
             "Something went wrong while creating the post."
@@ -5729,7 +5740,19 @@ async function loadPosts() {
             postCard.className = "post-card";
 
             postCard.innerHTML = `
-
+${
+    isOwner
+    ? `
+        <button
+            type="button"
+            class="delete-post-btn"
+            onclick="deletePost('${post.id}')"
+        >
+            Delete
+        </button>
+      `
+    : ""
+}
                 <div class="post-header">
 
                     ${
@@ -5806,6 +5829,7 @@ async function loadPosts() {
     }
 }
 
+
 function createProject() {
 
     if (!currentUser) {
@@ -5826,7 +5850,46 @@ function createProject() {
     ===================================================== */
 
     checkCurrentUser();
+async function deletePost(postId) {
 
+    if (!currentUser) return;
+
+    const confirmed = confirm(
+        "Are you sure you want to delete this post?"
+    );
+
+    if (!confirmed) return;
+
+    try {
+
+        const { error } = await db
+            .from("posts")
+            .delete()
+            .eq("id", postId)
+            .eq("user_id", currentUser.id);
+
+        if (error) {
+            console.error("Delete post error:", error);
+
+            alert(
+                "Unable to delete post: " +
+                error.message
+            );
+
+            return;
+        }
+
+        await loadPosts();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Something went wrong while deleting the post."
+        );
+    }
+}
 </script>
 
 
