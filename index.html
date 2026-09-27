@@ -28,6 +28,21 @@
 
     <style>
 
+.cover-edit-preview {
+  margin-bottom: 28px;
+}
+
+.cover-edit-panel .project-owner-actions {
+  margin-top: 24px;
+}
+.project-detail-images {
+  margin-bottom: 28px;
+}
+
+.project-detail-page > .project-owner-actions {
+  margin-top: 24px;
+}
+
         .project-card button:not(.project-action-button) {
   display: none !important;
 }
@@ -2380,6 +2395,196 @@ select {
     padding: 18px;
   }
 }
+
+.project-detail-category {
+  color: #9b812b;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.project-facts,
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin: 16px 0;
+}
+
+.project-facts span,
+.project-tag {
+  padding: 7px 11px;
+  background: #f2f2f0;
+  border-radius: 20px;
+  color: #555;
+  font-size: 13px;
+}
+
+.project-info-section {
+  margin-top: 28px;
+  line-height: 1.7;
+}
+
+.project-info-section h3 {
+  margin-bottom: 8px;
+}
+
+.project-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.project-meta-grid div {
+  padding: 14px;
+  background: #f7f7f5;
+  border-radius: 9px;
+}
+
+.project-meta-grid strong,
+.project-meta-grid span {
+  display: block;
+}
+
+.project-meta-grid span {
+  margin-top: 6px;
+  color: #666;
+}
+
+@media (max-width: 650px) {
+  .project-meta-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* Unified style for project pages */
+#projectSection,
+#projectDetailsSection {
+  color: #222 !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+}
+
+#projectSection *,
+#projectDetailsSection * {
+  font-family: 'Space Grotesk', sans-serif !important;
+  box-sizing: border-box;
+}
+
+/* Consistent text sizes */
+#projectSection h2,
+#projectDetailsSection h2 {
+  font-size: 25px !important;
+  line-height: 1.3 !important;
+  color: #222 !important;
+}
+
+#projectSection h3,
+#projectDetailsSection h3 {
+  font-size: 18px !important;
+  line-height: 1.4 !important;
+  color: #222 !important;
+}
+
+#projectSection h4,
+#projectDetailsSection h4 {
+  font-size: 16px !important;
+  line-height: 1.4 !important;
+  color: #222 !important;
+}
+
+#projectSection p,
+#projectDetailsSection p,
+#projectSection label,
+#projectDetailsSection label {
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  color: #666 !important;
+}
+
+#projectSection label,
+#projectDetailsSection strong {
+  color: #333 !important;
+  font-weight: 600 !important;
+}
+
+/* Form fields */
+#projectSection input,
+#projectSection textarea,
+#projectSection select {
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  color: #222 !important;
+  background: #fff !important;
+  border: 1px solid #ddd !important;
+  border-radius: 7px !important;
+}
+
+/* Cards and detail panel */
+#projectSection .project-card,
+#projectSection .project-upload-card,
+#projectDetailsSection .project-detail-page {
+  color: #222 !important;
+  background: #fff !important;
+  border: 1px solid #e5e5e5 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, .05) !important;
+}
+
+#projectSection .project-card-content,
+#projectDetailsSection .project-detail-page {
+  font-size: 14px !important;
+}
+
+#projectDetailsSection .project-detail-category {
+  color: #a38a36 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+/* All project buttons use the same style */
+#projectSection button,
+#projectDetailsSection button {
+  min-height: 40px !important;
+  padding: 9px 14px !important;
+  color: #fff !important;
+  background: #111 !important;
+  border: 1px solid #111 !important;
+  border-radius: 7px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  cursor: pointer;
+}
+
+#projectSection button:hover,
+#projectDetailsSection button:hover {
+  color: #111 !important;
+  background: #d6b84c !important;
+  border-color: #d6b84c !important;
+}
+
+#projectSection .projects-grid {
+  gap: 18px;
+}
+
+#projectSection .project-card img,
+#projectDetailsSection .project-detail-images img {
+  border-radius: 8px;
+}
+
+.cover-edit-panel {
+  margin-top: 20px;
+  padding: 16px;
+  background: #f2f2f0;
+  border-radius: 10px;
+}
+
+.cover-edit-preview {
+  display: block;
+  width: min(320px, 100%);
+  margin: 12px 0;
+  border-radius: 8px;
+}
+
     </style>
 
 <link
@@ -2876,9 +3081,13 @@ select {
       <p class="community-page-subtitle">
         Upload and showcase your creative work.
       </p>
+<h3 class="project-list-heading">Community Projects</h3>
 
+      <div id="projectsGrid" class="projects-grid">
+        Loading projects...
+      </div>
       <div class="project-upload-card">
-        <h3>Upload a New Project</h3>
+<h3 id="projectFormTitle">Upload a New Project</h3>
 
         <form id="projectForm" onsubmit="uploadProject(event)">
           <label for="projectTitle">Project Title *</label>
@@ -2905,33 +3114,93 @@ select {
             required
             placeholder="Describe your project..."
           ></textarea>
+<label for="projectYear">Project Year</label>
+<input id="projectYear" type="number" min="1900" max="2100"
+       placeholder="2026">
 
+<label for="projectLocation">Location</label>
+<input id="projectLocation" maxlength="120"
+       placeholder="City, Country">
+
+<label for="projectArea">Project Area</label>
+<input id="projectArea" maxlength="80"
+       placeholder="e.g. 240 m²">
+
+<label for="projectStatus">Project Status</label>
+<select id="projectStatus">
+  <option value="">Select status</option>
+  <option>Concept</option>
+  <option>In Progress</option>
+  <option>Completed</option>
+  <option>Under Construction</option>
+</select>
+
+<label for="projectRole">Your Role</label>
+<input id="projectRole" maxlength="120"
+       placeholder="e.g. Lead Architect, Interior Designer">
+
+<label for="projectClient">Client or Organization</label>
+<input id="projectClient" maxlength="150"
+       placeholder="Client or organization name">
+
+<label for="projectTeam">Collaborators</label>
+<input id="projectTeam"
+       placeholder="Names separated by commas">
+
+<label for="projectTools">Tools and Software</label>
+<input id="projectTools"
+       placeholder="Revit, AutoCAD, Rhino, Photoshop">
+
+<label for="projectSkills">Skills</label>
+<input id="projectSkills"
+       placeholder="Architectural Design, 3D Modeling">
+
+<label for="projectTags">Project Tags</label>
+<input id="projectTags"
+       placeholder="Residential, Sustainable, Modern">
+
+<label for="projectBrief">Project Brief</label>
+<textarea id="projectBrief"
+          placeholder="What was the project brief or challenge?"></textarea>
+
+<label for="projectConcept">Design Concept</label>
+<textarea id="projectConcept"
+          placeholder="Explain the design idea and inspiration."></textarea>
+
+<label for="projectSolution">Design Solution</label>
+<textarea id="projectSolution"
+          placeholder="Describe your architectural response and key decisions."></textarea>
+
+<label for="projectMaterials">Materials</label>
+<input id="projectMaterials"
+       placeholder="Concrete, timber, stone">
+
+<label for="projectLink">External Project Link</label>
+<input id="projectLink" type="url"
+       placeholder="https://...">
           <label for="projectFiles">Project Images *</label>
           <input
             id="projectFiles"
             type="file"
             accept="image/*"
             multiple
-            required
           >
 
           <p class="project-upload-note">
             Choose one or more images. Maximum size: 10 MB per image.
           </p>
 
-          <p id="projectError" class="project-error"></p>
-
-          <button type="submit" class="community-action-btn">
-            Upload Project
-          </button>
+          <button
+  id="projectSubmitButton"
+  type="submit"
+  class="community-action-btn"
+>
+  Upload Project
+</button>
         </form>
       </div>
 
-      <h3 class="project-list-heading">Community Projects</h3>
-
-      <div id="projectsGrid" class="projects-grid">
-        Loading projects...
-      </div>
+      
 
     </div>
   </main>
@@ -3792,7 +4061,13 @@ function togglePassword(inputId, button) {
 
     let currentProfile = null;
 
-    let currentUser = null;
+let currentUser = null;
+
+let editingProjectId = null;
+let editingProjectMedia = [];
+
+let pendingProjectCoverFile = null;
+let pendingProjectCoverProjectId = null;
 
     let selectedAvatarFile = null;
 
@@ -6529,8 +6804,8 @@ async function loadPosts() {
                 profile?.avatar_url || "";
 
             const isOwner =
-                currentUser &&
-                currentUser.id === post.user_id;
+  currentUser &&
+  String(currentUser.id) === String(project.owner_id);
 
             const postCard =
                 document.createElement("div");
@@ -6639,9 +6914,8 @@ function createProject() {
 async function openProject(projectId) {
   const details = document.getElementById("projectDetails");
 
-  details.textContent = "Loading project...";
-
   showSection("projectDetailsSection");
+  details.textContent = "Loading project...";
 
   const { data: project, error } = await db
     .from("projects")
@@ -6651,21 +6925,96 @@ async function openProject(projectId) {
 
   if (error || !project) {
     details.textContent = "Could not load this project.";
+    console.error(error);
     return;
   }
 
   const isOwner =
-    currentUser && currentUser.id === project.owner_id;
+    currentUser &&
+    String(currentUser.id) === String(project.owner_id);
+
+  const list = value =>
+    Array.isArray(value) && value.length
+      ? value.map(item => `<span class="project-tag">${escapeHtml(item)}</span>`).join("")
+      : "";
+
+  let safeLink = "";
+  try {
+    const url = new URL(project.external_url || "");
+    if (url.protocol === "https:" || url.protocol === "http:") {
+      safeLink = url.href;
+    }
+  } catch (_) {}
 
   details.innerHTML = `
     <article class="project-detail-page">
-      <h2>${escapeHtml(project.title)}</h2>
+      <p class="project-detail-category">
+        ${escapeHtml(project.category || "Architecture")}
+      </p>
 
-      <p>${escapeHtml(project.category || "")}</p>
+      <h2>${escapeHtml(project.title || "Untitled Project")}</h2>
 
-      <div class="project-detail-description">
-        ${escapeHtml(project.description || "")}
+      <div class="project-facts">
+        ${project.location ? `<span>${escapeHtml(project.location)}</span>` : ""}
+        ${project.project_year ? `<span>${escapeHtml(project.project_year)}</span>` : ""}
+        ${project.project_area ? `<span>${escapeHtml(project.project_area)}</span>` : ""}
+        ${project.project_status ? `<span>${escapeHtml(project.project_status)}</span>` : ""}
       </div>
+
+      ${project.description ? `
+        <p class="project-detail-description">
+          ${escapeHtml(project.description)}
+        </p>
+      ` : ""}
+
+      ${project.project_brief ? `
+        <section class="project-info-section">
+          <h3>Project Brief</h3>
+          <p>${escapeHtml(project.project_brief)}</p>
+        </section>
+      ` : ""}
+
+      ${project.design_concept ? `
+        <section class="project-info-section">
+          <h3>Design Concept</h3>
+          <p>${escapeHtml(project.design_concept)}</p>
+        </section>
+      ` : ""}
+
+      ${project.design_solution ? `
+        <section class="project-info-section">
+          <h3>Design Solution</h3>
+          <p>${escapeHtml(project.design_solution)}</p>
+        </section>
+      ` : ""}
+
+      <div class="project-meta-grid">
+        ${project.role ? `<div><strong>My Role</strong><span>${escapeHtml(project.role)}</span></div>` : ""}
+        ${project.client ? `<div><strong>Client</strong><span>${escapeHtml(project.client)}</span></div>` : ""}
+        ${project.team_members?.length ? `<div><strong>Collaborators</strong><span>${project.team_members.map(escapeHtml).join(", ")}</span></div>` : ""}
+        ${project.tools?.length ? `<div><strong>Tools</strong><span>${project.tools.map(escapeHtml).join(", ")}</span></div>` : ""}
+        ${project.materials?.length ? `<div><strong>Materials</strong><span>${project.materials.map(escapeHtml).join(", ")}</span></div>` : ""}
+      </div>
+
+      ${project.skills?.length ? `
+        <section class="project-info-section">
+          <h3>Skills</h3>
+          <div class="project-tags">${list(project.skills)}</div>
+        </section>
+      ` : ""}
+
+      ${project.tags?.length ? `
+        <section class="project-info-section">
+          <h3>Project Tags</h3>
+          <div class="project-tags">${list(project.tags)}</div>
+        </section>
+      ` : ""}
+
+      ${safeLink ? `
+        <p><a href="${escapeHtml(safeLink)}" target="_blank" rel="noopener noreferrer">
+          Visit Project Link
+        </a></p>
+      ` : ""}
 
       <div class="project-detail-images">
         ${(project.media || []).map(image => `
@@ -6677,16 +7026,99 @@ async function openProject(projectId) {
       </div>
 
       ${isOwner ? `
-        <button
-          type="button"
-          class="project-delete"
-          onclick="deleteProject('${project.id}')"
-        >
-          Delete Project
-        </button>
+        <div class="project-owner-actions">
+          <button
+            type="button"
+            class="project-owner-button"
+            onclick="editProject('${project.id}')"
+          >
+            Edit Project
+          </button>
+<button
+  type="button"
+  class="project-owner-button"
+  onclick="changeProjectCover('${project.id}')"
+>
+  Change Cover Image
+</button>
+          <button
+            type="button"
+            class="project-owner-button"
+            onclick="deleteProject('${project.id}')"
+          >
+          
+            Delete Project
+          </button>
+        </div>
       ` : ""}
     </article>
   `;
+}
+
+async function editProject(projectId) {
+  const { data: project, error } = await db
+    .from("projects")
+    .select("*")
+    .eq("id", projectId)
+    .eq("owner_id", currentUser.id)
+    .single();
+
+  if (error || !project) {
+    alert("Could not load this project.");
+    return;
+  }
+
+  editingProjectId = project.id;
+  editingProjectMedia = project.media || [];
+
+  showSection("projectSection");
+
+  document.getElementById("projectForm").reset();
+
+  document.getElementById("projectTitle").value = project.title || "";
+  document.getElementById("projectCategory").value = project.category || "";
+  document.getElementById("projectDescription").value =
+    project.description || "";
+
+  document.getElementById("projectYear").value =
+    project.project_year || "";
+  document.getElementById("projectLocation").value =
+    project.location || "";
+  document.getElementById("projectArea").value =
+    project.project_area || "";
+  document.getElementById("projectStatus").value =
+    project.project_status || "";
+  document.getElementById("projectRole").value =
+    project.role || "";
+  document.getElementById("projectClient").value =
+    project.client || "";
+
+  document.getElementById("projectTeam").value =
+    (project.team_members || []).join(", ");
+  document.getElementById("projectTools").value =
+    (project.tools || []).join(", ");
+  document.getElementById("projectSkills").value =
+    (project.skills || []).join(", ");
+  document.getElementById("projectTags").value =
+    (project.tags || []).join(", ");
+  document.getElementById("projectMaterials").value =
+    (project.materials || []).join(", ");
+
+  document.getElementById("projectBrief").value =
+    project.project_brief || "";
+  document.getElementById("projectConcept").value =
+    project.design_concept || "";
+  document.getElementById("projectSolution").value =
+    project.design_solution || "";
+  document.getElementById("projectLink").value =
+    project.external_url || "";
+
+  document.getElementById("projectFormTitle").textContent =
+    "Edit Project";
+  document.getElementById("projectSubmitButton").textContent =
+    "Save Changes";
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 async function deleteProject(projectId) {
   if (!currentUser) return;
@@ -6918,7 +7350,7 @@ async function uploadProject(event) {
   const errorBox = document.getElementById("projectError");
   errorBox.textContent = "";
 
-  if (!files.length) {
+  if (!files.length && !editingProjectId) {
     errorBox.textContent = "Please select at least one image.";
     return;
   }
@@ -6932,8 +7364,8 @@ async function uploadProject(event) {
     return;
   }
 
-  const projectId = crypto.randomUUID();
-  const uploadedImages = [];
+  const projectId = editingProjectId || crypto.randomUUID();
+  const newlyUploadedImages = [];
 
   try {
     for (let i = 0; i < files.length; i++) {
@@ -6951,37 +7383,93 @@ async function uploadProject(event) {
         .from("project-media")
         .getPublicUrl(path);
 
-      uploadedImages.push({
+      newlyUploadedImages.push({
         path,
         url: data.publicUrl,
         alt: file.name
       });
     }
 
-    const { error } = await db.from("projects").insert({
-      id: projectId,
+    const splitList = id =>
+      document.getElementById(id).value
+        .split(",")
+        .map(item => item.trim())
+        .filter(Boolean);
+
+    const yearValue =
+      document.getElementById("projectYear").value;
+
+    const projectData = {
       owner_id: currentUser.id,
       title: document.getElementById("projectTitle").value.trim(),
       category: document.getElementById("projectCategory").value.trim(),
       description: document.getElementById("projectDescription").value.trim(),
-      media: uploadedImages
-    });
 
-    if (error) throw error;
+      project_year: yearValue ? Number(yearValue) : null,
+      location: document.getElementById("projectLocation").value.trim(),
+      project_area: document.getElementById("projectArea").value.trim(),
+      project_status: document.getElementById("projectStatus").value,
+      role: document.getElementById("projectRole").value.trim(),
+      client: document.getElementById("projectClient").value.trim(),
+
+      team_members: splitList("projectTeam"),
+      tools: splitList("projectTools"),
+      skills: splitList("projectSkills"),
+      tags: splitList("projectTags"),
+      materials: splitList("projectMaterials"),
+
+      project_brief: document.getElementById("projectBrief").value.trim(),
+      design_concept: document.getElementById("projectConcept").value.trim(),
+      design_solution: document.getElementById("projectSolution").value.trim(),
+      external_url: document.getElementById("projectLink").value.trim(),
+
+      media: [...editingProjectMedia, ...newlyUploadedImages]
+    };
+
+    let saveError;
+
+    if (editingProjectId) {
+      const { error } = await db
+        .from("projects")
+        .update(projectData)
+        .eq("id", editingProjectId)
+        .eq("owner_id", currentUser.id);
+
+      saveError = error;
+    } else {
+      const { error } = await db
+        .from("projects")
+        .insert({
+          id: projectId,
+          ...projectData
+        });
+
+      saveError = error;
+    }
+
+    if (saveError) throw saveError;
+
+    editingProjectId = null;
+    editingProjectMedia = [];
 
     document.getElementById("projectForm").reset();
+    document.getElementById("projectFormTitle").textContent =
+      "Upload a New Project";
+    document.getElementById("projectSubmitButton").textContent =
+      "Upload Project";
+
     await loadProjects();
 
   } catch (error) {
-    console.error(error);
+    console.error("Project save error:", error);
 
-    if (uploadedImages.length) {
+    if (newlyUploadedImages.length) {
       await db.storage
         .from("project-media")
-        .remove(uploadedImages.map(image => image.path));
+        .remove(newlyUploadedImages.map(image => image.path));
     }
 
-    errorBox.textContent = "Could not upload project: " + error.message;
+    errorBox.textContent = "Could not save project: " + error.message;
   }
 }
 async function loadProjects() {
@@ -7057,6 +7545,146 @@ async function loadProjects() {
     `;
   }).join("");
 }
+
+function changeProjectCover(projectId) {
+  const fileInput = document.createElement("input");
+  fileInput.type = "file";
+  fileInput.accept = "image/*";
+
+  fileInput.onchange = () => {
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    if (file.size > 10 * 1024 * 1024) {
+      alert("Choose an image smaller than 10 MB.");
+      return;
+    }
+
+    pendingProjectCoverFile = file;
+    pendingProjectCoverProjectId = projectId;
+
+    const oldPanel = document.getElementById("coverEditPanel");
+    if (oldPanel) oldPanel.remove();
+
+    document.getElementById("projectDetails").insertAdjacentHTML(
+      "beforeend",
+      `
+        <div id="coverEditPanel" class="cover-edit-panel">
+          <p>New cover preview:</p>
+
+          <img
+            class="cover-edit-preview"
+            src="${URL.createObjectURL(file)}"
+            alt="New cover preview"
+          >
+
+          <div class="project-owner-actions">
+            <button
+              type="button"
+              class="project-owner-button"
+              onclick="saveProjectCover()"
+            >
+              Save Cover Image
+            </button>
+
+            <button
+              type="button"
+              class="project-owner-button"
+              onclick="cancelProjectCoverChange()"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      `
+    );
+  };
+
+  fileInput.click();
+}
+
+async function saveProjectCover() {
+  if (!pendingProjectCoverFile || !pendingProjectCoverProjectId) {
+    return;
+  }
+
+  const file = pendingProjectCoverFile;
+  const projectId = pendingProjectCoverProjectId;
+
+  const { data: project, error: readError } = await db
+    .from("projects")
+    .select("media")
+    .eq("id", projectId)
+    .eq("owner_id", currentUser.id)
+    .single();
+
+  if (readError || !project) {
+    alert("Could not load the project.");
+    return;
+  }
+
+  const oldMedia = Array.isArray(project.media) ? project.media : [];
+  const oldCover = oldMedia[0];
+
+  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+  const newPath =
+    `${currentUser.id}/${projectId}/cover-${crypto.randomUUID()}-${safeName}`;
+
+  const { error: uploadError } = await db.storage
+    .from("project-media")
+    .upload(newPath, file);
+
+  if (uploadError) {
+    alert("Could not upload the new cover: " + uploadError.message);
+    return;
+  }
+
+  const { data } = db.storage
+    .from("project-media")
+    .getPublicUrl(newPath);
+
+  const newCover = {
+    path: newPath,
+    url: data.publicUrl,
+    alt: file.name
+  };
+
+  const updatedMedia = oldMedia.length
+    ? [newCover, ...oldMedia.slice(1)]
+    : [newCover];
+
+  const { error: updateError } = await db
+    .from("projects")
+    .update({ media: updatedMedia })
+    .eq("id", projectId)
+    .eq("owner_id", currentUser.id);
+
+  if (updateError) {
+    await db.storage.from("project-media").remove([newPath]);
+    alert("Could not save the new cover: " + updateError.message);
+    return;
+  }
+
+  if (oldCover?.path) {
+    await db.storage.from("project-media").remove([oldCover.path]);
+  }
+
+  pendingProjectCoverFile = null;
+  pendingProjectCoverProjectId = null;
+
+  await loadProjects();
+  await openProject(projectId);
+}
+
+function cancelProjectCoverChange() {
+  pendingProjectCoverFile = null;
+  pendingProjectCoverProjectId = null;
+
+  const panel = document.getElementById("coverEditPanel");
+  if (panel) panel.remove();
+}
+
+
 </script>
 
 <section id="shareIdeasSection" class="page-section">
