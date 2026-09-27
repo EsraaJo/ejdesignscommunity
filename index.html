@@ -28,6 +28,43 @@
 
     <style>
 
+        .project-card button:not(.project-action-button) {
+  display: none !important;
+}
+
+.project-card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.project-action-button {
+  flex: 1;
+  min-width: 0;
+  height: 42px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #fff;
+  background: #111;
+  border: 1px solid #111;
+  border-radius: 7px;
+
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+
+.project-action-button:hover {
+  color: #111;
+  background: #d6b84c;
+  border-color: #d6b84c;
+}
 .connection-requests-section {
     width: 100%;
     margin-bottom: 35px;
@@ -2191,7 +2228,158 @@ textarea,
 select {
   font-size: inherit;
 }
+.project-upload-card {
+  max-width: 760px;
+  margin: 30px auto 45px;
+  padding: 28px;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 14px;
+  text-align: left;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, .05);
+}
 
+.project-upload-card label {
+  display: block;
+  margin-top: 16px;
+  font-weight: 600;
+}
+
+.project-upload-card input,
+.project-upload-card textarea {
+  display: block;
+  width: 100%;
+  margin: 8px 0 14px;
+  padding: 12px;
+  color: #222;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+}
+
+.project-upload-card textarea {
+  min-height: 130px;
+}
+
+.project-upload-note {
+  color: #777;
+  font-size: 13px;
+}
+
+.project-error {
+  color: #b22;
+}
+
+.project-list-heading {
+  margin: 25px 0 18px;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.project-card {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 13px;
+  text-align: left;
+}
+
+.project-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.project-card-content {
+  padding: 16px;
+}
+
+.project-card-content h4 {
+  margin-top: 0;
+}
+
+.project-card-content p {
+  color: #666;
+  line-height: 1.5;
+}
+
+.project-delete {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  background: white;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-upload-card {
+    padding: 18px;
+  }
+}
+.project-detail-page {
+  max-width: 1000px;
+  margin: 25px auto;
+  padding: 25px;
+  background: white;
+  border-radius: 14px;
+  text-align: left;
+}
+
+.project-detail-page h2 {
+  margin-top: 0;
+}
+
+.project-detail-description {
+  color: #555;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+.project-detail-images {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.project-detail-images img {
+  display: block;
+  width: 100%;
+  border-radius: 9px;
+}
+
+.project-delete {
+  padding: 9px 14px;
+  color: white;
+  background: #9b3535;
+  border: 0;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.project-card img,
+.project-card h4 {
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .project-detail-images {
+    grid-template-columns: 1fr;
+  }
+
+  .project-detail-page {
+    padding: 18px;
+  }
+}
     </style>
 
 <link
@@ -2669,6 +2857,103 @@ select {
 
     </main>
 
+</section>
+
+<section id="projectSection" class="page-section">
+  <main>
+    <div class="community-page">
+
+      <button
+        class="page-back-btn"
+        type="button"
+        onclick="showSection('createSection')"
+      >
+        ← Back to Create
+      </button>
+
+      <h2>Projects</h2>
+
+      <p class="community-page-subtitle">
+        Upload and showcase your creative work.
+      </p>
+
+      <div class="project-upload-card">
+        <h3>Upload a New Project</h3>
+
+        <form id="projectForm" onsubmit="uploadProject(event)">
+          <label for="projectTitle">Project Title *</label>
+          <input
+            id="projectTitle"
+            type="text"
+            maxlength="120"
+            required
+            placeholder="Enter your project title"
+          >
+
+          <label for="projectCategory">Category</label>
+          <input
+            id="projectCategory"
+            type="text"
+            maxlength="80"
+            placeholder="Architecture, Interior Design, Branding..."
+          >
+
+          <label for="projectDescription">Project Description *</label>
+          <textarea
+            id="projectDescription"
+            maxlength="5000"
+            required
+            placeholder="Describe your project..."
+          ></textarea>
+
+          <label for="projectFiles">Project Images *</label>
+          <input
+            id="projectFiles"
+            type="file"
+            accept="image/*"
+            multiple
+            required
+          >
+
+          <p class="project-upload-note">
+            Choose one or more images. Maximum size: 10 MB per image.
+          </p>
+
+          <p id="projectError" class="project-error"></p>
+
+          <button type="submit" class="community-action-btn">
+            Upload Project
+          </button>
+        </form>
+      </div>
+
+      <h3 class="project-list-heading">Community Projects</h3>
+
+      <div id="projectsGrid" class="projects-grid">
+        Loading projects...
+      </div>
+
+    </div>
+  </main>
+</section>
+<section id="projectDetailsSection" class="page-section">
+  <main>
+    <div class="community-page">
+
+      <button
+        class="page-back-btn"
+        type="button"
+        onclick="showSection('projectSection')"
+      >
+        ← Back to Projects
+      </button>
+
+      <div id="projectDetails">
+        Loading project...
+      </div>
+
+    </div>
+  </main>
 </section>
 <!-- =====================================================
      REGISTER
@@ -6342,19 +6627,115 @@ ${
 
 
 function createProject() {
+  if (!currentUser) {
+    showSection("loginSection");
+    return;
+  }
 
-    if (!currentUser) {
+  showSection("projectSection");
+  loadProjects();
+}
 
-        showSection(
-            "loginSection"
-        );
+async function openProject(projectId) {
+  const details = document.getElementById("projectDetails");
 
-        return;
+  details.textContent = "Loading project...";
+
+  showSection("projectDetailsSection");
+
+  const { data: project, error } = await db
+    .from("projects")
+    .select("*")
+    .eq("id", projectId)
+    .single();
+
+  if (error || !project) {
+    details.textContent = "Could not load this project.";
+    return;
+  }
+
+  const isOwner =
+    currentUser && currentUser.id === project.owner_id;
+
+  details.innerHTML = `
+    <article class="project-detail-page">
+      <h2>${escapeHtml(project.title)}</h2>
+
+      <p>${escapeHtml(project.category || "")}</p>
+
+      <div class="project-detail-description">
+        ${escapeHtml(project.description || "")}
+      </div>
+
+      <div class="project-detail-images">
+        ${(project.media || []).map(image => `
+          <img
+            src="${escapeHtml(image.url)}"
+            alt="${escapeHtml(image.alt || project.title)}"
+          >
+        `).join("")}
+      </div>
+
+      ${isOwner ? `
+        <button
+          type="button"
+          class="project-delete"
+          onclick="deleteProject('${project.id}')"
+        >
+          Delete Project
+        </button>
+      ` : ""}
+    </article>
+  `;
+}
+async function deleteProject(projectId) {
+  if (!currentUser) return;
+
+  const confirmed = confirm(
+    "Are you sure you want to delete this project?"
+  );
+
+  if (!confirmed) return;
+
+  const { data: project, error: readError } = await db
+    .from("projects")
+    .select("media")
+    .eq("id", projectId)
+    .eq("owner_id", currentUser.id)
+    .single();
+
+  if (readError) {
+    alert("Could not find the project: " + readError.message);
+    return;
+  }
+
+  const { error } = await db
+    .from("projects")
+    .delete()
+    .eq("id", projectId)
+    .eq("owner_id", currentUser.id);
+
+  if (error) {
+    alert("Could not delete the project: " + error.message);
+    return;
+  }
+
+  const imagePaths = (project.media || [])
+    .map(image => image.path)
+    .filter(Boolean);
+
+  if (imagePaths.length) {
+    const { error: storageError } = await db.storage
+      .from("project-media")
+      .remove(imagePaths);
+
+    if (storageError) {
+      console.error("Could not delete project images:", storageError);
     }
+  }
 
-    alert(
-        "Project creation will be added next."
-    );
+  showSection("projectSection");
+  await loadProjects();
 }
     /* =====================================================
        START
@@ -6525,7 +6906,157 @@ async function deleteFeedback(feedbackId) {
 
   await loadFeedback();
 }
+async function uploadProject(event) {
+  event.preventDefault();
 
+  if (!currentUser) {
+    showSection("loginSection");
+    return;
+  }
+
+  const files = [...document.getElementById("projectFiles").files];
+  const errorBox = document.getElementById("projectError");
+  errorBox.textContent = "";
+
+  if (!files.length) {
+    errorBox.textContent = "Please select at least one image.";
+    return;
+  }
+
+  if (files.some(file =>
+    !file.type.startsWith("image/") ||
+    file.size > 10 * 1024 * 1024
+  )) {
+    errorBox.textContent =
+      "Choose image files no larger than 10 MB each.";
+    return;
+  }
+
+  const projectId = crypto.randomUUID();
+  const uploadedImages = [];
+
+  try {
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+      const path = `${currentUser.id}/${projectId}/${i}-${safeName}`;
+
+      const { error: uploadError } = await db.storage
+        .from("project-media")
+        .upload(path, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data } = db.storage
+        .from("project-media")
+        .getPublicUrl(path);
+
+      uploadedImages.push({
+        path,
+        url: data.publicUrl,
+        alt: file.name
+      });
+    }
+
+    const { error } = await db.from("projects").insert({
+      id: projectId,
+      owner_id: currentUser.id,
+      title: document.getElementById("projectTitle").value.trim(),
+      category: document.getElementById("projectCategory").value.trim(),
+      description: document.getElementById("projectDescription").value.trim(),
+      media: uploadedImages
+    });
+
+    if (error) throw error;
+
+    document.getElementById("projectForm").reset();
+    await loadProjects();
+
+  } catch (error) {
+    console.error(error);
+
+    if (uploadedImages.length) {
+      await db.storage
+        .from("project-media")
+        .remove(uploadedImages.map(image => image.path));
+    }
+
+    errorBox.textContent = "Could not upload project: " + error.message;
+  }
+}
+async function loadProjects() {
+  const grid = document.getElementById("projectsGrid");
+  if (!grid) return;
+
+  grid.textContent = "Loading projects...";
+
+  const { data: projects, error } = await db
+    .from("projects")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    grid.textContent = "Could not load projects.";
+    return;
+  }
+
+  if (!projects || projects.length === 0) {
+    grid.textContent = "No projects have been shared yet.";
+    return;
+  }
+
+  grid.innerHTML = projects.map(project => {
+    const cover = project.media?.[0]?.url || "";
+    const isOwner =
+      currentUser && currentUser.id === project.owner_id;
+
+    return `
+      <article class="project-card">
+        ${cover ? `
+          <img
+            src="${escapeHtml(cover)}"
+            alt="${escapeHtml(project.title)}"
+            onclick="openProject('${project.id}')"
+          >
+        ` : ""}
+
+        <div class="project-card-content">
+          <h4 onclick="openProject('${project.id}')">
+            ${escapeHtml(project.title)}
+          </h4>
+
+          <p>${escapeHtml(project.category || "")}</p>
+          <p>${escapeHtml(project.description || "")}</p>
+
+          <button
+            type="button"
+            onclick="openProject('${project.id}')"
+          >
+
+        <div class="project-card-actions">
+  <button
+    type="button"
+    class="project-action-button"
+    onclick="openProject('${project.id}')"
+  >
+    View Project
+  </button>
+
+  ${isOwner ? `
+    <button
+      type="button"
+      class="project-action-button"
+      onclick="deleteProject('${project.id}')"
+    >
+      Delete Project
+    </button>
+  ` : ""}
+</div>
+      </article>
+    `;
+  }).join("");
+}
 </script>
 
 <section id="shareIdeasSection" class="page-section">
