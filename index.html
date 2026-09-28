@@ -5301,7 +5301,55 @@ box-shadow:
 
 </section>
 
+<div id="ownerChatWidget" class="owner-chat-widget">
+  <button
+    id="ownerChatLauncher"
+    class="owner-chat-launcher"
+    type="button"
+    aria-label="Open chat with the site owner"
+  >
+    <span id="ownerChatLauncherAvatar" class="owner-chat-avatar">EJ</span>
+    <span class="owner-chat-online-dot"></span>
+  </button>
 
+  <section id="ownerChatPanel" class="owner-chat-panel" hidden>
+    <header class="owner-chat-header">
+      <div id="ownerChatHeaderAvatar" class="owner-chat-avatar">EJ</div>
+
+      <div class="owner-chat-heading">
+        <strong id="ownerChatHeaderName">Site Owner</strong>
+        <span id="ownerChatHeaderStatus">Site Owner</span>
+      </div>
+
+      <button
+        id="ownerChatClose"
+        class="owner-chat-close"
+        type="button"
+        aria-label="Close chat"
+      >
+        ×
+      </button>
+    </header>
+
+    <div id="ownerChatContacts" class="owner-chat-contacts" hidden></div>
+
+    <div id="ownerChatMessages" class="owner-chat-messages">
+      <p class="owner-chat-empty">Loading conversation...</p>
+    </div>
+
+    <form id="ownerChatForm" class="owner-chat-form">
+      <input
+        id="ownerChatInput"
+        type="text"
+        maxlength="2000"
+        placeholder="Write a message..."
+        autocomplete="off"
+        required
+      />
+      <button type="submit">Send</button>
+    </form>
+  </section>
+</div>
 <script>
 
 function togglePassword(inputId, button) {
@@ -9792,54 +9840,6 @@ ownerChatForm.addEventListener("submit", async event => {
     </div>
   </main>
 </section>
-<div id="ownerChatWidget" class="owner-chat-widget">
-  <button
-    id="ownerChatLauncher"
-    class="owner-chat-launcher"
-    type="button"
-    aria-label="Open chat with the site owner"
-  >
-    <span id="ownerChatLauncherAvatar" class="owner-chat-avatar">EJ</span>
-    <span class="owner-chat-online-dot"></span>
-  </button>
 
-  <section id="ownerChatPanel" class="owner-chat-panel" hidden>
-    <header class="owner-chat-header">
-      <div id="ownerChatHeaderAvatar" class="owner-chat-avatar">EJ</div>
-
-      <div class="owner-chat-heading">
-        <strong id="ownerChatHeaderName">Site Owner</strong>
-        <span id="ownerChatHeaderStatus">Site Owner</span>
-      </div>
-
-      <button
-        id="ownerChatClose"
-        class="owner-chat-close"
-        type="button"
-        aria-label="Close chat"
-      >
-        ×
-      </button>
-    </header>
-
-    <div id="ownerChatContacts" class="owner-chat-contacts" hidden></div>
-
-    <div id="ownerChatMessages" class="owner-chat-messages">
-      <p class="owner-chat-empty">Loading conversation...</p>
-    </div>
-
-    <form id="ownerChatForm" class="owner-chat-form">
-      <input
-        id="ownerChatInput"
-        type="text"
-        maxlength="2000"
-        placeholder="Write a message..."
-        autocomplete="off"
-        required
-      />
-      <button type="submit">Send</button>
-    </form>
-  </section>
-</div>
 </body>
 </html>
