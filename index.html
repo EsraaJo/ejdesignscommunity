@@ -1477,32 +1477,30 @@
 /* BACK */
 
 .page-back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  margin-bottom: 18px;
+  padding: 10px 18px;
 
-    background: transparent;
+  color: #222;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, .05);
 
-    border: none;
-
-    color: #555;
-
-    font-family: inherit;
-
-    font-size: 14px;
-
-    cursor: pointer;
-
-    padding: 8px 12px;
-
-    margin-bottom: 10px;
-
-    transition: 0.2s ease;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
-
 .page-back-btn:hover {
-
-    color: #111;
-
-    transform: translateX(-3px);
+  background: #f7f6f2;
+  border-color: #D6B84C;
+  transform: translateY(-2px);
 }
 
 
@@ -2536,7 +2534,7 @@ select {
 }
 
 #projectDetailsSection .project-detail-category {
-  color: #a38a36 !important;
+  color: #D6B84C !important;
   font-size: 12px !important;
   font-weight: 600 !important;
 }
@@ -2585,6 +2583,567 @@ select {
   border-radius: 8px;
 }
 
+/* Project detail: themed white panels */
+#projectDetailsSection .project-detail-page {
+  max-width: 980px !important;
+  margin: 24px auto !important;
+  padding: 28px !important;
+  color: #222 !important;
+  background: #fff !important;
+  border: 1px solid #e9e9e6 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .07) !important;
+}
+
+/* Project title */
+#projectDetailsSection .project-detail-category {
+  margin: 0 0 8px !important;
+  color: #D6B84C !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase;
+}
+
+#projectDetailsSection .project-detail-page > h2 {
+  margin: 0 0 18px !important;
+  padding-bottom: 18px !important;
+  color: #171717 !important;
+  border-bottom: 1px solid #ecebe7;
+}
+
+/* Location, year, size, status */
+#projectDetailsSection .project-facts {
+  gap: 9px !important;
+  margin: 18px 0 24px !important;
+}
+
+#projectDetailsSection .project-facts span {
+  padding: 8px 12px !important;
+  color: #555 !important;
+  background: #f5f4f1 !important;
+  border: 1px solid #e9e7e0;
+  border-radius: 8px !important;
+  font-size: 13px !important;
+}
+
+/* Project story sections */
+#projectDetailsSection .project-info-section {
+  margin: 18px 0 !important;
+  padding: 20px 22px !important;
+  background: #fff !important;
+  border: 1px solid #e9e9e6 !important;
+  border-left: 3px solid #d6b84c !important;
+  border-radius: 11px !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .045) !important;
+}
+
+#projectDetailsSection .project-info-section h3 {
+  margin: 0 0 10px !important;
+  padding-bottom: 10px !important;
+  color: #222 !important;
+  border-bottom: 1px solid #efefec;
+  font-size: 17px !important;
+}
+
+#projectDetailsSection .project-info-section p {
+  margin: 0 !important;
+  color: #666 !important;
+  font-size: 14px !important;
+  line-height: 1.75 !important;
+}
+
+/* Role, client, tools and materials */
+#projectDetailsSection .project-meta-grid {
+  gap: 12px !important;
+  margin: 22px 0 !important;
+}
+
+#projectDetailsSection .project-meta-grid div {
+  padding: 16px !important;
+  background: #fff !important;
+  border: 1px solid #e9e9e6 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, .04) !important;
+}
+
+#projectDetailsSection .project-meta-grid strong {
+  color: #D6B84C !important;
+  font-size: 12px !important;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+#projectDetailsSection .project-meta-grid span {
+  color: #555 !important;
+  font-size: 14px !important;
+}
+
+/* Images and owner actions */
+#projectDetailsSection .project-detail-images {
+  gap: 14px !important;
+  margin: 24px 0 30px !important;
+}
+
+#projectDetailsSection .project-detail-images img {
+  border-radius: 10px !important;
+}
+
+#projectDetailsSection .project-owner-actions {
+  display: flex;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid #ecebe7;
+}
+
+@media (max-width: 650px) {
+  #projectDetailsSection .project-detail-page {
+    padding: 18px !important;
+  }
+
+  #projectDetailsSection .project-info-section {
+    padding: 16px !important;
+  }
+}
+
+.member-profile-card {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 28px;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 14px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, .05);
+  text-align: left;
+}
+
+.member-profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #eee;
+}
+
+.member-profile-photo,
+.member-profile-placeholder {
+  width: 90px;
+  height: 90px;
+  flex: 0 0 90px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.member-profile-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111;
+  background: #D6B84C;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.member-profile-header h2 {
+  margin: 0 0 6px;
+}
+
+.member-profile-header p,
+.member-profile-header span,
+.member-profile-info p {
+  color: #666;
+  line-height: 1.6;
+}
+
+.member-profile-info {
+  margin-top: 22px;
+}
+
+.member-profile-info h3 {
+  font-size: 17px;
+}
+
+.member-profile-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin: 22px 0;
+}
+
+.member-profile-links a {
+  padding: 8px 12px;
+  color: #222;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  text-decoration: none;
+}
+
+.member-profile-links a:hover {
+  border-color: #D6B84C;
+  background: #f8f5e9;
+}
+
+.member-view-profile-btn {
+  margin: 8px;
+  padding: 9px 14px;
+  color: #222;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.member-view-profile-btn:hover {
+  border-color: #D6B84C;
+  background: #f8f5e9;
+}
+
+@media (max-width: 600px) {
+  .member-profile-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.member-projects {
+  margin-top: 30px;
+  padding-top: 22px;
+  border-top: 1px solid #e8e8e8;
+}
+
+.member-projects h3 {
+  margin-bottom: 16px;
+}
+
+.member-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.member-projects-grid .project-card {
+  cursor: pointer;
+}
+
+@media (max-width: 650px) {
+  .member-projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.member-profile-card {
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 28px;
+  background: #fff;
+  border: 1px solid rgba(214, 184, 76, .28);
+  border-top: 3px solid #D6B84C;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(214, 184, 76, .09);
+}
+
+.member-profile-header {
+  padding: 0 0 22px;
+  border-bottom: 1px solid rgba(214, 184, 76, .25);
+}
+
+.member-profile-placeholder {
+  background: rgba(214, 184, 76, .18);
+  border: 1px solid rgba(214, 184, 76, .4);
+}
+
+.member-profile-info {
+  margin-top: 22px;
+  padding: 17px 20px;
+  background: #fffdf7;
+  border: 1px solid rgba(214, 184, 76, .2);
+  border-left: 3px solid #D6B84C;
+  border-radius: 10px;
+}
+
+.member-profile-info h3,
+.member-projects > h3 {
+  color: #9b812b;
+}
+
+.member-profile-links a {
+  border-color: rgba(214, 184, 76, .35);
+}
+
+.member-profile-links a:hover {
+  background: rgba(214, 184, 76, .12);
+  border-color: #D6B84C;
+}
+
+.member-projects {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(214, 184, 76, .25);
+}
+
+.member-projects-grid .project-card {
+  border-color: rgba(214, 184, 76, .22);
+  box-shadow: 0 4px 14px rgba(214, 184, 76, .07);
+}
+
+#memberProfileSection .community-page {
+  max-width: 900px;
+}
+
+.member-profile-card {
+  max-width: 760px;
+  margin: 10px auto;
+  padding: 20px;
+}
+
+.member-profile-header {
+  gap: 14px;
+  padding-bottom: 14px;
+}
+
+.member-profile-photo,
+.member-profile-placeholder {
+  width: 72px;
+  height: 72px;
+  flex-basis: 72px;
+}
+
+.member-profile-info {
+  margin-top: 12px;
+  padding: 12px 15px;
+}
+
+.member-profile-links {
+  gap: 7px;
+  margin: 14px 0;
+}
+
+.member-projects {
+  margin-top: 18px;
+  padding-top: 14px;
+}
+
+#memberConnectionAction {
+  margin: 14px 0;
+}
+
+.member-connection-button {
+  min-height: 40px;
+  padding: 9px 16px;
+  color: #222;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.member-connection-button:hover {
+  background: #f8f5e9;
+  border-color: #D6B84C;
+}
+
+.member-profile-heading p {
+  margin: 2px 0 !important;
+  line-height: 1.3 !important;
+}
+
+.member-profile-title-row h2 {
+  margin: 0 !important;
+  line-height: 1.25 !important;
+}
+
+.member-profile-header {
+  gap: 20px;
+}
+
+.member-profile-header {
+  position: relative;
+  padding-right: 170px;
+}
+
+#memberConnectionAction {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+@media (max-width: 600px) {
+  .member-profile-header {
+    padding-right: 145px;
+  }
+}
+.member-profile-header {
+  position: relative;
+}
+
+#memberConnectionAction {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 5;
+}
+
+.member-profile-header {
+  position: relative;
+  padding-right: 170px;
+}
+
+#memberConnectionAction {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  z-index: 5;
+}
+
+/* Members page: compact black and gold style */
+.members-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.member-card {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #e8e5dc;
+  border-top: 2px solid #d6b84c;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(17, 17, 17, 0.06);
+  text-align: center;
+}
+
+.member-card:hover {
+  border-color: rgba(214, 184, 76, 0.65);
+  box-shadow: 0 8px 20px rgba(17, 17, 17, 0.1);
+  transform: translateY(-2px);
+}
+
+.member-avatar,
+.member-initials {
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 10px;
+}
+
+.member-card h3 {
+  margin: 4px 0;
+  color: #151515;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.member-profession {
+  margin: 3px 0;
+  color: #555;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.member-location {
+  margin: 3px 0 12px;
+  color: #777;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.member-connect-btn,
+.member-view-profile-btn {
+  display: inline-block;
+  width: auto;
+  min-width: 120px;
+  margin: 6px 3px 0;
+}
+
+.member-connect-btn {
+  color: #fff;
+  background: #151515;
+}
+
+.member-connect-btn:hover {
+  color: #151515;
+  background: #d6b84c;
+  border-color: #d6b84c;
+}
+
+.member-view-profile-btn {
+  color: #151515;
+  background: #fff;
+}
+
+.member-view-profile-btn:hover {
+  color: #151515;
+  background: #f8f4e7;
+  border-color: #d6b84c;
+}
+
+/* Member profile page: tighter text spacing */
+.member-profile-header {
+  gap: 12px;
+}
+
+.member-profile-heading h2 {
+  margin: 0 0 4px;
+  color: #151515;
+  font-size: 21px;
+  line-height: 1.25;
+}
+
+.member-profile-heading p {
+  margin: 2px 0;
+  color: #555;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.member-profile-info {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-color: #eee9d9;
+}
+
+.member-profile-info h3 {
+  margin: 0 0 6px;
+  color: #151515;
+  font-size: 15px;
+}
+
+.member-profile-info p {
+  margin: 0;
+  color: #555;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.member-connection-button {
+  color: #fff;
+  background: #151515;
+  border-color: #151515;
+}
+
+.member-connection-button:hover {
+  color: #151515;
+  background: #d6b84c;
+  border-color: #d6b84c;
+}
+
+@media (max-width: 900px) {
+  .members-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .members-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .member-profile-heading h2 {
+    font-size: 19px;
+  }
+}
     </style>
 
 <link
@@ -2776,6 +3335,25 @@ select {
 
     </div>
 
+<!-- CREATE -->
+    <div class="home-box">
+
+        <h3>
+            <span
+                class="box-button"
+                onclick="showSection('createSection')"
+            >
+                Create
+            </span>
+        </h3>
+
+        <p>
+            Build your professional
+            presence and discover
+            new opportunities.
+        </p>
+            </div>
+
 
     <!-- SHARE -->
     <div class="home-box">
@@ -2795,26 +3373,6 @@ select {
         </p>
 
     </div>
-
-
-    <!-- CREATE -->
-    <div class="home-box">
-
-        <h3>
-            <span
-                class="box-button"
-                onclick="showSection('createSection')"
-            >
-                Create
-            </span>
-        </h3>
-
-        <p>
-            Build your professional
-            presence and discover
-            new opportunities.
-        </p>
-            </div>
 
         </div>
 
@@ -3373,6 +3931,25 @@ select {
 <!-- =====================================================
      LOGIN
 ===================================================== -->
+<section id="memberProfileSection" class="page-section">
+  <main>
+    <div class="community-page">
+
+      <button
+        type="button"
+        class="page-back-btn"
+        onclick="showSection('connectSection')"
+      >
+        ← Back to Connect
+      </button>
+
+      <div id="memberProfileContent">
+        Loading profile...
+      </div>
+
+    </div>
+  </main>
+</section>
 
 <section
     id="loginSection"
@@ -6479,7 +7056,13 @@ function renderMembers(members) {
                         >
                             Connect
                         </button>
-
+<button
+  class="member-view-profile-btn"
+  type="button"
+  onclick="viewMemberProfile('${member.id}')"
+>
+  View Profile
+</button>
                     </div>
 
                 `;
@@ -7682,6 +8265,295 @@ function cancelProjectCoverChange() {
 
   const panel = document.getElementById("coverEditPanel");
   if (panel) panel.remove();
+}
+
+async function viewMemberProfile(memberId) {
+  const content = document.getElementById("memberProfileContent");
+
+  showSection("memberProfileSection");
+  content.textContent = "Loading profile and projects...";
+
+  const { data: profile, error } = await db
+    .from("profiles")
+    .select(`
+      id,
+      full_name,
+      profession,
+      headline,
+      location,
+      bio,
+      avatar_url,
+      skills,
+      linkedin_url,
+      behance_url,
+      instagram_url,
+      portfolio_url
+    `)
+    .eq("id", memberId)
+    .single();
+
+  if (error || !profile) {
+    content.textContent = "Could not load this profile.";
+    console.error(error);
+    return;
+  }
+
+  const { data: projects, error: projectError } = await db
+    .from("projects")
+    .select("*")
+    .eq("owner_id", memberId)
+    .order("created_at", { ascending: false });
+
+  const name = profile.full_name || "Community Member";
+
+  function makeLink(url, label) {
+    if (!url) return "";
+
+    try {
+      const parsed = new URL(
+        url.startsWith("http") ? url : `https://${url}`
+      );
+
+      if (!["http:", "https:"].includes(parsed.protocol)) return "";
+
+      return `
+        <a href="${escapeHtml(parsed.href)}"
+           target="_blank"
+           rel="noopener noreferrer">
+          ${label}
+        </a>
+      `;
+    } catch {
+      return "";
+    }
+  }
+
+  const skills = Array.isArray(profile.skills)
+    ? profile.skills.join(", ")
+    : profile.skills || "";
+
+  content.innerHTML = `
+    <article class="member-profile-card">
+
+      <div class="member-profile-header">
+  ${
+    profile.avatar_url
+      ? `<img
+          class="member-profile-photo"
+          src="${escapeHtml(profile.avatar_url)}"
+          alt="${escapeHtml(name)}"
+        >`
+      : `<div class="member-profile-placeholder">
+          ${escapeHtml(name.charAt(0).toUpperCase())}
+        </div>`
+  }
+
+  <div class="member-profile-heading">
+    <h2>${escapeHtml(name)}</h2>
+    <p>${escapeHtml(profile.headline || "")}</p>
+    <p>${escapeHtml(profile.profession || "")}</p>
+    <p>${escapeHtml(profile.location || "")}</p>
+  </div>
+
+  <div id="memberConnectionAction" class="member-profile-actions">
+    <button
+      type="button"
+      class="member-connection-button"
+      onclick="connectFromMemberProfile('${profile.id}')"
+    >
+      Connect
+    </button>
+  </div>
+</div>
+
+      <section class="member-profile-info">
+        <h3>About</h3>
+        <p>${escapeHtml(profile.bio || "No bio added yet.")}</p>
+      </section>
+
+      <section class="member-profile-info">
+        <h3>Skills</h3>
+        <p>${escapeHtml(skills || "No skills added yet.")}</p>
+      </section>
+
+      <div class="member-profile-links">
+        ${makeLink(profile.linkedin_url, "LinkedIn")}
+        ${makeLink(profile.behance_url, "Behance")}
+        ${makeLink(profile.instagram_url, "Instagram")}
+        ${makeLink(profile.portfolio_url, "Portfolio")}
+      </div>
+
+
+
+      <section class="member-projects">
+        <h3>Projects</h3>
+
+        ${
+          projectError
+            ? "<p>Could not load this member's projects.</p>"
+            : !projects || projects.length === 0
+              ? "<p>This member has not shared any projects yet.</p>"
+              : `
+                <div class="member-projects-grid">
+                  ${projects.map(project => {
+                    const cover = project.media?.[0]?.url || "";
+
+                    return `
+                      <article class="project-card"
+                               onclick="openProject('${project.id}')">
+                        ${
+                          cover
+                            ? `<img src="${escapeHtml(cover)}"
+                                    alt="${escapeHtml(project.title)}">`
+                            : ""
+                        }
+
+                        <div class="project-card-content">
+                          <h4>${escapeHtml(project.title || "Untitled Project")}</h4>
+                          <p>${escapeHtml(project.category || "")}</p>
+                          <p>${escapeHtml(project.description || "")}</p>
+                        </div>
+                      </article>
+                    `;
+                  }).join("")}
+                </div>
+              `
+        }
+      </section>
+    </article>
+  `;
+  await loadMemberConnectionButton(memberId);
+
+  if (projectError) console.error(projectError);
+}
+
+async function loadMemberConnectionButton(memberId) {
+  const box = document.getElementById("memberConnectionAction");
+  if (!box) return;
+
+  if (!currentUser) {
+    box.innerHTML = `
+      <button class="member-connection-button"
+              onclick="showSection('loginSection')">
+        Log in to connect
+      </button>
+    `;
+    return;
+  }
+
+  if (String(currentUser.id) === String(memberId)) {
+    box.innerHTML = "";
+    return;
+  }
+
+  const { data: outgoing } = await db
+    .from("connections")
+    .select("id, status")
+    .eq("requester_id", currentUser.id)
+    .eq("recipient_id", memberId)
+    .maybeSingle();
+
+  const { data: incoming } = await db
+    .from("connections")
+    .select("id, status")
+    .eq("requester_id", memberId)
+    .eq("recipient_id", currentUser.id)
+    .maybeSingle();
+
+  const connection = outgoing || incoming;
+
+  if (!connection) {
+    box.innerHTML = `
+      <button class="member-connection-button"
+              onclick="connectFromMemberProfile('${memberId}')">
+        Connect
+      </button>
+    `;
+  } else if (connection.status === "accepted") {
+    box.innerHTML = `
+      <button class="member-connection-button"
+              onclick="removeMemberConnection('${connection.id}', '${memberId}')">
+        Remove Connection
+      </button>
+    `;
+  } else if (outgoing) {
+  box.innerHTML = `
+    <button
+      type="button"
+      class="member-connection-button"
+      onclick="cancelMemberRequest('${connection.id}', '${memberId}')"
+    >
+      Cancel Request
+    </button>
+  `;
+  } else {
+    box.innerHTML = `
+      <button class="member-connection-button"
+              onclick="acceptMemberRequest('${connection.id}', '${memberId}')">
+        Accept Request
+      </button>
+      <button class="member-connection-button"
+              onclick="removeMemberConnection('${connection.id}', '${memberId}')">
+        Decline
+      </button>
+    `;
+  }
+}
+
+async function connectFromMemberProfile(memberId) {
+  await connectWithMember(memberId);
+  await loadMemberConnectionButton(memberId);
+}
+
+async function cancelMemberRequest(connectionId, memberId) {
+  if (!currentUser) {
+    showSection("loginSection");
+    return;
+  }
+
+  if (!confirm("Cancel this connection request?")) return;
+
+  const { data, error } = await db
+    .from("connections")
+    .delete()
+    .eq("id", connectionId)
+    .eq("requester_id", currentUser.id)
+    .eq("status", "pending")
+    .select("id")
+    .maybeSingle();
+
+  if (error) {
+    alert("Could not cancel the request: " + error.message);
+    return;
+  }
+
+  if (!data) {
+    alert("The request could not be found or you do not have permission to cancel it.");
+    return;
+  }
+
+  await loadMemberConnectionButton(memberId);
+}
+
+async function acceptMemberRequest(connectionId, memberId) {
+  await acceptConnection(connectionId);
+  await loadMemberConnectionButton(memberId);
+}
+
+async function removeMemberConnection(connectionId, memberId) {
+  if (!confirm("Remove this connection or request?")) return;
+
+  const { error } = await db
+    .from("connections")
+    .delete()
+    .eq("id", connectionId);
+
+  if (error) {
+    alert("Could not remove connection: " + error.message);
+    return;
+  }
+
+  await loadMemberConnectionButton(memberId);
 }
 
 
