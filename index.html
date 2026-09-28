@@ -3277,7 +3277,7 @@ right: 12px;
   padding: 0 13px;
   overflow: hidden;
   color: #151515;
-background: rgba(214, 184, 76, 0.4);
+background: rgba(214, 184, 76, 0.75) !important;
 backdrop-filter: blur(6px);  border: 1px solid rgba(17, 17, 17, 0.12);
   border-radius: 12px;
 box-shadow:
@@ -3524,6 +3524,11 @@ box-shadow:
 .quick-label {
   margin-left: 0;
   margin-right: 30px;
+}
+
+.quick-icon {
+  width: 20px;
+  height: 20px;
 }
 
     </style>
@@ -9117,8 +9122,16 @@ function selectQuickTab(button, sectionId) {
     class="quick-tab"
     onclick="selectQuickTab(this, 'homeSection')"
   >
-    <span class="quick-icon">⌂</span>
-    <span class="quick-label">Home</span>
+<svg class="quick-icon" viewBox="0 0 24 24" aria-hidden="true">
+  <path
+    d="M3 10.5 12 3l9 7.5M5 9v11h14V9M9 20v-6h6v6"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>    <span class="quick-label">Home</span>
   </button>
 
   <button
