@@ -170,6 +170,8 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
 
         body {
 
+            isolation: isolate;
+
             font-family:
                 'Space Grotesk',
                 sans-serif;
@@ -193,6 +195,50 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
                 );
 
             background-size: 100px 100px;
+        }
+
+        /* Architectural line art, kept behind all page content. */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.58;
+            background-image:
+                radial-gradient(circle, transparent 0 184px, rgba(214, 184, 76, 0.32) 185px 186px, transparent 187px),
+                radial-gradient(circle, transparent 0 118px, rgba(214, 184, 76, 0.34) 119px 120px, transparent 121px),
+                radial-gradient(circle, transparent 0 72px, rgba(214, 184, 76, 0.36) 73px 75px, transparent 76px),
+                radial-gradient(circle, transparent 0 41px, rgba(130, 130, 125, 0.18) 42px 44px, transparent 45px),
+                radial-gradient(circle, transparent 0 20px, rgba(130, 130, 125, 0.16) 21px 23px, transparent 24px),
+                radial-gradient(circle, transparent 0 58px, rgba(130, 130, 125, 0.18) 59px 61px, transparent 62px),
+                radial-gradient(circle, transparent 0 140px, rgba(214, 184, 76, 0.32) 141px 142px, transparent 143px),
+                radial-gradient(circle, transparent 0 31px, rgba(130, 130, 125, 0.16) 32px 34px, transparent 35px),
+                radial-gradient(circle, transparent 0 48px, rgba(130, 130, 125, 0.18) 49px 51px, transparent 52px),
+                radial-gradient(circle, transparent 0 92px, rgba(214, 184, 76, 0.34) 93px 94px, transparent 95px);
+            background-size: 420px 420px, 290px 290px, 190px 190px, 110px 110px, 70px 70px, 150px 150px, 320px 320px, 94px 94px, 130px 130px, 220px 220px;
+            background-position: 2% 0%, 10% 10%, 18% 25%, 6% 35%, 15% 50%, 20% 65%, 4% 78%, 12% 88%, 17% 18%, 8% 45%;
+            background-repeat: no-repeat;
+            animation: architectureCircleDrift 26s ease-in-out infinite;
+        }
+
+        @keyframes architectureCircleDrift {
+            0%, 100% {
+                background-position: 2% 0%, 10% 10%, 18% 25%, 6% 35%, 15% 50%, 20% 65%, 4% 78%, 12% 88%, 17% 18%, 8% 45%;
+            }
+            25% {
+                background-position: 15% 25%, 25% 40%, 35% 55%, 10% 70%, 28% 85%, 40% 95%, 12% 15%, 35% 30%, 20% 60%, 45% 5%;
+            }
+            50% {
+                background-position: 28% 55%, 40% 80%, 48% 95%, 20% 45%, 35% 15%, 50% 35%, 25% 65%, 42% 5%, 32% 75%, 20% 25%;
+            }
+            75% {
+                background-position: 12% 90%, 28% 60%, 40% 35%, 18% 20%, 30% 50%, 48% 75%, 10% 95%, 25% 55%, 45% 10%, 35% 85%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            body::before { animation: none; }
         }
 
         /* =====================================================
@@ -1741,6 +1787,51 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
         rgba(0,0,0,0.05);
 }
 
+.whatsapp-invite-card {
+    max-width: 750px;
+    margin: 0 auto 18px;
+    padding: 20px 24px;
+    background: #fff;
+    border: 1px solid #e8e5dc;
+    border-left: 3px solid #d6b84c;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+.whatsapp-invite-card h3 {
+    margin: 0 0 8px;
+    color: #111;
+    font-size: 17px;
+}
+
+.whatsapp-invite-card p {
+    margin: 0 0 14px;
+    color: #666;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.whatsapp-invite-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 9px 16px;
+    color: #fff;
+    background: #111;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.whatsapp-invite-link:hover {
+    color: #111;
+    background: #d6b84c;
+    transform: translateY(-1px);
+}
+
 
 .share-page-card textarea {
 
@@ -3228,6 +3319,7 @@ margin: 36px auto 18px !important;}
   max-width: 760px;
   margin: 28px auto;
   padding: 30px;
+  text-align: center;
   color: #fff;
   background: #111;
   border: 1px solid rgba(214, 184, 76, 0.35);
@@ -3241,9 +3333,116 @@ margin: 36px auto 18px !important;}
   color: #fff;
 }
 
+.about-card h2 {
+  font-size: 24px;
+  white-space: nowrap;
+}
+
+.about-card .about-brand {
+  color: #d6b84c;
+  background: linear-gradient(100deg, #c3a43c 0%, #f5df82 48%, #d6b84c 76%, #fff0a8 100%);
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(214, 184, 76, 0.28);
+  animation: aboutTextShimmer 4s ease-in-out infinite alternate;
+}
+
+.about-card .about-highlight {
+  color: #e3c653;
+  background: linear-gradient(100deg, #d6b84c 0%, #fff0a8 48%, #c5a333 100%);
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  text-shadow: 0 0 7px rgba(214, 184, 76, 0.24);
+  animation: aboutTextShimmer 4.6s ease-in-out infinite alternate;
+}
+
+.about-card .creator-signature {
+  display: inline-block;
+  color: #d6b84c;
+  background: linear-gradient(100deg, #d6b84c 0%, #d6b84c 42%, #fff8d8 50%, #d6b84c 58%, #d6b84c 100%);
+  background-size: 240% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-style: normal;
+  font-weight: 700;
+  text-shadow: 0 0 2px rgba(214, 184, 76, 0.18);
+  animation: creatorSoftGlow 3.6s ease-in-out infinite, aboutTextShimmer 4.2s ease-in-out infinite;
+}
+
+@keyframes creatorSoftGlow {
+  0%, 100% { text-shadow: 0 0 1px rgba(214, 184, 76, 0.12); }
+  50% { text-shadow: 0 0 3px rgba(255, 225, 120, 0.28); }
+}
+
+@keyframes aboutTextShimmer {
+  from { background-position: 100% 50%; }
+  to { background-position: 0% 50%; }
+}
+
+.site-tagline-shimmer {
+  display: inline-block;
+  color: #b7b7b7;
+  background: linear-gradient(100deg, #b7b7b7 0%, #b7b7b7 42%, #fff 50%, #c9c9c9 58%, #b7b7b7 100%);
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: aboutTextShimmer 4.6s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-card .about-brand,
+  .about-card .about-highlight {
+    animation: none;
+    text-shadow: 0 0 6px rgba(214, 184, 76, 0.45);
+    background-position: 50% 50%;
+  }
+
+  .about-card .creator-signature {
+    animation: none;
+    text-shadow: 0 0 2px rgba(214, 184, 76, 0.18);
+    background-position: 50% 50%;
+  }
+}
+
 .about-card p {
   color: #ddd;
   line-height: 1.6;
+}
+
+.about-card > p:not(.about-eyebrow) {
+  max-width: 650px;
+  margin: 0 auto 14px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.about-card > p.about-intro {
+  max-width: 620px;
+  font-size: 14px;
+  white-space: normal;
+  text-wrap: balance;
+}
+
+@media (max-width: 560px) {
+  .about-card h2 {
+    font-size: 20px;
+    white-space: normal;
+  }
+
+  .about-card > p.about-intro {
+    white-space: normal;
+  }
 }
 
 .about-card .about-eyebrow {
@@ -3530,6 +3729,22 @@ box-shadow:
   width: 20px;
   height: 20px;
 }
+
+.quick-icon-member {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.quick-icon-opinion {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 .quick-tab:hover .quick-label,
 .quick-tab:focus-visible .quick-label,
 .quick-tab.selected .quick-label {
@@ -3577,6 +3792,22 @@ box-shadow:
             drop-shadow(0 0 15px rgba(255, 255, 255, 1));
   }
 }
+.community-word {
+  text-shadow: 0 0 4px rgba(214, 184, 76, 0.28);
+  animation: communityWordSoftGlow 3.4s ease-in-out infinite;
+}
+
+.site-title-brand {
+  display: inline-block;
+  color: #fff;
+  animation: communityWordSoftGlow 3.4s ease-in-out infinite;
+}
+
+@keyframes communityWordSoftGlow {
+  0%, 100% { text-shadow: 0 0 3px rgba(214, 184, 76, 0.22); }
+  50% { text-shadow: 0 0 7px rgba(255, 225, 120, 0.42); }
+}
+
 .community-word .c-letter {
   position: relative;
   display: inline-block;
@@ -3637,6 +3868,45 @@ box-shadow:
   background: #d6b84c;
   cursor: pointer;
   box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
+}
+
+.owner-chat-launcher::before,
+.owner-chat-launcher::after {
+  position: absolute;
+  z-index: 2;
+  color: #fff;
+  line-height: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 9px rgba(255, 222, 105, 0.95));
+  animation: ownerChatAvatarSparkle 1.35s ease-in-out infinite;
+}
+
+.owner-chat-launcher::before {
+  content: "✦";
+  top: -9px;
+  right: 1px;
+  font-size: 16px;
+}
+
+.owner-chat-launcher::after {
+  content: "✧";
+  bottom: 3px;
+  left: -10px;
+  font-size: 13px;
+  animation-delay: 0.65s;
+}
+
+@keyframes ownerChatAvatarSparkle {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(0.8) rotate(-8deg);
+    filter: drop-shadow(0 0 3px #fff) drop-shadow(0 0 6px rgba(255, 222, 105, 0.7));
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(8deg);
+    filter: drop-shadow(0 0 6px #fff) drop-shadow(0 0 14px rgba(255, 222, 105, 1));
+  }
 }
 
 .owner-chat-avatar {
@@ -4016,6 +4286,44 @@ box-shadow:
 
 <body>
 
+<script>
+/* Soft click feedback, created only after a real user click. */
+(() => {
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContextClass) return;
+
+  let audioContext;
+
+  document.addEventListener("click", event => {
+    const control = event.target.closest("button, a[role='button']");
+    if (!control || control.disabled || control.getAttribute("aria-disabled") === "true") return;
+
+    try {
+      audioContext ||= new AudioContextClass();
+      if (audioContext.state === "suspended") audioContext.resume();
+
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      const now = audioContext.currentTime;
+
+      oscillator.type = "sine";
+      oscillator.frequency.setValueAtTime(720, now);
+      oscillator.frequency.exponentialRampToValueAtTime(460, now + 0.045);
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(0.035, now + 0.004);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.055);
+
+      oscillator.connect(gain);
+      gain.connect(audioContext.destination);
+      oscillator.start(now);
+      oscillator.stop(now + 0.06);
+    } catch (error) {
+      console.debug("Click sound is unavailable in this browser.", error);
+    }
+  }, true);
+})();
+</script>
+
 
 <!-- =====================================================
      CONTACT LINKS
@@ -4082,14 +4390,11 @@ box-shadow:
 <header>
 
     <h1>
-        EJ Designs
-        <span class="community-word">
-            <span class="c-letter">C</span>ommunity
-        </span>
+        <span class="site-title-brand">EJ Designs</span> <span class="community-word"><span class="c-letter">C</span>ommunity</span>
     </h1>
 
 
-    <p>
+    <p class="site-tagline-shimmer">
         Design. Connect. Create.
     </p>
 
@@ -4336,17 +4641,29 @@ box-shadow:
                 ← Home
             </button>
 
-            <h2>
-                Create Post
-            </h2>
+            <h2>Share Your Voice</h2>
 
             <p class="community-page-subtitle">
-                Share your work, ideas,
-                projects and experiences.
+                Share your ideas, opinions, feedback, or suggestions with the community.
             </p>
 
+            <div class="whatsapp-invite-card">
+                <h3>Join our WhatsApp community</h3>
+                <p>
+                    We’d love to hear your thoughts. Join our group and share your opinion with the community.
+                </p>
+                <a
+                    class="whatsapp-invite-link"
+                    href="https://chat.whatsapp.com/DxFanuGPDdw8Nk33D4wCwa"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Join the WhatsApp group
+                </a>
+            </div>
 
             <div class="share-page-card">
+                <label for="shareContent">What would you like to share?</label>
 
                 <textarea
                     id="shareContent"
@@ -10264,7 +10581,10 @@ ownerChatForm.addEventListener("submit", async event => {
     class="quick-tab"
     onclick="selectQuickTab(this, 'connectSection')"
   >
-    <span class="quick-icon">◎</span>
+    <svg class="quick-icon quick-icon-member" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="8" r="3.4" />
+      <path d="M5.2 20c.5-3.5 3-5.6 6.8-5.6s6.3 2.1 6.8 5.6" />
+    </svg>
     <span class="quick-label">Members</span>
   </button>
 
@@ -10282,7 +10602,10 @@ ownerChatForm.addEventListener("submit", async event => {
     class="quick-tab"
     onclick="selectQuickTab(this, 'shareIdeasSection')"
   >
-    <span class="quick-icon">✎</span>
+    <svg class="quick-icon quick-icon-opinion" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20.5 11.5a8.5 8.5 0 0 1-8.5 8.5 9 9 0 0 1-4-.9L3 20l1.2-4.3A8.5 8.5 0 1 1 20.5 11.5Z" />
+      <path d="M8 10h8M8 14h5" />
+    </svg>
     <span class="quick-label">Share</span>
   </button>
 
@@ -10309,20 +10632,31 @@ ownerChatForm.addEventListener("submit", async event => {
 
       <div class="about-card">
         <p class="about-eyebrow">OUR COMMUNITY</p>
-        <h2>About EJ Designs Community</h2>
+        <h2>About <span class="about-brand">EJ Designs Community</span></h2>
 
-        <p>
-          A space for architects, designers, and creative minds to connect,
-          share ideas, and showcase their work.
+        <p class="about-intro">
+          A space for architects, designers, and creative minds
+          <span class="about-highlight">to connect, share ideas, and showcase their work.</span>
         </p>
 
         <hr>
 
         <p class="about-eyebrow">THE CREATOR</p>
-        <h3>Created by M.Arch. Esra'a E. Al-Johari</h3>
+        <h3 class="creator-name">Created by <span class="creator-signature"><strong>M.Arch. Esra'a E. Al-Johari</strong></span></h3>
 
         <p>
-          [Your personal story and the idea behind this website will go here.]
+          I’m <strong>Esra’a E. Al-Johari</strong>, an <strong>architect and BIM coordinator</strong>
+          with <strong>over eight years of experience</strong> in architectural design and
+          multidisciplinary BIM coordination. I hold an <strong>M.Sc. in Architecture and
+          Urban Planning</strong> and a <strong>B.Sc. in Architectural Engineering</strong> from
+          the University of Jordan.
+        </p>
+
+        <p>
+          The idea for <strong>EJ Designs Community began in 2021</strong>: a place where
+          architects and designers can connect, exchange ideas, and showcase
+          their work. I created this community to make creative collaboration
+          and professional connection more accessible.
         </p>
       </div>
     </div>
