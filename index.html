@@ -3191,6 +3191,41 @@ select {
     margin-top: 28px;
   }
 }
+.profile-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 24px auto 0;
+}
+
+@media (max-width: 500px) {
+  .profile-navigation {
+    flex-wrap: wrap;
+  }
+}
+#profileSection .profile-nav-center {
+  display: block !important;
+  width: 100% !important;
+  margin: 24px auto 0 !important;
+  text-align: center !important;
+}
+
+#profileSection .profile-nav-center .page-back-btn {
+  display: inline-flex !important;
+  float: none !important;
+  margin: 0 5px 18px !important;
+}
+#profileSection .profile-nav-center {
+margin: 36px auto 18px !important;}
+
+#profileSection .profile-nav-center .page-back-btn {
+  margin: 0 5px !important;
+}
+
+#profileSection > .wrapper {
+  padding-top: 18px !important;
+}
+
     </style>
 
 <link
@@ -3675,15 +3710,7 @@ select {
 
 <section id="projectSection" class="page-section">
   <main>
-    <div class="community-page">
-
-      <button
-        class="page-back-btn"
-        type="button"
-        onclick="showSection('createSection')"
-      >
-        ← Back to Create
-      </button>
+</div>
 
       <h2>Projects</h2>
 
@@ -4106,12 +4133,27 @@ select {
      PROFILE
 ===================================================== -->
 
-<section
-    id="profileSection"
-    class="page-section"
->
+<section id="profileSection" class="page-section">
 
-    <div class="wrapper">
+  <div class="profile-nav-center">
+    <button
+      type="button"
+      class="page-back-btn"
+      onclick="showSection('createSection')"
+    >
+      ← Back to Create
+    </button>
+
+    <button
+      type="button"
+      class="page-back-btn"
+      onclick="showSection('homeSection')"
+    >
+      Home
+    </button>
+  </div>
+
+  <div class="wrapper">
 
         <section class="card profile-card">
 
