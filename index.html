@@ -473,16 +473,25 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
             flex: 1;
             min-width: 0;
             height: 100%;
-            padding: 0 8px;
+            margin-right: 8px;
+            padding: 0 15px;
             border: 0;
             outline: 0;
-            color: #fff;
-            background: transparent;
+            border-radius: 999px;
+            color: #171717;
+            background: #fff !important;
             font: inherit;
             font-size: 15px;
         }
 
-        .global-search input::placeholder { color: #aaa; }
+        .global-search input::placeholder { color: #777; }
+        .global-search input:-webkit-autofill,
+        .global-search input:-webkit-autofill:hover,
+        .global-search input:-webkit-autofill:focus {
+            -webkit-text-fill-color: #171717;
+            -webkit-box-shadow: 0 0 0 1000px #fff inset;
+            border-radius: 999px;
+        }
 
         .global-search button {
             display: grid;
@@ -579,10 +588,12 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
             flex: 1;
             min-width: 0;
             height: 100%;
+            padding: 0 12px;
             border: 0;
             outline: 0;
+            border-radius: 999px;
             color: #222;
-            background: transparent;
+            background: #fff !important;
             font: inherit;
             font-size: 15px;
         }
@@ -3843,6 +3854,7 @@ margin: 36px auto 18px !important;}
 }
 
 .about-card {
+  position: relative;
   max-width: 760px;
   margin: 28px auto;
   padding: 30px;
@@ -3979,11 +3991,97 @@ margin: 36px auto 18px !important;}
   letter-spacing: 1px;
 }
 
+.about-creator-photo {
+  display: block;
+  position: absolute;
+  top: 26px;
+  left: 26px;
+  width: 140px;
+  aspect-ratio: 1;
+  border: 4px solid #d6b84c;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  box-shadow: 0 0 0 5px rgba(214, 184, 76, 0.12);
+}
+
+.signup-prompt-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.76);
+  backdrop-filter: blur(5px);
+}
+
+.signup-prompt-overlay.is-visible { display: flex; }
+
+.signup-prompt {
+  position: relative;
+  width: min(100%, 560px);
+  box-sizing: border-box;
+  padding: 40px 24px 32px;
+  border: 1px solid #d6b84c;
+  border-radius: 12px;
+  background: #111;
+  color: #f4f4f4;
+  text-align: center;
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.5);
+}
+
+.signup-prompt-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 48px !important;
+  min-width: 48px !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  padding: 0 !important;
+  border: 1px solid rgba(214, 184, 76, 0.5);
+  border-radius: 50%;
+  background: #1c1a13;
+  color: #f1d66f;
+  font-family: Arial, sans-serif;
+  font-size: 25px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.signup-prompt-close:hover { background: #d6b84c; color: #111; transform: rotate(90deg); }
+.signup-prompt-close:focus-visible,
+.signup-prompt-actions button:focus-visible { outline: 3px solid rgba(255, 232, 145, 0.75); outline-offset: 3px; }
+.signup-prompt h2 { margin: 0 0 10px; color: #e0c24f; font-size: 23px; }
+.signup-prompt h2 .signup-prompt-brand { color: #fff !important; }
+.signup-prompt p { max-width: 440px; margin: 0 auto 24px; color: #d0d0d0; font-size: 14px; line-height: 1.6; }
+.signup-prompt-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 500px; margin: 0 auto; }
+.signup-prompt-actions button { box-sizing: border-box; width: 100%; min-width: 0; min-height: 54px; padding: 10px 8px; border: 1px solid #d6b84c; border-radius: 6px; font: inherit; font-size: 13px; font-weight: 600; line-height: 1.25; white-space: nowrap; cursor: pointer; transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease; }
+.signup-prompt-register { background: #d6b84c; color: #111; }
+.signup-prompt-login { background: transparent; color: #f4f4f4; }
+.signup-prompt-register:hover { background: #ebd16c; transform: translateY(-1px); }
+.signup-prompt-login:hover { background: #d6b84c; color: #111; transform: translateY(-1px); }
+
+@media (max-width: 560px) {
+  .about-creator-photo { position: static; width: 120px; margin: 0 auto 18px; }
+  .signup-prompt { padding: 42px 22px 24px; }
+}
+
+@media (max-width: 430px) {
+  .signup-prompt-actions { grid-template-columns: 1fr; max-width: 260px; }
+}
+
 .about-card hr {
   margin: 22px 0;
   border: 0;
   border-top: 1px solid rgba(214, 184, 76, 0.3);
 }
+
 .quick-tabs {
   position: fixed;
   top: 50%;
@@ -4933,6 +5031,18 @@ box-shadow:
 
 
 <body>
+
+<div id="signupPromptOverlay" class="signup-prompt-overlay" aria-hidden="true">
+  <section class="signup-prompt" role="dialog" aria-modal="true" aria-labelledby="signupPromptTitle" aria-describedby="signupPromptDescription">
+    <button id="signupPromptCloseButton" type="button" class="signup-prompt-close" aria-label="Close message" onclick="closeSignupPrompt()">&times;</button>
+    <h2 id="signupPromptTitle">Be part of <span class="signup-prompt-brand">EJ Designs Community!</span></h2>
+    <p id="signupPromptDescription">Create an account to share posts and feedback, connect with members, and create projects.</p>
+    <div class="signup-prompt-actions">
+      <button id="signupPromptRegisterButton" type="button" class="signup-prompt-register" onclick="openSignupFromPrompt('registerSection')">Join the Community</button>
+      <button id="signupPromptLoginButton" type="button" class="signup-prompt-login" onclick="openSignupFromPrompt('loginSection')">I already have an account</button>
+    </div>
+  </section>
+</div>
 
 <script>
 /* Soft click feedback, created only after a real user click. */
@@ -6704,8 +6814,39 @@ function togglePassword(inputId, button) {
     ===================================================== */
 
     let currentProfile = null;
+    let signupRequired = false;
+    let signupPromptTimer = null;
 
 let currentUser = null;
+
+document.addEventListener("click", function(event) {
+    const target = event.target;
+    if (currentUser || !(target instanceof Element)) return;
+
+    const control = target.closest('input[type="file"], label[for]');
+    if (!control) return;
+
+    const inputId = control.getAttribute("for") || control.id;
+    if (document.getElementById(inputId)?.type !== "file") return;
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    showSignupPrompt();
+}, true);
+
+document.addEventListener("contextmenu", function(event) {
+    const target = event.target;
+    if (!currentUser && target instanceof Element && target.closest("img")) {
+        event.preventDefault();
+    }
+}, true);
+
+document.addEventListener("dragstart", function(event) {
+    const target = event.target;
+    if (!currentUser && target instanceof Element && target.closest("img")) {
+        event.preventDefault();
+    }
+}, true);
 
 let editingProjectId = null;
 let editingProjectMedia = [];
@@ -6723,6 +6864,23 @@ let pendingProjectCoverProjectId = null;
 
    function showSection(sectionId) {
 
+    if (
+        !currentUser &&
+        (
+            sectionId === "profileSection" ||
+            (
+                signupRequired &&
+                sectionId !== "homeSection" &&
+                sectionId !== "aboutSection" &&
+                sectionId !== "registerSection" &&
+                sectionId !== "loginSection"
+            )
+        )
+    ) {
+        showSignupPrompt();
+        return;
+    }
+
     const sections =
         document.querySelectorAll(".page-section");
 
@@ -6736,6 +6894,15 @@ let pendingProjectCoverProjectId = null;
     if (selectedSection) {
 
         selectedSection.classList.add("active");
+
+        if (!currentUser) {
+            if (sectionId === "aboutSection") {
+                window.clearTimeout(signupPromptTimer);
+                signupPromptTimer = null;
+            } else if (sectionId !== "registerSection" && sectionId !== "loginSection") {
+                scheduleSignupPrompt(sectionId);
+            }
+        }
 
         window.scrollTo({
             top: 0,
@@ -8032,6 +8199,11 @@ document
 
     function editProfile() {
 
+        if (!currentUser) {
+            showSignupPrompt();
+            return;
+        }
+
         if (!currentProfile) {
             return;
         }
@@ -8417,6 +8589,11 @@ document
         file
     ) {
 
+        if (!currentUser) {
+            showSignupPrompt();
+            throw new Error("Create an account before uploading a profile photo.");
+        }
+
         if (!file) {
 
             return (
@@ -8509,12 +8686,8 @@ document
     async function saveProfile() {
 
         if (!currentUser) {
-
-            await loadProfile();
-
-            if (!currentUser) {
-                return;
-            }
+            showSignupPrompt();
+            return;
         }
 
 
@@ -9010,8 +9183,70 @@ document
             showSection(
                 "homeSection"
             );
+
         }
     }
+
+    function scheduleSignupPrompt(sectionId) {
+        if (currentUser) return;
+
+        window.clearTimeout(signupPromptTimer);
+        const delay = sectionId === "homeSection" ? 30000 : 5000;
+        signupPromptTimer = window.setTimeout(function() {
+            signupPromptTimer = null;
+            const activeSection = document.querySelector(".page-section.active");
+            if (!currentUser && activeSection?.id !== "aboutSection") {
+                showSignupPrompt();
+            }
+        }, delay);
+    }
+
+    function showSignupPrompt() {
+        if (currentUser) return;
+
+        window.clearTimeout(signupPromptTimer);
+        signupPromptTimer = null;
+        signupRequired = true;
+
+        const overlay = document.getElementById("signupPromptOverlay");
+        if (!overlay) return;
+        overlay.classList.add("is-visible");
+        overlay.setAttribute("aria-hidden", "false");
+        document.getElementById("signupPromptRegisterButton")?.focus({ preventScroll: true });
+    }
+
+    function closeSignupPrompt() {
+        const overlay = document.getElementById("signupPromptOverlay");
+        overlay?.classList.remove("is-visible");
+        overlay?.setAttribute("aria-hidden", "true");
+    }
+
+    function openSignupFromPrompt(sectionId) {
+        const overlay = document.getElementById("signupPromptOverlay");
+        overlay?.classList.remove("is-visible");
+        overlay?.setAttribute("aria-hidden", "true");
+        showSection(sectionId);
+    }
+
+    document.addEventListener("keydown", function(event) {
+        const overlay = document.getElementById("signupPromptOverlay");
+        if (!overlay?.classList.contains("is-visible")) return;
+        if (event.key === "Escape") event.preventDefault();
+        if (event.key !== "Tab") return;
+
+        const buttons = [
+            document.getElementById("signupPromptCloseButton"),
+            document.getElementById("signupPromptRegisterButton"),
+            document.getElementById("signupPromptLoginButton")
+        ].filter(Boolean);
+        if (event.shiftKey && document.activeElement === buttons[0]) {
+            event.preventDefault();
+            buttons[buttons.length - 1].focus();
+        } else if (!event.shiftKey && document.activeElement === buttons[buttons.length - 1]) {
+            event.preventDefault();
+            buttons[0].focus();
+        }
+    });
 
 
     /* =====================================================
@@ -9031,6 +9266,8 @@ document
                 event ===
                 "SIGNED_OUT"
             ) {
+
+                signupRequired = false;
 
                 currentUser =
                     null;
@@ -9613,7 +9850,7 @@ document
 async function connectWithMember(memberId) {
 
     if (!currentUser) {
-        showSection("loginSection");
+        showSignupPrompt();
         return;
     }
 
@@ -9704,7 +9941,7 @@ function escapeHtml(value) {
 
 async function createPost() {
     if (!currentUser) {
-        showSection("loginSection");
+        showSignupPrompt();
         return;
     }
     const textarea = document.getElementById("shareContent");
@@ -9980,7 +10217,7 @@ async function loadPosts() {
 
 function createProject() {
   if (!currentUser) {
-    showSection("loginSection");
+    showSignupPrompt();
     return;
   }
 
@@ -10293,7 +10530,7 @@ async function deletePost(postId) {
 }
 async function shareFeedback() {
   if (!currentUser) {
-    showSection("loginSection");
+    showSignupPrompt();
     return;
   }
 
@@ -10419,7 +10656,7 @@ async function uploadProject(event) {
   event.preventDefault();
 
   if (!currentUser) {
-    showSection("loginSection");
+    showSignupPrompt();
     return;
   }
 
@@ -12019,6 +12256,11 @@ ownerChatForm.addEventListener("submit", async event => {
       </button>
 
       <div class="about-card">
+        <img
+          class="about-creator-photo"
+          src="creator-photo.jpeg"
+          alt="Esra'a E. Al-Johari"
+        >
         <p class="about-eyebrow">OUR COMMUNITY</p>
         <h2>About <span class="about-brand">EJ Designs Community</span></h2>
 
