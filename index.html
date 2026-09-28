@@ -3530,7 +3530,53 @@ box-shadow:
   width: 20px;
   height: 20px;
 }
+.quick-tab:hover .quick-label,
+.quick-tab:focus-visible .quick-label,
+.quick-tab.selected .quick-label {
+  animation: quickLabelShine 1.1s ease-in-out infinite;
+}
 
+@keyframes quickLabelShine {
+  0%, 100% {
+    text-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
+  }
+
+  50% {
+    text-shadow:
+      0 0 6px #fff,
+      0 0 14px #fff,
+      0 0 26px rgba(214, 184, 76, 1);
+  }
+}
+/* White glow on the quick-tab icon only */
+
+.quick-tab-home .quick-icon {
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  animation: homeIconGlow 1.2s ease-in-out infinite;
+}
+
+@keyframes homeIconGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.65));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 7px #fff)
+            drop-shadow(0 0 15px rgba(255, 255, 255, 1));
+  }
+}
+@keyframes homeIconGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.65));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 7px #fff)
+            drop-shadow(0 0 15px rgba(255, 255, 255, 1));
+  }
+}
     </style>
 
 
@@ -9118,21 +9164,15 @@ function selectQuickTab(button, sectionId) {
 
 <nav class="quick-tabs" aria-label="Quick navigation">
   <button
-    type="button"
-    class="quick-tab"
-    onclick="selectQuickTab(this, 'homeSection')"
-  >
-<svg class="quick-icon" viewBox="0 0 24 24" aria-hidden="true">
-  <path
-    d="M3 10.5 12 3l9 7.5M5 9v11h14V9M9 20v-6h6v6"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="1.8"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
-</svg>    <span class="quick-label">Home</span>
-  </button>
+  type="button"
+  class="quick-tab quick-tab-home"
+  onclick="selectQuickTab(this, 'homeSection')"
+>
+  <svg class="quick-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7" />
+  </svg>
+  <span class="quick-label">Home</span>
+</button>
 
   <button
     type="button"
