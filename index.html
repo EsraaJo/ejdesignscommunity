@@ -3677,7 +3677,14 @@ box-shadow:
 }
 
 .owner-chat-panel[hidden],
-.owner-chat-contacts[hidden] {
+.owner-chat-contacts[hidden],
+.owner-chat-form[hidden],
+#ownerChatDelete[hidden] {
+  display: none !important;
+}
+
+#ownerChatGuestName[hidden],
+#ownerChatGuestEmail[hidden] {
   display: none !important;
 }
 
@@ -3687,7 +3694,7 @@ box-shadow:
   bottom: 76px;
   display: flex;
   flex-direction: column;
-  width: 350px;
+  width: min(420px, calc(100vw - 44px));
   height: 460px;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -3696,12 +3703,26 @@ box-shadow:
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
 }
 
+.owner-chat-panel.is-expanded {
+  position: fixed;
+  z-index: 3100;
+  left: 50%;
+  right: auto;
+  bottom: 50%;
+  width: min(900px, calc(100vw - 40px));
+  height: min(820px, calc(100vh - 40px));
+  transform: translate(-50%, 50%);
+}
+
 .owner-chat-header {
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: 8px;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
   min-height: 70px;
-  padding: 12px 15px;
+  padding: 10px 12px;
   background: #111;
   color: #fff;
 }
@@ -3710,14 +3731,21 @@ box-shadow:
   display: flex;
   flex: 1;
   flex-direction: column;
+  min-width: 0;
   gap: 3px;
 }
 
 .owner-chat-heading strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 14px;
 }
 
 .owner-chat-heading span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   color: #d6b84c;
   font-size: 12px;
 }
@@ -3735,6 +3763,46 @@ box-shadow:
 
 .owner-chat-close:hover {
   background: rgba(255, 255, 255, 0.12);
+}
+
+.owner-chat-header-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 4px;
+}
+
+.owner-chat-expand,
+.owner-chat-close {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+  display: grid;
+  place-items: center;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 8px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.owner-chat-expand {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.owner-chat-close {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.owner-chat-expand:hover,
+.owner-chat-close:hover {
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .owner-chat-contacts {
@@ -3850,6 +3918,19 @@ box-shadow:
     width: auto;
     height: min(70vh, 460px);
   }
+
+  .owner-chat-panel.is-expanded {
+    left: 10px;
+    right: 10px;
+    bottom: 12px;
+    width: auto;
+    height: calc(100dvh - 24px);
+    transform: none;
+  }
+}
+
+.owner-chat-panel.is-expanded .owner-chat-contacts {
+  max-height: 180px;
 }
 .owner-chat-form {
   display: flex;
@@ -3889,12 +3970,21 @@ box-shadow:
 }
 
 .owner-chat-delete {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+  flex: 0 0 92px;
+  width: 92px;
+  max-width: 92px;
   padding: 7px 9px;
   border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 8px;
   background: transparent;
   color: #fff;
   font-size: 11px;
+  line-height: 1.2;
+  text-align: center;
+  white-space: normal;
   cursor: pointer;
 }
 
@@ -5387,11 +5477,32 @@ box-shadow:
   id="ownerChatDelete"
   class="owner-chat-delete"
   type="button"
-  onclick="ownerChatDeleteConversation()"
   hidden
 >
   Delete conversation
 </button>
+
+      <div class="owner-chat-header-actions">
+        <button
+          id="ownerChatExpand"
+          class="owner-chat-expand"
+          type="button"
+          aria-label="Expand chat"
+          aria-pressed="false"
+          title="Expand chat"
+        >
+          ⛶
+        </button>
+        <button
+          id="ownerChatClose"
+          class="owner-chat-close"
+          type="button"
+          aria-label="Close chat"
+          title="Close chat"
+        >
+          ×
+        </button>
+      </div>
     </header>
 
     <div id="ownerChatContacts" class="owner-chat-contacts" hidden></div>
@@ -5429,6 +5540,44 @@ box-shadow:
   </section>
 </div>
 <script>
+
+// Keep chat header controls responsive even if another page handler fails later.
+document.addEventListener("click", async event => {
+  const button = event.target.closest(
+    "#ownerChatDelete, #ownerChatExpand, #ownerChatClose"
+  );
+  if (!button) return;
+
+  event.preventDefault();
+  event.stopImmediatePropagation();
+
+  if (button.id === "ownerChatDelete") {
+    if (typeof window.ownerChatDeleteConversation === "function") {
+      await window.ownerChatDeleteConversation();
+    } else {
+      alert("Chat controls did not initialize. Refresh the page and try again.");
+    }
+    return;
+  }
+
+  const panel = button.closest(".owner-chat-panel");
+  if (!panel) return;
+
+  if (button.id === "ownerChatExpand") {
+    const expanded = panel.classList.toggle("is-expanded");
+    button.setAttribute("aria-pressed", String(expanded));
+    button.setAttribute("aria-label", expanded ? "Restore chat size" : "Expand chat");
+    button.title = expanded ? "Restore chat size" : "Expand chat";
+    return;
+  }
+
+  panel.hidden = true;
+  panel.classList.remove("is-expanded");
+  const expandButton = document.getElementById("ownerChatExpand");
+  expandButton?.setAttribute("aria-pressed", "false");
+  clearInterval(ownerChatRefreshTimer);
+  ownerChatRefreshTimer = null;
+});
 
 function togglePassword(inputId, button) {
 
@@ -5534,6 +5683,10 @@ let pendingProjectCoverProjectId = null;
 
         if (sectionId === "shareSection") {
             loadPosts();
+        }
+
+        if (sectionId === "shareIdeasSection") {
+            loadFeedback();
         }
     }
 }
@@ -8155,10 +8308,7 @@ async function createPost() {
         /* Clear text */
         textarea.value = "";
 
-        /* Reload posts immediately */
-        await loadPosts();
-
-        /* Make sure we stay on Share page */
+        /* Stay on the Share page; showSection refreshes the posts list. */
         showSection("shareSection");
 
     } catch (error) {
@@ -8172,10 +8322,6 @@ async function createPost() {
             "Something went wrong while creating the post."
         );
     }
-    
-  if (sectionId === "shareIdeasSection") {
-  loadFeedback();
-}  
 }
 async function loadPosts() {
 
@@ -8254,8 +8400,8 @@ async function loadPosts() {
                 profile?.avatar_url || "";
 
             const isOwner =
-  currentUser &&
-  String(currentUser.id) === String(project.owner_id);
+                currentUser &&
+                String(currentUser.id) === String(post.user_id);
 
             const postCard =
                 document.createElement("div");
@@ -9600,6 +9746,10 @@ async function openOwnerChat() {
     currentUser &&
     String(currentUser.id) === OWNER_CHAT_ID;
 
+  document.getElementById("ownerChatGuestName").hidden = Boolean(currentUser);
+  document.getElementById("ownerChatGuestEmail").hidden = Boolean(currentUser);
+  ownerChatForm.hidden = Boolean(isOwner);
+
   ownerChatContacts.hidden = !isOwner;
 
   if (isOwner) {
@@ -9633,6 +9783,10 @@ ownerChatRefreshTimer = setInterval(ownerChatRefresh, 5000);
 }
 
 async function ownerChatLoadInbox() {
+  ownerChatContacts.hidden = false;
+  ownerChatContacts.innerHTML =
+    '<p class="owner-chat-empty">Loading conversations...</p>';
+
   const { data: messages, error } = await db
     .from("owner_messages")
     .select("sender_id, recipient_id, guest_name, guest_email, body, created_at")
@@ -9642,6 +9796,8 @@ async function ownerChatLoadInbox() {
 
   if (error) {
     console.error(error);
+    ownerChatContacts.innerHTML =
+      '<p class="owner-chat-empty">Could not load conversations.</p>';
     ownerChatMessages.innerHTML =
       '<p class="owner-chat-empty">Could not load messages.</p>';
     return;
@@ -9702,6 +9858,7 @@ async function ownerChatLoadInbox() {
   if (!list.length) {
     ownerChatActiveUserId = null;
     ownerChatActiveGuestEmail = null;
+    ownerChatForm.hidden = true;
     ownerChatContacts.innerHTML = "";
     ownerChatMessages.innerHTML =
       '<p class="owner-chat-empty">No messages yet.</p>';
@@ -9744,7 +9901,9 @@ async function ownerChatLoadInbox() {
   if (selected.guestEmail) {
     ownerChatActiveUserId = null;
     ownerChatActiveGuestEmail = selected.guestEmail;
-    ownerChatForm.hidden = true;
+    ownerChatForm.hidden = false;
+    document.getElementById("ownerChatGuestName").hidden = true;
+    document.getElementById("ownerChatGuestEmail").hidden = true;
 
     document.getElementById("ownerChatHeaderName").textContent = selected.name;
     document.getElementById("ownerChatHeaderStatus").textContent =
@@ -9756,6 +9915,8 @@ async function ownerChatLoadInbox() {
     ownerChatActiveGuestEmail = null;
     ownerChatActiveUserId = selected.userId;
     ownerChatForm.hidden = false;
+    document.getElementById("ownerChatGuestName").hidden = true;
+    document.getElementById("ownerChatGuestEmail").hidden = true;
 
     const profile = ownerChatProfiles[selected.userId];
     document.getElementById("ownerChatHeaderName").textContent =
@@ -9779,16 +9940,15 @@ async function ownerChatLoadGuestMessages() {
   try {
     const { data: messages, error } = await db
       .from("owner_messages")
-      .select("guest_name, guest_email, body, created_at")
+      .select("sender_id, guest_name, guest_email, body, created_at")
       .eq("recipient_id", OWNER_CHAT_ID)
-      .is("sender_id", null)
       .eq("guest_email", ownerChatActiveGuestEmail)
       .order("created_at", { ascending: true });
 
     if (error) throw error;
 
     ownerChatMessages.innerHTML = (messages || []).map(message => `
-      <div class="owner-chat-bubble">
+      <div class="owner-chat-bubble ${message.sender_id === OWNER_CHAT_ID ? "mine" : ""}">
         ${ownerChatEscape(message.body)}
       </div>
     `).join("") || '<p class="owner-chat-empty">No messages yet.</p>';
@@ -9857,7 +10017,6 @@ async function ownerChatDeleteConversation() {
   if (ownerChatActiveGuestEmail) {
     query = query
       .eq("recipient_id", OWNER_CHAT_ID)
-      .is("sender_id", null)
       .ilike("guest_email", ownerChatActiveGuestEmail);
   } else {
     query = query.or(
@@ -9896,17 +10055,36 @@ async function ownerChatRefresh() {
   }
 }
 
+window.ownerChatDeleteConversation = ownerChatDeleteConversation;
+
+window.ownerChatToggleSize = function () {
+  const ownerChatExpandButton = document.getElementById("ownerChatExpand");
+  const isExpanded = ownerChatPanel.classList.toggle("is-expanded");
+  ownerChatExpandButton.setAttribute("aria-pressed", String(isExpanded));
+  ownerChatExpandButton.setAttribute(
+    "aria-label",
+    isExpanded ? "Restore chat size" : "Expand chat"
+  );
+  ownerChatExpandButton.title = isExpanded ? "Restore chat size" : "Expand chat";
+};
+
+const ownerChatExpandButton = document.getElementById("ownerChatExpand");
+
 document.getElementById("ownerChatLauncher").addEventListener("click", () => {
   if (ownerChatPanel.hidden) {
     openOwnerChat();
   } else {
     ownerChatPanel.hidden = true;
+    ownerChatPanel.classList.remove("is-expanded");
+    ownerChatExpandButton.setAttribute("aria-pressed", "false");
     clearInterval(ownerChatRefreshTimer);
   }
 });
 
 document.getElementById("ownerChatClose").addEventListener("click", () => {
   ownerChatPanel.hidden = true;
+  ownerChatPanel.classList.remove("is-expanded");
+  ownerChatExpandButton.setAttribute("aria-pressed", "false");
   clearInterval(ownerChatRefreshTimer);
 });
 
@@ -9920,7 +10098,9 @@ async function ownerChatSelectConversation(button) {
   if (button.dataset.chatEmail) {
     ownerChatActiveGuestEmail = button.dataset.chatEmail;
     ownerChatActiveUserId = null;
-    ownerChatForm.hidden = true;
+    ownerChatForm.hidden = false;
+    document.getElementById("ownerChatGuestName").hidden = true;
+    document.getElementById("ownerChatGuestEmail").hidden = true;
 
     document.getElementById("ownerChatHeaderName").textContent =
       button.querySelector("strong")?.textContent || "Website visitor";
@@ -9933,6 +10113,8 @@ async function ownerChatSelectConversation(button) {
     ownerChatActiveUserId = button.dataset.chatUser;
     ownerChatActiveGuestEmail = null;
     ownerChatForm.hidden = false;
+    document.getElementById("ownerChatGuestName").hidden = true;
+    document.getElementById("ownerChatGuestEmail").hidden = true;
 
     await ownerChatLoadMessages();
   }
@@ -9952,8 +10134,9 @@ ownerChatForm.addEventListener("submit", async event => {
   const isOwner =
     currentUser && String(currentUser.id) === OWNER_CHAT_ID;
 
+  const isGuestConversation = Boolean(isOwner && ownerChatActiveGuestEmail);
   const recipientId = isOwner
-    ? ownerChatActiveUserId
+    ? (isGuestConversation ? OWNER_CHAT_ID : ownerChatActiveUserId)
     : OWNER_CHAT_ID;
 
   if (!recipientId || !body) return;
@@ -9968,8 +10151,12 @@ ownerChatForm.addEventListener("submit", async event => {
     .insert({
       sender_id: currentUser ? currentUser.id : null,
       recipient_id: recipientId,
-      guest_name: currentUser ? null : nameInput.value.trim(),
-      guest_email: currentUser ? null : emailInput.value.trim(),
+      guest_name: currentUser
+        ? (isGuestConversation ? document.getElementById("ownerChatHeaderName").textContent : null)
+        : nameInput.value.trim(),
+      guest_email: currentUser
+        ? (isGuestConversation ? ownerChatActiveGuestEmail : null)
+        : emailInput.value.trim(),
       body
     });
     
@@ -9986,7 +10173,11 @@ ownerChatForm.addEventListener("submit", async event => {
     ownerChatMessages.innerHTML =
       '<p class="owner-chat-empty">Your message was sent. Thank you!</p>';
   } else if (isOwner) {
-    await ownerChatLoadInbox();
+    if (isGuestConversation) {
+      await ownerChatLoadGuestMessages();
+    } else {
+      await ownerChatLoadInbox();
+    }
   } else {
     await ownerChatLoadMessages();
   }
