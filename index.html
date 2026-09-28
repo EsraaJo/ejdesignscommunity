@@ -6834,20 +6834,6 @@ document.addEventListener("click", function(event) {
     showSignupPrompt();
 }, true);
 
-document.addEventListener("contextmenu", function(event) {
-    const target = event.target;
-    if (!currentUser && target instanceof Element && target.closest("img")) {
-        event.preventDefault();
-    }
-}, true);
-
-document.addEventListener("dragstart", function(event) {
-    const target = event.target;
-    if (!currentUser && target instanceof Element && target.closest("img")) {
-        event.preventDefault();
-    }
-}, true);
-
 let editingProjectId = null;
 let editingProjectMedia = [];
 
