@@ -3577,6 +3577,46 @@ box-shadow:
             drop-shadow(0 0 15px rgba(255, 255, 255, 1));
   }
 }
+.community-word .c-letter {
+  position: relative;
+  display: inline-block;
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.4);
+}
+
+.community-word .c-letter::before,
+.community-word .c-letter::after {
+  position: absolute;
+  color: #fff;
+  pointer-events: none;
+  animation: cSparkle 2s ease-in-out infinite;
+}
+
+.community-word .c-letter::before {
+  content: "✦";
+  top: 2px;
+  right: -9px;
+  font-size: 9px;
+}
+
+.community-word .c-letter::after {
+  content: "✧";
+  bottom: 5px;
+  left: -8px;
+  font-size: 8px;
+  animation-delay: 0.8s;
+}
+
+@keyframes cSparkle {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
     </style>
 
 
