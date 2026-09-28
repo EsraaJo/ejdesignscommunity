@@ -2331,8 +2331,8 @@ select {
 
 @media (max-width: 700px) {
   .projects-grid {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
 
   .project-upload-card {
     padding: 18px;
@@ -3312,6 +3312,12 @@ margin: 36px auto 18px !important;}
 .quick-tab:focus-visible .quick-label {
   opacity: 1;
 }
+@media (max-width: 450px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
     </style>
 
 <link
