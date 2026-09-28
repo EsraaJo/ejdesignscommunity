@@ -9442,45 +9442,40 @@ async function ownerChatGetProfile(userId) {
 }
 
 async function openOwnerChat() {
-  if (!currentUser) {
-    alert("Please log in to send a message.");
-    showSection("loginSection");
-    return;
-  }
-
   ownerChatPanel.hidden = false;
 
-  const isOwner = String(currentUser.id) === OWNER_CHAT_ID;
+  const isOwner =
+    currentUser &&
+    String(currentUser.id) === OWNER_CHAT_ID;
 
   ownerChatContacts.hidden = !isOwner;
-  ownerChatForm.hidden = false;
 
   if (isOwner) {
-    document.getElementById("ownerChatHeaderName").textContent = "Your inbox";
+    document.getElementById("ownerChatHeaderName").textContent =
+      "Your inbox";
     document.getElementById("ownerChatHeaderStatus").textContent =
       "Messages from community members";
+
     await ownerChatLoadInbox();
   } else {
     ownerChatActiveUserId = OWNER_CHAT_ID;
+
     const ownerProfile = await ownerChatGetProfile(OWNER_CHAT_ID);
 
     document.getElementById("ownerChatHeaderName").textContent =
       ownerProfile.full_name || "Site Owner";
-
     document.getElementById("ownerChatHeaderStatus").textContent =
       "Site Owner";
-
     document.getElementById("ownerChatHeaderAvatar").innerHTML =
       ownerChatAvatar(ownerProfile);
 
-    document.getElementById("ownerChatLauncherAvatar").innerHTML =
-      ownerChatAvatar(ownerProfile);
-
-    await ownerChatLoadMessages();
+    if (currentUser) {
+      await ownerChatLoadMessages();
+    } else {
+      ownerChatMessages.innerHTML =
+        '<p class="owner-chat-empty">Send me a message.</p>';
+    }
   }
-
-  clearInterval(ownerChatRefreshTimer);
-  ownerChatRefreshTimer = setInterval(ownerChatRefresh, 6000);
 }
 
 async function ownerChatLoadInbox() {
