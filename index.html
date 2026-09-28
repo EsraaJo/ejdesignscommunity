@@ -204,7 +204,7 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
             inset: 0;
             z-index: -1;
             pointer-events: none;
-            opacity: 0.58;
+            opacity: 0.27;
             background-image:
                 radial-gradient(circle, transparent 0 184px, rgba(214, 184, 76, 0.32) 185px 186px, transparent 187px),
                 radial-gradient(circle, transparent 0 118px, rgba(214, 184, 76, 0.34) 119px 120px, transparent 121px),
@@ -445,6 +445,201 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
             position: relative;
 
             z-index: 2;
+        }
+
+        .global-search {
+            position: absolute;
+            top: 22px;
+            left: 24px;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            width: min(420px, calc(100% - 60px));
+            height: 52px;
+            padding: 5px 6px 5px 18px;
+            border: 1px solid rgba(255,255,255,.22);
+            border-radius: 999px;
+            background: #1b1b1b;
+            box-shadow: 0 6px 18px rgba(0,0,0,.22);
+        }
+
+        .global-search:focus-within {
+            border-color: #d6b84c;
+            box-shadow: 0 0 0 4px rgba(214,184,76,.2), 0 10px 26px rgba(0,0,0,.3);
+            transform: scale(1.025);
+        }
+
+        .global-search input {
+            flex: 1;
+            min-width: 0;
+            height: 100%;
+            padding: 0 8px;
+            border: 0;
+            outline: 0;
+            color: #fff;
+            background: transparent;
+            font: inherit;
+            font-size: 15px;
+        }
+
+        .global-search input::placeholder { color: #aaa; }
+
+        .global-search button {
+            display: grid;
+            flex: 0 0 40px;
+            width: 40px;
+            height: 40px;
+            place-items: center;
+            padding: 0;
+            border: 0;
+            border-radius: 50%;
+            color: #111;
+            background: #d6b84c;
+            cursor: pointer;
+        }
+
+        .global-search button:hover { background: #ead578; }
+
+        .global-search button svg {
+            width: 19px;
+            height: 19px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+
+        .global-search-quick-filters {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            display: flex;
+            gap: 7px;
+            padding: 10px;
+            border: 1px solid rgba(214,184,76,.55);
+            border-radius: 13px;
+            background: #111;
+            box-shadow: 0 12px 26px rgba(0,0,0,.3);
+        }
+        .global-search-quick-filters[hidden] { display: none; }
+        .global-search-quick-filters button {
+            width: auto;
+            height: auto;
+            min-height: 32px;
+            padding: 6px 12px;
+            border: 1px solid #454545;
+            border-radius: 999px;
+            color: #fff;
+            background: #202020;
+            font: inherit;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .global-search-quick-filters button:hover,
+        .global-search-quick-filters button.is-active { color: #111; border-color: #d6b84c; background: #d6b84c; }
+
+        .global-search-results { padding: 24px; }
+        .global-search-results h2 { margin-bottom: 8px; }
+        .global-search-query { margin: 0 0 18px; color: #666; }
+        .search-results-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin: 0 0 22px; }
+        .global-search-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+        .global-search-filter {
+            padding: 8px 14px;
+            border: 1px solid #3b3b3b;
+            border-radius: 999px;
+            color: #fff;
+            background: linear-gradient(135deg, #171717, #29251a);
+            font: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 3px 9px rgba(0,0,0,.1);
+            cursor: pointer;
+            transition: border-color .18s ease, background .18s ease, color .18s ease, transform .18s ease;
+        }
+        .global-search-filter.is-active,
+        .global-search-filter:hover {
+            border-color: #e3c957;
+            color: #111;
+            background: linear-gradient(135deg, #ead578, #d6b84c);
+            transform: translateY(-1px);
+        }
+        .search-results-search {
+            display: flex;
+            flex: 1 1 440px;
+            align-items: center;
+            min-width: 280px;
+            height: 48px;
+            padding: 4px 5px 4px 16px;
+            border: 1px solid #d6b84c;
+            border-radius: 999px;
+            background: #fff;
+            box-shadow: 0 3px 10px rgba(0,0,0,.06);
+        }
+        .search-results-search input {
+            flex: 1;
+            min-width: 0;
+            height: 100%;
+            border: 0;
+            outline: 0;
+            color: #222;
+            background: transparent;
+            font: inherit;
+            font-size: 15px;
+        }
+        .search-results-search button {
+            display: grid;
+            flex: 0 0 38px;
+            width: 38px;
+            height: 38px;
+            place-items: center;
+            border: 0;
+            border-radius: 50%;
+            color: #fff;
+            background: #171717;
+            cursor: pointer;
+        }
+        .search-results-search button:hover { color: #111; background: #d6b84c; }
+        .search-results-search svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+        @media (max-width: 680px) {
+            .search-results-toolbar { align-items: stretch; flex-direction: column; }
+            .search-results-search { flex: 1 1 auto; width: 100%; box-sizing: border-box; }
+        }
+        .global-search-group { margin-top: 22px; }
+        .global-search-group h3 { margin: 0 0 10px; color: #171717; font-size: 16px; }
+        .global-search-list { display: grid; gap: 9px; }
+        .global-search-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 11px 13px;
+            border: 1px solid #e8e5dc;
+            border-radius: 10px;
+            color: #171717;
+            background: #fff;
+            text-align: left;
+            cursor: pointer;
+            transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+        }
+        .global-search-item:hover { border-color: #d6b84c; transform: translateY(-1px); box-shadow: 0 5px 15px rgba(0,0,0,.06); }
+        .global-search-item img,
+        .global-search-thumb {
+            flex: 0 0 54px;
+            width: 54px;
+            height: 54px;
+            border-radius: 9px;
+            object-fit: cover;
+            background: #f1eee4;
+        }
+        .global-search-thumb { display: grid; place-items: center; color: #9b812b; font-size: 20px; font-weight: 700; }
+        .global-search-item-copy { display: grid; min-width: 0; gap: 4px; }
+        .global-search-item-copy strong { font-size: 14px; }
+        .global-search-item-copy span { overflow: hidden; color: #666; font-size: 12px; text-overflow: ellipsis; }
+        .global-search-empty { padding: 16px; border: 1px dashed #d8d5cc; border-radius: 10px; color: #666; text-align: center; }
+
+        @media (max-width: 700px) {
+            .global-search { position: relative; top: auto; left: auto; width: min(100%, 420px); margin: 16px auto 0; transform: none; }
+            .global-search-results { padding: 18px 14px; }
         }
 
 
@@ -1150,6 +1345,33 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
             word-break: break-word;
         }
 
+        .profile-cv-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            margin-top: 3px;
+            padding: 9px 16px;
+            border: 1px solid #d6b84c;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #171717, #29251a);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.2;
+            text-decoration: none;
+            white-space: nowrap;
+            box-shadow: 0 3px 12px rgba(214,184,76,.22);
+            transition: background .18s ease, transform .18s ease, box-shadow .18s ease;
+        }
+
+        .profile-cv-button:hover {
+            background: linear-gradient(135deg, #29251a, #3a321c);
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 5px 13px rgba(214,184,76,.28);
+        }
+
 
         /* =====================================================
            SOCIAL LINKS
@@ -1380,6 +1602,101 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
 
             border:
                 1px solid #333;
+        }
+
+        .cv-visibility-option {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            margin-top: 8px;
+            padding: 15px 17px;
+            border: 1px solid rgba(214, 184, 76, .62);
+            border-radius: 12px;
+            background: linear-gradient(110deg, #fffdf5, #f5f1e5);
+            box-shadow: 0 5px 18px rgba(0, 0, 0, .16);
+            cursor: pointer;
+            transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
+        }
+
+        .cv-visibility-option:hover {
+            border-color: #d6b84c;
+            background: linear-gradient(110deg, #ffffff, #f8f2dc);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, .2);
+        }
+
+        .cv-visibility-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .cv-visibility-title {
+            color: #171717;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0;
+            text-transform: none;
+        }
+
+        .cv-visibility-description {
+            color: #5f5b50;
+            font-size: 12px;
+            line-height: 1.5;
+            font-weight: 400;
+            letter-spacing: 0;
+            text-transform: none;
+        }
+
+        .cv-visibility-option input {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .cv-switch-track {
+            position: relative;
+            flex: 0 0 48px;
+            width: 48px;
+            height: 27px;
+            border-radius: 999px;
+            background: #c9c9c9;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,.18);
+            transition: background .2s ease, box-shadow .2s ease;
+        }
+
+        .cv-switch-track::after {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 21px;
+            height: 21px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 1px 4px rgba(0,0,0,.22);
+            transition: transform .2s ease;
+        }
+
+        .cv-visibility-option input:checked + .cv-visibility-copy + .cv-switch-track {
+            background: #d6b84c;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,.14), 0 0 0 3px rgba(214,184,76,.14);
+        }
+
+        .cv-visibility-option input:checked + .cv-visibility-copy + .cv-switch-track::after {
+            transform: translateX(21px);
+        }
+
+        .cv-visibility-option input:focus-visible + .cv-visibility-copy + .cv-switch-track {
+            outline: 3px solid rgba(214,184,76,.4);
+            outline-offset: 3px;
         }
 
 
@@ -1700,6 +2017,38 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
     font-size: 17px;
 }
 
+.member-cv-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 22px;
+    margin: 0;
+    padding: 4px 10px;
+    border: 1px solid rgba(214, 184, 76, .55);
+    border-radius: 999px;
+    background: rgba(214, 184, 76, .13);
+    color: #806817;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.member-cv-section .member-cv-link {
+    display: inline-flex;
+    margin: 8px 8px 0 0;
+    padding: 8px 13px;
+    border: 1px solid rgba(214, 184, 76, .45);
+    border-radius: 8px;
+    color: #111;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.member-cv-section .member-cv-link:hover {
+    background: rgba(214, 184, 76, .16);
+}
+
 
 .member-profession {
 
@@ -1845,6 +2194,34 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
     margin: 0 0 15px;
 }
 
+.post-image-picker {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 2px 0 12px;
+    padding: 12px 15px;
+    border: 1px solid #dedede;
+    border-radius: 9px;
+    color: #222;
+    background: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.post-image-picker:hover { border-color: #d6b84c; background: #fffdf5; box-shadow: 0 0 0 3px rgba(214,184,76,.13); }
+.post-image-picker > span { display: grid; width: 28px; height: 28px; place-items: center; border-radius: 50%; color: #111; background: #e2c64e; font-size: 20px; line-height: 1; }
+.post-image-picker small { color: #777; font-size: 12px; font-weight: 400; }
+.post-image-input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; clip-path: inset(50%); }
+.share-image-preview { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; color: #555; font-size: 12px; }
+.share-image-preview[hidden] { display: none; }
+.share-image-preview img { width: 88px; height: 68px; border-radius: 8px; object-fit: cover; border: 1px solid #ddd; }
+.share-image-preview button { border: 1px solid #ddd; border-radius: 7px; padding: 6px 10px; color: #8d2222; background: #fff; cursor: pointer; }
+.post-form-message { margin: 0 0 12px; color: #6d5a15; font-size: 13px; }
+.post-cancel-edit { margin-left: 8px; padding: 10px 16px; border: 1px solid #ccc; border-radius: 8px; color: #222; background: #fff; cursor: pointer; }
+
 
 .community-action-btn {
 
@@ -1906,6 +2283,13 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
 
     padding: 20px 22px;
 }
+
+.post-image { display: block; width: auto; max-width: 100%; max-height: 440px; margin: 16px auto 0; border-radius: 10px; object-fit: contain; }
+.post-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; padding-top: 12px; border-top: 1px solid #303030; }
+.post-action-button { min-width: 78px; padding: 7px 13px; border: 1px solid #555; border-radius: 7px; color: #fff; background: #1c1c1c; font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; transition: .18s ease; }
+.post-action-button:hover { border-color: #d6b84c; color: #111; background: #d6b84c; }
+.post-action-button.is-danger { border-color: #713838; color: #ffdede; }
+.post-action-button.is-danger:hover { border-color: #df5b5b; color: #fff; background: #a92e2e; }
 
 .share-page-card,
 .post-card {
@@ -2974,6 +3358,60 @@ select {
 .member-projects-grid .project-card {
   border-color: rgba(214, 184, 76, .22);
   box-shadow: 0 4px 14px rgba(214, 184, 76, .07);
+  color: #171717;
+  background: #fff;
+}
+
+.member-projects-grid .project-card img {
+  width: 100%;
+  height: 110px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.member-projects-grid {
+  grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+  gap: 12px;
+}
+
+.member-projects-grid .project-card {
+  width: 100%;
+  max-width: 165px;
+  justify-self: center;
+  border-radius: 11px;
+}
+
+.member-projects-grid .project-card-content {
+  padding: 10px 11px 12px;
+}
+
+.member-projects-grid .project-card h4 {
+  margin: 0 0 5px;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.member-projects-grid .project-card p {
+  margin: 4px 0 0;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.member-projects-grid .project-card p:nth-of-type(2) {
+  display: none;
+}
+
+.member-projects-grid .project-card-content,
+.member-projects-grid .project-card h4 {
+  color: #171717;
+}
+
+.member-projects-grid .project-card p {
+  color: #666;
+}
+
+body:has(#memberProfileSection.active) .contact-links {
+  display: none !important;
 }
 
 #memberProfileSection .community-page {
@@ -3095,6 +3533,7 @@ select {
 }
 
 .member-card {
+  position: relative;
   padding: 20px;
   background: #fff;
   border: 1px solid #e8e5dc;
@@ -3140,10 +3579,17 @@ select {
 
 .member-connect-btn,
 .member-view-profile-btn {
-  display: inline-block;
-  width: auto;
-  min-width: 120px;
-  margin: 6px 3px 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(50% - 7px);
+  min-width: 0;
+  min-height: 35px;
+  margin: 6px 2px 0;
+  padding: 7px 4px;
+  font-size: 11px;
+  line-height: 1.15;
+  white-space: nowrap;
 }
 
 .member-connect-btn {
@@ -3206,16 +3652,97 @@ select {
   line-height: 1.5;
 }
 
-.member-connection-button {
+/* Restore the site's black and gold theme on public member profiles. */
+.member-profile-card {
+  color: #f5f5f5;
+  background: #111;
+  border: 1px solid rgba(214, 184, 76, .38);
+  border-top: 3px solid #d6b84c;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .18);
+}
+
+.member-profile-header {
+  border-bottom-color: rgba(214, 184, 76, .28);
+}
+
+.member-profile-photo,
+.member-profile-placeholder {
+  border: 2px solid #d6b84c;
+}
+
+.member-profile-heading h2 {
   color: #fff;
-  background: #151515;
-  border-color: #151515;
+}
+
+.member-profile-heading p {
+  color: #c4c4c4;
+}
+
+.member-profile-info {
+  background: #191919;
+  border: 1px solid rgba(214, 184, 76, .26);
+  border-left: 3px solid #d6b84c;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
+}
+
+.member-profile-info h3,
+.member-projects > h3 {
+  color: #e0c458;
+}
+
+.member-profile-info p {
+  color: #e1e1e1;
+}
+
+.member-profile-links a {
+  color: #f5f5f5;
+  background: #191919;
+  border-color: rgba(214, 184, 76, .35);
+}
+
+.member-profile-links a:hover {
+  color: #111;
+  background: #d6b84c;
+}
+
+.member-projects {
+  border-top-color: rgba(214, 184, 76, .3);
+}
+
+.member-cv-section .member-cv-link {
+  color: #fff;
+  background: linear-gradient(135deg, #171717, #29251a);
+  border-color: #d6b84c;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(214,184,76,.16);
+  transition: transform .18s ease, background .18s ease, color .18s ease, box-shadow .18s ease;
+}
+
+.member-cv-section .member-cv-link:hover {
+  color: #111;
+  background: #d6b84c;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(214,184,76,.24);
+}
+
+.member-connection-button {
+  min-height: 38px;
+  padding: 9px 15px;
+  color: #111;
+  background: linear-gradient(135deg, #e3c957, #d6b84c);
+  border: 1px solid #f0d76b;
+  border-radius: 9px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(214, 184, 76, .22);
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
 }
 
 .member-connection-button:hover {
-  color: #151515;
-  background: #d6b84c;
-  border-color: #d6b84c;
+  color: #111;
+  background: #f0d76b;
+  border-color: #f0d76b;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(214, 184, 76, .32);
 }
 
 @media (max-width: 900px) {
@@ -3516,6 +4043,26 @@ box-shadow:
 .quick-tab:focus-visible .quick-label {
   opacity: 1;
 }
+
+@media (hover: none) and (pointer: coarse) {
+  .quick-tab:hover,
+  .quick-tab:focus-visible {
+    width: 48px;
+    transform: none;
+  }
+
+  .quick-tab:hover .quick-label,
+  .quick-tab:focus-visible .quick-label,
+  .quick-tab.selected .quick-label {
+    opacity: 0;
+  }
+
+  .quick-tab.selected {
+    width: 48px;
+    outline: 2px solid rgba(17, 17, 17, 0.55);
+    outline-offset: 2px;
+  }
+}
 @media (max-width: 450px) {
   .projects-grid {
     grid-template-columns: 1fr;
@@ -3576,6 +4123,33 @@ box-shadow:
   gap: 6px;
 }
 
+/* Give the community project carousel enough room to show multiple cards. */
+#projectSection .project-gallery {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 28px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+#projectSection .projects-grid {
+  width: 100% !important;
+  max-width: 100%;
+  padding: 8px 4px 14px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  #projectSection .project-gallery {
+    max-width: calc(100vw - 28px);
+    padding: 12px;
+  }
+
+  #projectSection .projects-grid {
+    width: 100% !important;
+  }
+}
+
 #projectSection .project-action-button {
   padding: 7px 9px;
   font-size: 11px;
@@ -3618,9 +4192,55 @@ box-shadow:
 /* Restore the upload form to its previous width */
 #projectSection .project-upload-card {
   width: 100%;
-  max-width: 760px !important;
-  margin: 30px auto 45px !important;
+  max-width: 680px !important;
+  margin: 24px auto 36px !important;
+  padding: 24px !important;
   box-sizing: border-box;
+}
+
+#projectSection .project-upload-card label {
+  margin-top: 12px;
+  color: #333;
+  font-size: 13px;
+}
+
+#projectSection .project-upload-card input:not([type="file"]),
+#projectSection .project-upload-card textarea,
+#projectSection .project-upload-card select {
+  padding: 10px 12px;
+  font-size: 13px;
+  border-color: #dedbd2;
+  border-radius: 8px;
+}
+
+#projectSection .project-upload-card textarea {
+  min-height: 105px;
+  line-height: 1.5;
+}
+
+.project-form-message {
+  margin: 14px 0;
+  padding: 11px 13px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.project-form-message.is-error {
+  color: #8f2525;
+  background: #fff0f0;
+  border: 1px solid #efcaca;
+}
+
+.project-form-message.is-success {
+  color: #22613a;
+  background: #edf8f0;
+  border: 1px solid #c8e7d0;
+}
+
+#projectSubmitButton:disabled {
+  opacity: .7;
+  cursor: wait;
 }
 #projectSection .project-gallery {
   max-width: 480px;
@@ -3696,6 +4316,25 @@ box-shadow:
     max-width: 100%;
   }
 }
+/* Match the gallery width to the project upload form below it. */
+#projectSection .project-gallery {
+  width: 100%;
+  max-width: 680px;
+  box-sizing: border-box;
+}
+
+#projectSection .projects-grid {
+  width: 100% !important;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 700px) {
+  #projectSection .project-gallery {
+    max-width: calc(100vw - 32px);
+  }
+}
+
 .quick-tab.selected {
   width: 155px;
 }
@@ -4043,6 +4682,7 @@ box-shadow:
 }
 
 .owner-chat-expand,
+.owner-chat-voice,
 .owner-chat-close {
   position: relative;
   z-index: 2;
@@ -4065,12 +4705,18 @@ box-shadow:
   line-height: 1;
 }
 
+.owner-chat-voice {
+  font-size: 14px;
+  line-height: 1;
+}
+
 .owner-chat-close {
   font-size: 24px;
   line-height: 1;
 }
 
 .owner-chat-expand:hover,
+.owner-chat-voice:hover,
 .owner-chat-close:hover {
   background: rgba(255, 255, 255, 0.14);
 }
@@ -4243,23 +4889,25 @@ box-shadow:
   position: relative;
   z-index: 2;
   pointer-events: auto;
-  flex: 0 0 92px;
-  width: 92px;
-  max-width: 92px;
-  padding: 7px 9px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  display: grid;
+  place-items: center;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid rgba(239, 83, 80, .72);
   border-radius: 8px;
-  background: transparent;
-  color: #fff;
-  font-size: 11px;
-  line-height: 1.2;
-  text-align: center;
-  white-space: normal;
+  background: rgba(175, 38, 38, .14);
+  color: #ff7773;
   cursor: pointer;
+  transition: background .18s ease, color .18s ease, transform .18s ease;
 }
 
 .owner-chat-delete:hover {
-  background: #a83232;
+  background: #b83232;
+  border-color: #e34b4b;
+  color: #fff;
+  transform: translateY(-1px);
 }
 
 .owner-chat-contact-details {
@@ -4393,6 +5041,19 @@ box-shadow:
         <span class="site-title-brand">EJ Designs</span> <span class="community-word"><span class="c-letter">C</span>ommunity</span>
     </h1>
 
+    <form class="global-search" id="globalSearchForm" role="search" onsubmit="submitGlobalSearch(event)">
+        <input id="globalSearchInput" type="search" placeholder="Search people, projects, or posts..." aria-label="Search people, projects, or posts">
+        <button type="submit" aria-label="Search" title="Search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+        </button>
+        <div id="globalSearchQuickFilters" class="global-search-quick-filters" role="group" aria-label="Choose what to search" hidden>
+            <button type="button" class="is-active" onclick="chooseQuickSearchFilter('all', this)">All</button>
+            <button type="button" onclick="chooseQuickSearchFilter('people', this)">People</button>
+            <button type="button" onclick="chooseQuickSearchFilter('projects', this)">Projects</button>
+            <button type="button" onclick="chooseQuickSearchFilter('posts', this)">Posts</button>
+        </div>
+    </form>
+
 
     <p class="site-tagline-shimmer">
         Design. Connect. Create.
@@ -4443,6 +5104,31 @@ box-shadow:
     </nav>
 
 </header>
+
+<section id="searchResultsSection" class="page-section">
+    <main>
+        <div class="community-page global-search-results">
+            <button class="page-back-btn" type="button" onclick="showSection('homeSection')">← Home</button>
+            <h2>Search the Community</h2>
+            <p id="globalSearchQuery" class="global-search-query"></p>
+            <div class="search-results-toolbar">
+              <div class="global-search-filters" role="group" aria-label="Filter search results">
+                  <button type="button" class="global-search-filter is-active" data-search-filter="all" onclick="filterGlobalSearch('all')">All</button>
+                  <button type="button" class="global-search-filter" data-search-filter="people" onclick="filterGlobalSearch('people')">People</button>
+                  <button type="button" class="global-search-filter" data-search-filter="projects" onclick="filterGlobalSearch('projects')">Projects</button>
+                  <button type="button" class="global-search-filter" data-search-filter="posts" onclick="filterGlobalSearch('posts')">Posts</button>
+              </div>
+              <form class="search-results-search" onsubmit="submitSearchResultsSearch(event)" role="search">
+                <input id="searchResultsInput" type="search" placeholder="Search again..." aria-label="Search again">
+                <button type="submit" aria-label="Search" title="Search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg></button>
+              </form>
+            </div>
+            <div id="globalSearchResults" aria-live="polite">
+                <div class="global-search-empty">Search for a person, project, or post.</div>
+            </div>
+        </div>
+    </main>
+</section>
 
 
 <!-- =====================================================
@@ -4670,12 +5356,30 @@ box-shadow:
                     placeholder="Share something with the community..."
                 ></textarea>
 
+                <label class="post-image-picker" for="shareImage">
+                    <span aria-hidden="true">＋</span> Add an image <small>(optional)</small>
+                </label>
+                <input id="shareImage" class="post-image-input" type="file" accept="image/*" onchange="handlePostImageSelection(this)">
+                <div id="shareImagePreview" class="share-image-preview" hidden></div>
+                <p id="postFormMessage" class="post-form-message" role="status" aria-live="polite" hidden></p>
+
 
                 <button
+                    id="shareSubmitButton"
                     class="community-action-btn"
+                    type="button"
                     onclick="createPost()"
                 >
                     Share
+                </button>
+                <button
+                    id="cancelPostEditButton"
+                    class="post-cancel-edit"
+                    type="button"
+                    onclick="cancelPostEdit()"
+                    hidden
+                >
+                    Cancel edit
                 </button>
 
             </div>
@@ -4924,6 +5628,8 @@ box-shadow:
           <p class="project-upload-note">
             Choose one or more images. Maximum size: 10 MB per image.
           </p>
+
+          <p id="projectError" class="project-form-message" role="status" aria-live="polite" hidden></p>
 
           <button
   id="projectSubmitButton"
@@ -5428,6 +6134,11 @@ box-shadow:
 
                         </div>
 
+                        <div class="profile-row" id="profileCvRow" hidden>
+                            <span class="profile-label">CV &amp; Experience</span>
+                            <a id="profileCvLink" class="profile-cv-button" href="#" target="_blank" rel="noopener noreferrer">View CV</a>
+                        </div>
+
                     </div>
 
 
@@ -5668,6 +6379,35 @@ box-shadow:
 
                         </div>
 
+                        <div class="edit-field full-width cv-edit-field">
+                            <label for="editCvFile">CV (PDF)</label>
+                            <input
+                                type="file"
+                                id="editCvFile"
+                                accept=".pdf,application/pdf"
+                                onchange="handleCvSelection(this)"
+                            >
+                            <p id="editCvCurrent" class="cv-edit-current">No CV uploaded yet.</p>
+                            <label class="cv-visibility-option" for="editCvPublic">
+                                <input type="checkbox" id="editCvPublic" aria-label="Show my CV on my public profile">
+                                <span class="cv-visibility-copy">
+                                    <span class="cv-visibility-title">Show my CV on my public profile</span>
+                                    <span class="cv-visibility-description">Anyone viewing your profile can open and download it.</span>
+                                </span>
+                                <span class="cv-switch-track" aria-hidden="true"></span>
+                            </label>
+                            <button
+                                type="button"
+                                id="deleteCvButton"
+                                class="secondary-btn cv-delete-button"
+                                onclick="deleteMyCv()"
+                                hidden
+                            >
+                                Delete CV
+                            </button>
+                            <small>PDF only, up to 10 MB. Upload or replace it, then select Save Changes. Showing it is optional.</small>
+                        </div>
+
 
                         <div class="edit-field">
 
@@ -5794,12 +6534,24 @@ box-shadow:
   id="ownerChatDelete"
   class="owner-chat-delete"
   type="button"
+  aria-label="Delete conversation"
+  title="Delete conversation"
   hidden
 >
-  Delete conversation
+  <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 7h16M10 11v6m4-6v6M5.5 7l1 13h11l1-13M9 7V4h6v3" />
+  </svg>
 </button>
 
       <div class="owner-chat-header-actions">
+        <button
+          id="ownerChatVoiceToggle"
+          class="owner-chat-voice"
+          type="button"
+          aria-label="Mute voice introduction"
+          aria-pressed="true"
+          title="Mute voice introduction"
+        >🔊</button>
         <button
           id="ownerChatExpand"
           class="owner-chat-expand"
@@ -5962,6 +6714,7 @@ let pendingProjectCoverFile = null;
 let pendingProjectCoverProjectId = null;
 
     let selectedAvatarFile = null;
+    let selectedCvFile = null;
 
 
     /* =====================================================
@@ -6006,6 +6759,156 @@ let pendingProjectCoverProjectId = null;
             loadFeedback();
         }
     }
+}
+
+let globalSearchTerm = "";
+let globalSearchFilterType = "all";
+
+async function submitGlobalSearch(event) {
+  event?.preventDefault();
+  globalSearchTerm = document.getElementById("globalSearchInput").value.trim();
+  const quickMenu = document.getElementById("globalSearchQuickFilters");
+  if (quickMenu) quickMenu.hidden = true;
+  const resultsInput = document.getElementById("searchResultsInput");
+  if (resultsInput) resultsInput.value = globalSearchTerm;
+  document.querySelectorAll(".global-search-filter").forEach(button => {
+    button.classList.toggle("is-active", button.dataset.searchFilter === globalSearchFilterType);
+  });
+  await runGlobalSearch();
+}
+
+async function submitSearchResultsSearch(event) {
+  event?.preventDefault();
+  const value = document.getElementById("searchResultsInput")?.value.trim() || "";
+  document.getElementById("globalSearchInput").value = value;
+  globalSearchTerm = value;
+  await runGlobalSearch();
+}
+
+function chooseQuickSearchFilter(filter, button) {
+  globalSearchFilterType = filter;
+  document.querySelectorAll(".global-search-quick-filters button").forEach(item => item.classList.toggle("is-active", item === button));
+  document.querySelectorAll(".global-search-filter").forEach(item => item.classList.toggle("is-active", item.dataset.searchFilter === filter));
+  const input = document.getElementById("globalSearchInput");
+  if (input.value.trim().length >= 2) submitGlobalSearch();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("globalSearchForm");
+  const input = document.getElementById("globalSearchInput");
+  const menu = document.getElementById("globalSearchQuickFilters");
+  if (!form || !input || !menu) return;
+  input.addEventListener("focus", () => { menu.hidden = false; });
+  document.addEventListener("click", event => {
+    if (!form.contains(event.target)) menu.hidden = true;
+  });
+  input.addEventListener("keydown", event => {
+    if (event.key === "Escape") menu.hidden = true;
+  });
+});
+
+async function filterGlobalSearch(filter) {
+  globalSearchFilterType = filter;
+  document.querySelectorAll(".global-search-filter").forEach(button => {
+    button.classList.toggle("is-active", button.dataset.searchFilter === filter);
+  });
+  await runGlobalSearch();
+}
+
+async function runGlobalSearch() {
+  const resultsBox = document.getElementById("globalSearchResults");
+  const queryLabel = document.getElementById("globalSearchQuery");
+  showSection("searchResultsSection");
+  const resultsInput = document.getElementById("searchResultsInput");
+  if (resultsInput) resultsInput.value = globalSearchTerm;
+
+  if (globalSearchTerm.length < 2) {
+    queryLabel.textContent = "Enter at least two characters to search.";
+    resultsBox.innerHTML = '<div class="global-search-empty">Type a name, project title, or post keyword in the search bar.</div>';
+    return;
+  }
+
+  queryLabel.textContent = `Results for “${globalSearchTerm}”`;
+  resultsBox.innerHTML = '<div class="global-search-empty">Searching…</div>';
+
+  const jobs = [];
+  if (["all", "people"].includes(globalSearchFilterType)) {
+    jobs.push(db.from("profiles")
+      .select("id, full_name, profession, location, bio, avatar_url, headline")
+      .then(result => ({ type: "people", ...result })));
+  }
+  if (["all", "projects"].includes(globalSearchFilterType)) {
+    jobs.push(db.from("projects")
+      .select("*")
+      .then(result => ({ type: "projects", ...result })));
+  }
+  if (["all", "posts"].includes(globalSearchFilterType)) {
+    jobs.push(db.from("posts")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .then(result => ({ type: "posts", ...result })));
+  }
+
+  const responses = await Promise.allSettled(jobs);
+  const collections = { people: [], projects: [], posts: [] };
+  let failedQueries = 0;
+  responses.forEach(response => {
+    if (response.status !== "fulfilled") {
+      failedQueries++;
+      console.error("Community search failed:", response.reason);
+      return;
+    }
+    const { type, data, error } = response.value;
+    if (error) {
+      failedQueries++;
+      console.error(`Search ${type} failed:`, error);
+      return;
+    }
+    collections[type] = data || [];
+  });
+
+  const searchNeedle = globalSearchTerm.toLocaleLowerCase();
+  const matches = (value) => String(value || "").toLocaleLowerCase().includes(searchNeedle);
+  collections.people = collections.people.filter(person => [person.full_name, person.profession, person.headline, person.location, person.bio].some(matches)).slice(0, 8);
+  collections.projects = collections.projects.filter(project => [project.title, project.category, project.description, project.location].some(matches)).slice(0, 8);
+  collections.posts = collections.posts.filter(post => matches(post.content)).slice(0, 8);
+
+  const sections = [];
+  if (collections.people.length) {
+    sections.push(`<section class="global-search-group"><h3>People</h3><div class="global-search-list">${collections.people.map(person => {
+      const name = person.full_name || "Community member";
+      const detail = [person.profession, person.location].filter(Boolean).join(" · ") || person.headline || "View member profile";
+      const avatar = person.avatar_url
+        ? `<img src="${escapeHtml(person.avatar_url)}" alt="">`
+        : `<span class="global-search-thumb">${escapeHtml((name[0] || "M").toUpperCase())}</span>`;
+      return `<button type="button" class="global-search-item" onclick="viewMemberProfile('${escapeHtml(person.id)}')">${avatar}<span class="global-search-item-copy"><strong>${escapeHtml(name)}</strong><span>${escapeHtml(detail)}</span></span></button>`;
+    }).join("")}</div></section>`);
+  }
+  if (collections.projects.length) {
+    sections.push(`<section class="global-search-group"><h3>Projects</h3><div class="global-search-list">${collections.projects.map(project => {
+      const title = project.title || "Untitled project";
+      const detail = [project.category, project.location].filter(Boolean).join(" · ") || project.description || "View project";
+      const cover = project.media?.[0]?.url;
+      const thumb = cover ? `<img src="${escapeHtml(cover)}" alt="">` : '<span class="global-search-thumb">P</span>';
+      return `<button type="button" class="global-search-item" onclick="openProject('${escapeHtml(project.id)}')">${thumb}<span class="global-search-item-copy"><strong>${escapeHtml(title)}</strong><span>${escapeHtml(detail)}</span></span></button>`;
+    }).join("")}</div></section>`);
+  }
+  if (collections.posts.length) {
+    sections.push(`<section class="global-search-group"><h3>Posts</h3><div class="global-search-list">${collections.posts.map(post => {
+      const excerpt = (post.content || "").trim().slice(0, 150);
+      return `<button type="button" class="global-search-item" onclick="openSearchPost('${escapeHtml(post.id)}')"><span class="global-search-thumb">“</span><span class="global-search-item-copy"><strong>Community post</strong><span>${escapeHtml(excerpt)}${post.content?.length > 150 ? "…" : ""}</span></span></button>`;
+    }).join("")}</div></section>`);
+  }
+
+  resultsBox.innerHTML = sections.join("") || `<div class="global-search-empty">${failedQueries ? "Some results could not be loaded. Check your Supabase read policies and try again." : "No results found. Try another search."}</div>`;
+}
+
+async function openSearchPost(postId) {
+  showSection("shareSection");
+  await loadPosts();
+  requestAnimationFrame(() => {
+    document.querySelector(`[data-post-id="${CSS.escape(String(postId))}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
 }
 
     /* =====================================================
@@ -6687,7 +7590,7 @@ document
             user;
 
 
-        const {
+        let {
             data: profile,
             error
         } =
@@ -6726,6 +7629,23 @@ document
             );
 
             return;
+        }
+
+        if (profile) {
+            const { data: cvFields, error: cvFieldsError } = await db
+                .from("profiles")
+                .select("cv_path, cv_is_public")
+                .eq("id", user.id)
+                .maybeSingle();
+
+            if (cvFieldsError) {
+                console.warn("CV database columns are not set up yet. Profile loaded without CV fields.", cvFieldsError);
+                profile.cv_path = null;
+                profile.cv_is_public = false;
+            } else {
+                profile.cv_path = cvFields?.cv_path || null;
+                profile.cv_is_public = Boolean(cvFields?.cv_is_public);
+            }
         }
 
 
@@ -6768,7 +7688,13 @@ document
                     "",
 
                 headline:
-                    ""
+                    "",
+
+                cv_path:
+                    null,
+
+                cv_is_public:
+                    false
 
             };
 
@@ -6904,6 +7830,17 @@ document
             "Portfolio"
         );
 
+        const profileCvRow = document.getElementById("profileCvRow");
+        const profileCvLink = document.getElementById("profileCvLink");
+        if (profileCvRow && profileCvLink) {
+            profileCvRow.hidden = !profile.cv_path;
+            if (profile.cv_path) {
+                profileCvLink.href = "#";
+                profileCvLink.onclick = event => openMemberCv(event, profile.cv_path);
+                profileCvLink.textContent = profile.cv_is_public ? "View CV" : "View My CV";
+            }
+        }
+
 
         setAvatar(
             "profileAvatarImage",
@@ -6911,6 +7848,29 @@ document
             profile.avatar_url,
             fullName
         );
+    }
+
+    async function openMemberCv(event, path) {
+        event?.preventDefault();
+        if (!path) return;
+
+        // Open the tab during the click so browsers do not block it while the signed URL loads.
+        const tab = window.open("about:blank", "_blank");
+        try {
+            const { data, error } = await db.storage
+                .from("member-cvs")
+                .createSignedUrl(path, 3600);
+            if (error) throw error;
+            if (tab) {
+                tab.location.href = data.signedUrl;
+            } else {
+                window.location.href = data.signedUrl;
+            }
+        } catch (error) {
+            if (tab) tab.close();
+            console.error("Could not open CV:", error);
+            alert("This CV could not be opened. Please try again.");
+        }
     }
 
 
@@ -7156,6 +8116,11 @@ document
             .value =
             currentProfile.portfolio_url || "";
 
+        selectedCvFile = null;
+        document.getElementById("editCvFile").value = "";
+        document.getElementById("editCvPublic").checked = Boolean(currentProfile.cv_is_public);
+        updateCvEditStatus();
+
 
         setAvatar(
             "editAvatarImage",
@@ -7209,6 +8174,7 @@ document
 
         selectedAvatarFile =
             null;
+        selectedCvFile = null;
 
 
         document
@@ -7351,6 +8317,98 @@ document
 
 
     /* =====================================================
+       CV UPLOAD AND VISIBILITY
+    ===================================================== */
+
+    function updateCvEditStatus() {
+        const status = document.getElementById("editCvCurrent");
+        const deleteButton = document.getElementById("deleteCvButton");
+        if (!status || !deleteButton) return;
+
+        const hasCv = Boolean(currentProfile?.cv_path);
+        deleteButton.hidden = !hasCv;
+
+        if (selectedCvFile) {
+            status.textContent = `Selected: ${selectedCvFile.name}. Save Changes to upload it.`;
+        } else if (hasCv) {
+            status.textContent = currentProfile.cv_is_public
+                ? "A CV is uploaded and visible on your public profile."
+                : "A CV is uploaded but hidden from your public profile.";
+        } else {
+            status.textContent = "No CV uploaded yet.";
+        }
+    }
+
+    function handleCvSelection(input) {
+        const file = input.files?.[0];
+        if (!file) {
+            selectedCvFile = null;
+            updateCvEditStatus();
+            return;
+        }
+
+        const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+        if (!isPdf) {
+            input.value = "";
+            selectedCvFile = null;
+            showMessage("profileMessage", "error", "Please choose a PDF file.");
+            updateCvEditStatus();
+            return;
+        }
+
+        if (file.size > 10 * 1024 * 1024) {
+            input.value = "";
+            selectedCvFile = null;
+            showMessage("profileMessage", "error", "The CV must be 10 MB or smaller.");
+            updateCvEditStatus();
+            return;
+        }
+
+        selectedCvFile = file;
+        clearMessage("profileMessage");
+        updateCvEditStatus();
+    }
+
+    async function deleteMyCv() {
+        if (!currentUser || !currentProfile?.cv_path) return;
+        if (!confirm("Delete your uploaded CV?")) return;
+
+        const oldPath = currentProfile.cv_path;
+        const button = document.getElementById("deleteCvButton");
+        button.disabled = true;
+
+        try {
+            const { error: profileError } = await db
+                .from("profiles")
+                .update({ cv_path: null, cv_is_public: false })
+                .eq("id", currentUser.id);
+
+            if (profileError) throw profileError;
+
+            currentProfile = { ...currentProfile, cv_path: null, cv_is_public: false };
+            selectedCvFile = null;
+            document.getElementById("editCvFile").value = "";
+
+            const { error: storageError } = await db.storage
+                .from("member-cvs")
+                .remove([oldPath]);
+
+            if (storageError) console.error("CV record cleared, but file cleanup failed:", storageError);
+
+            updateCvEditStatus();
+            displayProfile(currentProfile, currentUser);
+            await loadMembers();
+            showMessage("profileMessage", "success", "Your CV was deleted.");
+        } catch (error) {
+            console.error("Delete CV error:", error);
+            showMessage("profileMessage", "error", error.message || "Unable to delete your CV.");
+        } finally {
+            button.disabled = false;
+        }
+    }
+
+
+    /* =====================================================
        UPLOAD AVATAR
     ===================================================== */
 
@@ -7478,6 +8536,10 @@ document
             "profileMessage"
         );
 
+        const oldCvPath = currentProfile?.cv_path || null;
+        let cvPath = oldCvPath;
+        let uploadedCvPath = null;
+        let profileSaved = false;
 
         try {
 
@@ -7486,8 +8548,6 @@ document
                 currentProfile
                     ?.avatar_url ||
                 null;
-
-
             /* Upload new photo */
 
             if (selectedAvatarFile) {
@@ -7499,6 +8559,22 @@ document
                     );
             }
 
+
+            if (selectedCvFile) {
+                const safeFileName = selectedCvFile.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+                uploadedCvPath = `${currentUser.id}/${crypto.randomUUID()}-${safeFileName}`;
+
+                const { error: cvUploadError } = await db.storage
+                    .from("member-cvs")
+                    .upload(uploadedCvPath, selectedCvFile, {
+                        contentType: "application/pdf",
+                        cacheControl: "3600",
+                        upsert: false
+                    });
+
+                if (cvUploadError) throw cvUploadError;
+                cvPath = uploadedCvPath;
+            }
 
             const profileData = {
 
@@ -7588,6 +8664,12 @@ document
                 avatar_url:
                     avatarUrl,
 
+                cv_path:
+                    cvPath,
+
+                cv_is_public:
+                    Boolean(cvPath && document.getElementById("editCvPublic").checked),
+
                 updated_at:
                     new Date()
                         .toISOString()
@@ -7615,6 +8697,14 @@ document
 
                 throw error;
             }
+            profileSaved = true;
+
+            if (uploadedCvPath && oldCvPath && oldCvPath !== uploadedCvPath) {
+                const { error: oldCvDeleteError } = await db.storage
+                    .from("member-cvs")
+                    .remove([oldCvPath]);
+                if (oldCvDeleteError) console.error("Could not remove replaced CV:", oldCvDeleteError);
+            }
 
 
             currentProfile =
@@ -7623,6 +8713,9 @@ document
 
             selectedAvatarFile =
                 null;
+            selectedCvFile = null;
+            document.getElementById("editCvFile").value = "";
+            updateCvEditStatus();
 
 
             displayProfile(
@@ -7655,8 +8748,14 @@ document
                 "Profile updated successfully."
             );
 
+            await loadMembers();
+
 
         } catch (error) {
+
+            if (uploadedCvPath && !profileSaved) {
+                await db.storage.from("member-cvs").remove([uploadedCvPath]);
+            }
 
             console.error(
                 "Save profile error:",
@@ -7974,7 +9073,7 @@ async function loadMembers() {
 
     try {
 
-        const {
+        let {
             data: members,
             error
         } = await db
@@ -7986,7 +9085,8 @@ async function loadMembers() {
                 location,
                 bio,
                 avatar_url,
-                headline
+                headline,
+                cv_is_public
             `)
             .order(
                 "full_name",
@@ -7994,6 +9094,16 @@ async function loadMembers() {
                     ascending: true
                 }
             );
+
+        if (error && /cv_is_public|column/i.test(error.message || "")) {
+            const fallback = await db
+                .from("profiles")
+                .select("id, full_name, profession, location, bio, avatar_url, headline")
+                .order("full_name", { ascending: true });
+            members = fallback.data;
+            error = fallback.error;
+            if (members) members.forEach(member => { member.cv_is_public = false; });
+        }
 
         if (error) {
             throw error;
@@ -8374,6 +9484,8 @@ if (currentUserId === memberId) {
       <div class="member-card">
         ${avatar}
 
+        ${member.cv_is_public ? '<span class="member-cv-badge">CV available</span>' : ""}
+
         <h3>${escapeHtml(name)}</h3>
 
         <div class="member-profession">
@@ -8423,7 +9535,7 @@ document
                     .trim()
                     .toLowerCase();
 
-            const {
+            let {
                 data: members,
                 error
             } = await db
@@ -8435,7 +9547,8 @@ document
                     location,
                     bio,
                     avatar_url,
-                    headline
+                    headline,
+                    cv_is_public
                 `)
                 .order(
                     "full_name",
@@ -8443,6 +9556,16 @@ document
                         ascending: true
                     }
                 );
+
+            if (error && /cv_is_public|column/i.test(error.message || "")) {
+                const fallback = await db
+                    .from("profiles")
+                    .select("id, full_name, profession, location, bio, avatar_url, headline")
+                    .order("full_name", { ascending: true });
+                members = fallback.data;
+                error = fallback.error;
+                if (members) members.forEach(member => { member.cv_is_public = false; });
+            }
 
             if (error) {
 
@@ -8580,64 +9703,155 @@ function escapeHtml(value) {
 ===================================================== */
 
 async function createPost() {
-
     if (!currentUser) {
         showSection("loginSection");
         return;
     }
-
-    const textarea =
-        document.getElementById("shareContent");
-
-    const content =
-        textarea.value.trim();
-
-    if (!content) {
-        alert("Please write something first.");
+    const textarea = document.getElementById("shareContent");
+    const imageInput = document.getElementById("shareImage");
+    const message = document.getElementById("postFormMessage");
+    const submitButton = document.getElementById("shareSubmitButton");
+    const content = textarea.value.trim();
+    const file = imageInput.files?.[0] || null;
+    const editingId = window.editingCommunityPostId || null;
+    const showPostMessage = (text, error = false) => {
+        message.textContent = text;
+        message.hidden = false;
+        message.style.color = error ? "#a22" : "#6d5a15";
+    };
+    if (!content && !file && !window.editingCommunityPostImageUrl) {
+        showPostMessage("Add some text or choose an image before sharing.", true);
         return;
     }
-
+    if (file && (!file.type.startsWith("image/") || file.size > 10 * 1024 * 1024)) {
+        showPostMessage("Choose an image under 10 MB.", true);
+        return;
+    }
+    submitButton.disabled = true;
+    submitButton.textContent = editingId ? "Saving…" : "Sharing…";
+    let uploadedPath = null;
+    let oldImagePath = window.editingCommunityPostImagePath || null;
     try {
-
-        const { data, error } =
-            await db
-                .from("posts")
-                .insert([
-                    {
-                        user_id: currentUser.id,
-                        content: content
-                    }
-                ])
-                .select()
-                .single();
-
-        if (error) {
-            console.error("Create post error:", error);
-
-            alert(
-                "Unable to create post: " +
-                error.message
-            );
-
-            return;
+        let imagePath = oldImagePath;
+        let imageUrl = window.editingCommunityPostImageUrl || null;
+        if (file) {
+            const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
+            uploadedPath = `${currentUser.id}/${crypto.randomUUID()}-${safeName}`;
+            const { error: uploadError } = await db.storage.from("post-media").upload(uploadedPath, file, {
+                contentType: file.type,
+                upsert: false
+            });
+            if (uploadError) throw uploadError;
+            const { data: publicData } = db.storage.from("post-media").getPublicUrl(uploadedPath);
+            imagePath = uploadedPath;
+            imageUrl = publicData.publicUrl;
         }
-
-        /* Clear text */
-        textarea.value = "";
-
-        /* Stay on the Share page; showSection refreshes the posts list. */
-        showSection("shareSection");
-
+        const postData = { user_id: currentUser.id, content, image_path: imagePath, image_url: imageUrl };
+        const result = editingId
+            ? await db.from("posts").update(postData).eq("id", editingId).eq("user_id", currentUser.id).select("id").maybeSingle()
+            : await db.from("posts").insert(postData).select("id").single();
+        if (result.error) throw result.error;
+        if (editingId && !result.data) throw new Error("This post could not be updated. Check the posts update policy in Supabase.");
+        if (file && oldImagePath && oldImagePath !== uploadedPath) {
+            const { error: removeError } = await db.storage.from("post-media").remove([oldImagePath]);
+            if (removeError) console.warn("Could not remove replaced post image:", removeError);
+        }
+        cancelPostEdit();
+        showPostMessage(editingId ? "Your post was updated." : "Your post was shared.");
+        await loadPosts();
     } catch (error) {
+        console.error("Save post error:", error);
+        if (uploadedPath) await db.storage.from("post-media").remove([uploadedPath]);
+        showPostMessage(error.message || "Something went wrong while saving the post.", true);
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = window.editingCommunityPostId ? "Save Changes" : "Share";
+    }
+}
 
-        console.error(
-            "Create post error:",
-            error
-        );
+function handlePostImageSelection(input) {
+    const file = input.files?.[0];
+    const preview = document.getElementById("shareImagePreview");
+    if (!file) return;
+    if (!file.type.startsWith("image/") || file.size > 10 * 1024 * 1024) {
+        input.value = "";
+        preview.hidden = true;
+        document.getElementById("postFormMessage").textContent = "Choose an image under 10 MB.";
+        document.getElementById("postFormMessage").hidden = false;
+        return;
+    }
+    const localUrl = URL.createObjectURL(file);
+    preview.innerHTML = `<img src="${localUrl}" alt="Selected post image"><span>${escapeHtml(file.name)}</span><button type="button" onclick="removeSelectedPostImage()">Remove</button>`;
+    preview.hidden = false;
+    document.getElementById("postFormMessage").hidden = true;
+}
 
-        alert(
-            "Something went wrong while creating the post."
-        );
+function removeSelectedPostImage() {
+    document.getElementById("shareImage").value = "";
+    const preview = document.getElementById("shareImagePreview");
+    preview.replaceChildren();
+    preview.hidden = true;
+}
+
+function cancelPostEdit() {
+    window.editingCommunityPostId = null;
+    window.editingCommunityPostImagePath = null;
+    window.editingCommunityPostImageUrl = null;
+    const textarea = document.getElementById("shareContent");
+    if (textarea) textarea.value = "";
+    const input = document.getElementById("shareImage");
+    if (input) input.value = "";
+    const preview = document.getElementById("shareImagePreview");
+    if (preview) { preview.replaceChildren(); preview.hidden = true; }
+    const message = document.getElementById("postFormMessage");
+    if (message) message.hidden = true;
+    const submit = document.getElementById("shareSubmitButton");
+    if (submit) submit.textContent = "Share";
+    const cancel = document.getElementById("cancelPostEditButton");
+    if (cancel) cancel.hidden = true;
+}
+
+async function editPost(postId) {
+    if (!currentUser) return;
+    const { data: post, error } = await db.from("posts").select("*").eq("id", postId).eq("user_id", currentUser.id).single();
+    if (error || !post) {
+        alert("Could not load this post for editing.");
+        console.error("Load post for edit failed:", error);
+        return;
+    }
+    window.editingCommunityPostId = post.id;
+    window.editingCommunityPostImagePath = post.image_path || null;
+    window.editingCommunityPostImageUrl = post.image_url || null;
+    document.getElementById("shareContent").value = post.content || "";
+    document.getElementById("shareImage").value = "";
+    const preview = document.getElementById("shareImagePreview");
+    if (post.image_url) {
+        preview.innerHTML = `<img src="${escapeHtml(post.image_url)}" alt="Current post image"><span>Current image (choose a new one to replace it)</span>`;
+        preview.hidden = false;
+    } else {
+        preview.replaceChildren();
+        preview.hidden = true;
+    }
+    document.getElementById("shareSubmitButton").textContent = "Save Changes";
+    document.getElementById("cancelPostEditButton").hidden = false;
+    document.getElementById("postFormMessage").hidden = true;
+    document.getElementById("shareContent").scrollIntoView({ behavior: "smooth", block: "center" });
+    document.getElementById("shareContent").focus({ preventScroll: true });
+}
+
+async function sharePost(postId) {
+    const shareUrl = `${location.origin}${location.pathname}#post-${encodeURIComponent(postId)}`;
+    try {
+        if (navigator.share) await navigator.share({ title: "EJ Designs Community post", url: shareUrl });
+        else {
+            await navigator.clipboard.writeText(shareUrl);
+            alert("Post link copied.");
+        }
+    } catch (error) {
+        if (error.name !== "AbortError") {
+            try { await navigator.clipboard.writeText(shareUrl); alert("Post link copied."); }
+            catch { prompt("Copy this post link:", shareUrl); }
+        }
     }
 }
 async function loadPosts() {
@@ -8724,80 +9938,30 @@ async function loadPosts() {
                 document.createElement("div");
 
             postCard.className = "post-card";
-const cleanContent = (post.content || "").trim();
+            postCard.dataset.postId = post.id;
+            const cleanContent = escapeHtml((post.content || "").trim());
+            const postImage = post.image_url
+                ? `<img class="post-image" src="${escapeHtml(post.image_url)}" alt="Image attached to post" loading="lazy">`
+                : "";
+            const safeId = escapeHtml(post.id);
             postCard.innerHTML = `
-${
-    isOwner
-    ? `
-        <button
-            type="button"
-            class="delete-post-btn"
-            onclick="deletePost('${post.id}')"
-        >
-            Delete
-        </button>
-      `
-    : ""
-}
                 <div class="post-header">
-
-                    ${
-                        avatar
-                        ? `
-                            <img
-                                src="${avatar}"
-                                class="post-avatar"
-                                alt="${firstName}"
-                            >
-                          `
-                        : `
-                            <div
-                                class="post-avatar"
-                            ></div>
-                          `
-                    }
-
+                    ${avatar
+                        ? `<img src="${escapeHtml(avatar)}" class="post-avatar" alt="${escapeHtml(firstName)}">`
+                        : `<div class="post-avatar" aria-hidden="true"></div>`}
                     <div class="post-user-info">
-
-                        <div class="post-author">
-                            ${firstName}
-                        </div>
-
-                        ${
-                            profession
-                            ? `
-                                <div class="post-profession">
-                                    ${profession}
-                                </div>
-                              `
-                            : ""
-                        }
-
+                        <div class="post-author">${escapeHtml(firstName)}</div>
+                        ${profession ? `<div class="post-profession">${escapeHtml(profession)}</div>` : ""}
                     </div>
-
                 </div>
-
-                ${
-                    isOwner
-                    ? `
-                        <button
-                            class="delete-post-btn"
-                            onclick="deletePost('${post.id}')"
-                        >
-                            Delete
-                        </button>
-                      `
-                    : ""
-                }
-
-             <div class="post-content">${cleanContent}</div>
-
-                <div class="post-date">
-                    ${new Date(
-                        post.created_at
-                    ).toLocaleString()}
+                <div class="post-content">${cleanContent}</div>
+                ${postImage}
+                <div class="post-date">${new Date(post.created_at).toLocaleString()}</div>
+                <div class="post-actions">
+                    ${isOwner ? `<button type="button" class="post-action-button" onclick="editPost('${safeId}')">Edit</button>` : ""}
+                    <button type="button" class="post-action-button" onclick="sharePost('${safeId}')">Share</button>
+                    ${isOwner ? `<button type="button" class="post-action-button is-danger" onclick="deletePost('${safeId}')">Delete</button>` : ""}
                 </div>
-
             `;
 
             container.appendChild(postCard);
@@ -9261,10 +10425,16 @@ async function uploadProject(event) {
 
   const files = [...document.getElementById("projectFiles").files];
   const errorBox = document.getElementById("projectError");
+  const submitButton = document.getElementById("projectSubmitButton");
+  const wasEditing = Boolean(editingProjectId);
   errorBox.textContent = "";
+  errorBox.hidden = true;
+  errorBox.classList.remove("is-error", "is-success");
 
   if (!files.length && !editingProjectId) {
     errorBox.textContent = "Please select at least one image.";
+    errorBox.hidden = false;
+    errorBox.classList.add("is-error");
     return;
   }
 
@@ -9274,17 +10444,21 @@ async function uploadProject(event) {
   )) {
     errorBox.textContent =
       "Choose image files no larger than 10 MB each.";
+    errorBox.hidden = false;
+    errorBox.classList.add("is-error");
     return;
   }
 
   const projectId = editingProjectId || crypto.randomUUID();
   const newlyUploadedImages = [];
+  submitButton.disabled = true;
+  submitButton.textContent = "Saving...";
 
   try {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-      const path = `${currentUser.id}/${projectId}/${i}-${safeName}`;
+      const path = `${currentUser.id}/${projectId}/${i}-${crypto.randomUUID()}-${safeName}`;
 
       const { error: uploadError } = await db.storage
         .from("project-media")
@@ -9342,13 +10516,21 @@ async function uploadProject(event) {
     let saveError;
 
     if (editingProjectId) {
-      const { error } = await db
+      const projectUpdates = { ...projectData };
+      delete projectUpdates.owner_id;
+
+      const { data: updatedProject, error } = await db
         .from("projects")
-        .update(projectData)
+        .update(projectUpdates)
         .eq("id", editingProjectId)
-        .eq("owner_id", currentUser.id);
+        .eq("owner_id", currentUser.id)
+        .select("id")
+        .maybeSingle();
 
       saveError = error;
+      if (!saveError && !updatedProject) {
+        saveError = new Error("No project was updated. Check that you are logged in as the project owner and that the Supabase update policy allows owners to edit their projects.");
+      }
     } else {
       const { error } = await db
         .from("projects")
@@ -9371,6 +10553,12 @@ async function uploadProject(event) {
     document.getElementById("projectSubmitButton").textContent =
       "Upload Project";
 
+    errorBox.textContent = wasEditing
+      ? "Project changes saved successfully."
+      : "Project uploaded successfully.";
+    errorBox.hidden = false;
+    errorBox.classList.add("is-success");
+
     await loadProjects();
 
   } catch (error) {
@@ -9383,6 +10571,11 @@ async function uploadProject(event) {
     }
 
     errorBox.textContent = "Could not save project: " + error.message;
+    errorBox.hidden = false;
+    errorBox.classList.add("is-error");
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = editingProjectId ? "Save Changes" : "Upload Project";
   }
 }
 async function loadProjects() {
@@ -9617,6 +10810,8 @@ async function viewMemberProfile(memberId) {
       bio,
       avatar_url,
       skills,
+      cv_path,
+      cv_is_public,
       linkedin_url,
       behance_url,
       instagram_url,
@@ -9665,6 +10860,22 @@ async function viewMemberProfile(memberId) {
     ? profile.skills.join(", ")
     : profile.skills || "";
 
+  let publicCvUrl = "";
+  let publicCvDownloadUrl = "";
+  if (profile.cv_path && profile.cv_is_public) {
+    const { data: cvData, error: cvError } = await db.storage
+      .from("member-cvs")
+      .createSignedUrl(profile.cv_path, 3600);
+    if (cvError) console.error("Could not create public CV link:", cvError);
+    else publicCvUrl = cvData.signedUrl;
+
+    const { data: downloadData, error: downloadError } = await db.storage
+      .from("member-cvs")
+      .createSignedUrl(profile.cv_path, 3600, { download: true });
+    if (downloadError) console.error("Could not create CV download link:", downloadError);
+    else publicCvDownloadUrl = downloadData.signedUrl;
+  }
+
   content.innerHTML = `
     <article class="member-profile-card">
 
@@ -9708,6 +10919,15 @@ async function viewMemberProfile(memberId) {
         <h3>Skills</h3>
         <p>${escapeHtml(skills || "No skills added yet.")}</p>
       </section>
+
+      ${publicCvUrl ? `
+        <section class="member-profile-info member-cv-section">
+          <h3>CV &amp; Experience</h3>
+          <p>This member has shared their CV.</p>
+          <a class="member-cv-link" href="${escapeHtml(publicCvUrl)}" target="_blank" rel="noopener noreferrer">View CV</a>
+          <a class="member-cv-link" href="${escapeHtml(publicCvDownloadUrl || publicCvUrl)}">Download CV</a>
+        </section>
+      ` : ""}
 
       <div class="member-profile-links">
         ${makeLink(profile.linkedin_url, "LinkedIn")}
@@ -9947,7 +11167,55 @@ function startProjectsAutoScroll() {
     });
   }, 2500);
 }
+let quickTabAudioContext = null;
+
+function playQuickTabSound(sectionId) {
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContextClass) return;
+
+  if (!quickTabAudioContext) {
+    quickTabAudioContext = new AudioContextClass();
+  }
+
+  const toneSets = {
+    homeSection: [440],
+    connectSection: [523, 659],
+    createSection: [392, 587],
+    shareIdeasSection: [587, 740],
+    aboutSection: [494, 622]
+  };
+  const frequencies = toneSets[sectionId] || [523];
+
+  const playTones = () => {
+    const start = quickTabAudioContext.currentTime;
+
+    frequencies.forEach((frequency, index) => {
+      const oscillator = quickTabAudioContext.createOscillator();
+      const volume = quickTabAudioContext.createGain();
+      const toneStart = start + index * 0.035;
+
+      oscillator.type = "sine";
+      oscillator.frequency.setValueAtTime(frequency, toneStart);
+      volume.gain.setValueAtTime(0.0001, toneStart);
+      volume.gain.exponentialRampToValueAtTime(0.025, toneStart + 0.012);
+      volume.gain.exponentialRampToValueAtTime(0.0001, toneStart + 0.12);
+
+      oscillator.connect(volume);
+      volume.connect(quickTabAudioContext.destination);
+      oscillator.start(toneStart);
+      oscillator.stop(toneStart + 0.125);
+    });
+  };
+
+  if (quickTabAudioContext.state === "suspended") {
+    quickTabAudioContext.resume().then(playTones).catch(() => {});
+  } else {
+    playTones();
+  }
+}
+
 function selectQuickTab(button, sectionId) {
+  playQuickTabSound(sectionId);
   const wasSelected = button.classList.contains("selected");
 
   document.querySelectorAll(".quick-tab").forEach(tab => {
@@ -9956,10 +11224,15 @@ function selectQuickTab(button, sectionId) {
 
   if (wasSelected) {
     showSection(sectionId);
+    button.blur();
     return;
   }
 
   button.classList.add("selected");
+
+  if (window.matchMedia("(hover: none) and (pointer: coarse)").matches) {
+    button.blur();
+  }
 }
 
 const OWNER_CHAT_ID = "4f757ff7-d08f-4fa8-826c-0a8f7c9f1917";
@@ -10056,12 +11329,101 @@ async function ownerChatGetProfile(userId) {
   return ownerChatProfiles[userId];
 }
 
+let ownerChatSpeechRequest = 0;
+let ownerChatWelcomePlayed = false;
+let ownerChatWelcomePaused = false;
+let ownerChatWelcomeFinished = false;
+
+function speakCommunityChatWelcome() {
+  if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) return;
+  if (localStorage.getItem("ej-community-chat-voice") === "muted") return;
+  if (ownerChatWelcomePlayed || sessionStorage.getItem("ej-community-chat-welcome-played") === "yes") return;
+
+  window.speechSynthesis.cancel();
+  const requestId = ++ownerChatSpeechRequest;
+  let introStarted = false;
+
+  const welcome = new SpeechSynthesisUtterance(
+    "Welcome to EJ Designs Community, a place for architects, designers, students, and creative minds to connect, share ideas, and showcase their work. Explore member profiles and architectural projects, discover new perspectives, and find inspiration in the work shared by our community. The idea for EJ Designs Community began in 2021, with a goal of making creative collaboration and professional connections more accessible. If you have a question, feedback, or a project to share, send us a message. We are glad you are here."
+  );
+  welcome.lang = "en-US";
+  welcome.rate = 0.9;
+  welcome.pitch = 1.08;
+  welcome.volume = 1;
+  welcome.onend = () => {
+    ownerChatWelcomeFinished = true;
+    ownerChatWelcomePaused = false;
+  };
+  welcome.onerror = () => {
+    ownerChatWelcomeFinished = true;
+    ownerChatWelcomePaused = false;
+  };
+
+  const speakWithBestVoice = () => {
+    if (introStarted || requestId !== ownerChatSpeechRequest || ownerChatPanel.hidden ||
+        localStorage.getItem("ej-community-chat-voice") === "muted") return;
+
+    const voices = window.speechSynthesis.getVoices();
+    const englishVoices = voices.filter(voice => /^en([-_]|$)/i.test(voice.lang));
+    const femaleVoicePatterns = /female|samantha|ava|aria|jenny|zira|victoria|karen|susan|sonia|libby|natasha|emma|june|olivia|michelle|google.*female|microsoft.*(aria|jenny|sonia|libby|emma|zira)/i;
+    const femaleVoices = englishVoices.filter(voice => femaleVoicePatterns.test(voice.name));
+    const preferredVoice = [...femaleVoices].sort((a, b) => {
+      const score = voice =>
+        (/natural|neural|online|premium|enhanced/i.test(voice.name) ? 4 : 0) +
+        (/en-US/i.test(voice.lang) ? 2 : 0) +
+        (voice.localService === false ? 1 : 0);
+      return score(b) - score(a);
+    })[0] || englishVoices.find(voice => /natural|neural|online|premium/i.test(voice.name)) || englishVoices[0];
+
+    if (preferredVoice) welcome.voice = preferredVoice;
+    else welcome.pitch = 1;
+    introStarted = true;
+    ownerChatWelcomePlayed = true;
+    ownerChatWelcomeFinished = false;
+    ownerChatWelcomePaused = false;
+    sessionStorage.setItem("ej-community-chat-welcome-played", "yes");
+    window.speechSynthesis.speak(welcome);
+  };
+
+  if (window.speechSynthesis.getVoices().length) {
+    speakWithBestVoice();
+  } else {
+    window.speechSynthesis.addEventListener("voiceschanged", speakWithBestVoice, { once: true });
+    window.setTimeout(speakWithBestVoice, 1200);
+  }
+}
+
+function stopCommunityChatWelcome() {
+  ownerChatSpeechRequest++;
+  if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+  ownerChatWelcomePaused = false;
+  ownerChatWelcomeFinished = true;
+}
+
+function updateOwnerChatVoiceButton() {
+  const button = document.getElementById("ownerChatVoiceToggle");
+  if (!button) return;
+
+  const enabled = localStorage.getItem("ej-community-chat-voice") !== "muted";
+  button.textContent = enabled ? "🔊" : "🔇";
+  button.setAttribute("aria-pressed", String(enabled));
+  button.setAttribute("aria-label", enabled ? "Turn voice off" : "Turn voice on");
+  button.title = enabled ? "Turn voice off" : "Turn voice on";
+}
+
 async function openOwnerChat() {
   ownerChatPanel.hidden = false;
+  // Play the introduction once for this opening; ignore duplicate voice-ready callbacks.
+  ownerChatWelcomePlayed = false;
+  ownerChatWelcomePaused = false;
+  ownerChatWelcomeFinished = false;
+  sessionStorage.removeItem("ej-community-chat-welcome-played");
 
   const isOwner =
     currentUser &&
     String(currentUser.id) === OWNER_CHAT_ID;
+
+  speakCommunityChatWelcome();
 
   document.getElementById("ownerChatGuestName").hidden = Boolean(currentUser);
   document.getElementById("ownerChatGuestEmail").hidden = Boolean(currentUser);
@@ -10386,6 +11748,30 @@ window.ownerChatToggleSize = function () {
 };
 
 const ownerChatExpandButton = document.getElementById("ownerChatExpand");
+const ownerChatVoiceToggle = document.getElementById("ownerChatVoiceToggle");
+
+updateOwnerChatVoiceButton();
+
+ownerChatVoiceToggle?.addEventListener("click", () => {
+  const enabled = localStorage.getItem("ej-community-chat-voice") !== "muted";
+  localStorage.setItem("ej-community-chat-voice", enabled ? "muted" : "enabled");
+  updateOwnerChatVoiceButton();
+
+  if (enabled) {
+    if ("speechSynthesis" in window && ownerChatWelcomePlayed && !ownerChatWelcomeFinished) {
+      window.speechSynthesis.pause();
+      ownerChatWelcomePaused = true;
+    }
+  } else if (!ownerChatPanel.hidden) {
+    if ("speechSynthesis" in window && ownerChatWelcomePaused && !ownerChatWelcomeFinished) {
+      window.speechSynthesis.resume();
+      ownerChatWelcomePaused = false;
+    } else if (!ownerChatWelcomePlayed &&
+               sessionStorage.getItem("ej-community-chat-welcome-played") !== "yes") {
+      speakCommunityChatWelcome();
+    }
+  }
+});
 
 document.getElementById("ownerChatLauncher").addEventListener("click", () => {
   if (ownerChatPanel.hidden) {
@@ -10395,6 +11781,7 @@ document.getElementById("ownerChatLauncher").addEventListener("click", () => {
     ownerChatPanel.classList.remove("is-expanded");
     ownerChatExpandButton.setAttribute("aria-pressed", "false");
     clearInterval(ownerChatRefreshTimer);
+    stopCommunityChatWelcome();
   }
 });
 
@@ -10403,6 +11790,7 @@ document.getElementById("ownerChatClose").addEventListener("click", () => {
   ownerChatPanel.classList.remove("is-expanded");
   ownerChatExpandButton.setAttribute("aria-pressed", "false");
   clearInterval(ownerChatRefreshTimer);
+  stopCommunityChatWelcome();
 });
 
 async function ownerChatSelectConversation(button) {
@@ -10645,9 +12033,10 @@ ownerChatForm.addEventListener("submit", async event => {
         <h3 class="creator-name">Created by <span class="creator-signature"><strong>M.Arch. Esra'a E. Al-Johari</strong></span></h3>
 
         <p>
-          I’m <strong>Esra’a E. Al-Johari</strong>, an <strong>architect and BIM coordinator</strong>
-          with <strong>over eight years of experience</strong> in architectural design and
-          multidisciplinary BIM coordination. I hold an <strong>M.Sc. in Architecture and
+          I’m <strong>Esra’a E. Al-Johari</strong>, a <strong>BIM Architect</strong> with
+          <strong>over eight years of experience</strong> in the construction industry,
+          specializing in BIM project delivery.
+          I hold an <strong>M.Sc. in Architecture and
           Urban Planning</strong> and a <strong>B.Sc. in Architectural Engineering</strong> from
           the University of Jordan.
         </p>
