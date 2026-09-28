@@ -3226,6 +3226,105 @@ margin: 36px auto 18px !important;}
   padding-top: 18px !important;
 }
 
+.quick-tabs {
+  position: fixed;
+  top: 50%;
+  right: 16px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transform: translateY(-50%);
+}
+
+.quick-tab {
+  display: flex;
+  align-items: center;
+  width: 48px;
+  height: 46px;
+  padding: 0 13px;
+  overflow: hidden;
+  color: #151515;
+  background: #d6b84c;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(17, 17, 17, 0.12);
+  cursor: pointer;
+  transition: width 0.22s ease, background 0.22s ease;
+}
+
+.quick-tab:hover,
+.quick-tab:focus-visible {
+  width: 145px;
+  background: #e2c75f;
+}
+
+.quick-icon {
+  flex: 0 0 21px;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.quick-label {
+  margin-left: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.quick-tab:hover .quick-label,
+.quick-tab:focus-visible .quick-label {
+  opacity: 1;
+}
+
+.about-card {
+  max-width: 760px;
+  margin: 28px auto;
+  padding: 30px;
+  background: #fff;
+  border: 1px solid rgba(214, 184, 76, 0.35);
+  border-top: 3px solid #d6b84c;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(17, 17, 17, 0.06);
+}
+
+.about-card h2,
+.about-card h3 {
+  color: #151515;
+}
+
+.about-card p {
+  color: #555;
+  line-height: 1.7;
+}
+
+.about-card .about-eyebrow {
+  margin-bottom: 6px;
+  color: #9b7e20;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.about-card hr {
+  margin: 24px 0;
+  border: 0;
+  border-top: 1px solid #eee8d6;
+}
+
+@media (max-width: 600px) {
+  .quick-tabs {
+    right: 8px;
+  }
+
+  .about-card {
+    padding: 22px;
+  }
+}
+
     </style>
 
 <link
@@ -8740,5 +8839,66 @@ async function cancelMemberRequest(connectionId, memberId) {
     </div>
   </main>
 </section>
+
+<nav class="quick-tabs" aria-label="Quick navigation">
+  <button type="button" class="quick-tab" onclick="showSection('homeSection')">
+    <span class="quick-icon">⌂</span>
+    <span class="quick-label">Home</span>
+  </button>
+
+  <button type="button" class="quick-tab" onclick="showSection('connectSection')">
+    <span class="quick-icon">◎</span>
+    <span class="quick-label">Members</span>
+  </button>
+
+  <button type="button" class="quick-tab" onclick="showSection('createSection')">
+    <span class="quick-icon">＋</span>
+    <span class="quick-label">Create</span>
+  </button>
+
+  <button type="button" class="quick-tab" onclick="showSection('shareIdeasSection')">
+    <span class="quick-icon">✎</span>
+    <span class="quick-label">Share</span>
+  </button>
+
+  <button type="button" class="quick-tab" onclick="showSection('aboutSection')">
+    <span class="quick-icon">i</span>
+    <span class="quick-label">About</span>
+  </button>
+</nav>
+
+<section id="aboutSection" class="page-section">
+  <main>
+    <div class="community-page">
+      <button
+        type="button"
+        class="page-back-btn"
+        onclick="showSection('homeSection')"
+      >
+        ← Home
+      </button>
+
+      <div class="about-card">
+        <p class="about-eyebrow">OUR COMMUNITY</p>
+        <h2>About EJ Designs Community</h2>
+
+        <p>
+          A space for architects, designers, and creative minds to connect,
+          share ideas, and showcase their work.
+        </p>
+
+        <hr>
+
+        <p class="about-eyebrow">THE CREATOR</p>
+        <h3>Created by M.Arch. Esra'a E. Al-Johari</h3>
+
+        <p>
+          [Your personal story and the idea behind this website will go here.]
+        </p>
+      </div>
+    </div>
+  </main>
+</section>
+
 </body>
 </html>
