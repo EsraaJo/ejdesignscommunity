@@ -77,8 +77,8 @@
 
 .project-action-button:hover {
   color: #111;
-  background: #d6b84c;
-  border-color: #d6b84c;
+background: rgba(214, 184, 76, 0.72);
+backdrop-filter: blur(6px);  border-color: #d6b84c;
 }
 .connection-requests-section {
     width: 100%;
@@ -2560,9 +2560,7 @@ select {
   border-color: #d6b84c !important;
 }
 
-#projectSection .projects-grid {
-  gap: 18px;
-}
+
 
 #projectSection .project-card img,
 #projectDetailsSection .project-detail-images img {
@@ -3263,7 +3261,7 @@ margin: 36px auto 18px !important;}
 .quick-tabs {
   position: fixed;
   top: 50%;
-  right: 16px;
+right: 12px;
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -3279,18 +3277,25 @@ margin: 36px auto 18px !important;}
   padding: 0 13px;
   overflow: hidden;
   color: #151515;
-  background: #d6b84c;
-  border: 1px solid rgba(17, 17, 17, 0.12);
+background: rgba(214, 184, 76, 0.4);
+backdrop-filter: blur(6px);  border: 1px solid rgba(17, 17, 17, 0.12);
   border-radius: 12px;
-  box-shadow: 0 4px 14px rgba(17, 17, 17, 0.12);
-  cursor: pointer;
+box-shadow:
+  0 3px 0 rgba(145, 117, 35, 0.65),
+  0 7px 16px rgba(0, 0, 0, 0.18),
+  inset 0 1px 0 rgba(255, 255, 255, 0.35);  cursor: pointer;
   transition: width 0.22s ease, background 0.22s ease;
 }
 
 .quick-tab:hover,
 .quick-tab:focus-visible {
   width: 145px;
-  background: #e2c75f;
+background: rgba(226, 199, 95, 0.7);
+transform: translate(-5px, -2px);
+box-shadow:
+  0 2px 0 rgba(145, 117, 35, 0.65),
+  0 11px 20px rgba(0, 0, 0, 0.22),
+  inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .quick-icon {
@@ -3318,12 +3323,7 @@ margin: 36px auto 18px !important;}
   }
 }
 
-#projectSection .projects-grid {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 350px)) !important;
-  justify-content: center !important;
-  gap: 18px !important;
-}
+
 
 #projectSection .project-card {
   width: 100%;
@@ -3337,13 +3337,197 @@ margin: 36px auto 18px !important;}
   object-fit: cover;
 }
 
+
+
+
+
+#projectSection .projects-grid .project-card {
+  flex: 0 0 220px;
+  max-width: 220px;
+  scroll-snap-align: start;
+}
+
+#projectSection .project-card img {
+  display: block;
+  width: 125px !important;
+  height: 125px !important;
+  aspect-ratio: 1 / 1 !important;
+  margin: 14px auto 8px;
+  border-radius: 50% !important;
+  object-fit: cover;
+}
+
+#projectSection .project-card-content {
+  padding: 12px;
+  text-align: center;
+}
+
+#projectSection .project-card-content h4 {
+  font-size: 14px;
+}
+
+#projectSection .project-card-content p {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+#projectSection .project-card-actions {
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+#projectSection .project-action-button {
+  padding: 7px 9px;
+  font-size: 11px;
+}
+
 @media (max-width: 600px) {
-  #projectSection .projects-grid {
-    grid-template-columns: minmax(0, 350px) !important;
+  #projectSection .projects-grid .project-card {
+    flex-basis: 190px;
+    max-width: 190px;
+  }
+
+  #projectSection .project-card img {
+    width: 110px !important;
+    height: 110px !important;
   }
 }
 
+
+#projectSection .projects-grid .project-card {
+  flex: 0 0 210px;
+  max-width: 210px;
+  scroll-snap-align: start;
+}
+
+#projectSection .project-card img {
+  display: block;
+  width: 115px !important;
+  height: 115px !important;
+  aspect-ratio: 1 / 1 !important;
+  margin: 14px auto 8px;
+  border-radius: 50% !important;
+  object-fit: cover;
+}
+
+#projectSection .project-card-content {
+  padding: 10px;
+  text-align: center;
+}
+
+/* Restore the upload form to its previous width */
+#projectSection .project-upload-card {
+  width: 100%;
+  max-width: 760px !important;
+  margin: 30px auto 45px !important;
+  box-sizing: border-box;
+}
+#projectSection .project-gallery {
+  max-width: 480px;
+  margin: 0 auto 24px;
+  padding: 14px;
+  overflow: hidden;
+  background: #e2e2e2;
+  border: 1px solid #d1d1d1;
+  border-radius: 16px;
+}
+
+#projectSection .projects-grid {
+  display: flex !important;
+  width: 330px;
+  max-width: 100%;
+  margin: 0 auto;
+  gap: 14px;
+  overflow-x: auto !important;
+  padding: 8px 2px 14px;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+#projectSection .projects-grid .project-card {
+  flex: 0 0 190px;
+  max-width: 190px;
+  scroll-snap-align: start;
+}
+
+#projectSection .project-card img {
+  width: 105px !important;
+  height: 105px !important;
+  margin: 12px auto 8px;
+  border-radius: 50% !important;
+  object-fit: cover;
+}
+#projectSection .project-gallery {
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto 24px;
+  padding: 14px;
+  background: #d9d9d9;
+  border-radius: 16px;
+}
+
+#projectSection .projects-grid {
+  width: 360px !important;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+#projectSection .projects-grid .project-card {
+  flex: 0 0 250px;
+  max-width: 250px;
+}
+
+#projectSection .project-card-actions {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  justify-content: center;
+  gap: 6px;
+}
+
+#projectSection .project-action-button {
+  min-width: 0 !important;
+  padding: 7px 8px !important;
+  font-size: 12px !important;
+  white-space: nowrap;
+}
+
+@media (max-width: 500px) {
+  #projectSection .project-gallery {
+    max-width: 100%;
+  }
+}
+.quick-tab.selected {
+  width: 155px;
+}
+
+.quick-tab.selected .quick-label {
+  opacity: 1;
+}
+
+.quick-tabs {
+  width: 155px;
+  align-items: flex-end;
+}
+
+.quick-tab {
+  position: relative;
+  justify-content: flex-start;
+  transition: width 0.12s ease, background 0.12s ease;
+}
+
+.quick-icon {
+  position: absolute;
+  right: 13px;
+}
+
+.quick-label {
+  margin-left: 0;
+  margin-right: 30px;
+}
+
     </style>
+
 
 <link
   href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
@@ -3827,7 +4011,7 @@ margin: 36px auto 18px !important;}
 
 <section id="projectSection" class="page-section">
   <main>
-</div>
+    <div class="community-page">
 
       <h2>Projects</h2>
 
@@ -3836,10 +4020,14 @@ margin: 36px auto 18px !important;}
       </p>
 <h3 class="project-list-heading">Community Projects</h3>
 
-      <div id="projectsGrid" class="projects-grid">
-        Loading projects...
-      </div>
-      <div class="project-upload-card">
+<div class="project-gallery">
+  <div id="projectsGrid" class="projects-grid">
+    Loading projects...
+  </div>
+</div>
+
+<div class="project-upload-card">
+
 <h3 id="projectFormTitle">Upload a New Project</h3>
 
         <form id="projectForm" onsubmit="uploadProject(event)">
@@ -8354,8 +8542,11 @@ async function loadProjects() {
 </div>
       </article>
     `;
-  }).join("");
+}).join("");
+
+startProjectsAutoScroll();
 }
+
 
 function changeProjectCover(projectId) {
   const fileInput = document.createElement("input");
@@ -8793,7 +8984,69 @@ async function cancelMemberRequest(connectionId, memberId) {
   }
 }
 
+function scrollProjects(direction) {
+  const gallery = document.getElementById("projectsGrid");
+  if (!gallery) return;
 
+  gallery.scrollBy({
+    left: direction * 300,
+    behavior: "smooth"
+  });
+}
+function startProjectsAutoScroll() {
+  const track = document.getElementById("projectsGrid");
+  const gallery = track?.closest(".project-gallery");
+
+  if (!track || !gallery) return;
+
+  if (window.projectsAutoScrollTimer) {
+    clearInterval(window.projectsAutoScrollTimer);
+  }
+
+  let paused = false;
+
+  gallery.onmouseenter = () => {
+    paused = true;
+  };
+
+  gallery.onmouseleave = () => {
+    paused = false;
+  };
+
+  gallery.ontouchstart = () => {
+    paused = true;
+  };
+
+  gallery.ontouchend = () => {
+    paused = false;
+  };
+
+  window.projectsAutoScrollTimer = setInterval(() => {
+    if (paused || track.scrollWidth <= track.clientWidth) return;
+
+    const reachedEnd =
+      track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
+
+    track.scrollTo({
+      left: reachedEnd ? 0 : track.scrollLeft + 234,
+      behavior: "smooth"
+    });
+  }, 2500);
+}
+function selectQuickTab(button, sectionId) {
+  const wasSelected = button.classList.contains("selected");
+
+  document.querySelectorAll(".quick-tab").forEach(tab => {
+    tab.classList.remove("selected");
+  });
+
+  if (wasSelected) {
+    showSection(sectionId);
+    return;
+  }
+
+  button.classList.add("selected");
+}
 </script>
 
 <section id="shareIdeasSection" class="page-section">
@@ -8859,27 +9112,27 @@ async function cancelMemberRequest(connectionId, memberId) {
 </section>
 
 <nav class="quick-tabs" aria-label="Quick navigation">
-  <button type="button" class="quick-tab" onclick="showSection('homeSection')">
+  <button type="button" class="quick-tab" onclick="selectQuickTab(this, 'createSection')">
     <span class="quick-icon">⌂</span>
     <span class="quick-label">Home</span>
   </button>
 
-  <button type="button" class="quick-tab" onclick="showSection('connectSection')">
+  <button type="button" class="quick-tab" onclick="selectQuickTab(this, 'createSection')">
     <span class="quick-icon">◎</span>
     <span class="quick-label">Members</span>
   </button>
 
-  <button type="button" class="quick-tab" onclick="showSection('createSection')">
+  <button type="button" class="quick-tab" onclick="selectQuickTab(this, 'createSection')">
     <span class="quick-icon">＋</span>
     <span class="quick-label">Create</span>
   </button>
 
-  <button type="button" class="quick-tab" onclick="showSection('shareIdeasSection')">
+  <button type="button" class="quick-tab" onclick="selectQuickTab(this, 'createSection')">
     <span class="quick-icon">✎</span>
     <span class="quick-label">Share</span>
   </button>
 
-  <button type="button" class="quick-tab" onclick="showSection('aboutSection')">
+  <button type="button" class="quick-tab" onclick="selectQuickTab(this, 'createSection')">
     <span class="quick-icon">i</span>
     <span class="quick-label">About</span>
   </button>
