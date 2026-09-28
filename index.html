@@ -3144,6 +3144,53 @@ select {
     font-size: 19px;
   }
 }
+.member-connect-btn.is-connected {
+  color: #151515;
+  background: #f1eee4;
+  border-color: #d6b84c;
+  cursor: default;
+}
+
+.member-connect-btn.is-pending {
+  color: #151515;
+  background: #fff8df;
+  border-color: #d6b84c;
+}
+
+.member-connect-btn:disabled {
+  opacity: 1;
+}
+.home-copyright {
+  margin-top: 42px;
+  padding: 16px 12px;
+  border-top: 1px solid rgba(214, 184, 76, 0.25);
+  text-align: center;
+}
+
+.home-copyright {
+  margin-top: 30px;
+  padding: 13px 12px;
+  border-top: 1px solid rgba(214, 184, 76, 0.35);
+  text-align: center;
+}
+
+.home-copyright p {
+  margin: 0;
+  color: #555;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.home-copyright p span {
+  color: #D6B84C;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .home-copyright {
+    margin-top: 28px;
+  }
+}
     </style>
 
 <link
@@ -3377,6 +3424,10 @@ select {
         </div>
 
     </main>
+
+  <footer class="home-copyright">
+<p>© 2026 <span>EJ Designs Community</span>. All rights reserved.</p>
+        </footer>
 
 </section>
 
@@ -6690,8 +6741,24 @@ async function loadMembers() {
             return;
         }
 
-        renderMembers(members);
+let connections = [];
 
+if (currentUser) {
+  const { data, error: connectionError } = await db
+    .from("connections")
+    .select("id, requester_id, recipient_id, status")
+    .or(
+      `requester_id.eq.${currentUser.id},recipient_id.eq.${currentUser.id}`
+    );
+
+  if (connectionError) {
+    console.error("Could not load member connection statuses:", connectionError);
+  } else {
+    connections = data || [];
+  }
+}
+
+renderMembers(members, connections);
     } catch (error) {
 
         console.error(
@@ -6971,103 +7038,105 @@ async function rejectConnection(connectionId) {
    RENDER MEMBERS
 ===================================================== */
 
-function renderMembers(members) {
+function renderMembers(members, connections = []) {
+  const membersGrid = document.getElementById("membersGrid");
+  if (!membersGrid) return;
 
-    const membersGrid =
-        document.getElementById(
-            "membersGrid"
-        );
+  membersGrid.innerHTML = members.map(member => {
+    const name = member.full_name || "Member";
+    const profession =
+      member.profession || member.headline || "Creative Professional";
+    const location = member.location || "";
+    const memberId = String(member.id);
+    const currentUserId = currentUser ? String(currentUser.id) : "";
 
-    if (!membersGrid) {
-        return;
-    }
+    const relation = connections.find(connection =>
+      (
+        String(connection.requester_id) === currentUserId &&
+        String(connection.recipient_id) === memberId
+      ) ||
+      (
+        String(connection.requester_id) === memberId &&
+        String(connection.recipient_id) === currentUserId
+      )
+    );
 
-    membersGrid.innerHTML =
-        members.map(
-            function(member) {
+    let buttonText = "Connect";
+    let buttonClass = "member-connect-btn";
+    let buttonDisabled = "";
+    let buttonAction = `connectWithMember('${memberId}')`;
 
-                const name =
-                    member.full_name ||
-                    "Member";
+if (currentUserId === memberId) {
+  buttonText = "Your Profile";
+  buttonDisabled = "disabled";
 
-                const profession =
-                    member.profession ||
-                    member.headline ||
-                    "Creative Professional";
+} else if (relation?.status === "accepted") {
+  buttonText = "Connected";
+  buttonClass += " is-connected";
+  buttonDisabled = "disabled";
 
-                const location =
-                    member.location ||
-                    "";
+} else if (
+  relation?.status === "pending" &&
+  String(relation.requester_id) === currentUserId
+) {
+  buttonText = "Cancel Request";
+  buttonClass += " is-pending";
+  buttonAction = `cancelMemberRequest('${relation.id}', '${memberId}')`;
 
-                const initials =
-                    getInitials(name);
+} else if (
+  relation?.status === "pending" &&
+  String(relation.recipient_id) === currentUserId
+) {
+  buttonText = "Request Received";
+  buttonClass += " is-pending";
+  buttonAction = `viewMemberProfile('${memberId}')`;
+}
 
-                const avatar =
-                    member.avatar_url
+    const avatar = member.avatar_url
+      ? `<img
+           class="member-avatar"
+           src="${escapeHtml(member.avatar_url)}"
+           alt="${escapeHtml(name)}"
+         >`
+      : `<div class="member-initials">
+           ${escapeHtml(getInitials(name))}
+         </div>`;
 
-                        ? `
-                            <img
-                                class="member-avatar"
-                                src="${escapeHtml(member.avatar_url)}"
-                                alt="${escapeHtml(name)}"
-                            >
-                          `
+    return `
+      <div class="member-card">
+        ${avatar}
 
-                        : `
-                            <div class="member-initials">
-                                ${initials}
-                            </div>
-                          `;
+        <h3>${escapeHtml(name)}</h3>
 
+        <div class="member-profession">
+          ${escapeHtml(profession)}
+        </div>
 
-                return `
+        ${
+          location
+            ? `<div class="member-location">${escapeHtml(location)}</div>`
+            : ""
+        }
 
-                    <div
-                        class="member-card"
-                    >
+        <button
+          type="button"
+          class="${buttonClass}"
+          onclick="${buttonAction}"
+          ${buttonDisabled}
+        >
+          ${buttonText}
+        </button>
 
-                        ${avatar}
-
-                        <h3>
-                            ${escapeHtml(name)}
-                        </h3>
-
-                        <div
-                            class="member-profession"
-                        >
-                            ${escapeHtml(profession)}
-                        </div>
-
-                        ${
-                            location
-                                ? `
-                                    <div
-                                        class="member-location"
-                                    >
-                                        ${escapeHtml(location)}
-                                    </div>
-                                  `
-                                : ""
-                        }
-
-                        <button
-                            class="member-connect-btn"
-                            onclick="connectWithMember('${member.id}')"
-                        >
-                            Connect
-                        </button>
-<button
-  class="member-view-profile-btn"
-  type="button"
-  onclick="viewMemberProfile('${member.id}')"
->
-  View Profile
-</button>
-                    </div>
-
-                `;
-            }
-        ).join("");
+        <button
+          type="button"
+          class="member-view-profile-btn"
+          onclick="viewMemberProfile('${memberId}')"
+        >
+          View Profile
+        </button>
+      </div>
+    `;
+  }).join("");
 }
 
 
@@ -7196,7 +7265,7 @@ async function connectWithMember(memberId) {
             return;
         }
 
-        alert("Connection request sent!");
+await loadMembers();
 
     } catch (error) {
 
@@ -8422,7 +8491,9 @@ async function viewMemberProfile(memberId) {
       </section>
     </article>
   `;
-  await loadMemberConnectionButton(memberId);
+  
+await loadMembers();
+await loadMemberConnectionButton(memberId);
 
   if (projectError) console.error(projectError);
 }
@@ -8511,49 +8582,56 @@ async function cancelMemberRequest(connectionId, memberId) {
     return;
   }
 
-  if (!confirm("Cancel this connection request?")) return;
+  const button = [...document.querySelectorAll(".member-connect-btn")]
+    .find(item => item.getAttribute("onclick")?.includes(connectionId));
 
-  const { data, error } = await db
-    .from("connections")
-    .delete()
-    .eq("id", connectionId)
-    .eq("requester_id", currentUser.id)
-    .eq("status", "pending")
-    .select("id")
-    .maybeSingle();
+  if (button) {
+    button.disabled = true;
+    button.textContent = "Cancelling...";
+  }
 
-  if (error) {
+  try {
+    const { error } = await db
+      .from("connections")
+      .delete()
+      .eq("id", connectionId)
+      .eq("requester_id", currentUser.id)
+      .eq("status", "pending");
+
+    if (error) throw error;
+
+    if (button) {
+      button.disabled = false;
+      button.textContent = "Connect";
+      button.classList.remove("is-pending");
+      button.setAttribute(
+        "onclick",
+        `connectWithMember('${memberId}')`
+      );
+    }
+
+    const profileBox = document.getElementById("memberConnectionAction");
+
+    if (profileBox) {
+      profileBox.innerHTML = `
+        <button
+          type="button"
+          class="member-connection-button"
+          onclick="connectFromMemberProfile('${memberId}')"
+        >
+          Connect
+        </button>
+      `;
+    }
+  } catch (error) {
+    console.error("Cancel request error:", error);
     alert("Could not cancel the request: " + error.message);
-    return;
+
+    if (button) {
+      button.disabled = false;
+      button.textContent = "Cancel Request";
+    }
   }
-
-  if (!data) {
-    alert("The request could not be found or you do not have permission to cancel it.");
-    return;
-  }
-
-  await loadMemberConnectionButton(memberId);
-}
-
-async function acceptMemberRequest(connectionId, memberId) {
-  await acceptConnection(connectionId);
-  await loadMemberConnectionButton(memberId);
-}
-
-async function removeMemberConnection(connectionId, memberId) {
-  if (!confirm("Remove this connection or request?")) return;
-
-  const { error } = await db
-    .from("connections")
-    .delete()
-    .eq("id", connectionId);
-
-  if (error) {
-    alert("Could not remove connection: " + error.message);
-    return;
-  }
-
-  await loadMemberConnectionButton(memberId);
 }
 
 
