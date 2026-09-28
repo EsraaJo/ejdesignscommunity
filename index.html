@@ -3738,7 +3738,7 @@ box-shadow:
 }
 
 .owner-chat-contacts {
-  max-height: 115px;
+  max-height: 190px;
   overflow-y: auto;
   border-bottom: 1px solid #eee;
   background: #fafafa;
@@ -3880,6 +3880,39 @@ box-shadow:
   flex: 0 0 auto;
   white-space: nowrap;
 }
+
+.owner-chat-status {
+  min-height: 18px;
+  margin: 0;
+  padding: 0 11px 8px;
+  font-size: 12px;
+}
+
+.owner-chat-delete {
+  padding: 7px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 8px;
+  background: transparent;
+  color: #fff;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.owner-chat-delete:hover {
+  background: #a83232;
+}
+
+.owner-chat-contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.owner-chat-contact-details span {
+  color: #777;
+  font-size: 11px;
+}
+
     </style>
 
 
@@ -5351,13 +5384,14 @@ box-shadow:
       </div>
 
       <button
-        id="ownerChatClose"
-        class="owner-chat-close"
-        type="button"
-        aria-label="Close chat"
-      >
-        ×
-      </button>
+  id="ownerChatDelete"
+  class="owner-chat-delete"
+  type="button"
+  onclick="ownerChatDeleteConversation()"
+  hidden
+>
+  Delete conversation
+</button>
     </header>
 
     <div id="ownerChatContacts" class="owner-chat-contacts" hidden></div>
@@ -8656,8 +8690,8 @@ async function shareFeedback() {
     return;
   }
 
-  input.value = "";
-  await loadFeedback();
+input.value = "";
+await loadFeedback();
 }
 
 async function loadFeedback() {
@@ -9468,6 +9502,7 @@ function selectQuickTab(button, sectionId) {
 const OWNER_CHAT_ID = "4f757ff7-d08f-4fa8-826c-0a8f7c9f1917";
 
 let ownerChatActiveUserId = null;
+let ownerChatActiveGuestEmail = null;
 let ownerChatProfiles = {};
 let ownerChatRefreshTimer = null;
 
@@ -9485,7 +9520,32 @@ function ownerChatEscape(value) {
     "'": "&#39;"
   })[character]);
 }
+function ownerChatAvatar(profile) {
+  const name = profile?.full_name || "EJ";
+  const initials = name
+    .split(/\s+/)
+    .map(part => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
 
+  if (profile?.avatar_url) {
+    return `
+      <span class="owner-chat-avatar">
+        <img
+          src="${ownerChatEscape(profile.avatar_url)}"
+          alt="${ownerChatEscape(name)}"
+        >
+      </span>
+    `;
+  }
+
+  return `
+    <span class="owner-chat-avatar">
+      ${ownerChatEscape(initials)}
+    </span>
+  `;
+}
 function ownerChatSetLauncherAvatar(profile) {
   const box = document.getElementById("ownerChatLauncherAvatar");
 
@@ -9576,193 +9636,262 @@ async function ownerChatLoadInbox() {
   const { data: messages, error } = await db
     .from("owner_messages")
     .select("sender_id, recipient_id, guest_name, guest_email, body, created_at")
-    .eq("recipient_id", OWNER_CHAT_ID)
+    .or(`recipient_id.eq.${OWNER_CHAT_ID},sender_id.eq.${OWNER_CHAT_ID}`)
     .order("created_at", { ascending: false })
-    .limit(100);
+    .limit(1000);
 
   if (error) {
     console.error(error);
     ownerChatMessages.innerHTML =
-      '<p class="owner-chat-empty">Could not load your messages.</p>';
+      '<p class="owner-chat-empty">Could not load messages.</p>';
     return;
   }
 
-  const allMessages = messages || [];
-  const guestMessages = allMessages.filter(message => !message.sender_id);
-  const senderIds = [
-    ...new Set(
-      allMessages
-        .filter(message => message.sender_id)
-        .map(message => message.sender_id)
-    )
-  ];
+  const conversations = new Map();
+
+  (messages || []).forEach(message => {
+    if (!message.sender_id && message.guest_email) {
+      const key = `guest:${message.guest_email}`;
+      if (!conversations.has(key)) {
+        conversations.set(key, {
+          key,
+          guestEmail: message.guest_email,
+          name: message.guest_name || "Website visitor",
+          latest: message.created_at
+        });
+      }
+      return;
+    }
+
+    const otherUserId =
+      message.sender_id === OWNER_CHAT_ID
+        ? message.recipient_id
+        : message.sender_id;
+
+    if (!otherUserId || otherUserId === OWNER_CHAT_ID) return;
+
+    const key = `user:${otherUserId}`;
+    if (!conversations.has(key)) {
+      conversations.set(key, {
+        key,
+        userId: otherUserId,
+        latest: message.created_at
+      });
+    }
+  });
+
+  const userIds = [...conversations.values()]
+    .filter(item => item.userId)
+    .map(item => item.userId);
 
   ownerChatProfiles = {};
 
-  if (senderIds.length) {
+  if (userIds.length) {
     const { data: profiles } = await db
       .from("profiles")
       .select("id, full_name, avatar_url")
-      .in("id", senderIds);
+      .in("id", userIds);
 
     (profiles || []).forEach(profile => {
       ownerChatProfiles[profile.id] = profile;
     });
   }
 
-  if (!ownerChatActiveUserId || !senderIds.includes(ownerChatActiveUserId)) {
-    ownerChatActiveUserId = senderIds[0] || null;
-  }
+  const list = [...conversations.values()];
 
-  ownerChatContacts.innerHTML = senderIds.map(userId => {
-    const profile = ownerChatProfiles[userId] || {
-      full_name: "Community Member"
-    };
-
-    return `
-      <button
-        type="button"
-        class="owner-chat-contact ${userId === ownerChatActiveUserId ? "is-active" : ""}"
-        data-chat-user="${ownerChatEscape(userId)}"
-      >
-        ${ownerChatAvatar(profile)}
-        <strong>${ownerChatEscape(profile.full_name)}</strong>
-      </button>
-    `;
-  }).join("");
-
-  const guestCards = guestMessages.map(message => `
-    <article class="owner-chat-bubble">
-      <strong>${ownerChatEscape(message.guest_name || "Website visitor")}</strong>
-      <br>
-      <a href="mailto:${ownerChatEscape(message.guest_email || "")}">
-        ${ownerChatEscape(message.guest_email || "No email provided")}
-      </a>
-      <p>${ownerChatEscape(message.body)}</p>
-    </article>
-  `).join("");
-
-  if (ownerChatActiveUserId) {
-    const profile = ownerChatProfiles[ownerChatActiveUserId];
-
-    if (profile) {
-      document.getElementById("ownerChatHeaderName").textContent =
-        profile.full_name || "Community Member";
-      document.getElementById("ownerChatHeaderAvatar").innerHTML =
-        ownerChatAvatar(profile);
-    }
-
-    await ownerChatLoadMessages();
-
-    if (guestCards) {
-      ownerChatMessages.insertAdjacentHTML("afterbegin", guestCards);
-    }
-  } else {
-    ownerChatMessages.innerHTML = guestCards ||
-      '<p class="owner-chat-empty">No messages yet.</p>';
-  }
-}
-
-async function ownerChatLoadInbox() {
-  const { data: messages, error } = await db
-    .from("owner_messages")
-    .select("sender_id, recipient_id, guest_name, guest_email, body, created_at")
-    .eq("recipient_id", OWNER_CHAT_ID)
-    .order("created_at", { ascending: false })
-    .limit(100);
-
-  if (error) {
-    console.error("Inbox error:", error);
+  if (!list.length) {
+    ownerChatActiveUserId = null;
+    ownerChatActiveGuestEmail = null;
+    ownerChatContacts.innerHTML = "";
     ownerChatMessages.innerHTML =
-      '<p class="owner-chat-empty">Could not load your messages.</p>';
+      '<p class="owner-chat-empty">No messages yet.</p>';
+    document.getElementById("ownerChatDelete").hidden = true;
     return;
   }
 
-  const allMessages = messages || [];
-  const guestMessages = allMessages.filter(message => !message.sender_id);
+  const activeKey = ownerChatActiveGuestEmail
+    ? `guest:${ownerChatActiveGuestEmail}`
+    : ownerChatActiveUserId
+      ? `user:${ownerChatActiveUserId}`
+      : null;
 
-  const senderIds = [
-    ...new Set(
-      allMessages
-        .filter(message => message.sender_id)
-        .map(message => message.sender_id)
-    )
-  ];
+  const selected = list.find(item => item.key === activeKey) || list[0];
 
-  ownerChatProfiles = {};
+  ownerChatContacts.innerHTML = list.map(item => {
+    const name = item.userId
+      ? ownerChatProfiles[item.userId]?.full_name || "Community member"
+      : item.name;
 
-  if (senderIds.length) {
-    const { data: profiles, error: profilesError } = await db
-      .from("profiles")
-      .select("id, full_name, avatar_url")
-      .in("id", senderIds);
-
-    if (profilesError) console.error("Profile loading error:", profilesError);
-
-    (profiles || []).forEach(profile => {
-      ownerChatProfiles[profile.id] = profile;
-    });
-  }
-
-  if (!ownerChatActiveUserId || !senderIds.includes(ownerChatActiveUserId)) {
-    ownerChatActiveUserId = senderIds[0] || null;
-  }
-
-  ownerChatContacts.innerHTML = senderIds.map(userId => {
-    const profile = ownerChatProfiles[userId] || {
-      full_name: "Community Member"
-    };
+    const dataAttribute = item.userId
+      ? `data-chat-user="${ownerChatEscape(item.userId)}"`
+      : `data-chat-email="${ownerChatEscape(item.guestEmail)}"`;
 
     return `
       <button
         type="button"
-        class="owner-chat-contact ${userId === ownerChatActiveUserId ? "is-active" : ""}"
-        data-chat-user="${ownerChatEscape(userId)}"
+          onclick="ownerChatSelectConversation(this)"
+        class="owner-chat-contact ${item.key === selected.key ? "is-active" : ""}"
+        ${dataAttribute}
       >
-        ${ownerChatAvatar(profile)}
-        <strong>${ownerChatEscape(profile.full_name)}</strong>
-      </button>
+<div class="owner-chat-contact-details">
+  <strong>${ownerChatEscape(name)}</strong>
+  <span>${ownerChatEscape(item.guestEmail || "Community member")}</span>
+</div>    
+  </button>
     `;
   }).join("");
 
-  const guestCards = guestMessages.map(message => `
-    <article class="owner-chat-bubble">
-      <strong>${ownerChatEscape(message.guest_name || "Website visitor")}</strong>
-      <br>
-      <a href="mailto:${ownerChatEscape(message.guest_email || "")}">
-        ${ownerChatEscape(message.guest_email || "No email provided")}
-      </a>
-      <p>${ownerChatEscape(message.body)}</p>
-    </article>
-  `).join("");
+  if (selected.guestEmail) {
+    ownerChatActiveUserId = null;
+    ownerChatActiveGuestEmail = selected.guestEmail;
+    ownerChatForm.hidden = true;
 
-  if (ownerChatActiveUserId) {
-    const profile = ownerChatProfiles[ownerChatActiveUserId];
+    document.getElementById("ownerChatHeaderName").textContent = selected.name;
+    document.getElementById("ownerChatHeaderStatus").textContent =
+      selected.guestEmail;
+    document.getElementById("ownerChatDelete").hidden = false;
 
-    if (profile) {
-      document.getElementById("ownerChatHeaderName").textContent =
-        profile.full_name || "Community Member";
-      document.getElementById("ownerChatHeaderAvatar").innerHTML =
-        ownerChatAvatar(profile);
-    }
+    await ownerChatLoadGuestMessages();
+  } else {
+    ownerChatActiveGuestEmail = null;
+    ownerChatActiveUserId = selected.userId;
+    ownerChatForm.hidden = false;
+
+    const profile = ownerChatProfiles[selected.userId];
+    document.getElementById("ownerChatHeaderName").textContent =
+      profile?.full_name || "Community member";
+    document.getElementById("ownerChatHeaderStatus").textContent =
+      "Community member";
+    document.getElementById("ownerChatHeaderAvatar").innerHTML =
+      ownerChatAvatar(profile);
+    document.getElementById("ownerChatDelete").hidden = false;
 
     await ownerChatLoadMessages();
-
-    if (guestCards) {
-      ownerChatMessages.insertAdjacentHTML("afterbegin", guestCards);
-    }
-  } else {
-    ownerChatMessages.innerHTML = guestCards ||
-      '<p class="owner-chat-empty">No messages yet.</p>';
   }
+}
+
+async function ownerChatLoadGuestMessages() {
+  if (!ownerChatActiveGuestEmail) return;
+
+  ownerChatMessages.innerHTML =
+    '<p class="owner-chat-empty">Loading conversation...</p>';
+
+  try {
+    const { data: messages, error } = await db
+      .from("owner_messages")
+      .select("guest_name, guest_email, body, created_at")
+      .eq("recipient_id", OWNER_CHAT_ID)
+      .is("sender_id", null)
+      .eq("guest_email", ownerChatActiveGuestEmail)
+      .order("created_at", { ascending: true });
+
+    if (error) throw error;
+
+    ownerChatMessages.innerHTML = (messages || []).map(message => `
+      <div class="owner-chat-bubble">
+        ${ownerChatEscape(message.body)}
+      </div>
+    `).join("") || '<p class="owner-chat-empty">No messages yet.</p>';
+
+  } catch (error) {
+    console.error("Could not load this conversation:", error);
+    ownerChatMessages.innerHTML =
+      '<p class="owner-chat-empty">Could not load this conversation. Please try again.</p>';
+  }
+}
+async function ownerChatLoadMessages() {
+  if (!ownerChatActiveUserId) return;
+
+  ownerChatMessages.innerHTML =
+    '<p class="owner-chat-empty">Loading conversation...</p>';
+
+  try {
+    const memberId = String(ownerChatActiveUserId);
+
+    const { data: messages, error } = await db
+      .from("owner_messages")
+      .select("sender_id, recipient_id, body, created_at")
+      .or(
+        `and(sender_id.eq.${OWNER_CHAT_ID},recipient_id.eq.${memberId}),and(sender_id.eq.${memberId},recipient_id.eq.${OWNER_CHAT_ID})`
+      )
+      .order("created_at", { ascending: true });
+
+    if (error) throw error;
+
+    ownerChatMessages.innerHTML = (messages || []).map(message => {
+      const isMine =
+        String(message.sender_id) === String(currentUser.id);
+
+      return `
+        <div class="owner-chat-bubble ${isMine ? "mine" : ""}">
+          ${ownerChatEscape(message.body)}
+        </div>
+      `;
+    }).join("") || '<p class="owner-chat-empty">No messages yet.</p>';
+
+  } catch (error) {
+    console.error("Could not load this conversation:", error);
+    ownerChatMessages.innerHTML =
+      '<p class="owner-chat-empty">Could not load this conversation.</p>';
+  }
+}
+
+async function ownerChatDeleteConversation() {
+  if (!currentUser || String(currentUser.id) !== OWNER_CHAT_ID) {
+    alert("Please log in with the site owner account.");
+    return;
+  }
+
+  if (!ownerChatActiveGuestEmail && !ownerChatActiveUserId) {
+    alert("Select a conversation first.");
+    return;
+  }
+
+  if (!confirm("Delete this entire conversation?")) return;
+
+  let query = db
+    .from("owner_messages")
+    .delete()
+    .select("id");
+
+  if (ownerChatActiveGuestEmail) {
+    query = query
+      .eq("recipient_id", OWNER_CHAT_ID)
+      .is("sender_id", null)
+      .ilike("guest_email", ownerChatActiveGuestEmail);
+  } else {
+    query = query.or(
+      `and(sender_id.eq.${OWNER_CHAT_ID},recipient_id.eq.${ownerChatActiveUserId}),and(sender_id.eq.${ownerChatActiveUserId},recipient_id.eq.${OWNER_CHAT_ID})`
+    );
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error("Delete conversation error:", error);
+    alert("Delete failed: " + error.message);
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    alert("No messages were deleted. Check the selected email and permissions.");
+    return;
+  }
+
+  ownerChatActiveGuestEmail = null;
+  ownerChatActiveUserId = null;
+
+  alert("Conversation deleted.");
+  await ownerChatLoadInbox();
 }
 
 async function ownerChatRefresh() {
   if (ownerChatPanel.hidden || !currentUser) return;
 
-  if (String(currentUser.id) === OWNER_CHAT_ID) {
-    await ownerChatLoadInbox();
-  } else {
+  // Update the open conversation without rebuilding the contacts list.
+  if (ownerChatActiveGuestEmail) {
+    await ownerChatLoadGuestMessages();
+  } else if (ownerChatActiveUserId) {
     await ownerChatLoadMessages();
   }
 }
@@ -9781,14 +9910,37 @@ document.getElementById("ownerChatClose").addEventListener("click", () => {
   clearInterval(ownerChatRefreshTimer);
 });
 
-ownerChatContacts.addEventListener("click", async event => {
-  const contactButton = event.target.closest("[data-chat-user]");
-  if (!contactButton) return;
+async function ownerChatSelectConversation(button) {
+  ownerChatContacts
+    .querySelectorAll(".owner-chat-contact")
+    .forEach(contact => contact.classList.remove("is-active"));
 
-  ownerChatActiveUserId = contactButton.dataset.chatUser;
-  await ownerChatLoadInbox();
-});
+  button.classList.add("is-active");
 
+  if (button.dataset.chatEmail) {
+    ownerChatActiveGuestEmail = button.dataset.chatEmail;
+    ownerChatActiveUserId = null;
+    ownerChatForm.hidden = true;
+
+    document.getElementById("ownerChatHeaderName").textContent =
+      button.querySelector("strong")?.textContent || "Website visitor";
+
+    document.getElementById("ownerChatHeaderStatus").textContent =
+      ownerChatActiveGuestEmail;
+
+    await ownerChatLoadGuestMessages();
+  } else {
+    ownerChatActiveUserId = button.dataset.chatUser;
+    ownerChatActiveGuestEmail = null;
+    ownerChatForm.hidden = false;
+
+    await ownerChatLoadMessages();
+  }
+
+  document.getElementById("ownerChatDelete").hidden = false;
+}
+
+  
 ownerChatForm.addEventListener("submit", async event => {
   event.preventDefault();
 
@@ -9820,6 +9972,7 @@ ownerChatForm.addEventListener("submit", async event => {
       guest_email: currentUser ? null : emailInput.value.trim(),
       body
     });
+    
 
   if (error) {
     console.error(error);
