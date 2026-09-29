@@ -307,25 +307,10 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
         ===================================================== */
 
         .contact-links {
-
-            position: fixed;
-
-            bottom: 20px;
-
-            left: 50%;
-
-            transform:
-                translateX(-50%);
-
             display: flex;
-
             flex-direction: row;
-
             align-items: center;
-
             gap: 10px;
-
-            z-index: 1000;
         }
 
 
@@ -720,12 +705,12 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
 
         nav button {
 
-            background: linear-gradient(155deg, #242424 0%, #181818 48%, #101010 100%);
+            background: linear-gradient(155deg, #1e1e1e 0%, #151515 48%, #0d0d0d 100%);
 
-            color: #a9a9a9;
+            color: #d0d0d0;
 
             border:
-                1px solid #3d3d3d;
+                1px solid #343434;
 
             padding:
                 9px 18px;
@@ -737,32 +722,63 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
             cursor: pointer;
 
             box-shadow:
-                inset 1px 1px 0 rgba(255, 255, 255, 0.004),
-                inset -1px -1px 0 rgba(0, 0, 0, 0.66),
+                inset 0 1px 2px rgba(255, 255, 255, 0.025),
+                inset 0 -1px 2px rgba(0, 0, 0, 0.52),
                 0 2px 0 #292929,
-                0 5px 0 #141414,
-                0 10px 0 #080808,
-                0 19px 22px rgba(0, 0, 0, 0.56);
+                0 5px 0 #111111,
+                0 9px 15px rgba(0, 0, 0, 0.58);
 
             backdrop-filter: blur(6px);
 
             transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+            position: relative;
+            isolation: isolate;
+        }
+
+        nav button::before {
+            content: "";
+            position: absolute;
+            z-index: 1;
+            top: 1px;
+            bottom: 1px;
+            left: 0;
+            right: 0;
+            border-radius: inherit;
+            background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,.1) 50%, transparent 65%);
+            background-size: 300% 100%;
+            background-position: -150% 0;
+            pointer-events: none;
+            animation: navButtonGlint 3.8s linear infinite;
+        }
+
+        nav button span { position: relative; z-index: 2; }
+
+        nav button:nth-child(1)::before { animation-duration: 3.4s; animation-delay: -0.7s; }
+        nav button:nth-child(2)::before { animation-duration: 4.1s; animation-delay: -2.2s; }
+        nav button:nth-child(3)::before { animation-duration: 3.7s; animation-delay: -1.4s; }
+        nav button:nth-child(4)::before { animation-duration: 4.4s; animation-delay: -3.1s; }
+        nav button:nth-child(5)::before { animation-duration: 3.9s; animation-delay: -2.6s; }
+
+        @keyframes navButtonGlint {
+            0% { background-position: -150% 0; opacity: 0; }
+            10% { opacity: .5; }
+            90% { background-position: 150% 0; opacity: .2; }
+            100% { background-position: 170% 0; opacity: 0; }
         }
 
 
         nav button:hover {
 
-            background: linear-gradient(155deg, #2b2b2b 0%, #1d1d1d 48%, #131313 100%);
+            background: linear-gradient(155deg, #242424 0%, #191919 48%, #111111 100%);
 
-            border-color: #424242;
+            border-color: #3a3a3a;
 
             box-shadow:
-                inset 1px 1px 0 rgba(255, 255, 255, 0.008),
-                inset -1px -1px 0 rgba(0, 0, 0, 0.7),
-                0 2px 0 #333,
-                0 6px 0 #171717,
-                0 11px 0 #070707,
-                0 22px 24px rgba(0, 0, 0, 0.62);
+                inset 0 1px 2px rgba(255, 255, 255, 0.035),
+                inset 0 -1px 2px rgba(0, 0, 0, 0.58),
+                0 2px 0 #333333,
+                0 6px 0 #151515,
+                0 11px 17px rgba(0, 0, 0, 0.62);
 
             transform: translateY(-3px);
         }
@@ -771,9 +787,8 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
             transform: translateY(7px);
             box-shadow:
                 inset 1px 1px 2px rgba(0, 0, 0, 0.36),
-                inset -1px -1px 0 rgba(255, 255, 255, 0.025),
-                0 1px 0 #080808,
-                0 2px 5px rgba(0, 0, 0, 0.42);
+                inset -1px -1px 0 rgba(255, 255, 255, 0.006),
+                0 2px 5px rgba(0, 0, 0, 0.32);
         }
 
 
@@ -2050,9 +2065,9 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
 
 .member-avatar {
 
-    width: 78px;
+    width: 72px;
 
-    height: 78px;
+    height: 72px;
 
     border-radius: 50%;
 
@@ -2701,7 +2716,7 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
   padding: 8px 14px;
   color: #fff;
   background: #8b6262;
-  border: 0;
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 6px;
   cursor: pointer;
 }
@@ -3522,8 +3537,8 @@ body:has(#memberProfileSection.active) .contact-links {
 
 .member-profile-photo,
 .member-profile-placeholder {
-  width: 72px;
-  height: 72px;
+  width: 78px;
+  height: 78px;
   flex-basis: 72px;
 }
 
@@ -3878,11 +3893,14 @@ body:has(#memberProfileSection.active) .contact-links {
 .home-copyright {
   margin-top: 30px;
   padding: 13px 12px;
-  border-top: 1px solid rgba(214, 184, 76, 0.35);
+  border-top: 0;
   text-align: center;
 }
 
 .home-copyright p {
+  width: min(100%, 800px);
+  padding-top: 10px;
+  border-top: 1px solid rgba(214, 184, 76, 0.35);
   margin: 0;
   color: #555;
   font-size: 11px;
@@ -3894,10 +3912,12 @@ body:has(#memberProfileSection.active) .contact-links {
   font-weight: 600;
 }
 
+@media (min-width: 601px) {
+  .home-copyright { padding-top: 13px; }
+}
+
 @media (max-width: 600px) {
-  .home-copyright {
-    margin-top: 28px;
-  }
+  .home-copyright { margin-top: 28px; padding-bottom: 66px; }
 }
 .profile-navigation {
   display: flex;
@@ -4209,7 +4229,7 @@ margin: 36px auto 18px !important;}
     width: 100%;
     max-width: 420px;
     height: 48px;
-    margin: 18px auto 0;
+    margin: 22px auto 0;
     box-sizing: border-box;
     transform: none;
   }
@@ -4800,21 +4820,91 @@ box-shadow:
   left: 22px;
   bottom: 22px;
   z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
   font-family: inherit;
 }
+
+.social-sidebar-launcher { display: grid; place-items: center; width: 64px; height: 64px; border: 1px solid rgba(44,156,104,.62); border-radius: 50%; color: #14784d; background: rgba(91,190,143,.24); backdrop-filter: blur(10px); box-shadow: 0 4px 14px rgba(29,106,71,.18), inset 0 1px 0 rgba(255,255,255,.72); cursor: pointer; transition: transform .18s ease, background .18s ease, box-shadow .18s ease; }
+.social-sidebar-launcher:hover { transform: translateY(-2px); background: rgba(91,190,143,.38); box-shadow: 0 7px 18px rgba(29,106,71,.24), inset 0 1px 0 rgba(255,255,255,.82); }
+.social-sidebar-launcher:active { transform: translateY(1px); box-shadow: 0 2px 8px rgba(29,106,71,.2), inset 0 1px 0 rgba(255,255,255,.68); }
+.social-sidebar-launcher { animation: socialLauncherFloat 4.2s ease-in-out infinite; }
+.social-sidebar-launcher:hover, .social-sidebar-launcher:active { animation-play-state: paused; }
+@keyframes socialLauncherFloat { 0%,100% { translate: 0 0; } 50% { translate: 0 -3px; } }
+.social-sidebar-launcher[hidden] { display: none !important; }
+.social-sidebar-hint { position: absolute; left: 2px; bottom: 74px; max-width: min(230px, calc(100vw - 40px)); padding: 9px 12px; border: 1px solid rgba(44,156,104,.46); border-radius: 14px 14px 14px 4px; color: #155e40; background: rgba(234,249,241,.9); backdrop-filter: blur(12px); box-shadow: 0 8px 22px rgba(0,0,0,.13), inset 0 1px 0 rgba(255,255,255,.86); font-size: 12px; font-weight: 650; opacity: 0; transform: translateY(6px); transition: opacity .22s ease, transform .22s ease; pointer-events: none; }
+.social-sidebar-hint.is-visible { opacity: 1; transform: translateY(0); }
+.social-sidebar-hint[hidden] { display: none !important; }
+.social-sidebar-panel { position: absolute; left: 0; bottom: 98px; display: flex; flex-direction: column; width: min(350px, calc(100vw - 32px)); max-height: min(560px, calc(100dvh - 130px)); overflow: hidden; border: 1px solid rgba(255,255,255,.7); border-radius: 14px; background: rgba(250,250,248,.96); backdrop-filter: blur(10px); box-shadow: 0 14px 40px rgba(0,0,0,.22); }
+.social-sidebar-panel[hidden] { display: none !important; }
+.social-sidebar-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 13px 14px; background: #111; color: white; }
+.social-sidebar-header h3 { margin: 0; font-size: 15px; }
+.social-sidebar-header-actions { display: flex; gap: 5px; }
+.social-sidebar-header button { display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid rgba(255,255,255,.35); border-radius: 8px; color: white; background: transparent; font: inherit; font-size: 19px; cursor: pointer; transition: color .16s ease, border-color .16s ease, background .16s ease; }
+.social-sidebar-header button:hover { color: #111; border-color: #e3c957; background: #d6b84c; }
+.social-sidebar-tabs { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 6px; padding: 10px; border-bottom: 1px solid #e7e3d8; }
+.social-sidebar-tabs { border-color: #393528; background: #111; }
+.social-sidebar-tab { display: flex; align-items: center; justify-content: space-between; min-width: 0; min-height: 36px; padding: 6px 9px; border: 1px solid #514727; border-radius: 999px; color: #f5f4ee; background: linear-gradient(135deg,#171717,#29251a); font: inherit; font-size: 12px; cursor: pointer; transition: transform .16s ease, background .16s ease, color .16s ease; }
+.social-sidebar-tab:hover { transform: translateY(-1px); }
+.social-sidebar-tab.is-active { border-color: #e3c957; color: #111; background: linear-gradient(135deg,#ead578,#d6b84c); }
+.social-sidebar-tab span { display: grid; place-items: center; width: 22px; height: 22px; flex: 0 0 22px; border-radius: 50%; background: #2c9c68; color: white; font-size: 11px; font-weight: 700; }
+.social-sidebar-tab[data-social-type="requests"] span { background: #c83e43; }
+.social-sidebar-content { min-height: 70px; overflow: auto; padding: 10px; background: #111; }
+.social-sidebar-content .social-list-person { border-color: #423a24; background: linear-gradient(135deg,#181818,#26231b); }
+.social-sidebar-content .social-list-identity { color: #f4f2e8; }
+.social-sidebar-content .social-list-identity small, .social-sidebar-content .social-list-empty { color: #b5b2a7; }
+.social-sidebar-content .social-list-person { padding: 8px; }
+.social-sidebar-content .social-list-actions { display: flex; justify-content: flex-end; flex: 0 0 auto; }
+.social-relationship-badge { color: #d6b84c; font-style: normal; font-weight: 650; }
+.social-sidebar-footer { padding: 0 10px 10px; }
+.social-sidebar-footer .social-view-all { width: 100%; }
 
 .owner-chat-launcher {
   position: relative;
   display: grid;
   place-items: center;
-  width: 72px;
-  height: 72px;
+  width: 78px;
+  height: 78px;
+  min-width: 78px;
+  min-height: 78px;
+  max-width: 78px;
+  max-height: 78px;
+  aspect-ratio: 1;
+  box-sizing: border-box;
+  flex: 0 0 78px;
   padding: 0;
-  border: 3px solid #fff;
+  border: 0;
   border-radius: 50%;
-  background: #d6b84c;
+  background: linear-gradient(145deg, rgba(224, 198, 90, 0.78) 0%, rgba(214, 184, 76, 0.78) 56%, rgba(199, 168, 59, 0.8) 100%);
+  backdrop-filter: blur(6px);
   cursor: pointer;
-  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
+  box-shadow: 1px 3px 0 rgba(145, 117, 35, 0.56),
+    3px 8px 13px rgba(0, 0, 0, 0.15),
+    inset 0 0 5px 2px rgba(255, 255, 255, 0.22),
+    inset 0 0 13px rgba(255, 255, 255, 0.14),
+    inset 0 1px 8px rgba(255, 255, 255, 0.1),
+    inset -1px -2px 3px rgba(74, 57, 10, 0.16);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.owner-chat-launcher:hover {
+  transform: translateY(-2px);
+  box-shadow: 2px 3px 0 rgba(145, 117, 35, 0.58),
+    4px 10px 14px rgba(0, 0, 0, 0.17),
+    inset 0 0 6px 2px rgba(255, 255, 255, 0.24),
+    inset 0 0 14px rgba(255, 255, 255, 0.16),
+    inset 0 1px 9px rgba(255, 255, 255, 0.11),
+    inset -1px -2px 3px rgba(74, 57, 10, 0.16);
+}
+
+.owner-chat-launcher:active {
+  transform: translateY(1px);
+  box-shadow: 1px 2px 0 rgba(145, 117, 35, 0.52),
+    3px 5px 7px rgba(0, 0, 0, 0.14),
+    inset 0 2px 4px rgba(74, 57, 10, 0.16),
+    inset 0 0 7px rgba(255, 255, 255, 0.14);
 }
 
 .owner-chat-launcher::before,
@@ -4871,9 +4961,34 @@ box-shadow:
 }
 
 .owner-chat-launcher .owner-chat-avatar {
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   font-size: 17px;
+}
+
+.owner-chat-launcher > .owner-chat-avatar {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 4px 1px rgba(255, 255, 255, 0.12),
+    inset 0 1px 7px rgba(255, 255, 255, 0.07);
+}
+
+.owner-chat-launcher .owner-chat-avatar.is-guest-avatar {
+  position: relative;
+  isolation: isolate;
+}
+
+.owner-chat-launcher .owner-chat-avatar.is-guest-avatar svg {
+  position: relative;
+  z-index: 1;
+  opacity: 0.82;
+  animation: ownerChatIconFlash 2.1s ease-in-out infinite;
+}
+
+@keyframes ownerChatIconFlash {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0)); }
+  50% { filter: drop-shadow(0 0 3px rgba(255, 255, 255, 1)) drop-shadow(0 0 7px rgba(255, 255, 255, 0.72)); }
 }
 
 .owner-chat-avatar.is-guest-avatar {
@@ -4882,6 +4997,8 @@ box-shadow:
   background: #d6b84c;
   color: #111;
 }
+
+.owner-chat-launcher > .owner-chat-avatar.is-guest-avatar { background: transparent; }
 
 .owner-chat-avatar.is-guest-avatar svg {
   width: 36px;
@@ -4917,7 +5034,9 @@ box-shadow:
 .owner-chat-panel[hidden],
 .owner-chat-contacts[hidden],
 .owner-chat-form[hidden],
-#ownerChatDelete[hidden] {
+#ownerChatDelete[hidden],
+#ownerChatSearchToggle[hidden],
+.social-list[hidden] {
   display: none !important;
 }
 
@@ -4940,6 +5059,154 @@ box-shadow:
   background: #fff;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
 }
+
+.connection-requests-section { margin: 20px 0 12px; padding: 16px 18px; border-radius: 10px; background: #111; color: #fff; }
+.connection-requests-section h3 { margin: 0 0 8px; color: #f4f4f2; font-size: 17px; }
+#connectionRequestsContainer { color: #c9c9c9; }
+.social-summary { display: flex; flex-wrap: wrap; gap: 9px; margin: 10px 0 12px; }
+.social-summary-action { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 5px 13px 5px 6px; border: 1px solid #d6b84c; border-radius: 999px; color: #fff; background: linear-gradient(135deg,#171717,#29251a); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; box-shadow: 0 3px 10px rgba(214,184,76,.16); transition: transform .18s ease, background .18s ease, box-shadow .18s ease; }
+.social-summary-action:hover { transform: translateY(-1px); background: #29251a; box-shadow: 0 5px 14px rgba(214,184,76,.24); }
+.social-count-bubble { display: grid; place-items: center; width: 28px; height: 28px; flex: 0 0 28px; border-radius: 50%; color: #fff; font-size: 12px; font-weight: 700; box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 2px 5px rgba(0,0,0,.2); }
+.social-count-bubble.is-request-count { background: #c83e43; }
+.social-count-bubble.is-connection-count { background: #2c9c68; }
+.profile-social-hub { margin: 16px 0 20px; padding: 14px 0; border-top: 1px solid rgba(214,184,76,.28); border-bottom: 1px solid rgba(214,184,76,.28); }
+.profile-social-hub .social-summary { margin: 0; }
+.social-privacy-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; color: #555; font-size: 13px; }
+.social-privacy-row label { display: flex; align-items: center; gap: 8px; }
+.social-privacy-row input { appearance: none; position: relative; width: 42px; height: 24px; flex: 0 0 42px; margin: 0; border: 1px solid #a7a7a7; border-radius: 999px; background: #d2d2d2; cursor: pointer; transition: background .2s ease, border-color .2s ease; }
+.social-privacy-row input::before { content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.28); transition: transform .2s ease; }
+.social-privacy-row input:checked { border-color: #2c9c68; background: #2c9c68; }
+.social-privacy-row input:checked::before { transform: translateX(18px); }
+.social-privacy-row input:focus-visible { outline: 3px solid rgba(214,184,76,.55); outline-offset: 2px; }
+.social-view-all { min-height: 38px; margin: 4px 0 0; padding: 7px 14px; border: 1px solid #c8aa3f; border-radius: 9px; color: #171717; background: linear-gradient(135deg,#f0dc82,#d6b84c); font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; box-shadow: 0 3px 9px rgba(0,0,0,.16), 0 0 12px rgba(214,184,76,.18); transition: transform .18s ease, box-shadow .18s ease, filter .18s ease; }
+.social-view-all:hover { transform: translateY(-2px); filter: saturate(1.08); box-shadow: 0 5px 13px rgba(0,0,0,.2), 0 0 16px rgba(214,184,76,.32); }
+.home-social-hub { width: min(100%, 1050px); box-sizing: border-box; margin: 22px auto 24px; padding: 18px 20px; border: 1px solid rgba(214,184,76,.78); border-radius: 12px; background: #111; color: #fff; box-shadow: 0 8px 24px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.06); }
+.home-social-hub[hidden] { display: none !important; }
+.home-social-hub h3 { margin: 0 0 8px; color: #f4f4f2; text-align: center; }
+.home-social-hub .social-summary { justify-content: center; }
+.home-social-hub .social-list { max-width: 700px; margin: 10px auto; }
+.home-social-hub .social-view-all { display: block; margin: 8px auto 0; }
+.social-directory-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(214,184,76,.4); }
+.social-directory-tab { min-height: 38px; padding: 8px 14px; border: 1px solid #3b3b3b; border-radius: 999px; color: #fff; background: linear-gradient(135deg,#171717,#29251a); font: inherit; font-size: 13px; font-weight: 600; box-shadow: 0 3px 9px rgba(0,0,0,.1); cursor: pointer; transition: border-color .18s ease, background .18s ease, color .18s ease, transform .18s ease; }
+.social-directory-tab.is-active, .social-directory-tab:hover { color: #111; border-color: #e3c957; background: linear-gradient(135deg,#ead578,#d6b84c); transform: translateY(-1px); }
+.social-directory-search { display: flex; align-items: center; gap: 10px; width: min(100%, 560px); min-height: 46px; margin: 12px 0 16px; padding: 0 14px; border: 1px solid #d8d5ce; border-radius: 999px; background: rgba(255,255,255,.92); box-shadow: inset 0 2px 7px rgba(0,0,0,.07); }
+.social-directory-search svg { width: 18px; height: 18px; flex: 0 0 18px; fill: none; stroke: #8c762b; stroke-width: 2; stroke-linecap: round; }
+.social-directory-search input { width: 100%; min-width: 0; padding: 9px 0; border: 0; outline: 0; color: #222; background: transparent; font: inherit; font-size: 14px; }
+.social-directory-search:focus-within { border-color: #d6b84c; box-shadow: 0 0 0 3px rgba(214,184,76,.16), inset 0 2px 7px rgba(0,0,0,.05); }
+.social-directory-list { max-width: 780px; }
+.social-connections-page { width: min(100%, 980px); }
+.social-directory-toolbar { margin: 16px 0 22px; padding: 18px 20px 14px; border: 1px solid rgba(214,184,76,.72); border-radius: 12px; background: #111; box-shadow: 0 10px 26px rgba(0,0,0,.13), inset 0 1px 0 rgba(255,255,255,.06); }
+.social-directory-toolbar h2 { margin: 0; color: #f7f6f1; text-align: center; }
+.social-directory-toolbar .social-directory-tabs { justify-content: center; }
+.social-directory-toolbar .social-directory-search { margin: 14px auto 0; }
+.social-directory-toolbar .social-directory-list { max-width: none; }
+.social-directory-back-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
+.social-directory-back-actions .page-back-btn { margin: 0; }
+.member-profile-follow-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.social-list { display: grid; gap: 8px; margin-top: 10px; }
+.social-list-person { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; border: 1px solid #e7e3d8; border-radius: 8px; background: #fff; }
+.social-list-identity { display: flex; align-items: center; gap: 10px; min-width: 0; padding: 0; border: 0; color: #222; background: transparent; text-align: left; cursor: pointer; }
+.social-list-identity img, .social-list-initial { display: grid; place-items: center; width: 40px; height: 40px; flex: 0 0 40px; border-radius: 50%; object-fit: cover; background: #111; color: #d6b84c; font-weight: 700; }
+.social-list-identity span:not(.social-list-initial) { display: grid; min-width: 0; gap: 3px; }
+.social-list-identity strong, .social-list-identity small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.social-list-identity small { color: #777; font-size: 12px; }
+.social-list-actions { display: flex; flex: 0 0 auto; gap: 6px; }
+.social-list-action { min-height: 34px; padding: 6px 10px; border: 1px solid #d6b84c; border-radius: 8px; color: #fff; background: linear-gradient(135deg,#171717,#29251a); font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; }
+.social-list-action.is-primary { color: #111; background: #d6b84c; }
+.social-list-empty, .social-summary-loading { margin: 8px 0; color: #777; font-size: 13px; }
+.connection-requests-section .social-summary-loading { color: #c9c9c9; }
+.connect-view-switch { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; padding-top: 14px; border-top: 1px solid rgba(214,184,76,.55); }
+.connect-view-tab { min-height: 40px; padding: 8px 14px; border: 1px solid #3b3b3b; border-radius: 999px; color: #fff; background: linear-gradient(135deg, #171717, #29251a); font: inherit; font-size: 13px; font-weight: 600; box-shadow: 0 3px 9px rgba(0,0,0,.1); cursor: pointer; transition: border-color .18s ease, background .18s ease, color .18s ease, transform .18s ease; }
+.connect-view-tab.is-active, .connect-view-tab:hover { border-color: #e3c957; color: #111; background: linear-gradient(135deg, #ead578, #d6b84c); transform: translateY(-1px); }
+.opportunities-list { display: grid; gap: 12px; text-align: left; }
+.members-grid[hidden], .opportunities-list[hidden], .member-inbox[hidden], .member-message-overlay[hidden] { display: none !important; }
+.opportunity-card { padding: 16px; border: 1px solid #e1ded6; border-radius: 10px; background: #fff; }
+.opportunity-card h3 { margin: 0 0 6px; }
+.opportunity-meta { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 8px 0; color: #666; font-size: 13px; }
+.opportunity-apply { display: inline-flex; margin-top: 8px; color: #69530a; font-weight: 600; }
+.member-inbox { display: grid; gap: 8px; text-align: left; }
+.member-inbox-item { display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px; border: 1px solid #e1ded6; border-radius: 8px; background: #fff; color: #222; text-align: left; cursor: pointer; }
+.member-inbox-item:hover { border-color: #d6b84c; background: #fffdf6; }
+.member-inbox-copy { display: grid; min-width: 0; gap: 3px; }
+.member-inbox-copy strong, .member-inbox-copy span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.member-inbox-copy span { color: #777; font-size: 13px; }
+.member-message-overlay { position: fixed; inset: 0; z-index: 6000; display: grid; place-items: center; padding: 16px; background: rgba(0,0,0,.48); }
+.member-message-dialog { display: flex; flex-direction: column; width: min(560px, 100%); height: min(680px, calc(100dvh - 32px)); overflow: hidden; border: 1px solid rgba(255,255,255,.65); border-radius: 12px; background: #f7f7f5; box-shadow: 0 18px 60px rgba(0,0,0,.28); }
+.member-message-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; border-bottom: 1px solid #e5e3dd; background: #111; color: #fff; }
+.member-message-header h2 { margin: 0; font-size: 17px; }
+.member-message-header p { margin: 4px 0 0; color: #c6c6c6; font-size: 12px; }
+.member-message-close { flex: 0 0 36px; width: 36px; height: 36px; border: 1px solid #555; border-radius: 7px; background: transparent; color: #fff; font-size: 24px; cursor: pointer; }
+.member-message-list { display: flex; flex: 1; flex-direction: column; gap: 9px; overflow-y: auto; padding: 16px; }
+.member-message-bubble { max-width: min(82%, 420px); padding: 10px 13px; border-radius: 12px; background: #fff; color: #222; overflow-wrap: anywhere; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.member-message-bubble.is-mine { align-self: flex-end; background: #d6b84c; }
+.member-message-time { display: block; margin-top: 5px; color: #696969; font-size: 10px; }
+.member-message-status { min-height: 18px; margin: 0; padding: 0 14px; color: #b3261e; font-size: 12px; }
+.member-message-form { display: flex; align-items: flex-end; gap: 8px; padding: 12px; border-top: 1px solid #e5e3dd; background: #fff; }
+.member-message-form textarea { flex: 1; min-width: 0; max-height: 110px; resize: vertical; padding: 10px 12px; border: 1px solid #d5d2ca; border-radius: 8px; font: inherit; }
+.member-message-form button { min-height: 42px; padding: 0 17px; border: 0; border-radius: 8px; background: #111; color: #fff; font: inherit; cursor: pointer; }
+.home-copyright { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.home-copyright .contact-links { position: static; transform: none; z-index: auto; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.home-copyright .contact-links a { flex: 0 0 38px; }
+.home-copyright p { position: static; }
+.box-button, .community-action-btn {
+  border: 1px solid #d6b84c;
+  box-shadow: 0 3px 12px rgba(214,184,76,.22);
+  transition: background .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+.home-box:hover .box-button, .community-action-btn:hover {
+  box-shadow: 0 5px 13px rgba(214,184,76,.28);
+}
+.community-action-btn { background: linear-gradient(135deg,#171717,#29251a); }
+.community-action-btn:hover { background: linear-gradient(135deg,#29251a,#3a321c); color: #fff; transform: translateY(-1px); }
+.owner-chat-launcher { background: linear-gradient(145deg, rgba(244,213,71,.72) 0%, rgba(233,199,52,.75) 56%, rgba(219,183,29,.78) 100%); backdrop-filter: blur(6px); animation: launcherFloat 3.8s ease-in-out infinite; }
+.owner-chat-launcher:hover { background: linear-gradient(145deg, rgba(248,220,89,.82) 0%, rgba(238,205,58,.84) 56%, rgba(224,189,37,.86) 100%); }
+@keyframes launcherFloat { 0%,100% { translate: 0 0; } 50% { translate: 0 -4px; } }
+.member-profile-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+@media (max-width: 600px) {
+  .owner-chat-widget { left: max(12px, env(safe-area-inset-left)); bottom: max(12px, env(safe-area-inset-bottom)); gap: 8px; }
+  .social-sidebar-launcher { width: 56px; height: 56px; }
+  .social-sidebar-panel { bottom: 92px; width: min(340px, calc(100vw - 24px)); max-height: calc(100dvh - 112px); }
+  .social-sidebar-hint { bottom: 64px; }
+  .owner-chat-launcher { width: 66px; height: 66px; min-width: 66px; min-height: 66px; max-width: 66px; max-height: 66px; flex-basis: 66px; }
+  .home-copyright { gap: 8px; padding: 12px 12px max(14px, env(safe-area-inset-bottom)); }
+  .home-copyright .contact-links { gap: 7px; }
+  .home-copyright .contact-links a { width: 34px; height: 34px; flex-basis: 34px; }
+  .connect-view-switch { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .connection-requests-section { margin: 18px 0 10px; padding: 14px; }
+  .connection-requests-section h3 { font-size: 15px; }
+  .social-list-person { align-items: flex-start; flex-direction: column; }
+  .social-list-actions { width: 100%; }
+  .social-list-action { flex: 1 1 auto; }
+  .home-social-hub { margin-top: 18px; padding: 14px 12px; }
+  .social-directory-tabs { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .social-directory-tab { min-width: 0; padding: 8px 6px; font-size: 12px; }
+  .connect-view-switch { padding-top: 11px; }
+  .connect-view-tab { min-width: 0; padding: 9px 5px; font-size: 13px; }
+  .member-message-overlay { padding: max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom)); }
+  .member-message-dialog { width: 100%; height: min(680px, calc(100dvh - 20px - env(safe-area-inset-top) - env(safe-area-inset-bottom))); border-radius: 10px; }
+  .member-message-header { padding: 12px; }
+  .member-message-header h2 { font-size: 15px; }
+  .member-message-header p { max-width: 245px; font-size: 11px; line-height: 1.35; }
+  .member-message-list { padding: 12px; }
+  .member-message-form { gap: 6px; padding: 9px; }
+  .member-message-form textarea { padding: 9px; font-size: 14px; }
+  .member-message-form button { min-height: 40px; padding: 0 12px; }
+  .member-profile-header { padding-right: 0; padding-bottom: 60px; flex-wrap: wrap; }
+  #memberConnectionAction { top: auto; right: auto; bottom: 12px; left: 0; display: flex; flex-wrap: wrap; gap: 7px; }
+}
+
+@media (max-width: 360px) {
+  .connect-view-tab { font-size: 12px; }
+  .member-message-form { align-items: stretch; flex-direction: column; }
+  .member-message-form button { align-self: flex-end; min-width: 82px; }
+}
+.share-page-card #sharePostType,
+.share-page-card .job-post-fields input,
+.share-page-card .job-post-fields select { width: 100%; min-height: 42px; margin: 6px 0 12px; padding: 9px 11px; border: 1px solid #d8d5cc; border-radius: 8px; box-sizing: border-box; font: inherit; }
+.job-post-fields { display: grid; gap: 2px; margin: 12px 0; }
+.job-post-fields[hidden] { display: none; }
+.job-post-fields-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 
 .owner-chat-panel.is-expanded {
   position: fixed;
@@ -4990,6 +5257,56 @@ box-shadow:
   }
 }
 
+@media (max-width: 600px) {
+  .owner-chat-header {
+    gap: 6px;
+    min-height: 64px;
+    padding: 8px 10px;
+  }
+
+  .owner-chat-heading {
+    position: relative;
+    left: auto;
+    transform: none;
+    width: auto;
+    max-width: none;
+    flex: 1 1 auto;
+  }
+
+  .owner-chat-header .owner-chat-heading strong { font-size: 13px; }
+  .owner-chat-header .owner-chat-heading span { font-size: 11px; }
+  .owner-chat-header .owner-chat-header-actions { gap: 3px; }
+
+  .owner-chat-header .owner-chat-expand,
+  .owner-chat-header .owner-chat-voice,
+  .owner-chat-header .owner-chat-search-toggle,
+  .owner-chat-header .owner-chat-minimize,
+  .owner-chat-header .owner-chat-close,
+  .owner-chat-header .owner-chat-delete {
+    flex-basis: 27px;
+    width: 27px;
+    height: 27px;
+  }
+
+  .owner-chat-panel .owner-chat-form { gap: 7px; padding: 9px; }
+  .owner-chat-panel .owner-chat-form input { height: 44px; }
+  .owner-chat-panel .owner-chat-form button { height: 44px; min-height: 44px; }
+  .owner-chat-panel .owner-chat-send-row { gap: 7px; }
+}
+
+@media (max-width: 360px) {
+  .owner-chat-header .owner-chat-avatar { flex-basis: 36px; width: 36px; height: 36px; }
+  .owner-chat-header .owner-chat-heading strong { font-size: 12px; }
+  .owner-chat-header .owner-chat-heading span { display: none; }
+  .owner-chat-header .owner-chat-header-actions { gap: 2px; }
+  .owner-chat-header .owner-chat-expand,
+  .owner-chat-header .owner-chat-voice,
+  .owner-chat-header .owner-chat-search-toggle,
+  .owner-chat-header .owner-chat-minimize,
+  .owner-chat-header .owner-chat-close,
+  .owner-chat-header .owner-chat-delete { flex-basis: 25px; width: 25px; height: 25px; }
+}
+
 .owner-chat-heading strong {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -5003,6 +5320,30 @@ box-shadow:
   white-space: nowrap;
   color: #d6b84c;
   font-size: 12px;
+}
+
+.owner-chat-panel.is-owner-inbox .owner-chat-heading {
+  position: relative;
+  left: auto;
+  transform: none;
+  width: auto;
+  max-width: none;
+  flex: 1 1 0;
+  min-width: 0;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.owner-chat-panel.is-owner-inbox .owner-chat-header { direction: ltr; }
+.owner-chat-panel.is-owner-inbox .owner-chat-heading strong,
+.owner-chat-panel.is-owner-inbox .owner-chat-heading span {
+  width: 100%;
+  max-width: 100%;
+}
+.owner-chat-panel.is-owner-inbox .owner-chat-heading span { font-size: 11px; }
+
+@media (max-width: 600px) {
+  .owner-chat-panel.is-owner-inbox .owner-chat-heading span { font-size: 10px; }
 }
 
 .owner-chat-close {
@@ -5038,15 +5379,17 @@ box-shadow:
 
 .owner-chat-expand,
 .owner-chat-voice,
-.owner-chat-close {
+.owner-chat-close,
+.owner-chat-search-toggle,
+.owner-chat-minimize {
   position: relative;
   z-index: 2;
   pointer-events: auto;
   display: grid;
   place-items: center;
-  flex: 0 0 32px;
-  width: 32px;
-  height: 32px;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
   padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 8px;
@@ -5072,7 +5415,9 @@ box-shadow:
 
 .owner-chat-expand:hover,
 .owner-chat-voice:hover,
-.owner-chat-close:hover {
+.owner-chat-close:hover,
+.owner-chat-search-toggle:hover,
+.owner-chat-minimize:hover {
   background: rgba(255, 255, 255, 0.14);
 }
 
@@ -5082,6 +5427,21 @@ box-shadow:
   border-bottom: 1px solid #eee;
   background: #fafafa;
 }
+
+.owner-chat-inbox-search {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  gap: 7px;
+  padding: 8px 10px;
+  border-bottom: 1px solid #e9e6de;
+  background: #fff;
+}
+.owner-chat-inbox-search[hidden], .owner-chat-contact[hidden], .owner-chat-no-matches[hidden] { display: none !important; }
+.owner-chat-inbox-search input { flex: 1; min-width: 0; height: 36px; padding: 0 11px; border: 1px solid #dedbd3; border-radius: 999px; color: #222; background: #fff; font: inherit; font-size: 13px; }
+.owner-chat-inbox-search button { flex: 0 0 34px; width: 34px; height: 34px; border: 1px solid #d6d2c8; border-radius: 50%; background: #f7f6f2; color: #222; font-size: 20px; cursor: pointer; }
+.owner-chat-no-matches { margin: 0; padding: 14px; color: #777; font-size: 13px; text-align: center; }
 
 .owner-chat-contact {
   display: flex;
@@ -5350,53 +5710,6 @@ box-shadow:
      CONTACT LINKS
 ===================================================== -->
 
-<div class="contact-links">
-
-    <a
-        href="https://www.linkedin.com/in/esra-a-e-al-johari-msc-434056a5"
-        target="_blank"
-        rel="noopener noreferrer"
-    >
-        in
-    </a>
-
-
-    <a
-        href="https://www.behance.net/eealjoharid6dd"
-        target="_blank"
-        rel="noopener noreferrer"
-    >
-        Be
-    </a>
-
-
-    <a
-        href="https://www.researchgate.net/profile/Esraa-Al-Johari-2"
-        target="_blank"
-        rel="noopener noreferrer"
-    >
-        R
-    </a>
-
-
-    <a
-        href="mailto:Ealjohari@yahoo.com"
-    >
-        ✉
-    </a>
-
-
-    <a
-        href="https://www.instagram.com/ej.architect"
-        target="_blank"
-        rel="noopener noreferrer"
-    >
-        ◎
-    </a>
-
-</div>
-
-
 <img
     src="logo.png"
     class="corner-logo"
@@ -5424,6 +5737,7 @@ box-shadow:
             <button type="button" onclick="chooseQuickSearchFilter('people', this)">People</button>
             <button type="button" onclick="chooseQuickSearchFilter('projects', this)">Projects</button>
             <button type="button" onclick="chooseQuickSearchFilter('posts', this)">Posts</button>
+            <button type="button" onclick="chooseQuickSearchFilter('opportunities', this)">Opportunities</button>
         </div>
     </form>
 
@@ -5438,7 +5752,7 @@ box-shadow:
         <button
             onclick="showSection('homeSection')"
         >
-            Home
+            <span>Home</span>
         </button>
 
 
@@ -5446,7 +5760,7 @@ box-shadow:
             id="registerNav"
             onclick="showSection('registerSection')"
         >
-            Register
+            <span>Register</span>
         </button>
 
 
@@ -5454,7 +5768,7 @@ box-shadow:
             id="loginNav"
             onclick="showSection('loginSection')"
         >
-            Log in
+            <span>Log in</span>
         </button>
 
 
@@ -5463,7 +5777,7 @@ box-shadow:
             onclick="showSection('profileSection')"
             style="display:none;"
         >
-            Profile
+            <span>Profile</span>
         </button>
 
 
@@ -5471,7 +5785,7 @@ box-shadow:
             id="logoutNav"
             onclick="logout()"
         >
-            Log out
+            <span>Log out</span>
         </button>
 
     </nav>
@@ -5490,6 +5804,7 @@ box-shadow:
                   <button type="button" class="global-search-filter" data-search-filter="people" onclick="filterGlobalSearch('people')">People</button>
                   <button type="button" class="global-search-filter" data-search-filter="projects" onclick="filterGlobalSearch('projects')">Projects</button>
                   <button type="button" class="global-search-filter" data-search-filter="posts" onclick="filterGlobalSearch('posts')">Posts</button>
+                  <button type="button" class="global-search-filter" data-search-filter="opportunities" onclick="filterGlobalSearch('opportunities')">Opportunities</button>
               </div>
               <form class="search-results-search" onsubmit="submitSearchResultsSearch(event)" role="search">
                 <input id="searchResultsInput" type="search" placeholder="Search again..." aria-label="Search again">
@@ -5603,7 +5918,14 @@ box-shadow:
     </main>
 
   <footer class="home-copyright">
-<p>© 2026 <span>EJ Designs Community</span>. All rights reserved.</p>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/esra-a-e-al-johari-msc-434056a5" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
+      <a href="https://www.behance.net/eealjoharid6dd" target="_blank" rel="noopener noreferrer" aria-label="Behance">Be</a>
+      <a href="https://www.researchgate.net/profile/Esraa-Al-Johari-2" target="_blank" rel="noopener noreferrer" aria-label="ResearchGate">R</a>
+      <a href="mailto:Ealjohari@yahoo.com" aria-label="Email">✉</a>
+      <a href="https://www.instagram.com/ej.architect" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+    </div>
+    <p>© 2026 <span>EJ Designs Community</span>. All rights reserved.</p>
         </footer>
 
 </section>
@@ -5638,6 +5960,13 @@ box-shadow:
                 and creative professionals.
             </p>
 
+            <section id="homeSocialHub" class="home-social-hub" hidden aria-label="Your social connections">
+              <h3>Your community</h3>
+              <div id="homeSocialSummary" class="social-summary"></div>
+              <div id="homeSocialList" class="social-list" hidden></div>
+              <button type="button" class="social-view-all" onclick="openSocialPage('connections', currentUser?.id)">View all connections</button>
+            </section>
+
 
             <!-- SEARCH -->
 
@@ -5651,16 +5980,13 @@ box-shadow:
 
             </div>
 
-<div class="connection-requests-section">
-
-    <h3>Connection Requests</h3>
-
-    <div id="connectionRequestsContainer">
-        Loading requests...
-    </div>
-
-</div>
             <!-- MEMBERS -->
+
+<div class="connect-view-switch" role="tablist" aria-label="Connect directory">
+  <button type="button" class="connect-view-tab is-active" role="tab" aria-selected="true" onclick="showConnectView('members', this)">Members</button>
+  <button type="button" class="connect-view-tab" role="tab" aria-selected="false" onclick="showConnectView('opportunities', this)">Opportunities</button>
+  <button type="button" class="connect-view-tab" role="tab" aria-selected="false" onclick="showConnectView('messages', this)">Messages</button>
+</div>
 
             <div
                 id="membersGrid"
@@ -5672,6 +5998,9 @@ box-shadow:
                 </div>
 
             </div>
+
+            <div id="opportunitiesList" class="opportunities-list" hidden></div>
+            <div id="memberInbox" class="member-inbox" hidden></div>
 
         </div>
 
@@ -5722,6 +6051,23 @@ box-shadow:
             </div>
 
             <div class="share-page-card">
+                <label for="sharePostType">Post type</label>
+                <select id="sharePostType" onchange="toggleJobPostFields()">
+                    <option value="community">Community post</option>
+                    <option value="job_opportunity">Job opportunity</option>
+                </select>
+                <div id="jobPostFields" class="job-post-fields" hidden>
+                    <input id="jobTitle" type="text" placeholder="Job title">
+                    <input id="jobCompany" type="text" placeholder="Company">
+                    <input id="jobLocation" type="text" placeholder="Location">
+                    <div class="job-post-fields-row">
+                        <select id="jobWorkplace"><option value="">Workplace type</option><option>On-site</option><option>Hybrid</option><option>Remote</option></select>
+                        <select id="jobEmploymentType"><option value="">Employment type</option><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Internship</option></select>
+                    </div>
+                    <input id="jobApplyUrl" type="url" placeholder="Application link (optional)">
+                    <label for="jobDeadline">Application deadline (optional)</label>
+                    <input id="jobDeadline" type="date">
+                </div>
                 <label for="shareContent">What would you like to share?</label>
 
                 <textarea
@@ -6207,6 +6553,31 @@ box-shadow:
   </main>
 </section>
 
+<section id="socialConnectionsSection" class="page-section">
+  <main>
+    <div class="community-page social-connections-page">
+      <div class="social-directory-back-actions">
+        <button type="button" class="page-back-btn" onclick="goBackFromSocialPage()">← Back</button>
+        <button type="button" class="page-back-btn" onclick="showSection('profileSection')">Profile</button>
+      </div>
+      <div class="social-directory-toolbar">
+        <h2 id="socialConnectionsTitle">Your connections</h2>
+        <div class="social-directory-tabs" role="tablist" aria-label="People list">
+          <button type="button" role="tab" aria-selected="true" class="social-directory-tab is-active" data-social-list="connections" onclick="openSocialPage('connections', socialDirectoryUserId)">Connections</button>
+          <button type="button" role="tab" aria-selected="false" class="social-directory-tab" data-social-list="requests" onclick="openSocialPage('requests', socialDirectoryUserId)">Requests</button>
+          <button type="button" role="tab" aria-selected="false" class="social-directory-tab" data-social-list="followers" onclick="openSocialPage('followers', socialDirectoryUserId)">Followers</button>
+          <button type="button" role="tab" aria-selected="false" class="social-directory-tab" data-social-list="following" onclick="openSocialPage('following', socialDirectoryUserId)">Following</button>
+        </div>
+        <label class="social-directory-search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+          <input id="socialDirectorySearch" type="search" placeholder="Search this list..." aria-label="Search this list" oninput="filterSocialDirectory(this.value)">
+        </label>
+      </div>
+      <div id="socialConnectionsList" class="social-list social-directory-list"></div>
+    </div>
+  </main>
+</section>
+
 <section
     id="loginSection"
     class="page-section"
@@ -6385,6 +6756,14 @@ box-shadow:
 
                 </div>
 
+                <section class="profile-social-hub" aria-label="Your connections">
+                  <div id="profileSocialSummary" class="social-summary"></div>
+                  <div id="profileSocialList" class="social-list" hidden></div>
+                  <div class="social-privacy-row">
+                    <label for="showSocialLists"><input id="showSocialLists" type="checkbox" role="switch" aria-label="Show my connections and followers to signed-in members" onchange="updateSocialListVisibility(this.checked)"> <span>Show my connections and followers to signed-in members</span></label>
+                    <button type="button" class="social-view-all" onclick="openSocialPage('connections', currentUser?.id)">View all</button>
+                  </div>
+                </section>
 
                 <!-- MESSAGE -->
 
@@ -6883,7 +7262,40 @@ box-shadow:
 
 </section>
 
+<div id="memberMessageDialog" class="member-message-overlay" hidden>
+  <section class="member-message-dialog" role="dialog" aria-modal="true" aria-labelledby="memberMessageTitle">
+    <header class="member-message-header">
+      <div>
+        <h2 id="memberMessageTitle">Private message</h2>
+        <p>Only you and this member can see this conversation.</p>
+      </div>
+      <button type="button" class="member-message-close" onclick="closeMemberChat()" aria-label="Close messages">×</button>
+    </header>
+    <div id="memberMessageList" class="member-message-list" aria-live="polite"></div>
+    <p id="memberMessageStatus" class="member-message-status" aria-live="polite"></p>
+    <form id="memberMessageForm" class="member-message-form" onsubmit="sendMemberMessage(event)">
+      <textarea id="memberMessageInput" rows="2" maxlength="4000" placeholder="Write a private message..." required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+</div>
+
 <div id="ownerChatWidget" class="owner-chat-widget">
+  <button id="socialSidebarLauncher" class="social-sidebar-launcher" type="button" aria-label="Open connections and followers" title="Connections and followers" hidden onclick="toggleSocialSidebar()">
+    <svg aria-hidden="true" viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.8 20a6.2 6.2 0 0 1 12.4 0M16 5.2a3.5 3.5 0 0 1 0 6.6M17.2 14.2a5.8 5.8 0 0 1 4 5.6"></path></svg>
+  </button>
+  <span id="socialSidebarHint" class="social-sidebar-hint" role="status" hidden>Meet your connections</span>
+  <section id="socialSidebarPanel" class="social-sidebar-panel" aria-label="Connections and followers" hidden>
+    <header class="social-sidebar-header"><h3>Your community</h3><div class="social-sidebar-header-actions"><button id="socialSidebarMinimize" type="button" aria-label="Minimize connections" title="Minimize">−</button><button id="socialSidebarClose" type="button" aria-label="Close connections" title="Close">×</button></div></header>
+    <nav class="social-sidebar-tabs" aria-label="Community lists">
+      <button type="button" class="social-sidebar-tab is-active" data-social-type="connections" onclick="showSocialSidebarList('connections',this)">Connections <span id="socialSidebarConnectionCount">0</span></button>
+      <button type="button" class="social-sidebar-tab" data-social-type="requests" onclick="showSocialSidebarList('requests',this)">Requests <span id="socialSidebarRequestCount">0</span></button>
+      <button type="button" class="social-sidebar-tab" data-social-type="followers" onclick="showSocialSidebarList('followers',this)">Followers <span id="socialSidebarFollowerCount">0</span></button>
+      <button type="button" class="social-sidebar-tab" data-social-type="following" onclick="showSocialSidebarList('following',this)">Following <span id="socialSidebarFollowingCount">0</span></button>
+    </nav>
+    <div id="socialSidebarContent" class="social-sidebar-content"></div>
+    <footer class="social-sidebar-footer"><button type="button" class="social-view-all" onclick="openSocialPage(socialDirectoryType, currentUser?.id)">View full list</button></footer>
+  </section>
   <button
     id="ownerChatLauncher"
     class="owner-chat-launcher"
@@ -6922,6 +7334,16 @@ box-shadow:
 
       <div class="owner-chat-header-actions">
         <button
+          id="ownerChatSearchToggle"
+          class="owner-chat-search-toggle"
+          type="button"
+          aria-label="Search conversations"
+          title="Search names or conversation messages"
+          hidden
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+        </button>
+        <button
           id="ownerChatVoiceToggle"
           class="owner-chat-voice"
           type="button"
@@ -6938,6 +7360,15 @@ box-shadow:
           title="Expand chat"
         >
           ⛶
+        </button>
+        <button
+          id="ownerChatMinimize"
+          class="owner-chat-minimize"
+          type="button"
+          aria-label="Minimize conversation"
+          title="Minimize conversation"
+        >
+          −
         </button>
         <button
           id="ownerChatClose"
@@ -6990,7 +7421,7 @@ box-shadow:
 // Keep chat header controls responsive even if another page handler fails later.
 document.addEventListener("click", async event => {
   const button = event.target.closest(
-    "#ownerChatDelete, #ownerChatExpand, #ownerChatClose"
+    "#ownerChatDelete, #ownerChatExpand, #ownerChatClose, #ownerChatMinimize, #ownerChatSearchToggle"
   );
   if (!button) return;
 
@@ -7009,11 +7440,30 @@ document.addEventListener("click", async event => {
   const panel = button.closest(".owner-chat-panel");
   if (!panel) return;
 
+  if (button.id === "ownerChatSearchToggle") {
+    ownerChatSearchOpen = !ownerChatSearchOpen;
+    button.setAttribute("aria-pressed", String(ownerChatSearchOpen));
+    button.title = ownerChatSearchOpen ? "Hide conversation search" : "Search names or conversation messages";
+    const row = document.getElementById("ownerChatInboxSearchRow");
+    if (row) row.hidden = !ownerChatSearchOpen;
+    if (ownerChatSearchOpen) document.getElementById("ownerChatInboxSearch")?.focus();
+    return;
+  }
+
   if (button.id === "ownerChatExpand") {
     const expanded = panel.classList.toggle("is-expanded");
     button.setAttribute("aria-pressed", String(expanded));
     button.setAttribute("aria-label", expanded ? "Restore chat size" : "Expand chat");
     button.title = expanded ? "Restore chat size" : "Expand chat";
+    return;
+  }
+
+  if (button.id === "ownerChatMinimize") {
+    panel.hidden = true;
+    panel.classList.remove("is-expanded");
+    document.getElementById("ownerChatExpand")?.setAttribute("aria-pressed", "false");
+    clearInterval(ownerChatRefreshTimer);
+    ownerChatRefreshTimer = null;
     return;
   }
 
@@ -7165,11 +7615,16 @@ let pendingProjectCoverProjectId = null;
         if (sectionId === "connectSection") {
 
     loadMembers();
+    loadSocialConnections();
 
     if (currentUser) {
         loadConnectionRequests();
     }
 }
+
+        if (sectionId === "profileSection" && currentUser) {
+            loadSocialConnections();
+        }
 
         if (sectionId === "shareSection") {
             loadPosts();
@@ -7211,6 +7666,217 @@ function chooseQuickSearchFilter(filter, button) {
   document.querySelectorAll(".global-search-filter").forEach(item => item.classList.toggle("is-active", item.dataset.searchFilter === filter));
   const input = document.getElementById("globalSearchInput");
   if (input.value.trim().length >= 2) submitGlobalSearch();
+}
+
+function showConnectView(view, button) {
+  button = button || document.querySelector(`.connect-view-tab[onclick*="'${view}'"]`);
+  const members = document.getElementById("membersGrid");
+  const opportunities = document.getElementById("opportunitiesList");
+  const inbox = document.getElementById("memberInbox");
+  document.querySelectorAll(".connect-view-tab").forEach(tab => {
+    const active = tab === button;
+    tab.classList.toggle("is-active", active);
+    tab.setAttribute("aria-selected", String(active));
+  });
+  const showJobs = view === "opportunities";
+  const showMessages = view === "messages";
+  members.hidden = showJobs || showMessages;
+  opportunities.hidden = !showJobs;
+  inbox.hidden = !showMessages;
+  if (showJobs) loadJobOpportunities();
+  if (showMessages) loadMemberInbox();
+}
+
+async function loadJobOpportunities() {
+  const list = document.getElementById("opportunitiesList");
+  if (!list) return;
+  list.innerHTML = '<div class="global-search-empty">Loading opportunities…</div>';
+  const { data: posts, error } = await db.from("posts").select("*").eq("post_type", "job_opportunity").order("created_at", { ascending: false });
+  if (error) {
+    console.error("Load job opportunities failed:", error);
+    list.innerHTML = '<div class="global-search-empty">Could not load opportunities. Apply the job-opportunities SQL setup and try again.</div>';
+    return;
+  }
+  if (!posts?.length) {
+    list.innerHTML = '<div class="global-search-empty">No opportunities posted yet.</div>';
+    return;
+  }
+  list.innerHTML = posts.map(post => {
+    const details = [post.job_company, post.job_location, post.job_workplace, post.job_employment_type].filter(Boolean);
+    const deadline = post.job_deadline ? `Apply by ${new Date(`${post.job_deadline}T00:00:00`).toLocaleDateString()}` : "";
+    const apply = post.job_apply_url && /^https?:\/\//i.test(post.job_apply_url)
+      ? `<a class="opportunity-apply" href="${escapeHtml(post.job_apply_url)}" target="_blank" rel="noopener noreferrer">Apply</a>` : "";
+    return `<article class="opportunity-card"><h3>${escapeHtml(post.job_title || "Job opportunity")}</h3><div class="opportunity-meta">${details.map(item => `<span>${escapeHtml(item)}</span>`).join("")}${deadline ? `<span>${escapeHtml(deadline)}</span>` : ""}</div>${post.content ? `<p>${escapeHtml(post.content)}</p>` : ""}${apply}</article>`;
+  }).join("");
+}
+
+let activeMemberConversationId = null;
+let activeMemberConversationName = "";
+let memberConversationRefreshTimer = null;
+
+async function isMemberConnection(memberId) {
+  if (!currentUser || !memberId || String(memberId) === String(currentUser.id)) return false;
+  const { data, error } = await db.from("connections").select("id")
+    .or(`and(requester_id.eq.${currentUser.id},recipient_id.eq.${memberId}),and(requester_id.eq.${memberId},recipient_id.eq.${currentUser.id})`)
+    .eq("status", "accepted").limit(1).maybeSingle();
+  if (error) {
+    console.error("Check member connection failed:", error);
+    return false;
+  }
+  return Boolean(data);
+}
+
+function memberMessageEscape(value) {
+  return String(value ?? "").replace(/[&<>"']/g, character => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  })[character]);
+}
+
+function memberMessageButton(memberId) {
+  if (!currentUser || String(currentUser.id) === String(memberId)) return "";
+  return `<button type="button" class="member-connection-button" onclick="openMemberChat('${memberMessageEscape(memberId)}')">Message</button>`;
+}
+
+async function loadMemberInbox() {
+  const inbox = document.getElementById("memberInbox");
+  if (!inbox) return;
+  if (!currentUser) {
+    inbox.innerHTML = '<p class="global-search-empty">Log in to view private messages.</p><button class="member-connection-button" onclick="showSection(\'loginSection\')">Log in</button>';
+    return;
+  }
+
+  inbox.innerHTML = '<p class="global-search-empty">Loading messages...</p>';
+  const { data: messages, error } = await db.from("member_messages")
+    .select("id,sender_id,recipient_id,body,created_at")
+    .or(`sender_id.eq.${currentUser.id},recipient_id.eq.${currentUser.id}`)
+    .order("created_at", { ascending: false })
+    .limit(500);
+  if (error) {
+    console.error("Load private messages failed:", error);
+    inbox.innerHTML = '<p class="global-search-empty">Private messaging is not set up yet. Run the updated job-opportunities.sql setup.</p>';
+    return;
+  }
+  const latestByMember = new Map();
+  for (const message of messages || []) {
+    const otherId = String(message.sender_id) === String(currentUser.id) ? message.recipient_id : message.sender_id;
+    if (!latestByMember.has(String(otherId))) latestByMember.set(String(otherId), { ...message, otherId: String(otherId) });
+  }
+  if (!latestByMember.size) {
+    inbox.innerHTML = '<p class="global-search-empty">No private conversations yet. Open a member profile and choose Message.</p>';
+    return;
+  }
+  const ids = [...latestByMember.keys()];
+  const { data: profiles } = await db.from("profiles").select("id,full_name").in("id", ids);
+  const names = new Map((profiles || []).map(profile => [String(profile.id), profile.full_name || "Community Member"]));
+  inbox.innerHTML = [...latestByMember.values()].map(message => {
+    const name = names.get(message.otherId) || "Community Member";
+    return `<button type="button" class="member-inbox-item" onclick="openMemberChat('${memberMessageEscape(message.otherId)}')"><span class="member-inbox-copy"><strong>${memberMessageEscape(name)}</strong><span>${memberMessageEscape(message.body)}</span></span></button>`;
+  }).join("");
+}
+
+async function openMemberChat(memberId) {
+  if (!currentUser) {
+    showSignupPrompt();
+    return;
+  }
+  if (!memberId || String(memberId) === String(currentUser.id)) return;
+  if (!await isMemberConnection(memberId)) {
+    alert("Private messages are available to connections only. Send a connection request first.");
+    return;
+  }
+  clearInterval(memberConversationRefreshTimer);
+  activeMemberConversationId = String(memberId);
+  const dialog = document.getElementById("memberMessageDialog");
+  const title = document.getElementById("memberMessageTitle");
+  const list = document.getElementById("memberMessageList");
+  const status = document.getElementById("memberMessageStatus");
+  const { data: profile } = await db.from("profiles").select("full_name").eq("id", memberId).maybeSingle();
+  activeMemberConversationName = profile?.full_name || "Community Member";
+  title.textContent = `Message ${activeMemberConversationName}`;
+  status.textContent = "";
+  dialog.hidden = false;
+  document.getElementById("memberMessageInput").focus();
+  await loadMemberConversation();
+  memberConversationRefreshTimer = setInterval(() => {
+    if (activeMemberConversationId && !dialog.hidden) loadMemberConversation(true);
+  }, 5000);
+}
+
+async function loadMemberConversation(quiet = false) {
+  if (!currentUser || !activeMemberConversationId) return;
+  const list = document.getElementById("memberMessageList");
+  if (!quiet) list.innerHTML = '<p class="global-search-empty">Loading conversation...</p>';
+  const otherId = activeMemberConversationId;
+  const { data: messages, error } = await db.from("member_messages")
+    .select("id,sender_id,recipient_id,body,created_at")
+    .or(`and(sender_id.eq.${currentUser.id},recipient_id.eq.${otherId}),and(sender_id.eq.${otherId},recipient_id.eq.${currentUser.id})`)
+    .order("created_at", { ascending: true })
+    .limit(300);
+  if (error) {
+    console.error("Load conversation failed:", error);
+    if (!quiet) list.innerHTML = '<p class="global-search-empty">Could not load messages. Check the private-message SQL setup.</p>';
+    return;
+  }
+  if (!messages?.length) {
+    if (!quiet && !list.dataset.messageFingerprint) list.innerHTML = '<p class="global-search-empty">Start the conversation with a private message.</p>';
+    return;
+  }
+  const fingerprint = messages.map(message => message.id).join(":");
+  if (quiet && list.dataset.messageFingerprint === fingerprint) return;
+  const wasNearBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 80;
+  list.innerHTML = messages.map(message => {
+    const mine = String(message.sender_id) === String(currentUser.id);
+    const time = new Date(message.created_at).toLocaleString();
+    return `<div class="member-message-bubble${mine ? " is-mine" : ""}">${memberMessageEscape(message.body)}<span class="member-message-time">${memberMessageEscape(time)}</span></div>`;
+  }).join("");
+  list.dataset.messageFingerprint = fingerprint;
+  if (!quiet || wasNearBottom) list.scrollTop = list.scrollHeight;
+}
+
+async function sendMemberMessage(event) {
+  event.preventDefault();
+  const input = document.getElementById("memberMessageInput");
+  const status = document.getElementById("memberMessageStatus");
+  const body = input.value.trim();
+  if (!currentUser) {
+    showSignupPrompt();
+    return;
+  }
+  if (!activeMemberConversationId || !body) return;
+  status.textContent = "";
+  const { error } = await db.from("member_messages").insert({
+    sender_id: currentUser.id,
+    recipient_id: activeMemberConversationId,
+    body
+  });
+  if (error) {
+    console.error("Send private message failed:", error);
+    status.textContent = "Could not send the message. Please try again.";
+    return;
+  }
+  input.value = "";
+  await loadMemberConversation();
+  await loadMemberInbox();
+}
+
+function closeMemberChat() {
+  clearInterval(memberConversationRefreshTimer);
+  memberConversationRefreshTimer = null;
+  document.getElementById("memberMessageDialog").hidden = true;
+  activeMemberConversationId = null;
+}
+
+document.getElementById("memberMessageDialog")?.addEventListener("click", event => {
+  if (event.target.id === "memberMessageDialog") closeMemberChat();
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && !document.getElementById("memberMessageDialog")?.hidden) closeMemberChat();
+});
+
+function toggleJobPostFields() {
+  const isJob = document.getElementById("sharePostType")?.value === "job_opportunity";
+  document.getElementById("jobPostFields").hidden = !isJob;
+  document.getElementById("shareContent").placeholder = isJob ? "Describe the role and how to apply..." : "Share something with the community...";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -7262,7 +7928,7 @@ async function runGlobalSearch() {
       .select("*")
       .then(result => ({ type: "projects", ...result })));
   }
-  if (["all", "posts"].includes(globalSearchFilterType)) {
+  if (["all", "posts", "opportunities"].includes(globalSearchFilterType)) {
     jobs.push(db.from("posts")
       .select("*")
       .order("created_at", { ascending: false })
@@ -7270,7 +7936,7 @@ async function runGlobalSearch() {
   }
 
   const responses = await Promise.allSettled(jobs);
-  const collections = { people: [], projects: [], posts: [] };
+  const collections = { people: [], projects: [], posts: [], opportunities: [] };
   let failedQueries = 0;
   responses.forEach(response => {
     if (response.status !== "fulfilled") {
@@ -7291,7 +7957,9 @@ async function runGlobalSearch() {
   const matches = (value) => String(value || "").toLocaleLowerCase().includes(searchNeedle);
   collections.people = collections.people.filter(person => [person.full_name, person.profession, person.headline, person.location, person.bio].some(matches)).slice(0, 8);
   collections.projects = collections.projects.filter(project => [project.title, project.category, project.description, project.location].some(matches)).slice(0, 8);
-  collections.posts = collections.posts.filter(post => matches(post.content)).slice(0, 8);
+  const allPosts = collections.posts;
+  collections.posts = allPosts.filter(post => (globalSearchFilterType !== "posts" || post.post_type !== "job_opportunity") && post.post_type !== "job_opportunity" && matches(post.content)).slice(0, 8);
+  collections.opportunities = allPosts.filter(post => post.post_type === "job_opportunity" && [post.job_title, post.job_company, post.job_location, post.job_workplace, post.job_employment_type, post.content].some(matches)).slice(0, 8);
 
   const peopleForView = await Promise.all(collections.people.map(async person => ({
     ...person,
@@ -7324,6 +7992,12 @@ async function runGlobalSearch() {
     sections.push(`<section class="global-search-group"><h3>Posts</h3><div class="global-search-list">${collections.posts.map(post => {
       const excerpt = (post.content || "").trim().slice(0, 150);
       return `<button type="button" class="global-search-item" onclick="openSearchPost('${escapeHtml(post.id)}')"><span class="global-search-thumb">“</span><span class="global-search-item-copy"><strong>Community post</strong><span>${escapeHtml(excerpt)}${post.content?.length > 150 ? "…" : ""}</span></span></button>`;
+    }).join("")}</div></section>`);
+  }
+  if (collections.opportunities.length) {
+    sections.push(`<section class="global-search-group"><h3>Opportunities</h3><div class="global-search-list">${collections.opportunities.map(post => {
+      const detail = [post.job_company, post.job_location, post.job_workplace, post.job_employment_type].filter(Boolean).join(" · ") || (post.content || "").trim().slice(0, 150);
+      return `<button type="button" class="global-search-item" onclick="showSection('connectSection'); showConnectView('opportunities', document.querySelectorAll('.connect-view-tab')[1])"><span class="global-search-thumb">J</span><span class="global-search-item-copy"><strong>${escapeHtml(post.job_title || "Job opportunity")}</strong><span>${escapeHtml(detail)}</span></span></button>`;
     }).join("")}</div></section>`);
   }
 
@@ -9825,6 +10499,328 @@ async function loadConnectionRequests() {
             "Unable to load connection requests.";
     }
 }
+
+let memberSocialState = { requests: [], connections: [], followers: [], following: [] };
+let socialDirectoryUserId = null;
+let socialDirectoryType = "connections";
+let socialDirectoryReturnSection = "connectSection";
+let socialSidebarHintTimer = null;
+
+function maybeShowSocialSidebarHint() {
+  const hint = document.getElementById("socialSidebarHint");
+  if (!hint || !currentUser) return;
+  const hintKey = `social-sidebar-hint:${currentUser.id}`;
+  const now = Date.now();
+  try {
+    if (now - Number(localStorage.getItem(hintKey) || 0) < 24 * 60 * 60 * 1000) return;
+    localStorage.setItem(hintKey, String(now));
+  } catch (_) {
+    if (sessionStorage.getItem(hintKey)) return;
+    sessionStorage.setItem(hintKey, "shown");
+  }
+  hint.hidden = false;
+  requestAnimationFrame(() => hint.classList.add("is-visible"));
+  clearTimeout(socialSidebarHintTimer);
+  socialSidebarHintTimer = setTimeout(() => {
+    hint.classList.remove("is-visible");
+    setTimeout(() => { hint.hidden = true; }, 240);
+  }, 5200);
+}
+
+function socialSummaryMarkup(requestCount, connectionCount, followerCount, listId) {
+  return `
+    <button type="button" class="social-summary-action" onclick="toggleSocialSidebar(true);showSocialSidebarList('requests',document.querySelector('.social-sidebar-tab[data-social-type=\"requests\"]'))" aria-label="${requestCount} new connection requests">
+      <span class="social-count-bubble is-request-count">${requestCount}</span>
+      <span>New requests</span>
+    </button>
+    <button type="button" class="social-summary-action" onclick="toggleSocialSidebar(true);showSocialSidebarList('connections',document.querySelector('.social-sidebar-tab[data-social-type=\"connections\"]'))" aria-label="${connectionCount} connections">
+      <span class="social-count-bubble is-connection-count">${connectionCount}</span>
+      <span>Connections</span>
+    </button>
+    <button type="button" class="social-summary-action" onclick="toggleSocialSidebar(true);showSocialSidebarList('followers',document.querySelector('.social-sidebar-tab[data-social-type=\"followers\"]'))" aria-label="${followerCount} followers">
+      <span class="social-count-bubble is-follower-count">${followerCount}</span>
+      <span>Followers</span>
+    </button>
+    <button type="button" class="social-summary-action" onclick="toggleSocialSidebar(true);showSocialSidebarList('following',document.querySelector('.social-sidebar-tab[data-social-type=\"following\"]'))" aria-label="${memberSocialState.following.length} following">
+      <span class="social-count-bubble is-following-count">${memberSocialState.following.length}</span>
+      <span>Following</span>
+    </button>`;
+}
+
+async function loadSocialConnections() {
+  const targets = ["profileSocialSummary", "homeSocialSummary"]
+    .map(id => document.getElementById(id)).filter(Boolean);
+  if (!currentUser) {
+    const socialLauncher = document.getElementById("socialSidebarLauncher");
+    if (socialLauncher) socialLauncher.hidden = true;
+    const homeHub = document.getElementById("homeSocialHub");
+    if (homeHub) homeHub.hidden = true;
+    return;
+  }
+  const socialLauncher = document.getElementById("socialSidebarLauncher");
+  if (socialLauncher) socialLauncher.hidden = false;
+  maybeShowSocialSidebarHint();
+  const homeHub = document.getElementById("homeSocialHub");
+  if (homeHub) homeHub.hidden = false;
+  targets.forEach(target => target.innerHTML = '<span class="social-summary-loading">Loading connections...</span>');
+
+  const [requestResult, connectionResult, followerResult, followingResult, settingsResult] = await Promise.all([
+    db.from("connections").select("id,requester_id,recipient_id,created_at")
+      .eq("recipient_id", currentUser.id).eq("status", "pending").order("created_at", { ascending: false }),
+    db.from("connections").select("id,requester_id,recipient_id,created_at")
+      .or(`requester_id.eq.${currentUser.id},recipient_id.eq.${currentUser.id}`).eq("status", "accepted").order("created_at", { ascending: false }),
+    db.from("member_follows").select("follower_id,following_id,created_at").eq("following_id", currentUser.id).order("created_at", { ascending: false }),
+    db.from("member_follows").select("follower_id,following_id,created_at").eq("follower_id", currentUser.id).order("created_at", { ascending: false }),
+    db.from("member_social_settings").select("show_lists").eq("user_id", currentUser.id).maybeSingle()
+  ]);
+  if (requestResult.error || connectionResult.error || followerResult.error || followingResult.error) {
+    console.error("Could not load social connections:", requestResult.error || connectionResult.error || followerResult.error || followingResult.error);
+    targets.forEach(target => target.innerHTML = '<span class="social-summary-loading">Connections are unavailable right now.</span>');
+    return;
+  }
+
+  const requestRows = requestResult.data || [];
+  const connectionRows = connectionResult.data || [];
+  const followerRows = followerResult.data || [];
+  const followingRows = followingResult.data || [];
+  const ids = [...new Set([
+    ...requestRows.map(row => row.requester_id),
+    ...connectionRows.map(row => String(row.requester_id) === String(currentUser.id) ? row.recipient_id : row.requester_id),
+    ...followerRows.map(row => row.follower_id),
+    ...followingRows.map(row => row.following_id)
+  ])];
+  const { data: profiles, error: profileError } = ids.length
+    ? await db.from("profiles").select("id,full_name,profession,avatar_url").in("id", ids)
+    : { data: [], error: null };
+  if (profileError) console.error("Could not load connection profiles:", profileError);
+  const profileMap = new Map((profiles || []).map(profile => [String(profile.id), profile]));
+  await Promise.all((profiles || []).map(async profile => {
+    profile.displayAvatarUrl = await getMemberAvatarUrl(profile.avatar_url);
+  }));
+
+  memberSocialState = {
+    requests: requestRows.map(row => ({ row, profile: profileMap.get(String(row.requester_id)) })),
+    connections: connectionRows.map(row => {
+      const otherId = String(row.requester_id) === String(currentUser.id) ? row.recipient_id : row.requester_id;
+      return { row, profile: profileMap.get(String(otherId)) };
+    }),
+    followers: followerRows.map(row => ({ row, profile: profileMap.get(String(row.follower_id)) })),
+    following: followingRows.map(row => ({ row, profile: profileMap.get(String(row.following_id)) }))
+  };
+  const connectSummary = document.getElementById("connectSocialSummary");
+  const profileSummary = document.getElementById("profileSocialSummary");
+  const homeSummary = document.getElementById("homeSocialSummary");
+  if (connectSummary) connectSummary.innerHTML = socialSummaryMarkup(requestRows.length, connectionRows.length, followerRows.length, "connectSocialList");
+  if (profileSummary) profileSummary.innerHTML = socialSummaryMarkup(requestRows.length, connectionRows.length, followerRows.length, "profileSocialList");
+  if (homeSummary) homeSummary.innerHTML = socialSummaryMarkup(requestRows.length, connectionRows.length, followerRows.length, "homeSocialList");
+  document.getElementById("socialSidebarConnectionCount").textContent = connectionRows.length;
+  document.getElementById("socialSidebarRequestCount").textContent = requestRows.length;
+  document.getElementById("socialSidebarFollowerCount").textContent = followerRows.length;
+  document.getElementById("socialSidebarFollowingCount").textContent = followingRows.length;
+  const visibilityToggle = document.getElementById("showSocialLists");
+  if (visibilityToggle) visibilityToggle.checked = Boolean(settingsResult.data?.show_lists);
+  if (!document.getElementById("socialSidebarPanel").hidden) showSocialSidebarList(socialDirectoryType);
+}
+
+function toggleSocialSidebar(forceOpen) {
+  if (!currentUser) return showSignupPrompt();
+  const panel = document.getElementById("socialSidebarPanel");
+  panel.hidden = !(forceOpen ?? panel.hidden);
+  document.getElementById("socialSidebarLauncher")?.setAttribute("aria-expanded", String(!panel.hidden));
+  if (!panel.hidden) panel.dataset.minimized = "false";
+  if (!panel.hidden) loadSocialConnections();
+}
+
+function closeSocialSidebar() {
+  const panel = document.getElementById("socialSidebarPanel");
+  if (panel) panel.hidden = true;
+  document.getElementById("socialSidebarLauncher")?.setAttribute("aria-expanded", "false");
+}
+
+function minimizeSocialSidebar() {
+  const panel = document.getElementById("socialSidebarPanel");
+  if (panel) {
+    panel.hidden = true;
+    panel.dataset.minimized = "true";
+  }
+  document.getElementById("socialSidebarLauncher")?.setAttribute("aria-expanded", "false");
+}
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeSocialSidebar();
+});
+document.addEventListener("click", event => {
+  const panel = document.getElementById("socialSidebarPanel");
+  const launcher = document.getElementById("socialSidebarLauncher");
+  if (panel && !panel.hidden && !panel.contains(event.target) && !launcher?.contains(event.target)) closeSocialSidebar();
+});
+
+function showSocialSidebarList(type, button) {
+  if (!currentUser) return showSignupPrompt();
+  socialDirectoryType = type;
+  document.querySelectorAll(".social-sidebar-tab").forEach(tab => tab.classList.toggle("is-active", tab.dataset.socialType === type));
+  const content = document.getElementById("socialSidebarContent");
+  const records = memberSocialState[type] || [];
+  if (!records.length) {
+    content.innerHTML = `<p class="social-list-empty">${type === "requests" ? "No new requests." : `No ${type} yet.`}</p>`;
+    return;
+  }
+  content.innerHTML = records.slice(0, 5).map(({ row, profile }) => {
+    const id = type === "requests" ? row.requester_id : type === "followers" ? row.follower_id : type === "following" ? row.following_id : (String(row.requester_id) === String(currentUser.id) ? row.recipient_id : row.requester_id);
+    const name = profile?.full_name || "Community member";
+    const avatar = profile?.displayAvatarUrl ? `<img src="${escapeHtml(profile.displayAvatarUrl)}" alt="${escapeHtml(name)}">` : `<span class="social-list-initial">${escapeHtml(getInitials(name))}</span>`;
+    const relationship = type === "connections" ? "Connection" : type === "followers" ? "Follower" : type === "following" ? "Following" : "";
+    const actions = type === "requests"
+      ? `<div class="social-list-actions"><button type="button" class="social-list-action is-primary" onclick="acceptConnection('${escapeHtml(row.id)}')">Accept</button></div>`
+      : type === "connections"
+        ? `<div class="social-list-actions"><button type="button" class="social-list-action is-primary" onclick="openMemberChat('${escapeHtml(id)}')">Message</button></div>`
+        : "";
+    return `<article class="social-list-person"><button type="button" class="social-list-identity" onclick="viewMemberProfile('${escapeHtml(id)}')">${avatar}<span><strong>${escapeHtml(name)}</strong><small>${escapeHtml(profile?.profession || "Community member")}${relationship ? ` · <em class="social-relationship-badge">${relationship}</em>` : ""}</small></span></button>${actions}</article>`;
+  }).join("");
+}
+
+function showSocialList(type, listId) {
+  if (!currentUser) return showSignupPrompt();
+  const list = document.getElementById(listId);
+  if (!list) return;
+  list.hidden = false;
+  const records = memberSocialState[type] || [];
+  const destinationId = listId === "homeSocialList" ? "homeSocialSummary" : listId === "profileSocialList" ? "profileSocialSummary" : "connectSocialSummary";
+  if (!records.length) {
+    list.innerHTML = `<p class="social-list-empty">${type === "requests" ? "No new requests." : "No connections yet."}</p>`;
+    return;
+  }
+  list.innerHTML = records.slice(0, 4).map(({ row, profile }) => {
+    const memberId = type === "requests" ? row.requester_id : type === "followers" ? row.follower_id : type === "following" ? row.following_id : (String(row.requester_id) === String(currentUser.id) ? row.recipient_id : row.requester_id);
+    const name = profile?.full_name || "Community member";
+    const avatar = profile?.displayAvatarUrl
+      ? `<img src="${escapeHtml(profile.displayAvatarUrl)}" alt="${escapeHtml(name)}">`
+      : `<span class="social-list-initial">${escapeHtml(getInitials(name))}</span>`;
+    const actions = type === "requests"
+      ? `<button type="button" class="social-list-action" onclick="viewMemberProfile('${escapeHtml(memberId)}')">View profile</button><button type="button" class="social-list-action is-primary" onclick="acceptConnection('${escapeHtml(row.id)}')">Accept</button>`
+      : `<button type="button" class="social-list-action" onclick="viewMemberProfile('${escapeHtml(memberId)}')">View profile</button>${type === "connections" ? `<button type="button" class="social-list-action is-primary" onclick="openMemberChat('${escapeHtml(memberId)}')">Message</button>` : ""}`;
+    const relationship = type === "connections" ? "Connection" : type === "followers" ? "Follower" : type === "following" ? "Following" : "";
+    return `<article class="social-list-person"><button type="button" class="social-list-identity" onclick="viewMemberProfile('${escapeHtml(memberId)}')">${avatar}<span><strong>${escapeHtml(name)}</strong><small>${escapeHtml(profile?.profession || "Community member")}${relationship ? ` · <em class="social-relationship-badge">${relationship}</em>` : ""}</small></span></button><div class="social-list-actions">${actions}</div></article>`;
+  }).join("");
+  list.insertAdjacentHTML("beforeend", `<button type="button" class="social-view-all" onclick="openSocialPage('${type}', currentUser.id)">View all ${type}</button>`);
+}
+
+async function updateSocialListVisibility(visible) {
+  if (!currentUser) return showSignupPrompt();
+  const { error } = await db.from("member_social_settings").upsert({ user_id: currentUser.id, show_lists: visible, updated_at: new Date().toISOString() });
+  if (error) {
+    console.error("Could not update social list visibility:", error);
+    alert("Could not update list visibility. Run the updated SQL setup and try again.");
+    document.getElementById("showSocialLists").checked = !visible;
+    return;
+  }
+  await loadSocialConnections();
+}
+
+async function openSocialPage(type = "connections", userId = currentUser?.id) {
+  if (!currentUser) return showSignupPrompt();
+  if (!userId) return;
+  const activeSection = document.querySelector(".page-section.active")?.id;
+  if (activeSection && activeSection !== "socialConnectionsSection") socialDirectoryReturnSection = activeSection;
+  socialDirectoryUserId = String(userId);
+  socialDirectoryType = type;
+  showSection("socialConnectionsSection");
+  document.getElementById("socialConnectionsTitle").textContent = socialDirectoryUserId === String(currentUser.id) ? "Your community" : "Community connections";
+  document.querySelectorAll(".social-directory-tab").forEach(tab => {
+    const active = tab.dataset.socialList === type;
+    tab.classList.toggle("is-active", active);
+    tab.setAttribute("aria-selected", String(active));
+  });
+  await loadSocialDirectory();
+}
+
+function goBackFromSocialPage() {
+  const target = socialDirectoryReturnSection && socialDirectoryReturnSection !== "socialConnectionsSection"
+    ? socialDirectoryReturnSection
+    : "connectSection";
+  showSection(target);
+}
+
+function filterSocialDirectory(query) {
+  const container = document.getElementById("socialConnectionsList");
+  if (!container) return;
+  const normalizedQuery = String(query || "").trim().toLocaleLowerCase();
+  const entries = [...container.querySelectorAll(".social-list-person")];
+  let visibleCount = 0;
+  entries.forEach(entry => {
+    const searchableText = entry.dataset.searchText || entry.textContent.toLocaleLowerCase();
+    const matches = !normalizedQuery || searchableText.includes(normalizedQuery);
+    entry.hidden = !matches;
+    if (matches) visibleCount += 1;
+  });
+  let emptyState = document.getElementById("socialDirectoryNoResults");
+  if (normalizedQuery && entries.length && !visibleCount) {
+    if (!emptyState) {
+      emptyState = document.createElement("p");
+      emptyState.id = "socialDirectoryNoResults";
+      emptyState.className = "global-search-empty";
+      container.append(emptyState);
+    }
+    emptyState.textContent = "No members match your search.";
+  } else {
+    emptyState?.remove();
+  }
+}
+
+async function loadSocialDirectory() {
+  const container = document.getElementById("socialConnectionsList");
+  container.innerHTML = '<p class="global-search-empty">Loading list...</p>';
+  const isOwn = socialDirectoryUserId === String(currentUser.id);
+  if (!isOwn) {
+    const { data: settings } = await db.from("member_social_settings").select("show_lists").eq("user_id", socialDirectoryUserId).maybeSingle();
+    if (!settings?.show_lists) {
+      container.innerHTML = '<p class="global-search-empty">This member keeps their connections private.</p>';
+      return;
+    }
+  }
+  let rows = [];
+  let ids = [];
+  if (socialDirectoryType === "requests") {
+    if (!isOwn) { container.innerHTML = '<p class="global-search-empty">Requests are only visible to the account owner.</p>'; return; }
+    const result = await db.from("connections").select("id,requester_id,recipient_id,created_at").eq("recipient_id", socialDirectoryUserId).eq("status", "pending").order("created_at", { ascending: false });
+    if (result.error) return socialDirectoryError(container, result.error);
+    rows = result.data || []; ids = rows.map(row => row.requester_id);
+  } else if (socialDirectoryType === "connections") {
+    const result = await db.from("connections").select("id,requester_id,recipient_id,created_at").or(`requester_id.eq.${socialDirectoryUserId},recipient_id.eq.${socialDirectoryUserId}`).eq("status", "accepted").order("created_at", { ascending: false });
+    if (result.error) return socialDirectoryError(container, result.error);
+    rows = result.data || []; ids = rows.map(row => String(row.requester_id) === socialDirectoryUserId ? row.recipient_id : row.requester_id);
+  } else {
+    const result = await db.rpc("get_member_social_list", {
+      p_user_id: socialDirectoryUserId,
+      p_list_type: socialDirectoryType
+    });
+    if (result.error) return socialDirectoryError(container, result.error);
+    rows = (result.data || []).map(row => ({ member_id: row.member_id, created_at: row.created_at }));
+    ids = rows.map(row => row.member_id);
+  }
+  if (!ids.length) { container.innerHTML = `<p class="global-search-empty">No ${socialDirectoryType} yet.</p>`; return; }
+  const { data: profiles, error } = await db.from("profiles").select("id,full_name,profession,avatar_url").in("id", ids);
+  if (error) return socialDirectoryError(container, error);
+  const profileMap = new Map((profiles || []).map(profile => [String(profile.id), profile]));
+  await Promise.all((profiles || []).map(async profile => profile.displayAvatarUrl = await getMemberAvatarUrl(profile.avatar_url)));
+  container.innerHTML = rows.map(row => {
+    const id = socialDirectoryType === "requests" ? row.requester_id : socialDirectoryType === "connections" ? (String(row.requester_id) === socialDirectoryUserId ? row.recipient_id : row.requester_id) : row.member_id;
+    const profile = profileMap.get(String(id));
+    if (!profile) return "";
+    const name = profile.full_name || "Community member";
+    const avatar = profile.displayAvatarUrl ? `<img src="${escapeHtml(profile.displayAvatarUrl)}" alt="${escapeHtml(name)}">` : `<span class="social-list-initial">${escapeHtml(getInitials(name))}</span>`;
+    const profession = profile.profession || "Community member";
+    const searchText = escapeHtml(`${name} ${profession}`.toLocaleLowerCase());
+    return `<article class="social-list-person" data-search-text="${searchText}"><button type="button" class="social-list-identity" onclick="viewMemberProfile('${escapeHtml(id)}')">${avatar}<span><strong>${escapeHtml(name)}</strong><small>${escapeHtml(profession)}</small></span></button><div class="social-list-actions"><button type="button" class="social-list-action" onclick="viewMemberProfile('${escapeHtml(id)}')">View profile</button>${socialDirectoryType === "requests" ? `<button type="button" class="social-list-action is-primary" onclick="acceptConnection('${escapeHtml(row.id)}')">Accept</button>` : `<button type="button" class="social-list-action is-primary" onclick="openMemberChat('${escapeHtml(id)}')">Message</button>`}</div></article>`;
+  }).join("");
+  filterSocialDirectory(document.getElementById("socialDirectorySearch")?.value || "");
+}
+
+function socialDirectoryError(container, error) {
+  console.error("Could not load social directory:", error);
+  container.innerHTML = '<p class="global-search-empty">Could not load this list. Run the social features SQL setup.</p>';
+}
+
 async function acceptConnection(connectionId) {
 
     if (!currentUser) {
@@ -9858,6 +10854,7 @@ async function acceptConnection(connectionId) {
         }
 
         await loadConnectionRequests();
+        await loadSocialConnections();
 
         alert("Connection accepted!");
 
@@ -9910,6 +10907,7 @@ async function rejectConnection(connectionId) {
         }
 
         await loadConnectionRequests();
+        await loadSocialConnections();
 
     } catch (error) {
 
@@ -9954,7 +10952,7 @@ function renderMembers(members, connections = []) {
 
 if (currentUserId === memberId) {
   buttonText = "Your Profile";
-  buttonDisabled = "disabled";
+  buttonAction = "showSection('profileSection')";
 
 } else if (relation?.status === "accepted") {
   buttonText = "Connected";
@@ -10256,6 +11254,12 @@ async function createPost() {
     const message = document.getElementById("postFormMessage");
     const submitButton = document.getElementById("shareSubmitButton");
     const content = textarea.value.trim();
+    const postType = document.getElementById("sharePostType")?.value || "community";
+    const jobTitle = document.getElementById("jobTitle")?.value.trim() || "";
+    if (postType === "job_opportunity" && !jobTitle) {
+        showPostMessage("Add a job title before sharing the opportunity.", true);
+        return;
+    }
     const file = imageInput.files?.[0] || null;
     const editingId = window.editingCommunityPostId || null;
     const showPostMessage = (text, error = false) => {
@@ -10285,12 +11289,30 @@ async function createPost() {
                 contentType: file.type,
                 upsert: false
             });
-            if (uploadError) throw uploadError;
+            if (uploadError) {
+                if (/bucket not found/i.test(uploadError.message || "")) {
+                    throw new Error("The post-media storage bucket is missing. Run the post-media setup in job-opportunities.sql in Supabase SQL Editor, then try again.");
+                }
+                throw uploadError;
+            }
             const { data: publicData } = db.storage.from("post-media").getPublicUrl(uploadedPath);
             imagePath = uploadedPath;
             imageUrl = publicData.publicUrl;
         }
-        const postData = { user_id: currentUser.id, content, image_path: imagePath, image_url: imageUrl };
+        const postData = {
+            user_id: currentUser.id,
+            content,
+            image_path: imagePath,
+            image_url: imageUrl,
+            post_type: postType,
+            job_title: postType === "job_opportunity" ? jobTitle : null,
+            job_company: postType === "job_opportunity" ? document.getElementById("jobCompany").value.trim() || null : null,
+            job_location: postType === "job_opportunity" ? document.getElementById("jobLocation").value.trim() || null : null,
+            job_workplace: postType === "job_opportunity" ? document.getElementById("jobWorkplace").value || null : null,
+            job_employment_type: postType === "job_opportunity" ? document.getElementById("jobEmploymentType").value || null : null,
+            job_apply_url: postType === "job_opportunity" ? document.getElementById("jobApplyUrl").value.trim() || null : null,
+            job_deadline: postType === "job_opportunity" ? document.getElementById("jobDeadline").value || null : null
+        };
         const result = editingId
             ? await db.from("posts").update(postData).eq("id", editingId).eq("user_id", currentUser.id).select("id").maybeSingle()
             : await db.from("posts").insert(postData).select("id").single();
@@ -10343,6 +11365,17 @@ function cancelPostEdit() {
     window.editingCommunityPostImageUrl = null;
     const textarea = document.getElementById("shareContent");
     if (textarea) textarea.value = "";
+    const postType = document.getElementById("sharePostType");
+    if (postType) postType.value = "community";
+    ["jobTitle", "jobCompany", "jobLocation", "jobApplyUrl", "jobDeadline"].forEach(id => {
+        const field = document.getElementById(id);
+        if (field) field.value = "";
+    });
+    ["jobWorkplace", "jobEmploymentType"].forEach(id => {
+        const field = document.getElementById(id);
+        if (field) field.selectedIndex = 0;
+    });
+    toggleJobPostFields();
     const input = document.getElementById("shareImage");
     if (input) input.value = "";
     const preview = document.getElementById("shareImagePreview");
@@ -10367,6 +11400,15 @@ async function editPost(postId) {
     window.editingCommunityPostImagePath = post.image_path || null;
     window.editingCommunityPostImageUrl = post.image_url || null;
     document.getElementById("shareContent").value = post.content || "";
+    document.getElementById("sharePostType").value = post.post_type || "community";
+    toggleJobPostFields();
+    document.getElementById("jobTitle").value = post.job_title || "";
+    document.getElementById("jobCompany").value = post.job_company || "";
+    document.getElementById("jobLocation").value = post.job_location || "";
+    document.getElementById("jobWorkplace").value = post.job_workplace || "";
+    document.getElementById("jobEmploymentType").value = post.job_employment_type || "";
+    document.getElementById("jobApplyUrl").value = post.job_apply_url || "";
+    document.getElementById("jobDeadline").value = post.job_deadline || "";
     document.getElementById("shareImage").value = "";
     const preview = document.getElementById("shareImagePreview");
     if (post.image_url) {
@@ -10491,6 +11533,9 @@ async function loadPosts() {
             const postImage = post.image_url
                 ? `<img class="post-image" src="${escapeHtml(post.image_url)}" alt="Image attached to post" loading="lazy">`
                 : "";
+            const jobSummary = post.post_type === "job_opportunity"
+                ? `<div class="opportunity-meta">${[post.job_company, post.job_location, post.job_workplace, post.job_employment_type].filter(Boolean).map(value => `<span>${escapeHtml(value)}</span>`).join("")}</div><h3>${escapeHtml(post.job_title || "Job opportunity")}</h3>${post.job_apply_url && /^https?:\/\//i.test(post.job_apply_url) ? `<a class="opportunity-apply" href="${escapeHtml(post.job_apply_url)}" target="_blank" rel="noopener noreferrer">Apply</a>` : ""}`
+                : "";
             const safeId = escapeHtml(post.id);
             postCard.innerHTML = `
                 <div class="post-header">
@@ -10504,6 +11549,8 @@ async function loadPosts() {
                         ${profession ? `<div class="post-profession">${escapeHtml(profession)}</div>` : ""}
                     </div>
                 </div>
+                ${post.post_type === "job_opportunity" ? '<span class="job-post-badge">Job opportunity</span>' : ""}
+                ${jobSummary}
                 <div class="post-content">${cleanContent}</div>
                 ${postImage}
                 <div class="post-date">${new Date(post.created_at).toLocaleString()}</div>
@@ -11585,10 +12632,9 @@ async function loadMemberConnectionButton(memberId) {
     `;
   } else if (connection.status === "accepted") {
     box.innerHTML = `
-      <button class="member-connection-button"
-              onclick="removeMemberConnection('${connection.id}', '${memberId}')">
-        Remove Connection
-      </button>
+      <span class="social-relationship-badge">Connection</span>
+      <button type="button" class="member-connection-button" onclick="openMemberChat('${memberId}')">Message</button>
+      <button type="button" class="member-connection-button" onclick="removeMemberConnection('${connection.id}', '${memberId}')">Remove Connection</button>
     `;
   } else if (outgoing) {
   box.innerHTML = `
@@ -11612,6 +12658,8 @@ async function loadMemberConnectionButton(memberId) {
       </button>
     `;
   }
+
+  box.insertAdjacentHTML("beforeend", memberMessageButton(memberId));
 }
 
 async function connectFromMemberProfile(memberId) {
@@ -11800,6 +12848,9 @@ let ownerChatActiveUserId = null;
 let ownerChatActiveGuestEmail = null;
 let ownerChatProfiles = {};
 let ownerChatRefreshTimer = null;
+let ownerChatSearchOpen = false;
+let ownerChatSearchTerm = "";
+let ownerChatConversationSearchIndex = new Map();
 
 const ownerChatPanel = document.getElementById("ownerChatPanel");
 const ownerChatMessages = document.getElementById("ownerChatMessages");
@@ -11910,6 +12961,19 @@ let ownerChatSpeechRequest = 0;
 let ownerChatWelcomePlayed = false;
 let ownerChatWelcomePaused = false;
 let ownerChatWelcomeFinished = false;
+let ownerChatAvailableVoices = [];
+
+function refreshOwnerChatVoices() {
+  if (!("speechSynthesis" in window)) return;
+  const voices = window.speechSynthesis.getVoices();
+  if (voices.length) ownerChatAvailableVoices = voices;
+}
+
+if ("speechSynthesis" in window) {
+  refreshOwnerChatVoices();
+  window.speechSynthesis.addEventListener("voiceschanged", refreshOwnerChatVoices);
+  window.setTimeout(refreshOwnerChatVoices, 800);
+}
 
 function speakCommunityChatWelcome() {
   if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) return;
@@ -11921,11 +12985,11 @@ function speakCommunityChatWelcome() {
   let introStarted = false;
 
   const welcome = new SpeechSynthesisUtterance(
-    "Welcome to EJ Designs Community, a place for architects, designers, students, and creative minds to connect, share ideas, and showcase their work. Explore member profiles and architectural projects, discover new perspectives, and find inspiration in the work shared by our community. The idea for EJ Designs Community began in 2021, with a goal of making creative collaboration and professional connections more accessible. If you have a question, feedback, or a project to share, send us a message. We are glad you are here."
+    "Welcome to EJ Designs Community! We are so happy you are here! This is a place for architects, designers, students, and creative minds to connect, share ideas, and celebrate each other's work. Explore inspiring projects, meet talented members, and discover fresh perspectives. Since 2021, our community has been bringing creative people together. Have a question, feedback, or a project to share? Send us a message. We cannot wait to see what you create!"
   );
   welcome.lang = "en-US";
-  welcome.rate = 0.9;
-  welcome.pitch = 1.08;
+  welcome.rate = 0.96;
+  welcome.pitch = 1.38;
   welcome.volume = 1;
   welcome.onend = () => {
     ownerChatWelcomeFinished = true;
@@ -11940,20 +13004,24 @@ function speakCommunityChatWelcome() {
     if (introStarted || requestId !== ownerChatSpeechRequest || ownerChatPanel.hidden ||
         localStorage.getItem("ej-community-chat-voice") === "muted") return;
 
-    const voices = window.speechSynthesis.getVoices();
+    refreshOwnerChatVoices();
+    const voices = ownerChatAvailableVoices;
     const englishVoices = voices.filter(voice => /^en([-_]|$)/i.test(voice.lang));
-    const femaleVoicePatterns = /female|samantha|ava|aria|jenny|zira|victoria|karen|susan|sonia|libby|natasha|emma|june|olivia|michelle|google.*female|microsoft.*(aria|jenny|sonia|libby|emma|zira)/i;
+    const femaleVoicePatterns = /female|samantha|ava|aria|jenny|zira|victoria|karen|susan|sonia|libby|natasha|emma|june|olivia|michelle|moira|tessa|fiona|zoe|nicky|serena|alice|allison|sabrina|siri.*(female|woman)|google.*female|microsoft.*(aria|jenny|sonia|libby|emma|zira|ava)/i;
+    const maleVoicePatterns = /\bmale\b|david|mark|guy|daniel|alex|fred|tom|aaron|lee|james|jorge|thomas|oliver/i;
     const femaleVoices = englishVoices.filter(voice => femaleVoicePatterns.test(voice.name));
+    const scoreVoice = voice =>
+      (/natural|neural|online|premium|enhanced/i.test(voice.name) ? 4 : 0) +
+      (/en-US/i.test(voice.lang) ? 2 : 0) +
+      (voice.localService === false ? 1 : 0);
     const preferredVoice = [...femaleVoices].sort((a, b) => {
-      const score = voice =>
-        (/natural|neural|online|premium|enhanced/i.test(voice.name) ? 4 : 0) +
-        (/en-US/i.test(voice.lang) ? 2 : 0) +
-        (voice.localService === false ? 1 : 0);
-      return score(b) - score(a);
-    })[0] || englishVoices.find(voice => /natural|neural|online|premium/i.test(voice.name)) || englishVoices[0];
+      return scoreVoice(b) - scoreVoice(a);
+    })[0] || englishVoices
+      .filter(voice => !maleVoicePatterns.test(voice.name))
+      .sort((a, b) => scoreVoice(b) - scoreVoice(a))[0];
 
     if (preferredVoice) welcome.voice = preferredVoice;
-    else welcome.pitch = 1;
+    welcome.pitch = 1.38;
     introStarted = true;
     ownerChatWelcomePlayed = true;
     ownerChatWelcomeFinished = false;
@@ -11962,12 +13030,9 @@ function speakCommunityChatWelcome() {
     window.speechSynthesis.speak(welcome);
   };
 
-  if (window.speechSynthesis.getVoices().length) {
-    speakWithBestVoice();
-  } else {
-    window.speechSynthesis.addEventListener("voiceschanged", speakWithBestVoice, { once: true });
-    window.setTimeout(speakWithBestVoice, 1200);
-  }
+  // Queue speech synchronously inside the launcher's click gesture; waiting for
+  // voiceschanged or a timer causes mobile browsers to reject autoplay.
+  speakWithBestVoice();
 }
 
 function stopCommunityChatWelcome() {
@@ -11990,15 +13055,13 @@ function updateOwnerChatVoiceButton() {
 
 async function openOwnerChat() {
   ownerChatPanel.hidden = false;
-  // Play the introduction once for this opening; ignore duplicate voice-ready callbacks.
-  ownerChatWelcomePlayed = false;
-  ownerChatWelcomePaused = false;
-  ownerChatWelcomeFinished = false;
-  sessionStorage.removeItem("ej-community-chat-welcome-played");
 
   const isOwner =
     currentUser &&
     String(currentUser.id) === OWNER_CHAT_ID;
+
+  ownerChatPanel.classList.toggle("is-owner-inbox", Boolean(isOwner));
+  document.getElementById("ownerChatSearchToggle").hidden = !isOwner;
 
   speakCommunityChatWelcome();
 
@@ -12017,6 +13080,8 @@ async function openOwnerChat() {
     await ownerChatLoadInbox();
   } else {
     ownerChatActiveUserId = OWNER_CHAT_ID;
+    document.getElementById("ownerChatHeaderAvatar").innerHTML =
+      ownerChatCreatorAvatar();
 
     const ownerProfile = await ownerChatGetProfile(OWNER_CHAT_ID);
 
@@ -12024,9 +13089,6 @@ async function openOwnerChat() {
       ownerProfile.full_name || "Site Owner";
     document.getElementById("ownerChatHeaderStatus").textContent =
       "Site Owner";
-    document.getElementById("ownerChatHeaderAvatar").innerHTML =
-      ownerChatCreatorAvatar();
-
     if (currentUser) {
       await ownerChatLoadMessages();
     } else {
@@ -12036,6 +13098,20 @@ async function openOwnerChat() {
   }
   clearInterval(ownerChatRefreshTimer);
 ownerChatRefreshTimer = setInterval(ownerChatRefresh, 5000);
+}
+
+function ownerChatFilterInbox(value) {
+  ownerChatSearchTerm = String(value || "").trim().toLowerCase();
+  const contacts = [...ownerChatContacts.querySelectorAll(".owner-chat-contact")];
+  let visibleCount = 0;
+  contacts.forEach(contact => {
+    const searchKey = contact.dataset.chatKey;
+    const matches = !ownerChatSearchTerm || (ownerChatConversationSearchIndex.get(searchKey) || "").includes(ownerChatSearchTerm);
+    contact.hidden = !matches;
+    if (matches) visibleCount++;
+  });
+  const noMatches = document.getElementById("ownerChatNoMatches");
+  if (noMatches) noMatches.hidden = !ownerChatSearchTerm || visibleCount > 0;
 }
 
 async function ownerChatLoadInbox() {
@@ -12069,8 +13145,11 @@ async function ownerChatLoadInbox() {
           key,
           guestEmail: message.guest_email,
           name: message.guest_name || "Website visitor",
-          latest: message.created_at
+          latest: message.created_at,
+          searchText: `${message.guest_name || ""} ${message.guest_email} ${message.body || ""}`
         });
+      } else {
+        conversations.get(key).searchText += ` ${message.body || ""}`;
       }
       return;
     }
@@ -12087,8 +13166,11 @@ async function ownerChatLoadInbox() {
       conversations.set(key, {
         key,
         userId: otherUserId,
-        latest: message.created_at
+        latest: message.created_at,
+        searchText: message.body || ""
       });
+    } else {
+      conversations.get(key).searchText += ` ${message.body || ""}`;
     }
   });
 
@@ -12110,6 +13192,10 @@ async function ownerChatLoadInbox() {
   }
 
   const list = [...conversations.values()];
+  ownerChatConversationSearchIndex = new Map(list.map(item => {
+    const profileName = item.userId ? ownerChatProfiles[item.userId]?.full_name || "Community member" : item.name;
+    return [item.key, `${profileName} ${item.guestEmail || ""} ${item.searchText || ""}`.toLowerCase()];
+  }));
 
   if (!list.length) {
     ownerChatActiveUserId = null;
@@ -12130,7 +13216,13 @@ async function ownerChatLoadInbox() {
 
   const selected = list.find(item => item.key === activeKey) || list[0];
 
-  ownerChatContacts.innerHTML = list.map(item => {
+  ownerChatContacts.innerHTML = `
+    <div id="ownerChatInboxSearchRow" class="owner-chat-inbox-search" ${ownerChatSearchOpen ? "" : "hidden"}>
+      <input id="ownerChatInboxSearch" type="search" value="${ownerChatEscape(ownerChatSearchTerm)}" placeholder="Search names or messages..." aria-label="Search conversations" oninput="ownerChatFilterInbox(this.value)">
+      <button type="button" onclick="ownerChatFilterInbox(''); document.getElementById('ownerChatInboxSearch').value = ''" aria-label="Clear search" title="Clear search">×</button>
+    </div>
+    <p id="ownerChatNoMatches" class="owner-chat-no-matches" hidden>No matching conversations.</p>
+  ` + list.map(item => {
     const name = item.userId
       ? ownerChatProfiles[item.userId]?.full_name || "Community member"
       : item.name;
@@ -12144,6 +13236,7 @@ async function ownerChatLoadInbox() {
         type="button"
           onclick="ownerChatSelectConversation(this)"
         class="owner-chat-contact ${item.key === selected.key ? "is-active" : ""}"
+        data-chat-key="${ownerChatEscape(item.key)}"
         ${dataAttribute}
       >
 <div class="owner-chat-contact-details">
@@ -12153,6 +13246,7 @@ async function ownerChatLoadInbox() {
   </button>
     `;
   }).join("");
+  ownerChatFilterInbox(ownerChatSearchTerm);
 
   if (selected.guestEmail) {
     ownerChatActiveUserId = null;
@@ -12358,7 +13452,6 @@ document.getElementById("ownerChatLauncher").addEventListener("click", () => {
     ownerChatPanel.classList.remove("is-expanded");
     ownerChatExpandButton.setAttribute("aria-pressed", "false");
     clearInterval(ownerChatRefreshTimer);
-    stopCommunityChatWelcome();
   }
 });
 
@@ -12367,7 +13460,6 @@ document.getElementById("ownerChatClose").addEventListener("click", () => {
   ownerChatPanel.classList.remove("is-expanded");
   ownerChatExpandButton.setAttribute("aria-pressed", "false");
   clearInterval(ownerChatRefreshTimer);
-  stopCommunityChatWelcome();
 });
 
 async function ownerChatSelectConversation(button) {
@@ -12637,6 +13729,28 @@ ownerChatForm.addEventListener("submit", async event => {
     </div>
   </main>
 </section>
+
+<script>
+  const siteFooterTemplate = document.querySelector("#homeSection .home-copyright");
+  if (siteFooterTemplate) {
+    document.querySelectorAll(".page-section").forEach(section => {
+      if (section.id !== "homeSection" && !section.querySelector(".home-copyright")) {
+        section.append(siteFooterTemplate.cloneNode(true));
+      }
+    });
+  }
+
+  document.getElementById("socialSidebarClose")?.addEventListener("click", event => {
+    event.preventDefault();
+    event.stopPropagation();
+    closeSocialSidebar();
+  });
+  document.getElementById("socialSidebarMinimize")?.addEventListener("click", event => {
+    event.preventDefault();
+    event.stopPropagation();
+    minimizeSocialSidebar();
+  });
+</script>
 
 </body>
 </html>
