@@ -2372,9 +2372,12 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
 .post-image-picker > span { display: grid; width: 28px; height: 28px; place-items: center; border-radius: 50%; color: #111; background: #e2c64e; font-size: 20px; line-height: 1; }
 .post-image-picker small { color: #777; font-size: 12px; font-weight: 400; }
 .post-image-input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; clip-path: inset(50%); }
-.share-image-preview { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; color: #555; font-size: 12px; }
+.share-image-preview { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 10px; margin: 0 0 14px; color: #555; font-size: 12px; }
 .share-image-preview[hidden] { display: none; }
-.share-image-preview img { width: 88px; height: 68px; border-radius: 8px; object-fit: cover; border: 1px solid #ddd; }
+.share-image-preview-item { display: grid; gap: 4px; width: 96px; }
+.share-image-preview img { display: block; width: 96px; height: 72px; border-radius: 8px; object-fit: cover; border: 1px solid #ddd; }
+.share-image-preview-item span { overflow: hidden; color: #666; text-overflow: ellipsis; white-space: nowrap; }
+.share-image-preview-note { align-self: center; }
 .share-image-preview button { border: 1px solid #ddd; border-radius: 7px; padding: 6px 10px; color: #8d2222; background: #fff; cursor: pointer; }
 .post-form-message { margin: 0 0 12px; color: #6d5a15; font-size: 13px; }
 .post-cancel-edit { margin-left: 8px; padding: 10px 16px; border: 1px solid #ccc; border-radius: 8px; color: #222; background: #fff; cursor: pointer; }
@@ -2442,6 +2445,9 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
 }
 
 .post-image-trigger { display: block; width: min(280px, 100%); height: 170px; margin: 16px 0 0; padding: 0; overflow: hidden; border: 1px solid rgba(214,184,76,.42); border-radius: 10px; background: #111; cursor: zoom-in; box-shadow: 0 3px 12px rgba(0,0,0,.16); }
+.post-images { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 150px)); gap: 9px; margin-top: 14px; }
+.post-images .post-image-trigger { width: 100%; height: 100px; margin: 0; }
+.post-images .post-image { object-fit: contain; background: #f8f8f7; }
 .post-image { display: block; width: 100%; height: 100%; border-radius: inherit; object-fit: cover; transition: transform .18s ease; }
 .post-image-trigger:hover .post-image { transform: scale(1.035); }
 .post-image-viewer { position: fixed; inset: 0; z-index: 12000; display: grid; place-items: center; padding: 24px; background: rgba(0,0,0,.88); cursor: zoom-out; }
@@ -4031,7 +4037,9 @@ body:has(#memberProfileSection.active) .contact-links {
   }
 }
 #profileSection .profile-nav-center {
-  display: block !important;
+  display: flex !important;
+  justify-content: center !important;
+  flex-wrap: wrap;
   width: 100% !important;
   margin: 24px auto 0 !important;
   text-align: center !important;
@@ -5273,7 +5281,7 @@ box-shadow:
 .social-count-bubble.is-request-count { background: #c83e43; }
 .social-count-bubble.is-connection-count { background: #2c9c68; }
 .profile-social-hub { margin: 16px 0 20px; padding: 14px 0; border-top: 1px solid rgba(214,184,76,.28); border-bottom: 1px solid rgba(214,184,76,.28); }
-.profile-social-hub .social-summary { margin: 0; }
+.profile-social-hub .social-summary { justify-content: center; margin: 0; }
 .social-privacy-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; color: #555; font-size: 13px; }
 .social-privacy-row label { display: flex; align-items: center; gap: 8px; }
 .social-privacy-row input { appearance: none; position: relative; width: 42px; height: 24px; flex: 0 0 42px; margin: 0; border: 1px solid #a7a7a7; border-radius: 999px; background: #d2d2d2; cursor: pointer; transition: background .2s ease, border-color .2s ease; }
@@ -6754,8 +6762,8 @@ body > header .global-search .global-search-quick-filters button {
 }
 /* Tighten the profile information rhythm and reduce the oversized name. */
 #profileSection .profile-header { margin-bottom: 24px; padding-right: 0; }
-#profileSection .profile-social-hub { margin: 12px 0 14px; padding: 10px 0; }
-#profileSection .social-privacy-row { margin-top: 8px; }
+#profileSection .profile-social-hub { margin: 12px 0 4px; padding: 10px 0; }
+#profileSection .social-privacy-row { margin-top: 10px; justify-content: center; }
 #profileSection .social-privacy-row input {
   box-sizing: border-box;
   width: 46px;
@@ -6776,7 +6784,7 @@ body > header .global-search .global-search-quick-filters button {
   box-shadow: 0 2px 4px rgba(0,0,0,.38);
 }
 #profileSection .social-privacy-row input:checked::before { transform: translateX(28px); }
-#profileSection .profile-main-info { margin-bottom: 18px; }
+#profileSection .profile-main-info { margin-bottom: 12px; padding: 6px 0 10px; border-bottom: 1px solid rgba(255,255,255,.18); }
 #profileSection .profile-main-info h3 { font-size: 27px; letter-spacing: -.55px; }
 #profileSection .profile-headline { margin-top: 4px; line-height: 1.35; }
 #profileSection .profile-info {
@@ -6793,21 +6801,15 @@ body > header .global-search .global-search-quick-filters button {
 #profileSection .profile-main-info h3 {
   position: relative;
   display: inline-block;
-  padding-bottom: 6px;
+  flex: 0 1 auto !important;
+  width: fit-content !important;
+  max-width: 100%;
+  padding-bottom: 0;
   font-size: 23px;
   line-height: 1.25;
 }
-#profileSection .profile-main-info h3::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, rgba(214,184,76,.34) 0%, rgba(214,184,76,.22) 58%, rgba(214,184,76,.015) 100%);
-  box-shadow: 0 2px 6px rgba(214,184,76,.24);
-}
+#profileSection .profile-main-info h3::after { content: none; }
+#profileSection .profile-main-info #profileHeadline { margin-top: 1px; }
 #profileSection .profile-avatar-wrap { position: relative; }
 #profileSection .profile-avatar-wrap::before,
 #profileSection .profile-avatar-wrap::after {
@@ -7205,7 +7207,7 @@ body > header {
 #profileSection .social-privacy-row input:not(:checked)::before { transform: translateX(31px); }
 #profileSection .social-privacy-row input:checked::before { transform: none; }
 #profileSection .social-privacy-row input:checked::after { content: "ON"; left: 31px; }
-#profileSection .social-privacy-row label { color: #d0d0d0; }
+#profileSection .social-privacy-row label { color: #d0d0d0; transform: scale(.74); transform-origin: center center; padding: 4px 9px; border: 1px solid rgba(255,255,255,.055); border-radius: 9px; background: rgba(255,255,255,.018); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); box-shadow: inset 0 1px 0 rgba(255,255,255,.035), 0 2px 5px rgba(0,0,0,.08); }
 #profileSection .social-privacy-copy { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; color: #d0d0d0; }
 #profileSection .social-privacy-copy > span { color: #c3c3c3; }
 #profileSection .social-privacy-copy > strong {
@@ -7404,6 +7406,238 @@ body > header {
   #shareSection .post-card { padding-inline: 12px; }
   #shareSection .post-header { padding-right: 100px; }
   #shareSection .post-type-badge { right: 10px; padding-inline: 7px; font-size: 9px; }
+}
+
+/* Phone legibility repairs: keep the header, portraits, and floating windows clear. */
+@media (max-width: 700px) {
+  body > header { padding: 14px 12px 20px !important; }
+  body > header h1 {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-top: 54px;
+    font-size: clamp(20px, 6vw, 25px) !important;
+    line-height: 1.18;
+    letter-spacing: -.5px;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+  body > header .site-tagline-shimmer { margin-top: 7px; font-size: 13px; }
+
+  #homeSection > main h2,
+  .community-page > h2,
+  .social-connections-intro h2 {
+    font-size: clamp(23px, 6vw, 27px) !important;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+
+  .about-card { box-sizing: border-box; width: 100%; margin: 18px auto; padding: 62px 16px 22px; }
+  .about-photo-frame {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    display: block !important;
+    width: 120px !important;
+    height: 120px !important;
+    margin: 0 auto 17px !important;
+    aspect-ratio: 1;
+  }
+  .about-creator-photo {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    box-sizing: border-box;
+    visibility: visible !important;
+    opacity: 1 !important;
+    object-fit: cover;
+  }
+
+  #ownerChatWidget .social-sidebar-panel:not(.is-minimized) {
+    border: 1px solid rgba(235,205,91,.82) !important;
+    background: #111 !important;
+    color: #f4f2e8 !important;
+    opacity: 1 !important;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 16px 42px rgba(0,0,0,.38), 0 0 0 1px rgba(214,184,76,.12);
+  }
+  #ownerChatWidget .owner-chat-panel:not(.is-minimized) {
+    border: 1px solid rgba(214,184,76,.78) !important;
+    background: #fff !important;
+    color: #222 !important;
+    opacity: 1 !important;
+    box-shadow: 0 16px 42px rgba(0,0,0,.34), 0 0 0 1px rgba(214,184,76,.12);
+  }
+  #ownerChatWidget .social-sidebar-panel.is-minimized {
+    background: rgba(14,31,23,.78) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    backdrop-filter: blur(12px) !important;
+  }
+  #ownerChatWidget .owner-chat-panel.is-minimized {
+    background: rgba(35,30,17,.8) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    backdrop-filter: blur(12px) !important;
+  }
+}
+
+@media (max-width: 430px) {
+  body > header h1 { padding-top: 50px; font-size: clamp(19px, 6.2vw, 23px) !important; }
+  .about-card { padding-inline: 13px; }
+  .about-card h2 { font-size: 19px !important; white-space: normal; }
+}
+
+/* LinkedIn-style profile actions menu. */
+#profileSection .profile-header { position: relative; padding-right: 96px !important; }
+#profileSection .profile-heading { flex: 1 1 auto; min-width: 0; }
+#profileSection .profile-header-actions {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  justify-content: flex-end !important;
+  gap: 8px !important;
+  width: auto !important;
+  margin: 0 !important;
+  transform: none !important;
+  z-index: 15;
+}
+#profileSection .profile-header-actions::before { content: none; }
+.profile-options-menu { position: relative; }
+.profile-notifications-menu { position: relative; }
+.profile-options-menu > summary { list-style: none; }
+.profile-options-menu > summary::-webkit-details-marker { display: none; }
+.profile-notifications-menu > summary { list-style: none; }
+.profile-notifications-menu > summary::-webkit-details-marker { display: none; }
+.profile-options-trigger {
+  position: relative;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 50%;
+  color: #f4df85;
+  background: linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.035) 56%,rgba(214,184,76,.045));
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+  cursor: pointer;
+  box-shadow: 0 3px 9px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.24), inset 0 -1px 0 rgba(255,255,255,.06);
+  transition: background .18s ease, border-color .18s ease, transform .18s ease;
+}
+.profile-options-trigger:hover,
+.profile-options-menu[open] > .profile-options-trigger {
+  border-color: rgba(214,184,76,.8);
+  background: rgba(214,184,76,.18);
+  transform: translateY(-1px);
+}
+.profile-options-trigger::before,.profile-notifications-trigger::before { content: ""; position: absolute; z-index: 0; width: 24px; height: 24px; border-radius: 50%; background: radial-gradient(circle,rgba(255,255,255,.09) 0%,rgba(255,255,255,.035) 38%,rgba(214,184,76,.025) 56%,transparent 76%); filter: blur(1px); opacity: .45; pointer-events: none; }
+.profile-options-trigger svg { position: relative; z-index: 1; width: 20px; height: 20px; fill: currentColor; filter: drop-shadow(0 1px 1px rgba(0,0,0,.48)); }
+.profile-options-trigger svg circle { r: 2.6px; }
+.profile-notifications-trigger { position: relative; display: grid; width: 40px; height: 40px; place-items: center; padding: 0; border: 1px solid rgba(255,255,255,.3); border-radius: 50%; color: rgba(255,255,255,.9); background: linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.035) 56%,rgba(214,184,76,.045)); -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px); cursor: pointer; box-shadow: 0 3px 9px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.24), inset 0 -1px 0 rgba(255,255,255,.06); transition: background .18s ease, border-color .18s ease, transform .18s ease; }
+.profile-notifications-trigger:hover,.profile-notifications-menu[open] > .profile-notifications-trigger { border-color: rgba(214,184,76,.8); background: rgba(214,184,76,.15); color: #f4df85; transform: translateY(-1px); }
+.profile-notifications-trigger svg { position: relative; z-index: 1; width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 2.25; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 1px 1px rgba(0,0,0,.48)); }
+.profile-notification-badge { position: absolute; top: -4px; right: -4px; min-width: 17px; height: 17px; box-sizing: border-box; display: grid; place-items: center; padding: 0 4px; border: 2px solid #111; border-radius: 999px; color: #fff; background: #d9434b; font: 700 9px/1 Arial, sans-serif; box-shadow: 0 2px 6px rgba(0,0,0,.4); }
+.profile-notification-badge[hidden] { display: none; }
+.profile-notifications-popover { position: absolute; top: calc(100% + 8px); right: 0; z-index: 21; width: min(300px, calc(100vw - 36px)); box-sizing: border-box; padding: 13px; border: 1px solid rgba(214,184,76,.48); border-radius: 12px; color: #f3f0e6; background: rgba(20,20,20,.98); box-shadow: 0 14px 34px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.06); }
+.profile-notifications-popover h3 { margin: 0 0 9px; color: #f4df85; font-size: 14px; }
+.profile-notification-list { display: grid; gap: 6px; }
+.profile-notification-item { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px; border: 1px solid rgba(255,255,255,.09); border-radius: 8px; color: #f3f0e6; background: rgba(255,255,255,.045); font: inherit; font-size: 12px; text-align: left; cursor: pointer; }
+.profile-notification-item:hover { border-color: rgba(214,184,76,.45); background: rgba(214,184,76,.1); }
+.profile-notification-item strong { color: #f4df85; }
+.profile-notification-empty { margin: 0; padding: 7px 2px; color: rgba(255,255,255,.62); font-size: 12px; }
+.profile-options-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 20;
+  display: grid;
+  gap: 4px;
+  width: min(232px, calc(100vw - 44px));
+  box-sizing: border-box;
+  padding: 7px;
+  border: 1px solid rgba(214,184,76,.55);
+  border-radius: 12px;
+  background: rgba(20,20,20,.98);
+  box-shadow: 0 14px 34px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.profile-options-popover button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 39px;
+  padding: 9px 11px;
+  border: 0;
+  border-radius: 8px;
+  color: #f3f0e6;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  transition: color .16s ease, background .16s ease;
+}
+.profile-options-popover button svg { flex: 0 0 17px; width: 17px; height: 17px; fill: none; stroke: rgba(255,255,255,.64); stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round; transition: stroke .16s ease, filter .16s ease; }
+.profile-options-popover button:hover svg,.profile-options-popover button:focus-visible svg { stroke: rgba(20,20,20,.72); filter: drop-shadow(0 1px 1px rgba(255,255,255,.25)); }
+.profile-options-popover button:hover,
+.profile-options-popover button:focus-visible { color: #171717; background: linear-gradient(135deg,#f6e58e,#dfc252); outline: none; }
+.profile-options-popover .visitor-preview-option { margin-top: 3px; border-top: 1px solid rgba(214,184,76,.24); border-radius: 0 0 8px 8px; }
+.member-visitor-preview-banner { margin: 0 0 14px; padding: 9px 12px; border: 1px solid rgba(214,184,76,.48); border-radius: 9px; color: #f2e3a5; background: rgba(214,184,76,.1); font-size: 12px; font-weight: 650; text-align: center; }
+.member-visitor-preview-actions { display: flex; flex-wrap: wrap; gap: 7px; }
+.member-visitor-preview-actions button { min-height: 34px; padding: 7px 13px; border: 1px solid rgba(214,184,76,.6); border-radius: 8px; color: #171717; background: linear-gradient(135deg,#f5e28c,#dfc04a); font: inherit; font-size: 12px; font-weight: 700; opacity: .88; }
+/* Light gold and white search/filter bar on the community posts page. */
+#shareSection .posts-filter-toolbar { padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+#shareSection .posts-filter-search { height: 60px; min-height: 60px; padding: 4px 5px 4px 14px; border: 1px solid #d9bd54; background: #fff; box-shadow: inset 0 1px 5px rgba(0,0,0,.075), 0 3px 10px rgba(0,0,0,.055); }
+#shareSection .posts-filter-search:focus-within { border-color: #c3a234; box-shadow: 0 0 0 2px rgba(214,184,76,.1), 0 4px 12px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.95); }
+#shareSection .posts-filter-search > svg { display: none; }
+#shareSection .posts-filter-search input { color: #292929; background: #fff; box-shadow: none; }
+#shareSection .posts-filter-search button { flex-basis: 44px; width: 44px; height: 44px; color: #fff; background: #171717; box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 2px 5px rgba(0,0,0,.16); }
+#shareSection .posts-filter-search button:hover { background: #292929; }
+#shareSection .posts-filter-toolbar select { height: 60px; min-height: 60px; padding-right: 48px; border-color: #d9bd54; color: #343434; background-color: #fff; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28' fill='none'%3E%3Ccircle cx='14' cy='14' r='11' stroke='%23c3a234' stroke-opacity='.42'/%3E%3Cpath d='m10 12 4 4 4-4' stroke='%23b49324' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; background-size: 28px 28px; box-shadow: inset 0 1px 5px rgba(0,0,0,.065), 0 3px 10px rgba(0,0,0,.055); }
+#shareSection .posts-filter-toolbar select:focus { border-color: #c3a234; box-shadow: 0 0 0 2px rgba(214,184,76,.1), 0 4px 12px rgba(0,0,0,.06); }
+#shareSection .posts-filter-toolbar select option { color: #292929; background: #fff; }
+#shareSection .share-page-card { padding: 14px 18px; }
+#shareSection .share-post-type-row { display: flex; align-items: center; gap: 8px; min-height: 42px; box-sizing: border-box; margin: 8px 0; padding: 0 10px 0 13px; border: 1px solid #d8d5cc; border-radius: 8px; background: #fff; }
+#shareSection .share-post-type-row:focus-within { border-color: #c3a234; box-shadow: 0 0 0 2px rgba(214,184,76,.12); }
+#shareSection .share-post-type-row > label { flex: 0 0 auto; margin: 0; padding: 6px 9px; border: 1px solid rgba(214,184,76,.14); border-radius: 6px; color: #51440f; background: rgba(255,246,199,.18); font-size: 14px; line-height: 1.2; white-space: nowrap; }
+#shareSection .share-post-type-row #sharePostType { flex: 1 1 auto; width: 100%; min-height: 34px; height: 34px; margin: 0; padding: 5px 9px; border: 1px solid rgba(214,184,76,.14); border-radius: 6px; outline: 0; color: #171717; background-color: rgba(255,250,226,.25); box-shadow: none; font-size: 14px; line-height: 1.2; }
+#shareSection .share-post-type-row #sharePostType option { color: #171717; background: #fff; }
+#shareSection .share-page-card > label[for="shareContent"] { display: block; margin: 0 0 7px; text-align: center; }
+#shareSection #shareContent { box-sizing: border-box; height: 88px; min-height: 88px; margin: 0; padding: 10px 12px; overflow-y: hidden; resize: vertical; }
+#shareSection .post-image-picker { min-height: 42px; margin: 0 0 8px; padding: 6px 11px; }
+#shareSection .share-page-card > .community-action-btn { margin-top: 0; padding-top: 8px; padding-bottom: 8px; }
+#shareSection .post-card { overflow: hidden; padding: 0; color: #242424; border: 1px solid rgba(214,184,76,.24); background: rgba(255,255,255,.9); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: 0 8px 24px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,.82); }
+#shareSection .post-identity-band { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; margin: 0; padding: 14px 22px; border: 0; border-bottom: 1px solid rgba(214,184,76,.2); border-radius: 11px 11px 0 0; color: #f5f3ed; background: linear-gradient(135deg,#171717,#080808); box-shadow: inset 0 1px 0 rgba(255,255,255,.08); }
+#shareSection .post-identity-band .post-header { flex: 1 1 auto; min-width: 0; min-height: 42px; margin: 0; padding: 0; }
+#shareSection .post-identity-band .post-author { color: #f7f5ef; }
+#shareSection .post-identity-band .post-profession { color: rgba(255,255,255,.62); }
+#shareSection .post-identity-band .post-type-badge { position: relative; top: auto; right: auto; flex: 0 0 auto; }
+#shareSection .post-author-line { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+#shareSection .post-owner-badge { min-height: 18px; padding: 2px 7px; font-size: 9px; }
+#shareSection .post-owner-verified { width: 15px; height: 15px; font-size: 10px; }
+#shareSection .post-body { padding: 14px 22px 18px; }
+#shareSection .post-body .post-actions { margin-top: 12px; }
+#shareSection .post-content { color: #292929; }
+#shareSection .post-date { color: #777; border-color: rgba(35,35,35,.12); }
+#shareSection .post-actions { border-color: rgba(35,35,35,.12); }
+#shareSection .post-avatar-presence { border-color: rgba(255,255,255,.95); }
+#shareSection .post-type-badge::before,
+#shareSection .post-type-badge::after { position: absolute; z-index: 3; color: #c8a92e; line-height: 1; text-shadow: 0 0 4px rgba(222,195,83,.32); pointer-events: none; animation: postBadgeSparkle 2.8s ease-in-out infinite; }
+#shareSection .post-type-badge::before { content: "✦"; top: -6px; left: -7px; font-size: 9px; }
+#shareSection .post-type-badge::after { content: "✧"; right: -7px; bottom: -5px; font-size: 8px; animation-delay: 1.2s; }
+@keyframes postBadgeSparkle { 0%,100% { opacity: .38; transform: scale(.86); } 50% { opacity: .9; transform: scale(1.08); } }
+@media (max-width: 650px) {
+  #shareSection .post-identity-band { padding: 12px 14px; }
+  #shareSection .post-body { padding: 12px 14px 14px; }
+  #shareSection .post-owner-badge { font-size: 8px; }
+  #profileSection .profile-header { padding: 48px 0 0 !important; }
+  #profileSection .profile-header-actions { top: 0 !important; right: 0 !important; margin: 0 !important; }
+  .profile-options-popover { width: min(232px, calc(100vw - 36px)); }
 }
 </style>
 </head>
@@ -7784,15 +8018,24 @@ body > header {
             <h2>Share Your Ideas in a Post</h2>
 
             <p class="community-page-subtitle">
-                Share your ideas, opinions, feedback, or suggestions with the community.
+                Share your ideas, job opportunities, or suggestions with the community.
             </p>
 
             <div class="share-page-card">
-                <label for="sharePostType">Post type</label>
-                <select id="sharePostType" onchange="toggleJobPostFields()">
-                    <option value="community">Community post</option>
-                    <option value="job_opportunity">Job opportunity</option>
-                </select>
+                <label for="shareContent">What would you like to post?</label>
+                <textarea
+                    id="shareContent"
+                    placeholder="Share something with the community..."
+                    oninput="resizeSharePostContent(this)"
+                ></textarea>
+
+                <div class="share-post-type-row">
+                    <label for="sharePostType">Post type</label>
+                    <select id="sharePostType" onchange="toggleJobPostFields()">
+                        <option value="community">Community post</option>
+                        <option value="job_opportunity">Job opportunity</option>
+                    </select>
+                </div>
                 <div id="jobPostFields" class="job-post-fields" hidden>
                     <input id="jobTitle" type="text" placeholder="Job title">
                     <input id="jobCompany" type="text" placeholder="Company">
@@ -7805,17 +8048,11 @@ body > header {
                     <label for="jobDeadline">Application deadline (optional)</label>
                     <input id="jobDeadline" type="date">
                 </div>
-                <label for="shareContent">What would you like to share?</label>
-
-                <textarea
-                    id="shareContent"
-                    placeholder="Share something with the community..."
-                ></textarea>
 
                 <label class="post-image-picker" for="shareImage">
-                    <span aria-hidden="true">＋</span> Add an image <small>(optional)</small>
+                    <span aria-hidden="true">＋</span> Add images <small>(optional, up to 10)</small>
                 </label>
-                <input id="shareImage" class="post-image-input" type="file" accept="image/*" onchange="handlePostImageSelection(this)">
+                <input id="shareImage" class="post-image-input" type="file" accept="image/*" multiple onchange="handlePostImageSelection(this)">
                 <div id="shareImagePreview" class="share-image-preview" hidden></div>
                 <p id="postFormMessage" class="post-form-message" role="status" aria-live="polite" hidden></p>
 
@@ -8537,10 +8774,28 @@ body > header {
 
                     </div>
 
-                    <div class="profile-header-actions" aria-label="Profile links">
-                      <button type="button" class="profile-view-public-btn" onclick="currentUser && viewMemberProfile(currentUser.id)" aria-label="View my profile">View My Profile</button>
-                      <button type="button" class="social-view-all" onclick="showSection('projectSection'); loadProjects();">View My Projects</button>
-                      <button type="button" class="social-view-all profile-view-community-btn" onclick="openSocialPage('connections', currentUser?.id)" aria-label="View My Network">View My Network</button>
+                    <div class="profile-header-actions" aria-label="Profile links and notifications">
+                      <details class="profile-notifications-menu" id="profileNotificationsMenu">
+                        <summary class="profile-notifications-trigger" aria-label="Notifications" title="Notifications">
+                          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"></path></svg>
+                          <span id="profileNotificationBadge" class="profile-notification-badge" hidden></span>
+                        </summary>
+                        <div class="profile-notifications-popover" role="status" aria-live="polite">
+                          <h3>Notifications</h3>
+                          <div id="profileNotificationList" class="profile-notification-list"><p class="profile-notification-empty">You’re all caught up.</p></div>
+                        </div>
+                      </details>
+                      <details class="profile-options-menu">
+                        <summary class="profile-options-trigger" aria-label="More profile options" title="More options">
+                          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="2.25"></circle><circle cx="12" cy="12" r="2.25"></circle><circle cx="19" cy="12" r="2.25"></circle></svg>
+                        </summary>
+                        <div class="profile-options-popover" aria-label="Profile options">
+                          <button type="button" onclick="closeProfileOptionsMenu(); currentUser && viewMemberProfile(currentUser.id)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20a7 7 0 0 1 14 0"></path></svg><span>View My Profile</span></button>
+                          <button type="button" onclick="closeProfileOptionsMenu(); showSection('projectSection'); loadProjects();"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="7" height="7" rx="1.5"></rect><rect x="13.5" y="4" width="7" height="7" rx="1.5"></rect><rect x="3.5" y="14" width="7" height="7" rx="1.5"></rect><rect x="13.5" y="14" width="7" height="7" rx="1.5"></rect></svg><span>View My Projects</span></button>
+                          <button type="button" onclick="closeProfileOptionsMenu(); openSocialPage('connections', currentUser?.id)" aria-label="View My Network"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"></circle><circle cx="17" cy="9" r="2.3"></circle><path d="M3 20a6 6 0 0 1 12 0m1-5a4.5 4.5 0 0 1 5 4.5"></path></svg><span>View My Network</span></button>
+                          <button type="button" class="visitor-preview-option" onclick="viewOwnProfileVisitorMode()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z"></path><circle cx="12" cy="12" r="2.8"></circle></svg><span>View Profile as Visitor</span></button>
+                        </div>
+                      </details>
                     </div>
 
                 </div>
@@ -9850,17 +10105,37 @@ function toggleJobPostFields() {
   document.getElementById("shareContent").placeholder = isJob ? "Describe the role and how to apply..." : "Share something with the community...";
 }
 
+function resizeSharePostContent(textarea) {
+  if (!textarea) return;
+  textarea.style.height = "auto";
+  textarea.style.height = `${Math.max(textarea.scrollHeight, 88)}px`;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  resizeSharePostContent(document.getElementById("shareContent"));
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("globalSearchForm");
   const input = document.getElementById("globalSearchInput");
   const menu = document.getElementById("globalSearchQuickFilters");
   if (!form || !input || !menu) return;
+  let quickMenuCloseTimer = null;
   const updateQuickMenu = () => {
+    window.clearTimeout(quickMenuCloseTimer);
     const searchIsActive = document.activeElement === input || form.matches(":hover");
     menu.hidden = !searchIsActive;
   };
+  const closeQuickMenuAfterPointerLeaves = () => {
+    window.clearTimeout(quickMenuCloseTimer);
+    quickMenuCloseTimer = window.setTimeout(() => {
+      if (!form.matches(":hover") && !menu.matches(":hover")) menu.hidden = true;
+    }, 220);
+  };
   form.addEventListener("pointerenter", updateQuickMenu);
-  form.addEventListener("pointerleave", () => { menu.hidden = true; });
+  form.addEventListener("pointerleave", closeQuickMenuAfterPointerLeaves);
+  menu.addEventListener("pointerenter", updateQuickMenu);
+  menu.addEventListener("pointerleave", closeQuickMenuAfterPointerLeaves);
   input.addEventListener("focus", updateQuickMenu);
   input.addEventListener("input", updateQuickMenu);
   input.addEventListener("blur", () => {
@@ -12501,6 +12776,7 @@ async function loadConnectionRequests() {
 let memberSocialState = { requests: [], connections: [], followers: [], following: [] };
 let socialDirectoryUserId = null;
 let socialDirectoryType = "connections";
+let memberProfileVisitorPreview = false;
 let socialDirectoryReturnSection = "connectSection";
 let socialSidebarHintTimer = null;
 
@@ -12633,6 +12909,8 @@ async function loadSocialConnections() {
     followers: followerRows.map(row => ({ row, profile: profileMap.get(String(row.follower_id)) })),
     following: followingRows.map(row => ({ row, profile: profileMap.get(String(row.following_id)) }))
   };
+  profileNotificationRequestCount = requestRows.length;
+  updateProfileNotificationBell();
   const connectSummary = document.getElementById("connectSocialSummary");
   const profileSummary = document.getElementById("profileSocialSummary");
   const homeSummary = document.getElementById("homeSocialSummary");
@@ -13369,6 +13647,63 @@ async function getMemberAvatarUrl(avatarUrl) {
    CREATE PLACEHOLDERS
 ===================================================== */
 
+function parsePostImageValues(value) {
+    if (!value) return [];
+    if (Array.isArray(value)) return value.filter(item => typeof item === "string" && item);
+    if (typeof value !== "string") return [];
+    try {
+        const parsed = JSON.parse(value);
+        if (Array.isArray(parsed)) return parsed.filter(item => typeof item === "string" && item);
+    } catch (_) {}
+    return [value];
+}
+
+function getPostImages(post) {
+    const urls = parsePostImageValues(post?.image_url);
+    const paths = parsePostImageValues(post?.image_path);
+    return urls.map((url, index) => ({ url, path: paths[index] || null })).filter(image => image.url);
+}
+
+function serializePostImageValues(values) {
+    const filtered = values.filter(value => typeof value === "string" && value);
+    return filtered.length > 1 ? JSON.stringify(filtered) : (filtered[0] || null);
+}
+
+function releasePostImagePreviewUrls() {
+    (window.postImagePreviewObjectUrls || []).forEach(url => URL.revokeObjectURL(url));
+    window.postImagePreviewObjectUrls = [];
+}
+
+function renderExistingPostImages(images) {
+    const preview = document.getElementById("shareImagePreview");
+    if (!preview) return;
+    releasePostImagePreviewUrls();
+    preview.replaceChildren();
+    images.forEach((image, index) => {
+        const item = document.createElement("div");
+        item.className = "share-image-preview-item";
+        const img = document.createElement("img");
+        img.src = image.url;
+        img.alt = `Current post image ${index + 1}`;
+        const caption = document.createElement("span");
+        caption.textContent = `Image ${index + 1}`;
+        item.append(img, caption);
+        preview.append(item);
+    });
+    if (images.length) {
+        const note = document.createElement("span");
+        note.className = "share-image-preview-note";
+        note.textContent = `${images.length} image${images.length === 1 ? "" : "s"} attached. Selecting new images will replace this set.`;
+        preview.append(note);
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.textContent = "Remove images";
+        remove.onclick = removeExistingPostImage;
+        preview.append(remove);
+    }
+    preview.hidden = images.length === 0;
+}
+
 async function createPost() {
     if (!currentUser) {
         showSignupPrompt();
@@ -13381,37 +13716,41 @@ async function createPost() {
     const content = textarea.value.trim();
     const postType = document.getElementById("sharePostType")?.value || "community";
     const jobTitle = document.getElementById("jobTitle")?.value.trim() || "";
-    if (postType === "job_opportunity" && !jobTitle) {
-        showPostMessage("Add a job title before sharing the opportunity.", true);
-        return;
-    }
-    const file = imageInput.files?.[0] || null;
     const editingId = window.editingCommunityPostId || null;
+    const files = Array.from(imageInput.files || []);
+    const oldImages = window.editingCommunityPostImages || [];
     const showPostMessage = (text, error = false) => {
         message.textContent = text;
         message.hidden = false;
         message.style.color = error ? "#a22" : "#6d5a15";
     };
-    const hasExistingImage = Boolean(window.editingCommunityPostImageUrl && !window.editingCommunityPostRemoveImage);
-    if (!content && !file && !hasExistingImage) {
+    if (postType === "job_opportunity" && !jobTitle) {
+        showPostMessage("Add a job title before sharing the opportunity.", true);
+        return;
+    }
+    if (files.length > 10) {
+        showPostMessage("Choose up to 10 images per post.", true);
+        return;
+    }
+    const keepingExistingImages = Boolean(editingId && !window.editingCommunityPostRemoveImages && files.length === 0);
+    if (!content && files.length === 0 && !(keepingExistingImages && oldImages.length)) {
         showPostMessage("Add some text or choose an image before sharing.", true);
         return;
     }
-    if (file && (!file.type.startsWith("image/") || file.size > 10 * 1024 * 1024)) {
-        showPostMessage("Choose an image under 10 MB.", true);
+    const invalidFile = files.find(file => !file.type.startsWith("image/") || file.size > 10 * 1024 * 1024);
+    if (invalidFile) {
+        showPostMessage("Each image must be an image file under 10 MB.", true);
         return;
     }
     submitButton.disabled = true;
     submitButton.textContent = editingId ? "Saving…" : "Sharing…";
-    let uploadedPath = null;
-    let oldImagePath = window.editingCommunityPostImagePath || null;
+    const uploadedImages = [];
     try {
-        let imagePath = window.editingCommunityPostRemoveImage ? null : oldImagePath;
-        let imageUrl = window.editingCommunityPostRemoveImage ? null : (window.editingCommunityPostImageUrl || null);
-        if (file) {
+        const savedImages = keepingExistingImages ? [...oldImages] : [];
+        for (const file of files) {
             const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
-            uploadedPath = `${currentUser.id}/${crypto.randomUUID()}-${safeName}`;
-            const { error: uploadError } = await db.storage.from("post-media").upload(uploadedPath, file, {
+            const path = `${currentUser.id}/${crypto.randomUUID()}-${safeName}`;
+            const { error: uploadError } = await db.storage.from("post-media").upload(path, file, {
                 contentType: file.type,
                 upsert: false
             });
@@ -13421,15 +13760,16 @@ async function createPost() {
                 }
                 throw uploadError;
             }
-            const { data: publicData } = db.storage.from("post-media").getPublicUrl(uploadedPath);
-            imagePath = uploadedPath;
-            imageUrl = publicData.publicUrl;
+            const { data: publicData } = db.storage.from("post-media").getPublicUrl(path);
+            const uploadedImage = { path, url: publicData.publicUrl };
+            uploadedImages.push(uploadedImage);
+            savedImages.push(uploadedImage);
         }
         const postData = {
             user_id: currentUser.id,
             content,
-            image_path: imagePath,
-            image_url: imageUrl,
+            image_path: serializePostImageValues(savedImages.map(image => image.path)),
+            image_url: serializePostImageValues(savedImages.map(image => image.url)),
             post_type: postType,
             job_title: postType === "job_opportunity" ? jobTitle : null,
             job_company: postType === "job_opportunity" ? document.getElementById("jobCompany").value.trim() || null : null,
@@ -13444,8 +13784,9 @@ async function createPost() {
             : await db.from("posts").insert(postData).select("id").single();
         if (result.error) throw result.error;
         if (editingId && !result.data) throw new Error("This post could not be updated. Check the posts update policy in Supabase.");
-        if ((file || window.editingCommunityPostRemoveImage) && oldImagePath && oldImagePath !== uploadedPath) {
-            const { error: removeError } = await db.storage.from("post-media").remove([oldImagePath]);
+        if (editingId && (files.length || window.editingCommunityPostRemoveImages)) {
+            const oldPaths = oldImages.map(image => image.path).filter(Boolean);
+            const { error: removeError } = oldPaths.length ? await db.storage.from("post-media").remove(oldPaths) : { error: null };
             if (removeError) console.warn("Could not remove replaced post image:", removeError);
         }
         cancelPostEdit();
@@ -13453,7 +13794,8 @@ async function createPost() {
         await loadPosts();
     } catch (error) {
         console.error("Save post error:", error);
-        if (uploadedPath) await db.storage.from("post-media").remove([uploadedPath]);
+        const uploadedPaths = uploadedImages.map(image => image.path);
+        if (uploadedPaths.length) await db.storage.from("post-media").remove(uploadedPaths);
         showPostMessage(error.message || "Something went wrong while saving the post.", true);
     } finally {
         submitButton.disabled = false;
@@ -13462,37 +13804,68 @@ async function createPost() {
 }
 
 function handlePostImageSelection(input) {
-    const file = input.files?.[0];
+    const files = Array.from(input.files || []);
     const preview = document.getElementById("shareImagePreview");
-    if (!file) return;
-    if (!file.type.startsWith("image/") || file.size > 10 * 1024 * 1024) {
+    if (!files.length) return;
+    const invalidFile = files.find(file => !file.type.startsWith("image/") || file.size > 10 * 1024 * 1024);
+    if (files.length > 10 || invalidFile) {
         input.value = "";
+        releasePostImagePreviewUrls();
+        preview.replaceChildren();
         preview.hidden = true;
-        document.getElementById("postFormMessage").textContent = "Choose an image under 10 MB.";
-        document.getElementById("postFormMessage").hidden = false;
+        const message = document.getElementById("postFormMessage");
+        message.textContent = files.length > 10 ? "Choose up to 10 images per post." : "Each image must be an image file under 10 MB.";
+        message.hidden = false;
         return;
     }
-    window.editingCommunityPostRemoveImage = false;
-    const localUrl = URL.createObjectURL(file);
-    preview.innerHTML = `<img src="${localUrl}" alt="Selected post image"><span>${escapeHtml(file.name)}</span><button type="button" onclick="removeSelectedPostImage()">Remove</button>`;
+    window.editingCommunityPostRemoveImages = false;
+    releasePostImagePreviewUrls();
+    preview.replaceChildren();
+    files.forEach((file, index) => {
+        const item = document.createElement("div");
+        item.className = "share-image-preview-item";
+        const imageUrl = URL.createObjectURL(file);
+        window.postImagePreviewObjectUrls.push(imageUrl);
+        const img = document.createElement("img");
+        img.src = imageUrl;
+        img.alt = `Selected post image ${index + 1}`;
+        const caption = document.createElement("span");
+        caption.textContent = file.name;
+        item.append(img, caption);
+        preview.append(item);
+    });
+    const note = document.createElement("span");
+    note.className = "share-image-preview-note";
+    note.textContent = `${files.length} image${files.length === 1 ? "" : "s"} selected${window.editingCommunityPostId ? "; this will replace the current set" : ""}.`;
+    preview.append(note);
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.textContent = "Clear selection";
+    remove.onclick = removeSelectedPostImage;
+    preview.append(remove);
     preview.hidden = false;
     document.getElementById("postFormMessage").hidden = true;
 }
 
 function removeSelectedPostImage() {
-    document.getElementById("shareImage").value = "";
+    const input = document.getElementById("shareImage");
+    input.value = "";
+    releasePostImagePreviewUrls();
     const preview = document.getElementById("shareImagePreview");
-    preview.replaceChildren();
-    preview.hidden = true;
+    if (window.editingCommunityPostId && !window.editingCommunityPostRemoveImages) {
+        renderExistingPostImages(window.editingCommunityPostImages || []);
+    } else {
+        preview.replaceChildren();
+        preview.hidden = true;
+    }
 }
 
 function cancelPostEdit() {
     window.editingCommunityPostId = null;
-    window.editingCommunityPostImagePath = null;
-    window.editingCommunityPostImageUrl = null;
-    window.editingCommunityPostRemoveImage = false;
+    window.editingCommunityPostImages = [];
+    window.editingCommunityPostRemoveImages = false;
     const textarea = document.getElementById("shareContent");
-    if (textarea) textarea.value = "";
+    if (textarea) { textarea.value = ""; resizeSharePostContent(textarea); }
     const postType = document.getElementById("sharePostType");
     if (postType) postType.value = "community";
     ["jobTitle", "jobCompany", "jobLocation", "jobApplyUrl", "jobDeadline"].forEach(id => {
@@ -13506,6 +13879,7 @@ function cancelPostEdit() {
     toggleJobPostFields();
     const input = document.getElementById("shareImage");
     if (input) input.value = "";
+    releasePostImagePreviewUrls();
     const preview = document.getElementById("shareImagePreview");
     if (preview) { preview.replaceChildren(); preview.hidden = true; }
     const message = document.getElementById("postFormMessage");
@@ -13525,10 +13899,10 @@ async function editPost(postId) {
         return;
     }
     window.editingCommunityPostId = post.id;
-    window.editingCommunityPostImagePath = post.image_path || null;
-    window.editingCommunityPostImageUrl = post.image_url || null;
-    window.editingCommunityPostRemoveImage = false;
+    window.editingCommunityPostImages = getPostImages(post);
+    window.editingCommunityPostRemoveImages = false;
     document.getElementById("shareContent").value = post.content || "";
+    resizeSharePostContent(document.getElementById("shareContent"));
     document.getElementById("sharePostType").value = post.post_type || "community";
     toggleJobPostFields();
     document.getElementById("jobTitle").value = post.job_title || "";
@@ -13539,14 +13913,7 @@ async function editPost(postId) {
     document.getElementById("jobApplyUrl").value = post.job_apply_url || "";
     document.getElementById("jobDeadline").value = post.job_deadline || "";
     document.getElementById("shareImage").value = "";
-    const preview = document.getElementById("shareImagePreview");
-    if (post.image_url) {
-        preview.innerHTML = `<img src="${escapeHtml(post.image_url)}" alt="Current post image"><span>Current image (choose a new one to replace it)</span><button type="button" onclick="removeExistingPostImage()">Remove image</button>`;
-        preview.hidden = false;
-    } else {
-        preview.replaceChildren();
-        preview.hidden = true;
-    }
+    renderExistingPostImages(window.editingCommunityPostImages);
     document.getElementById("shareSubmitButton").textContent = "Save Changes";
     document.getElementById("cancelPostEditButton").hidden = false;
     document.getElementById("postFormMessage").hidden = true;
@@ -13555,19 +13922,25 @@ async function editPost(postId) {
 }
 
 function removeExistingPostImage() {
-    if (!window.editingCommunityPostId || !window.editingCommunityPostImageUrl) return;
-    window.editingCommunityPostRemoveImage = true;
+    if (!window.editingCommunityPostId || !window.editingCommunityPostImages?.length) return;
+    window.editingCommunityPostRemoveImages = true;
+    releasePostImagePreviewUrls();
     const preview = document.getElementById("shareImagePreview");
-    preview.innerHTML = '<span>Image will be removed when you save.</span><button type="button" onclick="restoreExistingPostImage()">Undo</button>';
+    preview.replaceChildren();
+    const note = document.createElement("span");
+    note.textContent = `${window.editingCommunityPostImages.length} image${window.editingCommunityPostImages.length === 1 ? "" : "s"} will be removed when you save.`;
+    const undo = document.createElement("button");
+    undo.type = "button";
+    undo.textContent = "Undo";
+    undo.onclick = restoreExistingPostImage;
+    preview.append(note, undo);
     preview.hidden = false;
 }
 
 function restoreExistingPostImage() {
-    if (!window.editingCommunityPostImageUrl) return;
-    window.editingCommunityPostRemoveImage = false;
-    const preview = document.getElementById("shareImagePreview");
-    preview.innerHTML = `<img src="${escapeHtml(window.editingCommunityPostImageUrl)}" alt="Current post image"><span>Current image (choose a new one to replace it)</span><button type="button" onclick="removeExistingPostImage()">Remove image</button>`;
-    preview.hidden = false;
+    if (!window.editingCommunityPostImages?.length) return;
+    window.editingCommunityPostRemoveImages = false;
+    renderExistingPostImages(window.editingCommunityPostImages);
 }
 
 async function sharePost(postId) {
@@ -13676,29 +14049,36 @@ async function loadPosts() {
             postCard.dataset.postId = post.id;
             postCard.dataset.postType = post.post_type || "community";
             const cleanContent = escapeHtml((post.content || "").trim());
-            const postImage = post.image_url
-                ? `<button type="button" class="post-image-trigger" aria-label="Enlarge image attached to post"><img class="post-image" src="${escapeHtml(post.image_url)}" alt="Image attached to post" loading="lazy"></button>`
+            const postImages = getPostImages(post);
+            const postImage = postImages.length
+                ? `<div class="post-images">${postImages.map((image, index) => `<button type="button" class="post-image-trigger" aria-label="Enlarge post image ${index + 1}"><img class="post-image" src="${escapeHtml(image.url)}" alt="Post image ${index + 1}" loading="lazy"></button>`).join("")}</div>`
                 : "";
             const jobSummary = post.post_type === "job_opportunity"
                 ? `<div class="opportunity-meta">${[post.job_company, post.job_location, post.job_workplace, post.job_employment_type].filter(Boolean).map(value => `<span>${escapeHtml(value)}</span>`).join("")}</div><h3>${escapeHtml(post.job_title || "Job opportunity")}</h3>${post.job_apply_url && /^https?:\/\//i.test(post.job_apply_url) ? `<a class="opportunity-apply" href="${escapeHtml(post.job_apply_url)}" target="_blank" rel="noopener noreferrer">Apply</a>` : ""}`
                 : "";
             const safeId = escapeHtml(post.id);
             postCard.innerHTML = `
-                <div class="post-header">
-                    <span class="post-avatar-wrap">
-                    ${!currentUser
-                        ? `<span class="post-avatar private-member-avatar" aria-label="Member photo hidden for visitors"></span>`
-                        : avatar
-                        ? `<img src="${escapeHtml(avatar)}" class="post-avatar" alt="${escapeHtml(firstName)}">`
-                        : `<div class="post-avatar" aria-hidden="true"></div>`}
-                    ${currentUser ? memberPresenceMarkup(post.user_id).replace('member-presence-badge', 'member-presence-badge post-avatar-presence') : ""}
-                    </span>
-                    <div class="post-user-info">
-                        <div class="post-author">${escapeHtml(firstName)}</div>
-                        ${profession ? `<div class="post-profession">${escapeHtml(profession)}</div>` : ""}
+                <div class="post-identity-band">
+                    <div class="post-header">
+                        <span class="post-avatar-wrap">
+                        ${!currentUser
+                            ? `<span class="post-avatar private-member-avatar" aria-label="Member photo hidden for visitors"></span>`
+                            : avatar
+                            ? `<img src="${escapeHtml(avatar)}" class="post-avatar" alt="${escapeHtml(firstName)}">`
+                            : `<div class="post-avatar" aria-hidden="true"></div>`}
+                        ${currentUser ? memberPresenceMarkup(post.user_id).replace('member-presence-badge', 'member-presence-badge post-avatar-presence') : ""}
+                        </span>
+                        <div class="post-user-info">
+                            <div class="post-author-line">
+                                <div class="post-author">${escapeHtml(firstName)}</div>
+                                ${String(post.user_id) === OWNER_CHAT_ID ? '<span class="member-owner-badge post-owner-badge">Community Owner</span><span class="member-owner-verified post-owner-verified" role="img" aria-label="Verified community owner" title="Verified community owner"></span>' : ""}
+                            </div>
+                            ${profession ? `<div class="post-profession">${escapeHtml(profession)}</div>` : ""}
+                        </div>
                     </div>
+                    <span class="post-type-badge">${post.post_type === "job_opportunity" ? "Job opportunity" : "Community post"}</span>
                 </div>
-                <span class="post-type-badge">${post.post_type === "job_opportunity" ? "Job opportunity" : "Community post"}</span>
+                <div class="post-body">
                 ${jobSummary}
                 <div class="post-content">${cleanContent}</div>
                 ${postImage}
@@ -13708,10 +14088,12 @@ async function loadPosts() {
                     <button type="button" class="post-action-button" onclick="sharePost('${safeId}')">Share</button>
                     ${isOwner ? `<button type="button" class="post-action-button is-danger" onclick="deletePost('${safeId}')">Delete</button>` : ""}
                 </div>
+                </div>
             `;
 
-            const postImageButton = postCard.querySelector(".post-image-trigger");
-            if (postImageButton) postImageButton.addEventListener("click", () => openPostImageViewer(post.image_url));
+            postCard.querySelectorAll(".post-image-trigger").forEach((postImageButton, index) => {
+                postImageButton.addEventListener("click", () => openPostImageViewer(postImages[index].url));
+            });
 
             container.appendChild(postCard);
 
@@ -14744,7 +15126,71 @@ async function memberSocialPreviewMarkup(memberId) {
   `;
 }
 
-async function viewMemberProfile(memberId) {
+function closeProfileOptionsMenu() {
+  const menu = document.querySelector("#profileSection .profile-options-menu");
+  if (menu) menu.open = false;
+}
+function closeProfileNotificationsMenu() {
+  const menu = document.getElementById("profileNotificationsMenu");
+  if (menu) menu.open = false;
+}
+function updateProfileNotificationBell() {
+  const badge = document.getElementById("profileNotificationBadge");
+  const list = document.getElementById("profileNotificationList");
+  if (!badge || !list) return;
+  const requestCount = currentUser ? Math.max(profileNotificationRequestCount, memberSocialState?.requests?.length || 0) : 0;
+  const messageCount = currentUser ? (ownerChatUnreadCount || 0) : 0;
+  const total = requestCount + messageCount;
+  badge.hidden = total < 1;
+  badge.textContent = total > 9 ? "9+" : String(total);
+  badge.setAttribute("aria-label", `${total} notifications`);
+  const items = [];
+  if (requestCount) items.push(`<button type="button" class="profile-notification-item" onclick="closeProfileNotificationsMenu(); openSocialPage('requests', currentUser?.id)"><span>${requestCount} connection ${requestCount === 1 ? "request" : "requests"}</span><strong>View</strong></button>`);
+  if (messageCount) items.push(`<button type="button" class="profile-notification-item" onclick="closeProfileNotificationsMenu(); document.getElementById('ownerChatLauncher')?.click()"><span>${messageCount} unread ${messageCount === 1 ? "message" : "messages"}</span><strong>Open</strong></button>`);
+  list.innerHTML = items.length ? items.join("") : '<p class="profile-notification-empty">You’re all caught up.</p>';
+}
+let profileNotificationRequestCount = 0;
+async function refreshProfileNotificationRequests() {
+  if (!currentUser) {
+    profileNotificationRequestCount = 0;
+    updateProfileNotificationBell();
+    return;
+  }
+  const { data, error } = await db.from("connections").select("id")
+    .eq("recipient_id", currentUser.id).eq("status", "pending");
+  if (error) return;
+  profileNotificationRequestCount = (data || []).length;
+  updateProfileNotificationBell();
+}
+setTimeout(refreshProfileNotificationRequests, 5000);
+setInterval(refreshProfileNotificationRequests, 45000);
+
+document.addEventListener("click", event => {
+  const menu = document.querySelector("#profileSection .profile-options-menu");
+  if (menu?.open && !menu.contains(event.target)) menu.open = false;
+  const notifications = document.getElementById("profileNotificationsMenu");
+  if (notifications?.open && !notifications.contains(event.target)) notifications.open = false;
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") { closeProfileOptionsMenu(); closeProfileNotificationsMenu(); }
+});
+document.querySelectorAll("#profileSection .profile-options-menu, #profileSection .profile-notifications-menu").forEach(menu => {
+  let closeTimer;
+  menu.addEventListener("mouseenter", () => clearTimeout(closeTimer));
+  menu.addEventListener("mouseleave", () => { closeTimer = setTimeout(() => { menu.open = false; }, 250); });
+});
+
+async function viewOwnProfileVisitorMode() {
+  closeProfileOptionsMenu();
+  if (!currentUser) return showSignupPrompt();
+  memberProfileVisitorPreview = true;
+  await viewMemberProfile(currentUser.id, { visitorPreview: true });
+}
+
+async function viewMemberProfile(memberId, options = {}) {
+  memberProfileVisitorPreview = Boolean(
+    options.visitorPreview && currentUser && String(currentUser.id) === String(memberId)
+  );
   const content = document.getElementById("memberProfileContent");
 
   showSection("memberProfileSection");
@@ -14833,6 +15279,7 @@ async function viewMemberProfile(memberId) {
   const socialPreviewMarkup = await memberSocialPreviewMarkup(memberId);
 
   content.innerHTML = `
+    ${memberProfileVisitorPreview ? '<div class="member-visitor-preview-banner">Visitor mode preview · Only public profile details are shown</div>' : ""}
     <article class="member-profile-card">
 
       <div class="member-profile-header">
@@ -14850,7 +15297,7 @@ async function viewMemberProfile(memberId) {
             ${escapeHtml(name.charAt(0).toUpperCase())}
           </div>`
   }
-    ${currentUser ? memberPresenceMarkup(profile.id).replace("member-presence-badge", "member-presence-badge member-profile-presence") : ""}
+    ${currentUser && !memberProfileVisitorPreview ? memberPresenceMarkup(profile.id).replace("member-presence-badge", "member-presence-badge member-profile-presence") : ""}
   </div>
 
   <div class="member-profile-heading">
@@ -14950,6 +15397,16 @@ await loadMemberConnectionButton(memberId);
 async function loadMemberConnectionButton(memberId) {
   const box = document.getElementById("memberConnectionAction");
   if (!box) return;
+
+  if (memberProfileVisitorPreview && currentUser && String(currentUser.id) === String(memberId)) {
+    box.innerHTML = `
+      <div class="member-visitor-preview-actions" aria-label="Visitor profile actions preview">
+        <button type="button" disabled title="Preview only">Connect</button>
+        <button type="button" disabled title="Preview only">Follow</button>
+      </div>
+    `;
+    return;
+  }
 
   if (!currentUser) {
     box.innerHTML = `
@@ -15286,10 +15743,12 @@ function ownerChatMessageFingerprint(message) {
 
 function updateOwnerChatUnreadBadge() {
   const badge = document.getElementById("ownerChatLauncherUnread");
-  if (!badge) return;
-  badge.hidden = ownerChatUnreadCount < 1;
-  badge.textContent = ownerChatUnreadCount > 1 ? `+${ownerChatUnreadCount}` : "+1";
-  badge.setAttribute("aria-label", `${ownerChatUnreadCount} unread ${ownerChatUnreadCount === 1 ? "message" : "messages"}`);
+  if (badge) {
+    badge.hidden = ownerChatUnreadCount < 1;
+    badge.textContent = ownerChatUnreadCount > 1 ? `+${ownerChatUnreadCount}` : "+1";
+    badge.setAttribute("aria-label", `${ownerChatUnreadCount} unread ${ownerChatUnreadCount === 1 ? "message" : "messages"}`);
+  }
+  updateProfileNotificationBell();
 }
 
 function clearOwnerChatUnread() {
@@ -16413,12 +16872,12 @@ ownerChatForm.addEventListener("submit", async event => {
     const mobile = window.matchMedia("(max-width: 700px)").matches;
     const style = logo.style;
     style.setProperty("position", "absolute", "important");
-    style.setProperty("top", mobile ? "12px" : "32px", "important");
-    style.setProperty("right", mobile ? "8px" : "18px", "important");
+    style.setProperty("top", mobile ? "8px" : "32px", "important");
+    style.setProperty("right", mobile ? "calc(50% - 32px)" : "18px", "important");
     style.setProperty("bottom", "auto", "important");
     style.setProperty("left", "auto", "important");
-    style.setProperty("width", mobile ? "88px" : "175px", "important");
-    style.setProperty("height", mobile ? "72px" : "138px", "important");
+    style.setProperty("width", mobile ? "64px" : "175px", "important");
+    style.setProperty("height", mobile ? "52px" : "138px", "important");
     style.setProperty("margin", "0", "important");
     style.setProperty("padding", "0", "important");
     style.setProperty("object-fit", "contain", "important");
