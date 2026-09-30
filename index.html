@@ -8166,7 +8166,96 @@ body .page-back-btn[onclick*="homeSection"]:hover {
 /* Match dimensions of all Back and Forward navigation buttons without changing typography. */
 .page-back-btn { box-sizing:border-box; width:112px; min-width:112px; max-width:112px; min-height:42px; padding-right:10px; padding-left:10px; }
 </style>
-</head>
+<style>
+/* Fit only the View My Projects navigation button on one line. */
+#projectDetailsSection .project-detail-navigation > .page-back-btn:nth-child(2) { width:170px !important; min-width:170px !important; max-width:170px !important; white-space:nowrap; }
+/* Compact public profile header and position social cards beneath its actions. */
+#memberProfileSection .member-profile-header { position:relative; padding-top:8px; padding-bottom:27px; margin-bottom:7px; }
+#memberProfileSection .member-profile-header > .member-social-preview { position:absolute; top:58px; right:12px; z-index:2; width:min(380px,calc(100% - 24px)); margin:0; }
+@media (max-width:600px) {
+  #memberProfileSection .member-profile-header { padding-top:8px; padding-bottom:10px; }
+  #memberProfileSection .member-profile-header > .member-social-preview { position:static; grid-column:1 / -1; grid-row:auto; width:auto; margin:0; }
+}
+#profileSection .profile-social-hub[hidden] { display:none !important; }
+#profileSection #profileEditMode .edit-field input:not([type="file"]),
+#profileSection #profileEditMode .edit-field select,
+#profileSection #profileEditMode .edit-field textarea { font-size:13px !important; }
+#profileSection #profileEditMode .edit-field input[type="file"] { font-size:12px !important; }
+</style><style>
+/* Keep public social cards directly below the profile actions inside the yellow header. */
+#memberProfileSection .member-profile-header { position:relative !important; box-sizing:border-box; padding-top:8px !important; padding-bottom:8px !important; margin-bottom:7px !important; }
+#memberProfileSection .member-profile-header.has-social-preview { min-height:130px; }
+#memberProfileSection .member-profile-header > .member-social-preview { position:absolute !important; top:58px !important; right:12px !important; z-index:3; width:min(380px,calc(100% - 24px)); margin:0 !important; }
+#memberProfileSection .member-profile-header:not(.has-social-preview) { min-height:0; }
+#memberProfileSection .member-profile-header > #memberConnectionAction { position:relative; z-index:4; }
+@media (max-width:600px) {
+  #memberProfileSection .member-profile-header, #memberProfileSection .member-profile-header.has-social-preview { min-height:0; padding-bottom:10px !important; }
+  #memberProfileSection .member-profile-header > .member-social-preview { position:static !important; grid-column:1 / -1; grid-row:auto; width:auto; margin:0 !important; }
+}
+/* Skills and social links share the free left column beside the taller CV section. */
+#profileSection #profileEditMode .edit-left-profile-fields { grid-column:1; min-width:0; display:grid; align-content:start; gap:8px; }
+#profileSection #profileEditMode .edit-left-profile-fields .edit-field { grid-column:1; }
+#profileSection #profileEditMode .cv-edit-field { grid-column:2; }
+#profileSection #profileEditMode .edit-grid { row-gap:8px; }
+#profileSection #profileEditMode .edit-avatar-section { margin-top:8px; padding-top:18px; border-top:1px solid rgba(214,184,76,.24); }
+@media (max-width:650px) {
+  #profileSection #profileEditMode .edit-left-profile-fields,
+  #profileSection #profileEditMode .cv-edit-field { grid-column:1; }
+}
+</style><style>
+/* Anchor social cards inside every member profile header, directly below the action row. */
+#memberProfileSection .member-profile-card .member-profile-header { position:relative !important; box-sizing:border-box; padding-top:8px !important; padding-bottom:8px !important; margin-bottom:7px !important; }
+#memberProfileSection .member-profile-card .member-profile-header.has-social-preview { min-height:136px; }
+#memberProfileSection .member-profile-card .member-profile-header > .member-social-preview { position:absolute !important; top:66px !important; right:12px !important; z-index:8 !important; width:min(380px,calc(100% - 24px)) !important; margin:0 !important; }
+#memberProfileSection .member-profile-card .member-profile-header:not(.has-social-preview) { min-height:0; }
+@media (max-width:600px) {
+  #memberProfileSection .member-profile-card .member-profile-header,
+  #memberProfileSection .member-profile-card .member-profile-header.has-social-preview { min-height:0; padding-bottom:10px !important; }
+  #memberProfileSection .member-profile-card .member-profile-header > .member-social-preview { position:static !important; grid-column:1 / -1; grid-row:auto; width:auto !important; margin:0 !important; }
+}
+</style><style>/* Keep connections and followers in the header's second grid row, below profile actions. */
+#memberProfileSection .member-profile-card .member-profile-header {
+  position:relative !important;
+  display:grid !important;
+  grid-template-columns:72px minmax(0,1fr) minmax(320px,380px) !important;
+  grid-template-rows:auto auto !important;
+  align-items:start !important;
+  column-gap:12px !important;
+  row-gap:0 !important;
+  min-height:0 !important;
+  box-sizing:border-box !important;
+  padding:6px 12px 5px !important;
+  margin:-6px -6px 7px !important;
+}
+#memberProfileSection .member-profile-card .member-profile-header > .member-profile-avatar-wrap { grid-column:1; grid-row:1; }
+#memberProfileSection .member-profile-card .member-profile-header > .member-profile-heading { grid-column:2; grid-row:1; }
+#memberProfileSection .member-profile-card .member-profile-header > #memberConnectionAction { grid-column:3; grid-row:1; align-self:start; position:relative !important; z-index:4; }
+#memberProfileSection .member-profile-card .member-profile-header > .member-social-preview {
+  position:static !important;
+  inset:auto !important;
+  grid-column:3 !important;
+  grid-row:2 !important;
+  align-self:start !important;
+  width:100% !important;
+  min-width:0 !important;
+  margin:-34px 0 0 !important;
+}
+@media (max-width:900px) and (min-width:601px) {
+  #memberProfileSection .member-profile-card .member-profile-header { grid-template-columns:64px minmax(0,1fr) minmax(300px,360px) !important; column-gap:9px !important; }
+}
+@media (max-width:600px) {
+  #memberProfileSection .member-profile-card .member-profile-header {
+    grid-template-columns:62px minmax(0,1fr) !important;
+    grid-template-rows:auto auto auto !important;
+    row-gap:8px !important;
+    padding:8px 8px 10px !important;
+  }
+  #memberProfileSection .member-profile-card .member-profile-header > .member-profile-avatar-wrap { grid-column:1; grid-row:1; }
+  #memberProfileSection .member-profile-card .member-profile-header > .member-profile-heading { grid-column:2; grid-row:1; }
+  #memberProfileSection .member-profile-card .member-profile-header > #memberConnectionAction { grid-column:1 / -1; grid-row:2; }
+  #memberProfileSection .member-profile-card .member-profile-header > .member-social-preview { grid-column:1 / -1 !important; grid-row:3 !important; margin:0 !important; }
+}
+</style></head>
 
 
 <body>
@@ -9733,7 +9822,7 @@ body .page-back-btn[onclick*="homeSection"]:hover {
                         </div>
 
 
-                        <div class="edit-field full-width">
+                        <div class="edit-left-profile-fields"><div class="edit-field">
 
                             <label for="editSkills">
                                 Skills
@@ -9747,36 +9836,6 @@ body .page-back-btn[onclick*="homeSection"]:hover {
                             >
 
                         </div>
-
-                        <div class="edit-field full-width cv-edit-field">
-                            <label for="editCvFile">CV (PDF)</label>
-                            <input
-                                type="file"
-                                id="editCvFile"
-                                accept=".pdf,application/pdf"
-                                onchange="handleCvSelection(this)"
-                            >
-                            <p id="editCvCurrent" class="cv-edit-current">No CV uploaded yet.</p>
-                            <label class="cv-visibility-option" for="editCvPublic">
-                                <input type="checkbox" id="editCvPublic" aria-label="Show my CV on my public profile">
-                                <span class="cv-visibility-copy">
-                                    <span class="cv-visibility-title">Show my CV on my public profile</span>
-                                    <span class="cv-visibility-description">Anyone viewing your profile can open and download it.</span>
-                                </span>
-                                <span class="cv-switch-track" aria-hidden="true"></span>
-                            </label>
-                            <button
-                                type="button"
-                                id="deleteCvButton"
-                                class="secondary-btn cv-delete-button"
-                                onclick="deleteMyCv()"
-                                hidden
-                            >
-                                Delete CV
-                            </button>
-                            <small>PDF only, up to 10 MB. Upload or replace it, then select Save Changes. Showing it is optional.</small>
-                        </div>
-
 
                         <div class="edit-field">
 
@@ -9839,7 +9898,37 @@ body .page-back-btn[onclick*="homeSection"]:hover {
                                 placeholder="https://..."
                             >
 
+                        </div></div><div class="edit-field full-width cv-edit-field">
+                            <label for="editCvFile">CV (PDF)</label>
+                            <input
+                                type="file"
+                                id="editCvFile"
+                                accept=".pdf,application/pdf"
+                                onchange="handleCvSelection(this)"
+                            >
+                            <p id="editCvCurrent" class="cv-edit-current">No CV uploaded yet.</p>
+                            <label class="cv-visibility-option" for="editCvPublic">
+                                <input type="checkbox" id="editCvPublic" aria-label="Show my CV on my public profile">
+                                <span class="cv-visibility-copy">
+                                    <span class="cv-visibility-title">Show my CV on my public profile</span>
+                                    <span class="cv-visibility-description">Anyone viewing your profile can open and download it.</span>
+                                </span>
+                                <span class="cv-switch-track" aria-hidden="true"></span>
+                            </label>
+                            <button
+                                type="button"
+                                id="deleteCvButton"
+                                class="secondary-btn cv-delete-button"
+                                onclick="deleteMyCv()"
+                                hidden
+                            >
+                                Delete CV
+                            </button>
+                            <small>PDF only, up to 10 MB. Upload or replace it, then select Save Changes. Showing it is optional.</small>
                         </div>
+
+
+                        
 
                     </div>
 
@@ -13823,7 +13912,7 @@ async function loadSocialDirectory() {
       p_list_type: socialDirectoryType
     });
     if (result.error) return socialDirectoryError(container, result.error);
-    rows = (result.data || []).map(row => ({ member_id: row.member_id, created_at: row.created_at }));
+    rows = (result.data || []).map(row => ({ member_id: row.follower_id, created_at: row.created_at }));
     ids = rows.map(row => row.member_id);
   }
   if (!ids.length) { container.innerHTML = `<p class="global-search-empty">No ${socialDirectoryType} yet.</p>`; return; }
@@ -15725,11 +15814,8 @@ async function memberSocialPreviewMarkup(memberId) {
     .select("show_lists")
     .eq("user_id", memberId)
     .maybeSingle();
-  if (settingsError) {
-    console.error("Could not load member social visibility:", settingsError);
-    return "";
-  }
-  if (!settings?.show_lists) return "";
+  if (settingsError) console.error("Could not load member social visibility:", settingsError);
+  const showMemberLists = Boolean(settings?.show_lists);
 
   const [connectionsResult, followersResult] = await Promise.all([
     db.from("connections")
@@ -15737,10 +15823,10 @@ async function memberSocialPreviewMarkup(memberId) {
       .or(`requester_id.eq.${memberId},recipient_id.eq.${memberId}`)
       .eq("status", "accepted")
       .order("created_at", { ascending: false }),
-    db.rpc("get_member_social_list", {
-      p_user_id: memberId,
-      p_list_type: "followers"
-    })
+    db.from("member_follows")
+      .select("follower_id,following_id,created_at")
+      .eq("following_id", memberId)
+      .order("created_at", { ascending: false })
   ]);
 
   if (connectionsResult.error || followersResult.error) {
@@ -15758,10 +15844,10 @@ async function memberSocialPreviewMarkup(memberId) {
     String(row.requester_id) === String(memberId) ? row.recipient_id : row.requester_id
   );
   const followerRows = (followersResult.data || []).map(row => ({
-    member_id: row.member_id,
+    member_id: row.follower_id,
     created_at: row.created_at
   }));
-  const memberIds = [...new Set([...connectionIds, ...followerRows.map(row => row.member_id)].map(String))];
+  const memberIds = showMemberLists ? [...new Set([...connectionIds, ...followerRows.map(row => row.member_id)].map(String))] : [];
   const { data: profiles, error: profilesError } = memberIds.length
     ? await db.from("profiles").select("id,full_name,profession,avatar_url").in("id", memberIds)
     : { data: [], error: null };
@@ -15799,11 +15885,11 @@ async function memberSocialPreviewMarkup(memberId) {
       <div class="member-social-preview-grid">
         <div class="member-social-group">
           <h4><span class="member-social-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"></circle><path d="M2.8 20a6.2 6.2 0 0 1 12.4 0M16 5.5a3.3 3.3 0 0 1 0 6.2M17 14.4a5.4 5.4 0 0 1 4.2 5.2"></path></svg></span> Connections <span class="member-social-count">${connectionIds.length}</span></h4>
-          ${renderPeople(connectionIds, "No connections yet.")}
+          ${showMemberLists ? renderPeople(connectionIds, "No connections yet.") : '<p class="member-social-empty">Member list hidden.</p>'}
         </div>
         <div class="member-social-group">
           <h4><span class="member-social-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="7.5" r="3.2"></circle><path d="M5.5 20a6.5 6.5 0 0 1 13 0"></path><path d="M19 4.5v5m-2.5-2.5h5"></path></svg></span> Followers <span class="member-social-count">${followerRows.length}</span></h4>
-          ${renderPeople(followerRows.map(row => row.member_id), "No followers yet.")}
+          ${showMemberLists ? renderPeople(followerRows.map(row => row.member_id), "No followers yet.") : '<p class="member-social-empty">Member list hidden.</p>'}
         </div>
       </div>
     </section>
@@ -15997,7 +16083,7 @@ async function viewMemberProfile(memberId, options = {}) {
     ${memberProfileVisitorPreview ? '<div class="member-visitor-preview-banner"><span>Visitor mode preview · Only public profile details are shown</span><button type="button" class="visitor-preview-cancel" onclick="cancelOwnProfileVisitorMode()">Cancel</button></div>' : ""}
     <article class="member-profile-card">
 
-      <div class="member-profile-header">
+      <div class="member-profile-header${socialPreviewMarkup ? " has-social-preview" : ""}">
   ${currentUser && String(currentUser.id) === String(profile.id) && !memberProfileVisitorPreview ? `<details class="profile-options-menu member-profile-options-menu" id="memberProfileOptionsMenu"><summary class="profile-options-trigger" aria-label="My profile options" title="More profile options"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="2.25"></circle><circle cx="12" cy="12" r="2.25"></circle><circle cx="19" cy="12" r="2.25"></circle></svg></summary><div class="profile-options-popover" aria-label="My profile options"><button type="button" onclick="viewOwnProfileVisitorMode()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z"></path><circle cx="12" cy="12" r="2.8"></circle></svg><span>View Profile as Visitor</span></button></div></details>` : ""}
   <div class="member-profile-avatar-wrap">
   ${
@@ -17847,7 +17933,20 @@ ownerChatForm.addEventListener("submit", async event => {
 })();
 </script>
 
-</body>
+<script>
+(() => {
+  const syncEditSocialHub = () => {
+    const editMode = document.getElementById('profileEditMode');
+    const socialHub = document.querySelector('#profileSection .profile-social-hub');
+    if (editMode && socialHub) socialHub.hidden = !editMode.classList.contains('hidden');
+  };
+  document.addEventListener('DOMContentLoaded', () => {
+    const editMode = document.getElementById('profileEditMode');
+    syncEditSocialHub();
+    if (editMode) new MutationObserver(syncEditSocialHub).observe(editMode, { attributes: true, attributeFilter: ['class'] });
+  });
+})();
+</script></body>
 </html>
 
 
