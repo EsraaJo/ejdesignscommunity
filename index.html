@@ -5020,7 +5020,7 @@ box-shadow:
 .social-sidebar-panel.is-minimized .social-sidebar-content,
 .social-sidebar-panel.is-minimized .social-sidebar-footer { display: none; }
 .social-sidebar-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 13px 14px; background: #111; color: white; }
-.social-sidebar-header h3 { margin: 0; font-size: 15px; }
+.social-sidebar-header h3 { margin: 0; font-size: 16px; }
 .social-sidebar-title { padding: 0; border: 0; color: inherit; background: transparent; font: inherit; font-weight: 700; cursor: pointer; text-align: left; }
 .social-sidebar-title:hover { color: #e5ca5b; }
 .social-sidebar-header-actions { position: relative; z-index: 2; display: flex; gap: 5px; pointer-events: auto; }
@@ -5286,9 +5286,9 @@ box-shadow:
 .connection-requests-section h3 { margin: 0 0 8px; color: #f4f4f2; font-size: 17px; }
 #connectionRequestsContainer { color: #c9c9c9; }
 .social-summary { display: flex; flex-wrap: wrap; gap: 9px; margin: 10px 0 12px; }
-.social-summary-action { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 5px 13px 5px 6px; border: 1px solid #d6b84c; border-radius: 999px; color: #fff; background: linear-gradient(135deg,#171717,#29251a); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; box-shadow: 0 3px 10px rgba(214,184,76,.16); transition: transform .18s ease, background .18s ease, box-shadow .18s ease; }
+.social-summary-action { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 3px 9px 3px 5px; border: 1px solid #d6b84c; border-radius: 999px; color: #fff; background: linear-gradient(135deg,#171717,#29251a); font: inherit; font-size: 11px; font-weight: 600; cursor: pointer; box-shadow: 0 3px 10px rgba(214,184,76,.16); transition: transform .18s ease, background .18s ease, box-shadow .18s ease; }
 .social-summary-action:hover { transform: translateY(-1px); background: #29251a; box-shadow: 0 5px 14px rgba(214,184,76,.24); }
-.social-count-bubble { display: grid; place-items: center; width: 28px; height: 28px; flex: 0 0 28px; border-radius: 50%; color: #fff; font-size: 12px; font-weight: 700; box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 2px 5px rgba(0,0,0,.2); }
+.social-count-bubble { display: grid; place-items: center; width: 20px; height: 20px; flex: 0 0 20px; border-radius: 50%; color: #fff; font-size: 10px; font-weight: 700; box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 2px 5px rgba(0,0,0,.2); }
 .social-count-bubble.is-request-count { background: #c83e43; }
 .social-count-bubble.is-connection-count { background: #2c9c68; }
 .profile-social-hub { margin: 16px 0 20px; padding: 14px 0; border-top: 1px solid rgba(214,184,76,.28); border-bottom: 1px solid rgba(214,184,76,.28); }
@@ -5305,6 +5305,7 @@ box-shadow:
 .home-social-hub { width: min(100%, 1050px); box-sizing: border-box; margin: 22px auto 24px; padding: 18px 20px; border: 1px solid rgba(214,184,76,.78); border-radius: 12px; background: #111; color: #fff; box-shadow: 0 8px 24px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.06); }
 .home-social-hub[hidden] { display: none !important; }
 .home-social-hub h3 { margin: 0 0 8px; color: #f4f4f2; text-align: center; }
+.home-social-hub-title-accent { color: #e0c44e; }
 .home-social-hub .social-summary { justify-content: center; gap: 9px; margin: 10px 0 16px; }
 .home-social-hub .social-list { max-width: 700px; margin: 10px auto; }
 .home-social-hub .social-view-all { display: block; margin: 4px auto 0; }
@@ -5322,7 +5323,7 @@ box-shadow:
 }
 .connect-discovery-group.has-community .home-social-hub h3 { margin: 0 0 5px; color: #f4f4f2; text-align: center; font-size: 30px; font-weight: 750; line-height: 1.15; }
 .home-social-hub .home-social-hub-note { margin: 3px 0 0; color: #aaa; font-size: 11px; text-align: center; }
-.connect-discovery-group.has-community .home-social-hub .social-summary { justify-content: center; gap: 9px; margin: 8px 0 6px; }
+.connect-discovery-group.has-community .home-social-hub .social-summary { justify-content: center; gap: 9px; margin: 14px 0 6px; }
 .connect-discovery-group.has-community .home-social-hub { position: relative; }
 .connect-discovery-group.has-community .home-social-hub .home-social-actions { position: absolute; top: 22px; right: 16px; z-index: 4; display: flex; align-items: center; gap: 8px; }
 .connect-discovery-group.has-community .home-social-actions .profile-options-popover { text-align: left; }
@@ -5965,7 +5966,7 @@ box-shadow:
 .social-sidebar-panel { width: min(420px, calc(100vw - 44px)); }
 .social-sidebar-header { min-width: 0; }
 .social-sidebar-header h3 { flex: 1 1 auto; min-width: 0; }
-.social-sidebar-header .social-sidebar-title { display: flex; align-items: center; justify-content: flex-start; width: 100%; height: auto; min-height: 38px; box-sizing: border-box; padding: 4px 8px; border: 0; border-radius: 8px; color: inherit; background: transparent; text-align: left; white-space: nowrap; font-size: clamp(14px, 3.8vw, 18px); }
+.social-sidebar-header .social-sidebar-title { display: flex; align-items: center; justify-content: flex-start; width: 100%; height: auto; min-height: 38px; box-sizing: border-box; padding: 4px 8px; border: 0; border-radius: 8px; color: inherit; background: transparent; text-align: left; white-space: nowrap; font-size: 14px; font-weight: 700; }
 .social-sidebar-header-actions { flex: 0 0 auto; }
 .social-sidebar-header button { width: 38px; height: 38px; font-size: 22px; }
 .social-sidebar-panel.is-minimized { width: min(270px, calc(100vw - 32px)); height: 56px; max-height: 56px; overflow: hidden; }
@@ -6129,7 +6130,10 @@ box-shadow:
 .owner-chat-incoming-copy span { color: #fff; font-size: 13px; line-height: 1.45; overflow-wrap: anywhere; }
 .owner-chat-incoming-dismiss { display: grid; flex: 0 0 28px; width: 28px; height: 28px; place-items: center; padding: 0; border: 1px solid rgba(255,255,255,.3); border-radius: 7px; color: #fff; background: rgba(255,255,255,.08); font-size: 20px; cursor: pointer; }
 @keyframes ownerChatPopIn { from { opacity: 0; transform: translateY(-7px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
-.owner-chat-launcher-unread { position: absolute; top: -5px; right: -5px; z-index: 70; display: grid; min-width: 22px; height: 22px; box-sizing: border-box; place-items: center; padding: 0 5px; border: 2px solid #fff; border-radius: 999px; color: #fff; background: #d13f46; box-shadow: 0 2px 7px rgba(0,0,0,.35); font-size: 11px; font-weight: 800; line-height: 1; }
+.owner-chat-launcher-unread { position: absolute; top: -4px; right: -4px; z-index: 70; display: grid; width: 28px; min-width: 28px; height: 28px; box-sizing: border-box; place-items: center; padding: 0; border: 2px solid #fff; border-radius: 50%; color: #fff; background: #d13f46; box-shadow: 0 2px 7px rgba(0,0,0,.35); font-size: 9px; font-weight: 800; line-height: 1; white-space: nowrap; isolation: isolate; animation: owner-chat-unread-bounce 3.2s ease-in-out infinite; }
+.owner-chat-launcher-unread::before { position: absolute; inset: -4px; z-index: -1; border-radius: 50%; background: rgba(209,63,70,.2); box-shadow: 0 0 8px 2px rgba(209,63,70,.22); content: ""; animation: owner-chat-unread-halo 3.2s ease-in-out infinite; }
+@keyframes owner-chat-unread-bounce { 0%, 14%, 100% { transform: translate(0, 0); } 25% { transform: translate(.5px, -.5px); } 38% { transform: translate(.5px, 0); } 51% { transform: translate(.5px, .5px); } 64% { transform: translate(-.5px, .5px); } 77% { transform: translate(-.5px, 0); } 90% { transform: translate(0, -.5px); } }
+@keyframes owner-chat-unread-halo { 0%, 14%, 100% { opacity: .36; transform: scale(.98); } 50%, 77% { opacity: .52; transform: scale(1.02); } }
 .owner-chat-launcher-unread[hidden] { display: none !important; }
 @media (max-width: 600px) {
   .social-sidebar-panel.is-minimized,
@@ -7707,6 +7711,228 @@ body > header {
   .profile-options-popover { width: min(232px, calc(100vw - 36px)); }
 }
 </style>
+<style>
+/* Conversation tools sit beside the message area; window controls stay in the header. */
+#ownerChatWidget .owner-chat-conversation-tools {
+  position: absolute;
+  z-index: 5;
+  top: 78px;
+  right: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+#ownerChatWidget .owner-chat-conversation-tools button {
+  display: inline-flex;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.48);
+  border-radius: 50%;
+  color: #fff;
+  background: #222;
+  cursor: pointer;
+}
+#ownerChatWidget .owner-chat-conversation-tools button:hover {
+  border-color: #e6cb59;
+  background: #333;
+}
+#ownerChatWidget .owner-chat-conversation-tools button[hidden] { display: none !important; }
+#ownerChatWidget .owner-chat-messages,
+#ownerChatWidget .owner-chat-contacts { padding-right: 54px; overflow-y: scroll; scrollbar-width: thin; scrollbar-color: #d6b84c rgba(214,184,76,.32); }
+#ownerChatWidget .owner-chat-contacts::-webkit-scrollbar,
+#ownerChatWidget .owner-chat-messages::-webkit-scrollbar { width: 12px; }
+#ownerChatWidget .owner-chat-contacts::-webkit-scrollbar-track,
+#ownerChatWidget .owner-chat-messages::-webkit-scrollbar-track { border-radius: 999px; background: rgba(214,184,76,.32); }
+#ownerChatWidget .owner-chat-contacts::-webkit-scrollbar-thumb,
+#ownerChatWidget .owner-chat-messages::-webkit-scrollbar-thumb { min-height: 28px; border: 1px solid rgba(114,88,4,.55); border-radius: 999px; background: #d6b84c; background-clip: padding-box; }
+</style>
+<style>
+.owner-chat-resize-handle { position: relative; z-index: 2; display: flex; flex: 0 0 12px; align-items: center; justify-content: center; min-height: 12px; border-top: 1px solid rgba(214,184,76,.25); border-bottom: 1px solid rgba(214,184,76,.25); background: #f7f7f5; cursor: ns-resize; touch-action: none; }
+.owner-chat-resize-handle::after { width: 42px; height: 3px; border-radius: 999px; background: #d6b84c; box-shadow: 0 1px 3px rgba(0,0,0,.18); content: ""; }
+.owner-chat-resize-handle:focus-visible { outline: 2px solid #d6b84c; outline-offset: -2px; }
+#ownerChatContacts[hidden] + .owner-chat-resize-handle { display: none; }
+</style>
+<style>
+.owner-chat-contact-count { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; min-width: 22px; min-height: 22px; box-sizing: border-box; margin-left: auto; padding: 0 6px; border-radius: 999px; color: #777; background: #ededed; font-size: 11px; font-weight: 700; line-height: 1; }
+.owner-chat-contact-count.is-unread { color: #fff; background: #cf3942; box-shadow: 0 2px 6px rgba(207,57,66,.22); }
+</style>
+<style>
+.owner-chat-expand { position: relative; overflow: visible; }
+.owner-chat-expand::after { position: absolute; left: 50%; top: 50%; right: auto; bottom: auto; display: grid; width: auto; height: auto; min-width: 0; place-items: center; border: 0; border-radius: 0; color: #ff263b; background: transparent; content: "+"; font-size: 16px; font-weight: 1000; line-height: 1; -webkit-text-stroke: .6px #64121b; text-shadow: 0 1px 2px #111, 0 0 4px #111; pointer-events: none; transform: translate(-50%, -50%); }
+.owner-chat-expand[aria-pressed="true"]::after { color: #25d477; -webkit-text-stroke-color: #12482d; content: "−"; }
+.owner-chat-inbox-search { gap: 0; padding: 8px 10px; }
+.owner-chat-inbox-search input { border-radius: 999px 0 0 999px; border-right: 0; }
+.owner-chat-inbox-search button { flex-basis: 36px; width: 36px; height: 36px; margin-left: -1px; border-radius: 0 999px 999px 0; border-left: 0; }
+#socialDirectoryConnectButton { position: relative; overflow: visible !important; }
+.social-connect-onboarding { position: absolute; top: calc(100% + 17px); left: 50%; z-index: 20; display: flex; flex-direction: column; align-items: center; gap: 8px; width: max-content; max-width: min(260px, calc(100vw - 28px)); transform: translate(-50%, 5px); opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
+.social-connect-onboarding.is-visible { transform: translate(-50%, 0); opacity: 1; }
+.social-connect-onboarding[hidden] { display: none !important; }
+.social-connect-onboarding-finger { position: relative; z-index: 1; font-size: 24px; line-height: 1; opacity: .72; filter: drop-shadow(0 1px 2px rgba(0,0,0,.2)); animation: social-connect-finger-bob .72s ease-in-out infinite alternate; }
+.social-connect-onboarding-bubble { padding: 9px 12px; border: 1px solid rgba(214,184,76,.58); border-radius: 12px; color: rgba(54,43,8,.92); background: rgba(255,245,201,.78); box-shadow: 0 6px 18px rgba(0,0,0,.14); font-size: 12px; font-weight: 700; white-space: normal; text-align: center; backdrop-filter: blur(3px); }
+@keyframes social-connect-finger-bob { from { transform: translateY(0); } to { transform: translateY(-9px); } }
+</style>
+<style>
+/* Phone and tablet layout: respect safe areas and keep floating panels inside the viewport. */
+@media (max-width: 700px) {
+  html, body { max-width: 100%; overflow-x: clip; }
+  body > header { padding-left: max(12px, env(safe-area-inset-left)) !important; padding-right: max(12px, env(safe-area-inset-right)) !important; }
+  body > header h1 { padding-right: 68px !important; padding-left: 12px !important; font-size: clamp(20px, 5.8vw, 27px) !important; }
+  body > header .site-tagline-shimmer { max-width: calc(100% - 20px); font-size: clamp(12px, 3.8vw, 15px); text-align: center; }
+  body > header nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  body > header nav button { flex: 1 1 88px; min-width: 78px; min-height: 42px; }
+
+  #connectSection > main, #socialConnectionsSection > main { width: 100%; max-width: 100%; box-sizing: border-box; padding: 20px max(10px, env(safe-area-inset-left)) calc(88px + env(safe-area-inset-bottom)) !important; }
+  #connectSection .community-page, #socialConnectionsSection .community-page { width: 100%; max-width: 100%; min-width: 0; padding-inline: 0; box-sizing: border-box; }
+  .connect-discovery-group, .social-directory-toolbar { width: 100%; max-width: 100%; min-width: 0; margin: 14px auto 18px; box-sizing: border-box; }
+  .connect-discovery-group.has-community { min-height: 0; padding: 8px 8px 12px; }
+  .connect-discovery-group.has-community .home-social-hub { padding: 14px 8px 8px; }
+  .connect-discovery-group.has-community .home-social-hub h3 { padding: 0 76px; font-size: clamp(18px, 5vw, 22px); line-height: 1.2; overflow-wrap: anywhere; }
+  .connect-discovery-group.has-community .home-social-hub .home-social-actions { top: 12px; right: 8px; gap: 5px; }
+  .connect-discovery-group.has-community .home-social-actions > button { width: 36px; min-width: 36px; height: 36px; }
+  .connect-discovery-group.has-community .home-social-hub .social-summary { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 12px 0 8px; }
+  .connect-discovery-group.has-community .social-summary-action { min-height: 32px; padding-inline: 6px; font-size: clamp(9px, 2.8vw, 11px); }
+  .social-directory-back-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 18px auto; }
+  .social-directory-back-actions .page-back-btn { min-height: 42px; padding: 8px 11px; font-size: 13px; }
+  .social-directory-intro p, .community-page-subtitle { line-height: 1.45; overflow-wrap: anywhere; }
+  .social-directory-toolbar { padding: 13px 10px; }
+  .social-directory-toolbar h2 { font-size: clamp(18px, 5vw, 22px); }
+  .social-directory-toolbar .social-directory-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+  .social-directory-tab, .connect-view-tab { min-height: 42px; min-width: 0; padding: 8px 6px; font-size: 12px; line-height: 1.2; }
+  .social-directory-search, #connectSection .community-search { width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; }
+  .social-directory-search input, #connectSection .community-search input, .global-search input { min-width: 0; font-size: 16px; }
+  .social-connect-onboarding { top: calc(100% + 9px); gap: 7px; max-width: min(240px, calc(100vw - 24px)); }
+  .social-connect-onboarding-bubble { max-width: calc(100vw - 32px); padding: 7px 10px; background: rgba(255,245,201,.66); font-size: 12px; }
+  .social-connect-onboarding-finger { order: 2; margin-top: 3px; opacity: .5; }
+
+  #ownerChatWidget { left: max(8px, env(safe-area-inset-left)); right: max(8px, env(safe-area-inset-right)); bottom: max(8px, env(safe-area-inset-bottom)); width: auto; }
+  #ownerChatWidget .owner-chat-panel:not(.is-minimized) { position: fixed; left: max(8px, env(safe-area-inset-left)); right: max(8px, env(safe-area-inset-right)); bottom: calc(78px + env(safe-area-inset-bottom)); width: auto; max-width: none; height: min(68dvh, 560px); max-height: calc(100dvh - 100px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); border-radius: 16px; }
+  #ownerChatWidget .owner-chat-panel.is-expanded { top: max(8px, env(safe-area-inset-top)); right: max(8px, env(safe-area-inset-right)); bottom: max(8px, env(safe-area-inset-bottom)); left: max(8px, env(safe-area-inset-left)); width: auto; height: auto; max-height: none; transform: none; }
+  #ownerChatWidget .social-sidebar-panel:not(.is-minimized) { left: 0; bottom: 76px; width: min(390px, calc(100vw - 20px - env(safe-area-inset-left) - env(safe-area-inset-right))); max-width: none; max-height: calc(100dvh - 100px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); }
+  #ownerChatWidget .social-sidebar-content { min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+  #ownerChatWidget .owner-chat-header { gap: 5px; min-height: 60px; padding: 7px 8px; }
+  #ownerChatWidget .owner-chat-heading { flex: 1 1 auto; min-width: 0; }
+  #ownerChatWidget .owner-chat-heading strong { max-width: 100%; font-size: 13px; }
+  #ownerChatWidget .owner-chat-heading span { max-width: 100%; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+  #ownerChatWidget .owner-chat-header-actions { flex: 0 0 auto; gap: 3px; }
+  #ownerChatWidget .owner-chat-header-actions button { flex: 0 0 31px; width: 31px; height: 31px; min-width: 31px; }
+  #ownerChatWidget .owner-chat-contacts, #ownerChatWidget .owner-chat-messages { min-height: 0; overscroll-behavior: contain; scroll-padding-bottom: 12px; }
+  #ownerChatWidget .owner-chat-conversation-tools { top: 68px; right: 7px; gap: 6px; }
+  #ownerChatWidget .owner-chat-conversation-tools button { flex-basis: 30px; width: 30px; height: 30px; }
+  #ownerChatWidget .owner-chat-contacts, #ownerChatWidget .owner-chat-messages { padding-right: 43px; }
+  #ownerChatWidget .owner-chat-contact { min-height: 56px; padding: 8px 9px; gap: 6px; }
+  #ownerChatWidget .owner-chat-contact-details { min-width: 0; }
+  #ownerChatWidget .owner-chat-contact-details strong, #ownerChatWidget .owner-chat-contact-details span { display: block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #ownerChatWidget .owner-chat-contact-count { min-width: 21px; min-height: 21px; padding-inline: 4px; }
+  #ownerChatWidget .owner-chat-resize-handle { min-height: 14px; flex-basis: 14px; touch-action: none; }
+  #ownerChatWidget .owner-chat-form { flex: 0 0 auto; gap: 7px; padding: 8px; padding-bottom: max(8px, env(safe-area-inset-bottom)); }
+  #ownerChatWidget .owner-chat-form input, #ownerChatWidget .owner-chat-send-row input { min-width: 0; min-height: 44px; font-size: 16px; }
+  #ownerChatWidget .owner-chat-send-row { display: flex; min-width: 0; gap: 6px; }
+  #ownerChatWidget .owner-chat-send-row button { flex: 0 0 auto; min-width: 62px; min-height: 44px; padding-inline: 11px; }
+  #ownerChatWidget .owner-chat-bubble { max-width: 90%; overflow-wrap: anywhere; }
+}
+
+@media (max-width: 380px) {
+  body > header h1 { padding-right: 62px !important; font-size: clamp(19px, 5.7vw, 22px) !important; }
+  #ownerChatWidget .owner-chat-header { gap: 3px; padding-inline: 6px; }
+  #ownerChatWidget .owner-chat-header .owner-chat-avatar { flex-basis: 31px; width: 31px; height: 31px; }
+  #ownerChatWidget .owner-chat-heading strong { font-size: 12px; }
+  #ownerChatWidget .owner-chat-heading span { max-width: 88px; }
+  #ownerChatWidget .owner-chat-header-actions { gap: 2px; }
+  #ownerChatWidget .owner-chat-header-actions button { flex-basis: 28px; width: 28px; height: 28px; min-width: 28px; }
+  #ownerChatWidget .owner-chat-panel:not(.is-expanded):not(.is-minimized) { bottom: calc(72px + env(safe-area-inset-bottom)); height: min(66dvh, 500px); }
+  #ownerChatWidget .social-sidebar-header { gap: 6px; padding: 10px; }
+  #ownerChatWidget .social-sidebar-header h3 { font-size: 14px; }
+}
+</style>
+<style>
+/* Black title bands for the feedback and post composer cards. */
+#shareIdeasSection .share-page-card > label[for="communityFeedback"],
+#shareSection .share-page-card > label[for="shareContent"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 76px;
+  box-sizing: border-box;
+  margin: -25px -25px 15px;
+  padding: 22px 25px;
+  border-radius: 14px 14px 0 0;
+  color: #f5f3ed;
+  background: #111;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+#shareSection .share-page-card > label[for="shareContent"] { margin: -14px -18px 14px; }
+@media (max-width: 700px) {
+  #shareIdeasSection .share-page-card > label[for="communityFeedback"] { min-height: 68px; margin: -16px -16px 14px; padding: 18px 16px; font-size: 17px; }
+  #shareSection .share-page-card > label[for="shareContent"] { min-height: 64px; margin: -14px -18px 12px; padding: 16px 18px; font-size: 17px; }
+}
+</style>
+<style>
+/* Keep the pointing hand beside the message, just below Connect. */
+#socialDirectoryConnectButton .social-connect-onboarding {
+  top: calc(100% + 4px);
+  left: 0;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 6px;
+  transform: translateY(4px);
+}
+#socialDirectoryConnectButton .social-connect-onboarding.is-visible { transform: translateY(0); }
+#socialDirectoryConnectButton .social-connect-onboarding-finger { order: 0; margin: 5px 0 0; }
+#socialDirectoryConnectButton .social-connect-onboarding-bubble { order: 1; }
+@media (max-width: 700px) {
+  #socialDirectoryConnectButton .social-connect-onboarding { top: calc(100% + 4px); left: 50%; transform: translate(-50%, 4px); }
+  #socialDirectoryConnectButton .social-connect-onboarding.is-visible { transform: translate(-50%, 0); }
+  #socialDirectoryConnectButton .social-connect-onboarding-finger { order: 0; margin: 5px 0 0; }
+}
+</style>
+<style>
+#shareIdeasSection .share-page-card:first-of-type { padding: 18px 22px; }
+#shareIdeasSection .share-page-card:first-of-type p { margin-bottom: 18px; font-size: 14px; line-height: 1.45; }
+@media (max-width: 700px) {
+  #shareIdeasSection .share-page-card:first-of-type { padding: 16px 16px; }
+  #shareIdeasSection .share-page-card:first-of-type p { font-size: 13px; line-height: 1.4; }
+}
+</style>
+<style>
+#shareIdeasSection .share-page-card:first-of-type {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 172px;
+  box-sizing: border-box;
+  padding: 20px 22px;
+  text-align: center;
+}
+#shareIdeasSection .share-page-card:first-of-type h3,
+#shareIdeasSection .share-page-card:first-of-type p,
+#shareIdeasSection .share-page-card:first-of-type .community-action-btn { margin: 0; }
+#shareIdeasSection .share-page-card:first-of-type p { max-width: 900px; font-size: 14px; line-height: 1.45; }
+@media (max-width: 700px) {
+  #shareIdeasSection .share-page-card:first-of-type { min-height: 0; gap: 10px; padding: 17px 16px; }
+  #shareIdeasSection .share-page-card:first-of-type p { font-size: 13px; line-height: 1.4; }
+}
+</style>
+<style>
+.owner-chat-send-row .owner-chat-image-button{display:inline-flex;align-items:center;justify-content:center;width:42px;min-width:42px;height:42px;padding:0;border:1px solid rgba(218,185,65,.75);border-radius:12px;color:#181818;background:#e2c548;font-size:27px;font-weight:600;line-height:1;cursor:pointer;box-shadow:0 2px 7px rgba(0,0,0,.12)}
+.owner-chat-send-row .owner-chat-image-button:hover{background:#f0d65f}.owner-chat-image-preview{display:flex;align-items:center;gap:10px;min-width:0;padding:7px 10px;border:1px solid #e8dfc4;border-radius:12px;background:#fffdf7;color:#555;font-size:13px}.owner-chat-image-preview[hidden]{display:none}
+.owner-chat-image-preview img{width:42px;height:42px;flex:0 0 42px;object-fit:cover;border-radius:8px}.owner-chat-image-preview span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.owner-chat-image-preview button{width:30px;height:30px;border:0;border-radius:50%;color:#444;background:#f1eee5;font-size:20px;cursor:pointer}
+.owner-chat-image-frame{display:inline-flex;max-width:100%;padding:7px;border-radius:12px;background:#ededed}.owner-chat-message-image{display:block;width:auto;max-width:min(160px,100%);max-height:130px;border-radius:8px;object-fit:contain;cursor:zoom-in}.owner-chat-image-link{display:inline-block;max-width:100%;line-height:0}.owner-chat-image-caption{margin-top:7px;white-space:pre-wrap;overflow-wrap:anywhere}
+.owner-chat-contact-avatar{position:relative;display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;flex:0 0 38px;overflow:visible;border:1px solid rgba(214,184,66,.58);border-radius:50%;color:#806b18;background:#f1ead2;font-size:13px;font-weight:700}.owner-chat-contact-avatar>img{width:100%;height:100%;border-radius:inherit;object-fit:cover}
+.owner-chat-contact-presence{position:absolute;right:-2px;bottom:-1px;width:11px;height:11px;border:2px solid #fafafa;border-radius:50%;background:#999;box-shadow:0 0 0 1px rgba(0,0,0,.12)}.owner-chat-contact-presence.is-online{background:#229866}.owner-chat-contact{gap:11px}.owner-chat-contact-details{min-width:0}
+@media(max-width:700px){.owner-chat-send-row .owner-chat-image-button{width:38px;min-width:38px;height:38px;font-size:25px}.owner-chat-message-image{max-width:min(140px,100%);max-height:115px}.owner-chat-contact-avatar{width:34px;height:34px;flex-basis:34px}}
+</style>
 </head>
 
 
@@ -8019,7 +8245,7 @@ body > header {
 
             <div id="connectDiscoveryGroup" class="connect-discovery-group">
               <section id="homeSocialHub" class="home-social-hub" hidden aria-label="Community overview">
-                <h3>Connect with your community</h3>
+                <h3>Connect with <span class="home-social-hub-title-accent">EJ Community</span></h3>
                 <p class="home-social-hub-note">Quick counts from your community. Select any count to open that list.</p>
                 <div id="homeSocialSummary" class="social-summary"></div>
                 <div id="homeSocialList" class="social-list" hidden></div>
@@ -8647,11 +8873,11 @@ body > header {
     <div class="community-page social-connections-page">
       <div class="social-directory-back-actions">
         <button type="button" class="page-back-btn" onclick="goBackFromSocialPage()">← Back</button>
-        <button type="button" class="page-back-btn" onclick="showSection('connectSection')">Connect</button>
+        <button id="socialDirectoryConnectButton" type="button" class="page-back-btn" onclick="showSection('connectSection')"><span>Connect</span><span id="socialConnectOnboarding" class="social-connect-onboarding" role="status" hidden><span class="social-connect-onboarding-finger" aria-hidden="true">☝️</span><span class="social-connect-onboarding-bubble">Connect with EJ Community</span></span></button>
         <button type="button" class="page-back-btn section-forward-btn" onclick="goForwardFromSection()" aria-label="Go forward" title="Go forward" disabled>Forward →</button>
       </div>
       <div class="social-connections-intro">
-        <h2>My Network</h2>
+        <h2>Connect with Your Network</h2>
         <p class="community-page-subtitle">Discover architects, designers and creative professionals.</p>
       </div>
       <div class="social-directory-toolbar">
@@ -9418,7 +9644,7 @@ body > header {
   </button>
   <span id="socialSidebarHint" class="social-sidebar-hint" role="status" hidden>Meet and connect with people</span>
   <section id="socialSidebarPanel" class="social-sidebar-panel" aria-label="Connections and followers" hidden>
-    <header class="social-sidebar-header"><h3><button type="button" class="social-sidebar-title" onclick="openSocialPage('connections', currentUser?.id)">My Network</button></h3><div class="social-sidebar-header-actions"><button id="socialSidebarMinimize" type="button" aria-label="Minimize connections" title="Minimize">−</button><button id="socialSidebarClose" type="button" aria-label="Close connections" title="Close">×</button></div></header>
+    <header class="social-sidebar-header"><h3><span class="social-sidebar-title">My Network</span></h3><div class="social-sidebar-header-actions"><button id="socialSidebarMinimize" type="button" aria-label="Minimize connections" title="Minimize">−</button><button id="socialSidebarClose" type="button" aria-label="Close connections" title="Close">×</button></div></header>
     <nav class="social-sidebar-tabs" aria-label="Community lists">
       <button type="button" class="social-sidebar-tab is-active" data-social-type="connections">Connections <span id="socialSidebarConnectionCount">0</span></button>
       <button type="button" class="social-sidebar-tab" data-social-type="requests">Requests <span id="socialSidebarRequestCount">0</span></button>
@@ -9458,38 +9684,11 @@ body > header {
         <span id="ownerChatHeaderStatus">Site Owner</span>
       </div>
 
-      <button
-  id="ownerChatDelete"
-  class="owner-chat-delete"
-  type="button"
-  aria-label="Delete conversation"
-  title="Delete conversation"
-  hidden
->
-  <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M4 7h16M10 11v6m4-6v6M5.5 7l1 13h11l1-13M9 7V4h6v3" />
-  </svg>
-</button>
+      
 
       <div class="owner-chat-header-actions">
-        <button
-          id="ownerChatSearchToggle"
-          class="owner-chat-search-toggle"
-          type="button"
-          aria-label="Search conversations"
-          title="Search names or conversation messages"
-          hidden
-        >
-          <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
-        </button>
-        <button
-          id="ownerChatVoiceToggle"
-          class="owner-chat-voice"
-          type="button"
-          aria-label="Mute voice introduction"
-          aria-pressed="true"
-          title="Mute voice introduction"
-        >🔊</button>
+        
+        
         <button
           id="ownerChatExpand"
           class="owner-chat-expand"
@@ -9521,7 +9720,41 @@ body > header {
       </div>
     </header>
 
+    <div class="owner-chat-conversation-tools" aria-label="Conversation tools">
+<button
+  id="ownerChatDelete"
+  class="owner-chat-delete"
+  type="button"
+  aria-label="Delete conversation"
+  title="Delete conversation"
+  hidden
+>
+  <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 7h16M10 11v6m4-6v6M5.5 7l1 13h11l1-13M9 7V4h6v3" />
+  </svg>
+</button>
+<button
+          id="ownerChatSearchToggle"
+          class="owner-chat-search-toggle"
+          type="button"
+          aria-label="Search conversations"
+          title="Search names or conversation messages"
+          hidden
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+        </button>
+<button
+          id="ownerChatVoiceToggle"
+          class="owner-chat-voice"
+          type="button"
+          aria-label="Mute voice introduction"
+          aria-pressed="true"
+          title="Mute voice introduction"
+        >🔊</button>
+</div>
+
     <div id="ownerChatContacts" class="owner-chat-contacts" hidden></div>
+    <div id="ownerChatResizeHandle" class="owner-chat-resize-handle" role="separator" aria-orientation="horizontal" aria-label="Resize conversation list" aria-valuemin="90" aria-valuemax="260" aria-valuenow="190" tabindex="0"></div>
 
     <div id="ownerChatMessages" class="owner-chat-messages">
       <p class="owner-chat-empty">Loading conversation...</p>
@@ -9540,15 +9773,11 @@ body > header {
     placeholder="Your email"
   />
 
+  <div id="ownerChatImagePreview" class="owner-chat-image-preview" hidden><img id="ownerChatImagePreviewThumb" alt="Selected image preview"><span id="ownerChatImagePreviewName"></span><button type="button" onclick="ownerChatClearImageSelection()" aria-label="Remove selected image">×</button></div>
   <div class="owner-chat-send-row">
-    <input
-      id="ownerChatInput"
-      type="text"
-      maxlength="2000"
-      placeholder="Write a message..."
-      autocomplete="off"
-      required
-    />
+    <input id="ownerChatImageInput" type="file" accept="image/*" hidden onchange="ownerChatHandleImageSelection(this)">
+    <input id="ownerChatInput" type="text" maxlength="2000" placeholder="Write a message..." autocomplete="off">
+    <button id="ownerChatImageButton" class="owner-chat-image-button" type="button" onclick="ownerChatOpenImagePicker()" aria-label="Add image" title="Add image">+</button>
     <button type="submit">Send</button>
   </div>
 </form>
@@ -9770,7 +9999,24 @@ let pendingProjectCoverProjectId = null;
        SECTION NAVIGATION
     ===================================================== */
 
-   let sectionNavigationHistory = [];
+   let socialConnectOnboardingTimer = null;
+function maybeShowSocialConnectOnboarding() {
+  const hint = document.getElementById("socialConnectOnboarding");
+  if (!hint) return;
+  clearTimeout(socialConnectOnboardingTimer);
+  hint.classList.remove("is-visible");
+  hint.hidden = true;
+  const hide = () => {
+    hint.classList.remove("is-visible");
+    setTimeout(() => { hint.hidden = true; }, 220);
+  };
+  const show = () => {
+    hint.hidden = false;
+    requestAnimationFrame(() => hint.classList.add("is-visible"));
+    socialConnectOnboardingTimer = setTimeout(hide, 1500);
+  };
+  socialConnectOnboardingTimer = setTimeout(show, 1000);
+}let sectionNavigationHistory = [];
    let sectionForwardHistory = [];
    let isNavigatingBack = false;
    let isNavigatingForward = false;
@@ -9827,6 +10073,7 @@ let pendingProjectCoverProjectId = null;
     if (selectedSection) {
 
         selectedSection.classList.add("active");
+        if (sectionId === "socialConnectionsSection" ) maybeShowSocialConnectOnboarding();
 
         if (!currentUser) {
             if (sectionId === "aboutSection") {
@@ -12549,6 +12796,10 @@ document
             );
 
 
+            if ((event === "SIGNED_IN" || event === "INITIAL_SESSION") && String(session?.user?.id || "") === OWNER_CHAT_ID) {
+                setTimeout(() => { ownerChatRefreshLauncherUnreadCount(); }, 0);
+            }
+
             if (
                 event ===
                 "SIGNED_OUT"
@@ -13206,7 +13457,7 @@ async function openSocialPage(type = "connections", userId = currentUser?.id) {
   const categoryHeadings = { connections: "Connections", requests: "Requests", followers: "Followers", following: "Following" };
   document.getElementById("socialConnectionsList")?.setAttribute("data-list-heading", categoryHeadings[type] || "Connections");
   showSection("socialConnectionsSection");
-  document.getElementById("socialConnectionsTitle").textContent = socialDirectoryUserId === String(currentUser.id) ? "Your community" : "Community connections";
+  document.getElementById("socialConnectionsTitle").textContent = socialDirectoryUserId === String(currentUser.id) ? "My Network" : "Network connections";
   document.querySelectorAll(".social-directory-tab").forEach(tab => {
     const active = tab.dataset.socialList === type;
     tab.classList.toggle("is-active", active);
@@ -15816,6 +16067,50 @@ const ownerChatPanel = document.getElementById("ownerChatPanel");
 const ownerChatMessages = document.getElementById("ownerChatMessages");
 const ownerChatContacts = document.getElementById("ownerChatContacts");
 const ownerChatForm = document.getElementById("ownerChatForm");
+function setupOwnerChatResizeHandle() {
+  const handle = document.getElementById("ownerChatResizeHandle");
+  if (!handle || !ownerChatContacts || !ownerChatPanel) return;
+  const storageKey = "ej-owner-chat-contact-list-height";
+  const minHeight = 90;
+  const getMaxHeight = () => Math.max(minHeight, ownerChatPanel.clientHeight - 70 - 58 - 14 - 80);
+  const applyHeight = value => {
+    const maxHeight = getMaxHeight();
+    const height = Math.min(maxHeight, Math.max(minHeight, Number(value) || 190));
+    ownerChatContacts.style.height = `${height}px`;
+    ownerChatContacts.style.maxHeight = `${height}px`;
+    ownerChatContacts.style.flex = `0 0 ${height}px`;
+    handle.setAttribute("aria-valuemax", String(Math.round(maxHeight)));
+    handle.setAttribute("aria-valuenow", String(Math.round(height)));
+    try { localStorage.setItem(storageKey, String(Math.round(height))); } catch (_) {}
+  };
+  try {
+    const savedHeight = Number(localStorage.getItem(storageKey));
+    if (savedHeight >= minHeight) applyHeight(savedHeight);
+  } catch (_) {}
+  handle.addEventListener("pointerdown", event => {
+    if (ownerChatContacts.hidden || event.button !== 0) return;
+    event.preventDefault();
+    const startY = event.clientY;
+    const startHeight = ownerChatContacts.getBoundingClientRect().height;
+    handle.setPointerCapture(event.pointerId);
+    const onMove = moveEvent => applyHeight(startHeight + moveEvent.clientY - startY);
+    const onEnd = endEvent => {
+      if (handle.hasPointerCapture(endEvent.pointerId)) handle.releasePointerCapture(endEvent.pointerId);
+      handle.removeEventListener("pointermove", onMove);
+      handle.removeEventListener("pointerup", onEnd);
+      handle.removeEventListener("pointercancel", onEnd);
+    };
+    handle.addEventListener("pointermove", onMove);
+    handle.addEventListener("pointerup", onEnd);
+    handle.addEventListener("pointercancel", onEnd);
+  });
+  handle.addEventListener("keydown", event => {
+    if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+    event.preventDefault();
+    applyHeight(ownerChatContacts.getBoundingClientRect().height + (event.key === "ArrowUp" ? -12 : 12));
+  });
+}
+setupOwnerChatResizeHandle();
 
 function ownerChatEscape(value) {
   return String(value ?? "").replace(/[&<>"']/g, character => ({
@@ -15827,30 +16122,139 @@ function ownerChatEscape(value) {
   })[character]);
 }
 
+let ownerChatSelectedImageFile = null;
+let ownerChatImagePreviewUrl = null;
+function ownerChatOpenImagePicker() {
+  if (!currentUser) { alert("Please sign in to attach an image to the conversation."); return; }
+  document.getElementById("ownerChatImageInput")?.click();
+}
+function ownerChatHandleImageSelection(input) {
+  const file = input?.files?.[0]; if (!file) return;
+  if (!file.type.startsWith("image/") || file.size > 10 * 1024 * 1024) {
+    alert("Choose an image no larger than 10 MB."); input.value = ""; return;
+  }
+  ownerChatClearImageSelection(); ownerChatSelectedImageFile = file;
+  ownerChatImagePreviewUrl = URL.createObjectURL(file);
+  document.getElementById("ownerChatImagePreviewThumb").src = ownerChatImagePreviewUrl;
+  document.getElementById("ownerChatImagePreviewName").textContent = file.name;
+  document.getElementById("ownerChatImagePreview").hidden = false;
+}
+function ownerChatClearImageSelection() {
+  if (ownerChatImagePreviewUrl) URL.revokeObjectURL(ownerChatImagePreviewUrl);
+  ownerChatImagePreviewUrl = null; ownerChatSelectedImageFile = null;
+  const preview = document.getElementById("ownerChatImagePreview"); if (preview) preview.hidden = true;
+  const thumb = document.getElementById("ownerChatImagePreviewThumb"); if (thumb) thumb.removeAttribute("src");
+  const name = document.getElementById("ownerChatImagePreviewName"); if (name) name.textContent = "";
+  const input = document.getElementById("ownerChatImageInput"); if (input) input.value = "";
+}
+function ownerChatRenderMessageBody(body) {
+  const value = String(body || "");
+  const match = value.match(/^\[\[ej-chat-image:(https?:\/\/[^\]\s]+)\]\](?:\r?\n|$)/i);
+  if (!match) return ownerChatEscape(value).replace(/\r?\n/g, "<br>");
+  const url = ownerChatEscape(match[1]);
+  const text = ownerChatEscape(value.slice(match[0].length)).replace(/\r?\n/g, "<br>");
+  return `<span class="owner-chat-image-frame"><a class="owner-chat-image-link" href="${url}" target="_blank" rel="noopener noreferrer" aria-label="Open image at full size"><img class="owner-chat-message-image" src="${url}" alt="Image attachment" loading="lazy"></a></span>${text ? `<div class="owner-chat-image-caption">${text}</div>` : ""}`;
+}
+
 function ownerChatDisplayName(value) {
   const name = String(value || "Community member");
   return name.trim().toLocaleLowerCase() === "hello" ? `${name}!` : name;
 }
 
+let ownerChatReadAtCache = null;
+function ownerChatReadTimestampMap() {
+  if (ownerChatReadAtCache) return ownerChatReadAtCache;
+  try { ownerChatReadAtCache = JSON.parse(localStorage.getItem("ej-owner-chat-read-at") || "{}"); }
+  catch (_) { ownerChatReadAtCache = {}; }
+  return ownerChatReadAtCache;
+}
+function ownerChatMarkConversationRead(key) {
+  if (!key) return;
+  const readAt = ownerChatReadTimestampMap();
+  readAt[key] = new Date().toISOString();
+  try { localStorage.setItem("ej-owner-chat-read-at", JSON.stringify(readAt)); } catch (_) {}
+}
+function ownerChatMessageIsUnread(message, key) {
+  if (String(message.recipient_id || "") !== OWNER_CHAT_ID || String(message.sender_id || "") === OWNER_CHAT_ID) return false;
+  const readAt = ownerChatReadTimestampMap()[key];
+  return !readAt || !message.created_at || Date.parse(message.created_at) > Date.parse(readAt);
+}
+function ownerChatConversationKeyForMessage(message) {
+  if (message.guest_email && (!message.sender_id || String(message.recipient_id || "") === OWNER_CHAT_ID)) return `guest:${message.guest_email}`;
+  const userId = String(message.sender_id || "") === OWNER_CHAT_ID ? message.recipient_id : message.sender_id;
+  return userId ? `user:${userId}` : null;
+}
+function ownerChatRenderContactCount(total, unread) {
+  const messageCount = Math.max(0, Number(total) || 0);
+  const unreadCount = Math.max(0, Number(unread) || 0);
+  const label = unreadCount ? `${unreadCount} unread messages` : `${messageCount} messages`;
+  return `<span class="owner-chat-contact-count${unreadCount ? " is-unread" : ""}" aria-label="${label}">${unreadCount ? `+${unreadCount}` : messageCount}</span>`;
+}
+function ownerChatUpdateContactCount(button, total, unread) {
+  if (!button) return;
+  button.dataset.messageCount = String(Math.max(0, Number(total) || 0));
+  button.dataset.unreadCount = String(Math.max(0, Number(unread) || 0));
+  const badge = button.querySelector(".owner-chat-contact-count");
+  if (badge) badge.outerHTML = ownerChatRenderContactCount(total, unread);
+}
 function ownerChatMessageFingerprint(message) {
   return [message.sender_id || "guest", message.guest_email || "", message.created_at || "", message.body || ""].join("|");
 }
 
 function updateOwnerChatUnreadBadge() {
   const badge = document.getElementById("ownerChatLauncherUnread");
+  const isOwner = Boolean(currentUser && String(currentUser.id) === OWNER_CHAT_ID);
   if (badge) {
-    badge.hidden = ownerChatUnreadCount < 1;
-    badge.textContent = ownerChatUnreadCount > 1 ? `+${ownerChatUnreadCount}` : "+1";
+    badge.hidden = !isOwner || ownerChatUnreadCount < 1;
+    badge.textContent = ownerChatUnreadCount > 0 ? `+${ownerChatUnreadCount}` : "";
     badge.setAttribute("aria-label", `${ownerChatUnreadCount} unread ${ownerChatUnreadCount === 1 ? "message" : "messages"}`);
   }
   updateProfileNotificationBell();
 }
 
-function clearOwnerChatUnread() {
-  ownerChatUnreadCount = 0;
+function ownerChatSyncLauncherUnreadCount() {
+  if (!currentUser || String(currentUser.id) !== OWNER_CHAT_ID) {
+    ownerChatUnreadCount = 0;
+    updateOwnerChatUnreadBadge();
+    return;
+  }
+  const rows = ownerChatContacts?.querySelectorAll(".owner-chat-contact") || [];
+  ownerChatUnreadCount = [...rows].reduce((sum, row) => sum + Math.max(0, Number(row.dataset.unreadCount) || 0), 0);
   updateOwnerChatUnreadBadge();
 }
 
+async function ownerChatRefreshLauncherUnreadCount() {
+  if (!currentUser || String(currentUser.id) !== OWNER_CHAT_ID) {
+    ownerChatUnreadCount = 0;
+    updateOwnerChatUnreadBadge();
+    return;
+  }
+  const { data, error } = await db
+    .from("owner_messages")
+    .select("sender_id, recipient_id, guest_email, created_at")
+    .eq("recipient_id", OWNER_CHAT_ID)
+    .order("created_at", { ascending: false })
+    .limit(1000);
+  if (error) {
+    console.error("Could not count unread chat messages:", error);
+    return;
+  }
+  ownerChatUnreadCount = (data || []).reduce((count, message) => {
+    if (String(message.sender_id || "") === OWNER_CHAT_ID) return count;
+    const key = ownerChatConversationKeyForMessage(message);
+    return count + (key && ownerChatMessageIsUnread(message, key) ? 1 : 0);
+  }, 0);
+  updateOwnerChatUnreadBadge();
+}
+
+function clearOwnerChatUnread() {
+  if (currentUser && String(currentUser.id) === OWNER_CHAT_ID) {
+    ownerChatSyncLauncherUnreadCount();
+    return;
+  }
+  ownerChatUnreadCount = 0;
+  updateOwnerChatUnreadBadge();
+}
 function showOwnerChatIncomingPopout(message) {
   const fingerprint = ownerChatMessageFingerprint(message);
   if (ownerChatNotifiedMessageKeys.has(fingerprint)) return;
@@ -16226,6 +16630,13 @@ async function ownerChatLoadInbox() {
     }
   });
 
+  (messages || []).forEach(message => {
+    const key = ownerChatConversationKeyForMessage(message);
+    const conversation = key ? conversations.get(key) : null;
+    if (!conversation) return;
+    conversation.messageCount = (conversation.messageCount || 0) + 1;
+    if (ownerChatMessageIsUnread(message, key)) conversation.unreadCount = (conversation.unreadCount || 0) + 1;
+  });
   const userIds = [...conversations.values()]
     .filter(item => item.userId)
     .map(item => item.userId);
@@ -16243,6 +16654,7 @@ async function ownerChatLoadInbox() {
     });
   }
 
+  await loadMemberPresence(userIds);
   const list = [...conversations.values()];
   ownerChatConversationSearchIndex = new Map(list.map(item => {
     const profileName = item.userId ? ownerChatProfiles[item.userId]?.full_name || "Community member" : item.name;
@@ -16267,6 +16679,8 @@ async function ownerChatLoadInbox() {
       : null;
 
   const selected = list.find(item => item.key === activeKey) || list[0];
+  ownerChatMarkConversationRead(selected.key);
+  selected.unreadCount = 0;
 
   ownerChatContacts.innerHTML = `
     <div id="ownerChatInboxSearchRow" class="owner-chat-inbox-search" ${ownerChatSearchOpen ? "" : "hidden"}>
@@ -16279,6 +16693,11 @@ async function ownerChatLoadInbox() {
       ? ownerChatProfiles[item.userId]?.full_name || "Community member"
       : item.name;
 
+    const profile = item.userId ? ownerChatProfiles[item.userId] : null;
+    const initials = String(name || "Community member").trim().split(/\s+/).slice(0, 2).map(part => part[0] || "").join("").toUpperCase();
+    const avatar = profile?.avatar_url ? `<img src="${ownerChatEscape(profile.avatar_url)}" alt="" loading="lazy">` : `<span>${ownerChatEscape(initials || "?")}</span>`;
+    const lastSeen = item.userId ? memberPresenceById.get(String(item.userId)) : null;
+    const online = Boolean(lastSeen && Date.now() - Date.parse(lastSeen) < 120000);
     const dataAttribute = item.userId
       ? `data-chat-user="${ownerChatEscape(item.userId)}"`
       : `data-chat-email="${ownerChatEscape(item.guestEmail)}"`;
@@ -16288,17 +16707,21 @@ async function ownerChatLoadInbox() {
         type="button"
           onclick="ownerChatSelectConversation(this)"
         class="owner-chat-contact ${item.key === selected.key ? "is-active" : ""}"
+        data-message-count="${item.messageCount || 0}" data-unread-count="${item.unreadCount || 0}"
         data-chat-key="${ownerChatEscape(item.key)}"
         ${dataAttribute}
       >
+<span class="owner-chat-contact-avatar" aria-label="${online ? "Online" : "Offline"}">${avatar}<i class="owner-chat-contact-presence${online ? " is-online" : ""}" aria-hidden="true"></i></span>
 <div class="owner-chat-contact-details">
   <strong>${ownerChatEscape(name)}</strong>
   <span>${ownerChatEscape(item.guestEmail || "Community member")}</span>
-</div>    
+</div>
+  ${ownerChatRenderContactCount(item.messageCount, item.unreadCount)}    
   </button>
     `;
   }).join("");
   ownerChatFilterInbox(ownerChatSearchTerm);
+  ownerChatSyncLauncherUnreadCount();
 
   if (selected.guestEmail) {
     ownerChatActiveUserId = null;
@@ -16351,7 +16774,7 @@ async function ownerChatLoadGuestMessages() {
 
     ownerChatMessages.innerHTML = (messages || []).map(message => `
       <div class="owner-chat-bubble ${message.sender_id === OWNER_CHAT_ID ? "mine" : ""}">
-        ${ownerChatEscape(message.body)}
+        ${ownerChatRenderMessageBody(message.body)}
       </div>
     `).join("") || '<p class="owner-chat-empty">No messages yet.</p>';
     notifyForNewConversationMessage(messages, `guest:${ownerChatActiveGuestEmail}`);
@@ -16387,7 +16810,7 @@ async function ownerChatLoadMessages() {
 
       return `
         <div class="owner-chat-bubble ${isMine ? "mine" : ""}">
-          ${ownerChatEscape(message.body)}
+          ${ownerChatRenderMessageBody(message.body)}
         </div>
       `;
     }).join("") || '<p class="owner-chat-empty">No messages yet.</p>';
@@ -16476,11 +16899,23 @@ async function ownerChatCheckIncomingMessages() {
     if (String(message.sender_id || "") === OWNER_CHAT_ID) return;
     const fingerprint = ownerChatMessageFingerprint(message);
     if (ownerChatIncomingMessageKeys.has(fingerprint)) return;
-    ownerChatIncomingMessageKeys.add(fingerprint);
+    ownerChatIncomingMessageKeys.add(fingerprint);    const conversationKey = ownerChatConversationKeyForMessage(message);
+    const activeKey = ownerChatActiveGuestEmail ? `guest:${ownerChatActiveGuestEmail}` : ownerChatActiveUserId ? `user:${ownerChatActiveUserId}` : null;
+    const contact = conversationKey ? [...ownerChatContacts.querySelectorAll(".owner-chat-contact")].find(row => row.dataset.chatKey === conversationKey) : null;
+    if (contact) {
+      const total = Number(contact.dataset.messageCount || 0) + 1;
+      if (!ownerChatPanel.hidden && activeKey === conversationKey) {
+        ownerChatMarkConversationRead(conversationKey);
+        ownerChatUpdateContactCount(contact, total, 0);
+      } else {
+        ownerChatUpdateContactCount(contact, total, Number(contact.dataset.unreadCount || 0) + 1);
+      }
+    }
     while (ownerChatIncomingMessageKeys.size > 200) {
       ownerChatIncomingMessageKeys.delete(ownerChatIncomingMessageKeys.values().next().value);
     }
     showOwnerChatIncomingPopout(message);
+    ownerChatSyncLauncherUnreadCount();
   });
 }
 
@@ -16599,7 +17034,7 @@ document.addEventListener("click", event => {
 updateAboutVoiceControls();
 
 document.getElementById("ownerChatLauncher").addEventListener("click", () => {
-  clearOwnerChatUnread();
+
   if (ownerChatPanel.hidden) {
     openOwnerChat();
   } else if (ownerChatPanel.classList.contains("is-minimized")) {
@@ -16631,6 +17066,9 @@ async function ownerChatSelectConversation(button) {
     .forEach(contact => contact.classList.remove("is-active"));
 
   button.classList.add("is-active");
+  ownerChatMarkConversationRead(button.dataset.chatKey);
+  ownerChatUpdateContactCount(button, button.dataset.messageCount, 0);
+  ownerChatSyncLauncherUnreadCount();
 
   if (button.dataset.chatEmail) {
     ownerChatActiveGuestEmail = button.dataset.chatEmail;
@@ -16668,6 +17106,7 @@ ownerChatForm.addEventListener("submit", async event => {
   const emailInput = document.getElementById("ownerChatGuestEmail");
 
   const body = input.value.trim();
+  const imageFile = ownerChatSelectedImageFile;
   const isOwner =
     currentUser && String(currentUser.id) === OWNER_CHAT_ID;
 
@@ -16676,11 +17115,24 @@ ownerChatForm.addEventListener("submit", async event => {
     ? (isGuestConversation ? OWNER_CHAT_ID : ownerChatActiveUserId)
     : OWNER_CHAT_ID;
 
-  if (!recipientId || !body) return;
+  if (!recipientId || (!body && !imageFile)) return;
+  if (imageFile && !currentUser) { alert("Please sign in to attach an image to the conversation."); return; }
 
   if (!currentUser && (!nameInput.value.trim() || !emailInput.value.trim())) {
     alert("Please enter your name and email.");
     return;
+  }
+
+  let outgoingBody = body;
+  let uploadedImagePath = null;
+  if (imageFile) {
+    const safeName = imageFile.name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(-100) || "image";
+    const uniqueId = globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    uploadedImagePath = `${currentUser.id}/chat-images/${uniqueId}-${safeName}`;
+    const { error: uploadError } = await db.storage.from("post-media").upload(uploadedImagePath, imageFile, { contentType: imageFile.type, upsert: false });
+    if (uploadError) { console.error("Could not upload chat image:", uploadError); alert("The image could not be uploaded. Please try again."); return; }
+    const { data: publicUrlData } = db.storage.from("post-media").getPublicUrl(uploadedImagePath);
+    outgoingBody = `[[ej-chat-image:${publicUrlData.publicUrl}]]${body ? `\n${body}` : ""}`;
   }
 
   const { error } = await db
@@ -16694,17 +17146,19 @@ ownerChatForm.addEventListener("submit", async event => {
       guest_email: currentUser
         ? (isGuestConversation ? ownerChatActiveGuestEmail : null)
         : emailInput.value.trim(),
-      body
+      body: outgoingBody
     });
     
 
   if (error) {
     console.error(error);
+    if (uploadedImagePath) await db.storage.from("post-media").remove([uploadedImagePath]);
     alert("Your message could not be sent. Please try again.");
     return;
   }
 
   input.value = "";
+  ownerChatClearImageSelection();
 
   if (!currentUser) {
     ownerChatMessages.innerHTML =
@@ -16968,7 +17422,7 @@ ownerChatForm.addEventListener("submit", async event => {
     const style = logo.style;
     style.setProperty("position", "absolute", "important");
     style.setProperty("top", mobile ? "8px" : "32px", "important");
-    style.setProperty("right", mobile ? "calc(50% - 32px)" : "18px", "important");
+    style.setProperty("right", mobile ? "max(10px, env(safe-area-inset-right))" : "18px", "important");
     style.setProperty("bottom", "auto", "important");
     style.setProperty("left", "auto", "important");
     style.setProperty("width", mobile ? "64px" : "175px", "important");
@@ -16992,3 +17446,28 @@ ownerChatForm.addEventListener("submit", async event => {
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
