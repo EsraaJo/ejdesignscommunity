@@ -6523,6 +6523,8 @@ box-shadow:
 .member-projects.is-expanded .member-projects-grid .project-card img { height: 200px; }
 #ownerChatWidget .social-sidebar-panel { z-index: 25; }
 #ownerChatWidget .owner-chat-panel { z-index: 24; }
+#ownerChatWidget .social-sidebar-panel.is-minimized { z-index: 23 !important; }
+#ownerChatWidget .owner-chat-panel:not(.is-minimized) { z-index: 26 !important; }
 #ownerChatWidget .social-sidebar-launcher,
 #ownerChatWidget .owner-chat-launcher { position: relative; z-index: 40; }
 .social-sidebar-panel::-webkit-scrollbar,
@@ -6541,9 +6543,17 @@ box-shadow:
 #connectSection .section-home-button,
 #createSection .section-home-button,
 #shareSection .section-home-button { display: flex; width: max-content; margin: 0 auto 36px; }
+#connectSection .connect-page-navigation { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px; margin: 0 auto 36px; }
+#connectSection .connect-page-navigation .section-home-button { margin: 0; }
+#connectSection .connect-page-navigation .page-back-btn { margin: 0; }
+#connectSection .connect-page-navigation + h2 { margin-top: 0; }
 #connectSection .section-home-button + h2,
 #createSection .section-home-button + h2,
 #shareSection .section-home-button + h2 { margin-top: 0; }
+#createSection .page-navigation-row .section-home-button { margin: 0; }
+#searchResultsSection .page-navigation-row + h2,
+#createSection .page-navigation-row + h2,
+#shareIdeasSection .page-navigation-row + h2 { margin-top: 0; }
 #searchResultsSection .global-search-results > .page-back-btn,
 #shareIdeasSection .community-page > .page-back-btn { margin: 0 auto 36px; }
 #searchResultsSection .global-search-results > .page-back-btn + h2,
@@ -6551,6 +6561,9 @@ box-shadow:
 .project-list-navigation,
 .project-detail-navigation,
 .member-profile-navigation { margin: 36px auto 36px; }
+.page-navigation-row { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px; margin: 0 auto 36px; }
+.page-navigation-row .page-back-btn { margin: 0; }
+.section-forward-btn[hidden] { display: none !important; }
 .posts-page-navigation { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin: 0 auto 36px; }
 .posts-page-navigation .page-back-btn { margin: 0; }
 #shareSection .posts-page-navigation .page-back-btn:nth-child(2) { width: 112px !important; min-width: 112px !important; box-sizing: border-box; padding-right: 18px; padding-left: 18px; }
@@ -7792,7 +7805,7 @@ body > header {
   .connect-discovery-group, .social-directory-toolbar { width: 100%; max-width: 100%; min-width: 0; margin: 14px auto 18px; box-sizing: border-box; }
   .connect-discovery-group.has-community { min-height: 0; padding: 8px 8px 12px; }
   .connect-discovery-group.has-community .home-social-hub { padding: 14px 8px 8px; }
-  .connect-discovery-group.has-community .home-social-hub h3 { padding: 0 76px; font-size: clamp(18px, 5vw, 22px); line-height: 1.2; overflow-wrap: anywhere; }
+  .connect-discovery-group.has-community .home-social-hub h3 { padding: 0 72px 0 0; font-size: clamp(15px, 4.7vw, 21px); line-height: 1.2; white-space: nowrap; overflow-wrap: normal; }
   .connect-discovery-group.has-community .home-social-hub .home-social-actions { top: 12px; right: 8px; gap: 5px; }
   .connect-discovery-group.has-community .home-social-actions > button { width: 36px; min-width: 36px; height: 36px; }
   .connect-discovery-group.has-community .home-social-hub .social-summary { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 12px 0 8px; }
@@ -7932,6 +7945,226 @@ body > header {
 .owner-chat-contact-avatar{position:relative;display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;flex:0 0 38px;overflow:visible;border:1px solid rgba(214,184,66,.58);border-radius:50%;color:#806b18;background:#f1ead2;font-size:13px;font-weight:700}.owner-chat-contact-avatar>img{width:100%;height:100%;border-radius:inherit;object-fit:cover}
 .owner-chat-contact-presence{position:absolute;right:-2px;bottom:-1px;width:11px;height:11px;border:2px solid #fafafa;border-radius:50%;background:#999;box-shadow:0 0 0 1px rgba(0,0,0,.12)}.owner-chat-contact-presence.is-online{background:#229866}.owner-chat-contact{gap:11px}.owner-chat-contact-details{min-width:0}
 @media(max-width:700px){.owner-chat-send-row .owner-chat-image-button{width:38px;min-width:38px;height:38px;font-size:25px}.owner-chat-message-image{max-width:min(140px,100%);max-height:115px}.owner-chat-contact-avatar{width:34px;height:34px;flex-basis:34px}}
+</style>
+<style>
+.network-connections-accent { color: #111111; }
+.profile-work-status-badge { display:inline-flex; align-items:center; justify-content:center; max-width:100%; margin:4px 5px 0; padding:3px 9px; border:1px solid currentColor; border-radius:999px; font-size:10px; font-weight:700; line-height:1.25; white-space:nowrap; box-shadow:0 2px 7px rgba(0,0,0,.12); }
+.work-status-available { color:#168454; background:rgba(39,166,108,.12); }
+.work-status-employed { color:#c93642; background:rgba(214,55,68,.11); }
+.work-status-seeking { color:#c57713; background:rgba(232,151,35,.14); }
+.member-card-work-status { flex-basis:100%; margin:3px 0 0; }
+@media (max-width: 700px) {
+  #ownerChatWidget .owner-chat-conversation-tools {
+    position: relative;
+    top: auto;
+    right: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 10px;
+    background: #f7f7f5;
+    border-bottom: 1px solid rgba(214,184,76,.18);
+  }
+  #ownerChatWidget .owner-chat-conversation-tools button { flex: 0 0 34px; width: 34px; height: 34px; }
+  #ownerChatWidget .owner-chat-messages,
+  #ownerChatWidget .owner-chat-contacts { padding-right: 12px; }
+  #connectSection .connect-discovery-group.has-community .home-social-hub h3 { white-space: nowrap; }
+}
+#memberProfileSection .member-profile-navigation .page-back-btn:nth-child(2) {
+  color: #222 !important;
+  background: #fff !important;
+  border-color: #e5e5e5 !important;
+  box-shadow: 0 3px 10px rgba(0,0,0,.05) !important;
+  font-family: inherit !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+#memberProfileSection .member-profile-navigation .page-back-btn:nth-child(2):hover {
+  color: #222 !important;
+  background: #f7f6f2 !important;
+  border-color: #d6b84c !important;
+}
+@media (max-width: 370px) {
+  #connectSection .connect-discovery-group.has-community .home-social-hub h3 { font-size: 15px; padding-right: 66px; }
+}
+
+/* Keep forward controls hidden until a Back action creates a forward destination. */
+#profileSection .profile-nav-center .page-back-btn.section-forward-btn[hidden],
+#projectDetailsSection .project-detail-navigation .page-back-btn.section-forward-btn[hidden],
+#memberProfileSection .member-profile-navigation .page-back-btn.section-forward-btn[hidden],
+.page-section .page-back-btn.section-forward-btn[hidden] { display: none !important; }
+
+/* Keep the avatar presence mark above its icon/photo, inside its own layer.
+   Profile action menus (including the three-dot menu) stay above that layer on phones. */
+#profileSection .profile-avatar { position: relative; z-index: 1; isolation: isolate; }
+#profileSection .profile-avatar-presence { z-index: 2 !important; }
+#profileSection .profile-header-actions { z-index: 80 !important; }
+#profileSection .profile-header-actions .profile-options-menu,
+#profileSection .profile-header-actions .profile-notifications-menu { position: relative; z-index: 81; }
+#profileSection .profile-header-actions .profile-options-popover,
+#profileSection .profile-header-actions .profile-notifications-popover { z-index: 82; }
+
+/* Match Home navigation buttons to the yellow Home state; preserve all dimensions. */
+body .page-back-btn.section-home-button,
+body .page-back-btn[onclick*="homeSection"] {
+  color: #292510 !important;
+  border-color: rgba(214,184,76,.66) !important;
+  background: linear-gradient(135deg, rgba(255,237,132,.96), rgba(241,207,69,.84)) !important;
+  box-shadow: 0 5px 16px rgba(214,184,76,.32), inset 0 1px 0 rgba(255,255,255,.62) !important;
+}
+body .page-back-btn.section-home-button:hover,
+body .page-back-btn[onclick*="homeSection"]:hover {
+  color: #17140a !important;
+  border-color: rgba(214,184,76,.82) !important;
+  background: linear-gradient(135deg, rgba(244,226,142,.78), rgba(224,195,78,.62)) !important;
+}
+</style>
+<style>
+/* A restrained light sweep masked to the existing logo artwork. */
+.corner-logo-shine {
+  position: absolute;
+  top: 32px; right: 18px; width: 175px; height: 138px;
+  z-index: 3; overflow: hidden; pointer-events: none;
+  -webkit-mask-image: url("logo.png"); mask-image: url("logo.png");
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-size: contain; mask-size: contain;
+  -webkit-mask-position: center; mask-position: center;
+}
+.corner-logo-shine::before {
+  content: ""; position: absolute; top: -32%; bottom: -32%; left: -48%; width: 34%;
+  transform: skewX(-22deg); opacity: 0; filter: blur(1.2px); mix-blend-mode: screen;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.14) 32%, rgba(255,249,211,.78) 50%, rgba(255,255,255,.16) 68%, transparent);
+  animation: cornerLogoLightSweep 18s cubic-bezier(.45,0,.55,1) infinite;
+}
+@keyframes cornerLogoLightSweep {
+  0%, 61% { left: -48%; opacity: 0; }
+  67% { opacity: .48; }
+  91% { left: 145%; opacity: .4; }
+  96%, 100% { left: 145%; opacity: 0; }
+}
+@media (max-width: 700px) {
+  .corner-logo-shine { top: 18px; right: max(10px, env(safe-area-inset-right)); width: 64px; height: 52px; }
+}
+@media (prefers-reduced-motion: reduce) { .corner-logo-shine::before { animation: none; } }
+</style>
+<style>
+/* Keep the suggested-member status sticker directly below the role sticker. */
+.member-card .member-name-line { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:2px; }
+.member-card .member-name-line .member-role-line { position:relative; width:max-content; margin:0; }
+.member-card .member-name-line .member-role-line .member-owner-verified { position:absolute; top:50%; left:calc(100% + 5px); margin:0; transform:translateY(-50%); }
+.member-card-work-status { align-self:center; flex:0 0 auto; margin:2px 0 0; }
+.work-status-unavailable { color:#727272; border-color:rgba(110,110,110,.5); background:rgba(120,120,120,.1); }
+.profile-profession-status { margin:0 0 0 8px; vertical-align:middle; }
+#profileSection #profileProfession { display:inline-flex; align-items:center; flex-wrap:wrap; gap:8px; }
+#memberProfileSection .member-profile-header { position:relative; }
+#memberProfileSection .member-profile-heading > p.member-profile-profession { display:flex; grid-template-columns:none; align-items:center; flex-wrap:wrap; gap:7px; }
+#memberProfileSection .member-profile-heading > p.member-profile-profession::before { flex:0 0 6px; }
+.member-profile-work-status { margin:0; }
+#memberProfileSection .member-profile-options-menu { position:absolute; top:12px; right:12px; z-index:30; }
+#memberProfileSection .member-profile-options-menu > .profile-options-trigger { width:38px; height:38px; color:#6f5a16; border-color:rgba(174,140,32,.58); background:linear-gradient(145deg,#fffdf5,#f1e7bd); box-shadow:0 3px 10px rgba(50,45,30,.12),inset 0 1px 0 #fff; }
+#memberProfileSection .member-profile-options-menu > .profile-options-trigger:hover,
+#memberProfileSection .member-profile-options-menu[open] > .profile-options-trigger { border-color:#c5a530; background:linear-gradient(145deg,#fff3bf,#e9d36e); }
+#memberProfileSection .member-profile-options-menu .profile-options-popover { color:#292929; background:rgba(255,255,255,.98); box-shadow:0 10px 26px rgba(0,0,0,.16),0 0 12px rgba(214,184,76,.12); }
+#memberProfileSection .member-profile-options-menu .profile-options-popover button { color:#292929; border:1px solid rgba(191,151,24,.72); background:rgba(214,184,76,.06); }
+#memberProfileSection .member-profile-options-menu .profile-options-popover button:hover,
+#memberProfileSection .member-profile-options-menu .profile-options-popover button:focus-visible { color:#171717; background:linear-gradient(135deg,#fff4c3,#f4e4a0); }
+#shareSection .post-identity-band .post-expand-button { display:grid; flex:0 0 34px; width:34px; min-width:34px; height:34px; place-items:center; margin:0; padding:0; border-color:rgba(214,184,76,.58); border-radius:9px; color:#f5df84; background:rgba(214,184,76,.11); font-size:20px; line-height:1; cursor:zoom-in; }
+#shareSection .post-identity-band .post-expand-button:hover { color:#171717; background:#f1d45e; }
+/* Tighten profile details while preserving the current two-column field order. */
+#profileSection .edit-grid { gap:12px 20px; }
+#profileSection .profile-info { column-gap:22px; margin-bottom:12px; }
+#profileSection .profile-row { padding:6px 0; }
+
+#profileSection #profileEditMode .edit-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px 22px; }
+#profileSection #profileEditMode .edit-field.full-width { grid-column:auto; }
+.profile-detail-work-status { margin:0; }
+#ownerChatHeaderStatus { color:#fff !important; }
+.member-work-status-row { margin-top:10px; padding-top:9px; border-top:1px solid rgba(105,110,115,.14); }
+.member-profile-work-status { margin:0; }
+.member-visitor-preview-banner { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px; }
+.visitor-preview-cancel { min-height:30px; padding:5px 12px; border:1px solid rgba(214,184,76,.64); border-radius:7px; color:#171717; background:linear-gradient(135deg,#f5e28c,#dfc04a); font:inherit; font-size:12px; font-weight:700; cursor:pointer; }
+.visitor-preview-cancel:hover { background:linear-gradient(135deg,#fff0a8,#ecd35b); }
+@media (max-width:650px) {
+
+  #profileSection .edit-grid { grid-template-columns:minmax(0,1fr); gap:10px; }
+  #profileSection .edit-field.full-width { grid-column:auto; }
+  #profileSection #profileEditMode .edit-grid { grid-template-columns:minmax(0,1fr); }
+}
+/* Readable post expansion without moving or resizing its original feed card. */
+.post-expanded-overlay { position:fixed; inset:0; z-index:12000; display:grid; place-items:center; box-sizing:border-box; padding:clamp(10px,2.5vw,28px); background:rgba(0,0,0,.72); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px); }
+.post-expanded-preview { width:min(1050px,100%); max-height:calc(100dvh - 32px); overflow:auto; overscroll-behavior:contain; box-shadow:0 22px 70px rgba(0,0,0,.48); }
+.post-expanded-preview .post-content { font-size:16px; line-height:1.65; overflow-wrap:anywhere; }
+.post-expanded-preview .post-images { grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr)); }
+.post-expanded-preview .post-images .post-image-trigger { height:clamp(150px,28vh,300px); }
+.post-expanded-close { position:fixed; z-index:2; top:max(12px,env(safe-area-inset-top)); right:max(12px,env(safe-area-inset-right)); display:grid; width:42px; height:42px; place-items:center; border:1px solid rgba(255,255,255,.65); border-radius:50%; color:#fff; background:#171717; font:inherit; font-size:27px; line-height:1; cursor:pointer; box-shadow:0 3px 12px rgba(0,0,0,.35); }
+.post-expanded-close:hover { color:#171717; border-color:#e6c94f; background:#f3d961; }
+.post-image-viewer { z-index:12010; }
+@media (max-width:600px) {
+  .post-expanded-overlay { padding:8px; }
+  .post-expanded-preview { max-height:calc(100dvh - 16px); padding:16px; }
+  .post-expanded-preview .post-content { font-size:15px; }
+}
+.page-section .page-back-btn[onclick*="homeSection"],
+.page-section .page-back-btn.section-home-button { width:112px !important; min-width:112px !important; box-sizing:border-box; }
+/* Minimized dock tabs use compact uppercase labels. */
+.social-sidebar-panel.is-minimized .social-sidebar-header .social-sidebar-title { text-transform: none; }
+.owner-chat-panel.is-minimized .owner-chat-heading strong { font-size: 0 !important; }
+.owner-chat-panel.is-minimized .owner-chat-heading strong::after { content: "My Inbox"; font-size: 14px; line-height: 1.2; }
+/* Keep visitor notice aligned to the exact width of the profile card, in neutral gray. */
+#memberProfileSection .member-visitor-preview-banner { width:min(760px,calc(100% - 24px)); box-sizing:border-box; margin:0 auto 14px; border-color:#c9c9c9; color:#4b4b4b; background:#ededed; }
+#memberProfileSection .visitor-preview-cancel { border-color:#aaa; color:#333; background:#d8d8d8; }
+#memberProfileSection .visitor-preview-cancel:hover { border-color:#999; color:#222; background:#cfcfcf; }
+/* Slightly reduce the public profile header height while preserving its width and content. */
+#memberProfileSection .member-profile-header { gap:10px; margin-bottom:8px; padding-top:9px; padding-bottom:10px; }
+#memberProfileSection .member-profile-header > .member-social-preview .member-social-group { padding:4px; }
+.profile-profession-status { margin:0 0 0 8px; vertical-align:middle; }
+/* Match edit-form typography and field rhythm to the My Profile view. */
+#profileSection #profileEditMode .edit-grid { align-items:start; row-gap:10px; }
+#profileSection #profileEditMode .edit-field { gap:4px; min-width:0; }
+#profileSection #profileEditMode .edit-field label { font-size:11px; line-height:1.25; letter-spacing:.45px; }
+#profileSection #profileEditMode .edit-field input:not([type="file"]),
+#profileSection #profileEditMode .edit-field select { box-sizing:border-box; width:100%; height:42px; min-height:42px; padding:8px 12px; border:1px solid #383838; border-radius:9px; color:#f1f1f1; background:#1a1a1a; font-family:inherit; font-size:15px; font-weight:400; line-height:1.35; }
+#profileSection #profileEditMode .edit-field input[type="file"] { box-sizing:border-box; width:100%; min-height:42px; padding:7px 10px; color:#eee; background:#1a1a1a; font-family:inherit; font-size:13px; font-weight:400; line-height:1.35; }
+#profileSection #profileEditMode .edit-field input[type="file"]::file-selector-button { margin-right:8px; padding:5px 9px; border:1px solid #555; border-radius:6px; color:#eee; background:#292929; font:inherit; }
+#profileSection #profileEditMode .edit-field textarea { box-sizing:border-box; width:100%; height:112px; min-height:112px; padding:9px 12px; border:1px solid #383838; border-radius:9px; color:#f1f1f1; background:#1a1a1a; font-family:inherit; font-size:15px; font-weight:400; line-height:1.45; }
+#profileSection #profileEditMode .edit-field input:focus,
+#profileSection #profileEditMode .edit-field select:focus,
+#profileSection #profileEditMode .edit-field textarea:focus { outline:2px solid rgba(214,184,76,.38); outline-offset:1px; }
+/* Expanded posts keep their source width and scroll internally with a gold scrollbar. */
+.post-expanded-preview { max-width:calc(100vw - 32px); max-height:calc(100dvh - 32px); overflow-x:hidden; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#d6b84c #242424; }
+.post-expanded-preview::-webkit-scrollbar { width:10px; }
+.post-expanded-preview::-webkit-scrollbar-track { border-radius:8px; background:#242424; }
+.post-expanded-preview::-webkit-scrollbar-thumb { border:2px solid #242424; border-radius:8px; background:linear-gradient(180deg,#f1d66b,#b9952e); }
+.post-expanded-preview::-webkit-scrollbar-thumb:hover { background:linear-gradient(180deg,#ffe88a,#d0ad3c); }
+/* Community member verification checks use green, while owner checks stay gold. */
+.member-role-line:has(> .member-owner-badge.is-member) > .member-owner-verified { color:#fff; border-color:#168454; background:linear-gradient(145deg,#2fb875,#16764c); box-shadow:0 2px 7px rgba(22,132,84,.32); }
+/* Uniform profile actions; reserve enough room for Cancel Request and its icon. */
+#memberProfileSection .member-profile-header { grid-template-columns:78px minmax(0,1fr) 380px; }
+#memberProfileSection #memberConnectionAction { justify-content:flex-end; flex-wrap:nowrap; gap:7px; }
+#memberProfileSection #memberConnectionAction .member-connection-button,
+#memberProfileSection #memberConnectionAction .member-follow-button { box-sizing:border-box; width:120px; min-width:120px; max-width:120px; height:40px; min-height:40px; max-height:40px; flex:0 0 120px; gap:4px; padding:6px 7px; font-size:11px; line-height:1.2; }
+#memberProfileSection #memberConnectionAction .member-visitor-preview-actions { display:flex; align-items:center; justify-content:flex-end; flex-wrap:nowrap; gap:7px; width:100%; }
+#memberProfileSection #memberConnectionAction button:disabled { appearance:none; opacity:1; filter:none; cursor:default; }
+@media (max-width:900px) and (min-width:601px) {
+  #memberProfileSection .member-profile-header { grid-template-columns:72px minmax(0,1fr) 380px; }
+}
+@media (max-width:600px) {
+  #memberProfileSection .member-profile-header { grid-template-columns:62px minmax(0,1fr); }
+  #memberProfileSection #memberConnectionAction { grid-column:1 / -1; grid-row:auto; justify-self:stretch; justify-content:flex-end; }
+  #memberProfileSection #memberConnectionAction .member-connection-button,
+  #memberProfileSection #memberConnectionAction .member-follow-button { width:calc((100% - 14px) / 3); min-width:100px; max-width:none; flex:1 1 100px; }
+}
+/* Keep long copy compact on post cards; expand button opens the full post. */
+#shareSection .post-card .post-content { max-height:230px; overflow-x:hidden; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#d6b84c #242424; }
+#shareSection .post-card .post-content::-webkit-scrollbar { width:10px; }
+#shareSection .post-card .post-content::-webkit-scrollbar-track { border-radius:8px; background:#242424; }
+#shareSection .post-card .post-content::-webkit-scrollbar-thumb { border:2px solid #242424; border-radius:8px; background:linear-gradient(180deg,#f1d66b,#b9952e); }
+#shareSection .post-card .post-content::-webkit-scrollbar-thumb:hover { background:linear-gradient(180deg,#ffe88a,#d0ad3c); }
+/* Match dimensions of all Back and Forward navigation buttons without changing typography. */
+.page-back-btn { box-sizing:border-box; width:112px; min-width:112px; max-width:112px; min-height:42px; padding-right:10px; padding-left:10px; }
 </style>
 </head>
 
@@ -8078,7 +8311,10 @@ body > header {
 <section id="searchResultsSection" class="page-section">
     <main>
         <div class="community-page global-search-results">
-            <button class="page-back-btn" type="button" onclick="showSection('homeSection')">Home</button>
+            <div class="page-navigation-row">
+              <button class="page-back-btn" type="button" onclick="showSection('homeSection')">Home</button>
+              <button class="page-back-btn section-forward-btn" type="button" onclick="goForwardFromSection()" aria-label="Go forward" title="Go forward" disabled hidden>Forward →</button>
+            </div>
             <h2>Search the Community</h2>
             <p id="globalSearchQuery" class="global-search-query"></p>
             <div class="search-results-toolbar">
@@ -8227,12 +8463,25 @@ body > header {
 
         <div class="community-page">
 
-            <button
-                class="page-back-btn section-home-button"
-                onclick="showSection('homeSection')"
-            >
-                Home
-            </button>
+            <div class="connect-page-navigation">
+                <button
+                    type="button"
+                    class="page-back-btn section-home-button"
+                    onclick="showSection('homeSection')"
+                >
+                    Home
+                </button>
+                <button
+                    type="button"
+                    class="page-back-btn section-forward-btn"
+                    onclick="goForwardFromSection()"
+                    aria-label="Go forward"
+                    title="Go forward"
+                    disabled
+                >
+                    Forward →
+                </button>
+            </div>
 
             <h2>
                 Connect
@@ -8266,6 +8515,7 @@ body > header {
                     </summary>
                     <div class="profile-options-popover" aria-label="Community options">
                       <button type="button" onclick="closeConnectNetworkOptionsMenu(); openSocialPage('connections', currentUser?.id)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"></circle><circle cx="17" cy="9" r="2.3"></circle><path d="M3 20a6 6 0 0 1 12 0m1-5a4.5 4.5 0 0 1 5 4.5"></path></svg><span>View My Network</span></button>
+                      <button type="button" onclick="openEditMyProfileFromConnect()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L8 18l-4 1 1-4Z"></path></svg><span>Edit My Profile</span></button>
                     </div>
                   </details>
                 </div>
@@ -8323,7 +8573,7 @@ body > header {
 
             <div class="posts-page-navigation">
                 <button type="button" class="page-back-btn" onclick="goBackFromPostsPage()">← Back</button>
-                <button type="button" class="page-back-btn" onclick="showSection('shareSection')">Share</button>
+                <button type="button" class="page-back-btn" onclick="showSection('homeSection')">Home</button>
                 <button type="button" class="page-back-btn section-forward-btn" onclick="goForwardFromSection()" aria-label="Go forward" title="Go forward" disabled>Forward →</button>
             </div>
 
@@ -8442,12 +8692,15 @@ body > header {
 
         <div class="community-page">
 
-            <button
-                class="page-back-btn section-home-button"
-                onclick="showSection('homeSection')"
-            >
-                Home
-            </button>
+            <div class="page-navigation-row">
+              <button
+                  class="page-back-btn section-home-button"
+                  onclick="showSection('homeSection')"
+              >
+                  Home
+              </button>
+              <button class="page-back-btn section-forward-btn" type="button" onclick="goForwardFromSection()" aria-label="Go forward" title="Go forward" disabled hidden>Forward →</button>
+            </div>
 
             <h2>
                 Create
@@ -8554,7 +8807,7 @@ body > header {
       <p class="community-page-subtitle">
         Upload and showcase your creative work.
       </p>
-<h3 class="project-list-heading">Community Projects</h3>
+<h3 class="project-list-heading">My Projects</h3>
 
 <div class="project-gallery">
   <div id="projectsGrid" class="projects-grid">
@@ -8690,7 +8943,7 @@ body > header {
 
       <div class="project-detail-navigation">
         <button class="page-back-btn project-history-back-btn" type="button" onclick="goBackFromProject()">← Back</button>
-        <button class="page-back-btn" type="button" onclick="showSection('projectSection')">Back to Projects</button>
+        <button class="page-back-btn" type="button" onclick="showSection('projectSection')">View My Projects</button>
         <button class="page-back-btn section-forward-btn" type="button" onclick="goForwardFromSection()" aria-label="Go forward" title="Go forward" disabled>Forward →</button>
       </div>
 
@@ -8856,7 +9109,6 @@ body > header {
 
       <div class="member-profile-navigation">
         <button type="button" class="page-back-btn" onclick="goBackFromMemberProfile()">← Back</button>
-        <button type="button" class="page-back-btn" onclick="showSection('connectSection')">Go to Connect</button>
         <button type="button" class="page-back-btn section-forward-btn" onclick="goForwardFromSection()" aria-label="Go forward" title="Go forward" disabled>Forward →</button>
       </div>
 
@@ -8877,7 +9129,7 @@ body > header {
         <button type="button" class="page-back-btn section-forward-btn" onclick="goForwardFromSection()" aria-label="Go forward" title="Go forward" disabled>Forward →</button>
       </div>
       <div class="social-connections-intro">
-        <h2>Connect with Your Network</h2>
+        <h2>Meet Your <span class="network-connections-accent">Connections</span></h2>
         <p class="community-page-subtitle">Discover architects, designers and creative professionals.</p>
       </div>
       <div class="social-directory-toolbar">
@@ -9105,7 +9357,7 @@ body > header {
                           <button type="button" onclick="closeProfileOptionsMenu(); currentUser && viewMemberProfile(currentUser.id)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20a7 7 0 0 1 14 0"></path></svg><span>View My Profile</span></button>
                           <button type="button" onclick="closeProfileOptionsMenu(); showSection('projectSection'); loadProjects();"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="7" height="7" rx="1.5"></rect><rect x="13.5" y="4" width="7" height="7" rx="1.5"></rect><rect x="3.5" y="14" width="7" height="7" rx="1.5"></rect><rect x="13.5" y="14" width="7" height="7" rx="1.5"></rect></svg><span>View My Projects</span></button>
                           <button type="button" onclick="closeProfileOptionsMenu(); openSocialPage('connections', currentUser?.id)" aria-label="View My Network"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"></circle><circle cx="17" cy="9" r="2.3"></circle><path d="M3 20a6 6 0 0 1 12 0m1-5a4.5 4.5 0 0 1 5 4.5"></path></svg><span>View My Network</span></button>
-                          <button type="button" class="visitor-preview-option" onclick="viewOwnProfileVisitorMode()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z"></path><circle cx="12" cy="12" r="2.8"></circle></svg><span>View Profile as Visitor</span></button>
+                          <button type="button" onclick="openEditMyProfileFromConnect()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L8 18l-4 1 1-4Z"></path></svg><span>Edit My Profile</span></button>
                         </div>
                       </details>
                     </div>
@@ -9420,6 +9672,16 @@ body > header {
                                 placeholder="Architect / BIM Coordinator / Designer"
                             >
 
+                        </div>
+
+                        <div class="edit-field">
+                            <label for="editWorkStatus">Work status</label>
+                            <select id="editWorkStatus">
+                                <option value="">Choose whether to display a work status</option>
+                                <option value="available">Available For Work</option>
+                                <option value="employed">Currently Employed</option>
+                                <option value="seeking">Looking For A New Opportunity</option>
+                            </select>
                         </div>
 
 
@@ -9999,23 +10261,25 @@ let pendingProjectCoverProjectId = null;
        SECTION NAVIGATION
     ===================================================== */
 
-   let socialConnectOnboardingTimer = null;
 function maybeShowSocialConnectOnboarding() {
   const hint = document.getElementById("socialConnectOnboarding");
-  if (!hint) return;
-  clearTimeout(socialConnectOnboardingTimer);
-  hint.classList.remove("is-visible");
-  hint.hidden = true;
-  const hide = () => {
-    hint.classList.remove("is-visible");
-    setTimeout(() => { hint.hidden = true; }, 220);
-  };
+  const button = document.getElementById("socialDirectoryConnectButton");
+  if (!hint || !button || button.dataset.hoverHintReady === "true") return;
+  button.dataset.hoverHintReady = "true";
   const show = () => {
     hint.hidden = false;
     requestAnimationFrame(() => hint.classList.add("is-visible"));
-    socialConnectOnboardingTimer = setTimeout(hide, 1500);
   };
-  socialConnectOnboardingTimer = setTimeout(show, 1000);
+  const hide = () => {
+    hint.classList.remove("is-visible");
+    window.setTimeout(() => {
+      if (!button.matches(":hover") && !button.contains(document.activeElement)) hint.hidden = true;
+    }, 220);
+  };
+  button.addEventListener("mouseenter", show);
+  button.addEventListener("mouseleave", hide);
+  button.addEventListener("focus", show);
+  button.addEventListener("blur", hide);
 }let sectionNavigationHistory = [];
    let sectionForwardHistory = [];
    let isNavigatingBack = false;
@@ -10111,8 +10375,10 @@ function maybeShowSocialConnectOnboarding() {
             loadFeedback();
         }
     }
+    const hasForwardPage = sectionForwardHistory.length > 0;
     document.querySelectorAll(".section-forward-btn").forEach(button => {
-        button.disabled = sectionForwardHistory.length === 0;
+        button.disabled = !hasForwardPage;
+        button.hidden = !hasForwardPage;
     });
 }
 
@@ -10202,6 +10468,7 @@ function showConnectView(view, button) {
   const members = document.getElementById("membersGrid");
   const opportunities = document.getElementById("opportunitiesList");
   const inbox = document.getElementById("memberInbox");
+  const searchInput = document.getElementById("connectSearch");
   document.querySelectorAll(".connect-view-tab").forEach(tab => {
     const active = tab === button;
     tab.classList.toggle("is-active", active);
@@ -10209,14 +10476,15 @@ function showConnectView(view, button) {
   });
   const showJobs = view === "opportunities";
   const showMessages = view === "messages";
+  if (searchInput) searchInput.placeholder = showJobs ? "Search job opportunities..." : "Search professionals...";
   members.hidden = showJobs || showMessages;
   opportunities.hidden = !showJobs;
   inbox.hidden = !showMessages;
-  if (showJobs) loadJobOpportunities();
+  if (showJobs) loadJobOpportunities(searchInput?.value || "");
   if (showMessages) loadMemberInbox();
 }
 
-async function loadJobOpportunities() {
+async function loadJobOpportunities(search = "") {
   const list = document.getElementById("opportunitiesList");
   if (!list) return;
   list.innerHTML = '<div class="global-search-empty">Loading opportunities…</div>';
@@ -10230,7 +10498,13 @@ async function loadJobOpportunities() {
     list.innerHTML = '<div class="global-search-empty">No opportunities posted yet.</div>';
     return;
   }
-  list.innerHTML = posts.map(post => {
+  const needle = String(search || "").trim().toLocaleLowerCase();
+  const filteredPosts = posts.filter(post => !needle || [post.job_title, post.job_company, post.job_location, post.job_workplace, post.job_employment_type, post.content].some(value => String(value || "").toLocaleLowerCase().includes(needle)));
+  if (!filteredPosts.length) {
+    list.innerHTML = '<div class="global-search-empty">No matching job opportunities.</div>';
+    return;
+  }
+  list.innerHTML = filteredPosts.map(post => {
     const details = [post.job_company, post.job_location, post.job_workplace, post.job_employment_type].filter(Boolean);
     const deadline = post.job_deadline ? `Apply by ${new Date(`${post.job_deadline}T00:00:00`).toLocaleDateString()}` : "";
     const apply = post.job_apply_url && /^https?:\/\//i.test(post.job_apply_url)
@@ -10511,8 +10785,13 @@ async function runGlobalSearch() {
   const jobs = [];
   if (["all", "people"].includes(globalSearchFilterType)) {
     jobs.push(db.from("profiles")
-      .select("id, full_name, profession, location, bio, avatar_url, headline")
-      .then(result => ({ type: "people", ...result })));
+      .select("id, full_name, profession, location, bio, avatar_url, headline, work_status")
+      .then(async result => {
+        if (result.error && /work_status|column/i.test(result.error.message || "")) {
+          result = await db.from("profiles").select("id, full_name, profession, location, bio, avatar_url, headline");
+        }
+        return { type: "people", ...result };
+      }));
   }
   if (["all", "projects"].includes(globalSearchFilterType)) {
     jobs.push(db.from("projects")
@@ -10567,7 +10846,7 @@ async function runGlobalSearch() {
         : person.displayAvatarUrl
           ? `<img src="${escapeHtml(person.displayAvatarUrl)}" alt="">`
           : `<span class="global-search-thumb">${escapeHtml((name[0] || "M").toUpperCase())}</span>`;
-      return `<button type="button" class="global-search-item" onclick="viewMemberProfile('${escapeHtml(person.id)}')">${avatar}<span class="global-search-item-copy"><strong>${escapeHtml(name)}</strong><span>${escapeHtml(detail)}</span></span></button>`;
+      return `<button type="button" class="global-search-item" onclick="viewMemberProfile('${escapeHtml(person.id)}')">${avatar}<span class="global-search-item-copy"><strong>${escapeHtml(name)}</strong><span>${escapeHtml(detail)}</span>${profileWorkStatusMarkup(person.work_status)}</span></button>`;
     }).join("")}</div></section>`);
   }
   if (collections.projects.length) {
@@ -11302,10 +11581,21 @@ document
                     instagram_url,
                     portfolio_url,
                     skills,
-                    headline
+                    headline,
+                    work_status
                 `)
                 .eq("id", user.id)
                 .maybeSingle();
+
+        if (error && /work_status|column/i.test(error.message || "")) {
+            const fallback = await db
+                .from("profiles")
+                .select("id, full_name, profession, location, bio, avatar_url, linkedin_url, behance_url, instagram_url, portfolio_url, skills, headline")
+                .eq("id", user.id)
+                .maybeSingle();
+            profile = fallback.data ? { ...fallback.data, work_status: null } : fallback.data;
+            error = fallback.error;
+        }
 
 
         if (error) {
@@ -11384,6 +11674,9 @@ document
                 headline:
                     "",
 
+                work_status:
+                    null,
+
                 cv_path:
                     null,
 
@@ -11461,12 +11754,7 @@ document
             headline;
 
 
-        document
-            .getElementById(
-                "profileProfession"
-            )
-            .textContent =
-            profession;
+        document.getElementById("profileProfession").innerHTML = `${escapeHtml(profession)}${profileWorkStatusMarkup(profile.work_status, "profile-profession-status")}`;
 
 
         document
@@ -11757,6 +12045,8 @@ document
             )
             .value =
             currentProfile.profession || "";
+
+        document.getElementById("editWorkStatus").value = currentProfile.work_status || "";
 
 
         document
@@ -12303,6 +12593,9 @@ document
                         )
                         .value
                         .trim(),
+
+                work_status:
+                    document.getElementById("editWorkStatus").value || null,
 
                 headline:
                     document
@@ -12866,7 +13159,8 @@ async function loadMembers() {
                 bio,
                 avatar_url,
                 headline,
-                cv_is_public
+                cv_is_public,
+                work_status
             `)
             .order(
                 "full_name",
@@ -13735,7 +14029,7 @@ if (currentUserId === memberId) {
 
         <span class="member-cv-badge${member.cv_is_public ? "" : " is-unavailable"}">${member.cv_is_public ? "CV available" : "CV unavailable"}</span>
 
-        <div class="member-name-line"><h3>${escapeHtml(name)}</h3><span class="member-role-line"><span class="member-owner-badge${memberId === OWNER_CHAT_ID ? "" : " is-member"}">${memberId === OWNER_CHAT_ID ? "Community Owner" : "Community Member"}</span><span class="member-owner-verified" role="img" aria-label="Verified community ${memberId === OWNER_CHAT_ID ? "owner" : "member"}" title="Verified community ${memberId === OWNER_CHAT_ID ? "owner" : "member"}"></span></span></div>
+        <div class="member-name-line"><h3>${escapeHtml(name)}</h3><span class="member-role-line"><span class="member-owner-badge${memberId === OWNER_CHAT_ID ? "" : " is-member"}">${memberId === OWNER_CHAT_ID ? "Community Owner" : "Community Member"}</span><span class="member-owner-verified" role="img" aria-label="Verified community ${memberId === OWNER_CHAT_ID ? "owner" : "member"}" title="Verified community ${memberId === OWNER_CHAT_ID ? "owner" : "member"}"></span></span>${profileWorkStatusMarkup(member.work_status, "member-card-work-status")}</div>
 
         <div class="member-profession">
           ${escapeHtml(profession)}
@@ -13779,6 +14073,11 @@ document
         "input",
         async function() {
 
+            if (!document.getElementById("opportunitiesList")?.hidden) {
+                await loadJobOpportunities(this.value);
+                return;
+            }
+
             const search =
                 this.value
                     .trim()
@@ -13797,7 +14096,8 @@ document
                     bio,
                     avatar_url,
                     headline,
-                    cv_is_public
+                    cv_is_public,
+                    work_status
                 `)
                 .order(
                     "full_name",
@@ -14415,7 +14715,8 @@ async function loadPosts() {
                             ${profession ? `<div class="post-profession">${escapeHtml(profession)}</div>` : ""}
                         </div>
                     </div>
-                    <span class="post-type-badge">${post.post_type === "job_opportunity" ? "Job opportunity" : "Community post"}</span>
+                <span class="post-type-badge">${post.post_type === "job_opportunity" ? "Job opportunity" : "Community post"}</span>
+                <button type="button" class="post-action-button post-expand-button" onclick="openPostExpandedViewer(this)" aria-label="Expand post for easier reading" title="Expand post">⛶</button>
                 </div>
                 <div class="post-body">
                 ${jobSummary}
@@ -14477,6 +14778,50 @@ function filterPosts() {
     } else {
         emptyState?.remove();
     }
+}
+
+function openPostExpandedViewer(trigger) {
+    const sourceCard = trigger?.closest(".post-card");
+    if (!sourceCard) return;
+    document.querySelector(".post-expanded-overlay")?.remove();
+    const overlay = document.createElement("div");
+    overlay.className = "post-expanded-overlay";
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.setAttribute("aria-label", "Expanded post");
+    const sourceWidth = sourceCard.getBoundingClientRect().width;
+    const card = sourceCard.cloneNode(true);
+    card.classList.add("is-expanded-preview", "post-expanded-preview");
+    card.style.width = `${Math.min(sourceWidth, window.innerWidth - 32)}px`;
+    card.style.maxWidth = "calc(100vw - 32px)";
+    card.querySelector(".post-actions")?.remove();
+    card.querySelector(".post-expand-button")?.remove();
+    const closeButton = document.createElement("button");
+    closeButton.type = "button";
+    closeButton.className = "post-expanded-close";
+    closeButton.setAttribute("aria-label", "Close expanded post");
+    closeButton.textContent = "×";
+    const previousOverflow = document.body.style.overflow;
+    const close = () => {
+        overlay.remove();
+        document.body.style.overflow = previousOverflow;
+        document.removeEventListener("keydown", onKeydown);
+        trigger.focus?.();
+    };
+    const onKeydown = event => { if (event.key === "Escape") close(); };
+    closeButton.addEventListener("click", close);
+    overlay.addEventListener("click", event => { if (event.target === overlay) close(); });
+    card.querySelectorAll(".post-image-trigger").forEach(imageButton => {
+        imageButton.addEventListener("click", () => {
+            const image = imageButton.querySelector("img");
+            if (image?.currentSrc || image?.src) openPostImageViewer(image.currentSrc || image.src);
+        });
+    });
+    overlay.append(closeButton, card);
+    document.body.appendChild(overlay);
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", onKeydown);
+    closeButton.focus();
 }
 
 function openPostImageViewer(imageUrl) {
@@ -15473,6 +15818,13 @@ function closeConnectNetworkOptionsMenu() {
   const menu = document.getElementById("connectNetworkOptionsMenu");
   if (menu) menu.open = false;
 }
+function openEditMyProfileFromConnect() {
+  closeConnectNetworkOptionsMenu();
+  if (!currentUser) { showSignupPrompt(); return; }
+  showSection("profileSection");
+  if (currentProfile) { editProfile(); return; }
+  Promise.resolve(loadProfile()).then(() => editProfile()).catch(error => console.error("Unable to load profile for editing:", error));
+}
 function closeProfileNotificationsMenu() {
   document.querySelectorAll("#profileNotificationsMenu, #connectNotificationsMenu").forEach(menu => { menu.open = false; });
 }
@@ -15509,7 +15861,7 @@ setTimeout(refreshProfileNotificationRequests, 5000);
 setInterval(refreshProfileNotificationRequests, 45000);
 
 document.addEventListener("click", event => {
-  document.querySelectorAll("#profileSection .profile-options-menu, #connectNetworkOptionsMenu").forEach(menu => {
+  document.querySelectorAll("#profileSection .profile-options-menu, #connectNetworkOptionsMenu, #memberProfileOptionsMenu").forEach(menu => {
     if (menu.open && !menu.contains(event.target)) menu.open = false;
   });
   document.querySelectorAll("#profileNotificationsMenu, #connectNotificationsMenu").forEach(menu => {
@@ -15517,9 +15869,9 @@ document.addEventListener("click", event => {
   });
 });
 document.addEventListener("keydown", event => {
-  if (event.key === "Escape") { closeProfileOptionsMenu(); closeConnectNetworkOptionsMenu(); closeProfileNotificationsMenu(); }
+  if (event.key === "Escape") { closeProfileOptionsMenu(); closeConnectNetworkOptionsMenu(); const menu = document.getElementById("memberProfileOptionsMenu"); if (menu) menu.open = false; closeProfileNotificationsMenu(); }
 });
-document.querySelectorAll("#profileSection .profile-options-menu, #profileSection .profile-notifications-menu, #connectNetworkOptionsMenu, #connectNotificationsMenu").forEach(menu => {
+document.querySelectorAll("#profileSection .profile-options-menu, #profileSection .profile-notifications-menu, #connectNetworkOptionsMenu, #connectNotificationsMenu, #memberProfileOptionsMenu").forEach(menu => {
   let closeTimer;
   menu.addEventListener("mouseenter", () => clearTimeout(closeTimer));
   menu.addEventListener("mouseleave", () => { closeTimer = setTimeout(() => { menu.open = false; }, 250); });
@@ -15532,6 +15884,12 @@ async function viewOwnProfileVisitorMode() {
   await viewMemberProfile(currentUser.id, { visitorPreview: true });
 }
 
+async function cancelOwnProfileVisitorMode() {
+  if (!currentUser) return showSignupPrompt();
+  memberProfileVisitorPreview = false;
+  await viewMemberProfile(currentUser.id);
+}
+
 async function viewMemberProfile(memberId, options = {}) {
   memberProfileVisitorPreview = Boolean(
     options.visitorPreview && currentUser && String(currentUser.id) === String(memberId)
@@ -15541,7 +15899,7 @@ async function viewMemberProfile(memberId, options = {}) {
   showSection("memberProfileSection");
   content.textContent = "Loading profile and projects...";
 
-  const { data: profile, error } = await db
+  let { data: profile, error } = await db
     .from("profiles")
     .select(`
       id,
@@ -15557,10 +15915,21 @@ async function viewMemberProfile(memberId, options = {}) {
       linkedin_url,
       behance_url,
       instagram_url,
-      portfolio_url
+      portfolio_url,
+      work_status
     `)
     .eq("id", memberId)
     .single();
+
+  if (error && /work_status|column/i.test(error.message || "")) {
+    const fallback = await db
+      .from("profiles")
+      .select("id, full_name, profession, headline, location, bio, avatar_url, skills, cv_path, cv_is_public, linkedin_url, behance_url, instagram_url, portfolio_url")
+      .eq("id", memberId)
+      .single();
+    profile = fallback.data ? { ...fallback.data, work_status: null } : fallback.data;
+    error = fallback.error;
+  }
 
   if (error || !profile) {
     content.textContent = "Could not load this profile.";
@@ -15625,10 +15994,11 @@ async function viewMemberProfile(memberId, options = {}) {
   const socialPreviewMarkup = await memberSocialPreviewMarkup(memberId);
 
   content.innerHTML = `
-    ${memberProfileVisitorPreview ? '<div class="member-visitor-preview-banner">Visitor mode preview · Only public profile details are shown</div>' : ""}
+    ${memberProfileVisitorPreview ? '<div class="member-visitor-preview-banner"><span>Visitor mode preview · Only public profile details are shown</span><button type="button" class="visitor-preview-cancel" onclick="cancelOwnProfileVisitorMode()">Cancel</button></div>' : ""}
     <article class="member-profile-card">
 
       <div class="member-profile-header">
+  ${currentUser && String(currentUser.id) === String(profile.id) && !memberProfileVisitorPreview ? `<details class="profile-options-menu member-profile-options-menu" id="memberProfileOptionsMenu"><summary class="profile-options-trigger" aria-label="My profile options" title="More profile options"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="2.25"></circle><circle cx="12" cy="12" r="2.25"></circle><circle cx="19" cy="12" r="2.25"></circle></svg></summary><div class="profile-options-popover" aria-label="My profile options"><button type="button" onclick="viewOwnProfileVisitorMode()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z"></path><circle cx="12" cy="12" r="2.8"></circle></svg><span>View Profile as Visitor</span></button></div></details>` : ""}
   <div class="member-profile-avatar-wrap">
   ${
     displayAvatarUrl && (currentUser || isCommunityOwner)
@@ -15649,7 +16019,7 @@ async function viewMemberProfile(memberId, options = {}) {
   <div class="member-profile-heading">
     <div class="member-profile-title-row"><h2>${escapeHtml(name)}</h2><span class="member-role-line"><span class="member-owner-badge${String(profile.id) === OWNER_CHAT_ID ? "" : " is-member"}">${String(profile.id) === OWNER_CHAT_ID ? "Community Owner" : "Community Member"}</span><span class="member-owner-verified" role="img" aria-label="Verified community ${String(profile.id) === OWNER_CHAT_ID ? "owner" : "member"}" title="Verified community ${String(profile.id) === OWNER_CHAT_ID ? "owner" : "member"}"></span></span></div>
     <p>${escapeHtml(profile.headline || "")}</p>
-    <p>${escapeHtml(profile.profession || "")}</p>
+    <p class="member-profile-profession">${escapeHtml(profile.profession || "")}</p>
     <p>${escapeHtml(profile.location || "")}</p>
   </div>
 
@@ -15675,14 +16045,11 @@ async function viewMemberProfile(memberId, options = {}) {
         <p>${escapeHtml(skills || "No skills added yet.")}</p>
       </section>
 
-      ${publicCvUrl ? `
-        <section class="member-profile-info member-cv-section">
-          <h3>CV &amp; Experience</h3>
-          <p>This member has shared their CV.</p>
-          <a class="member-cv-link" href="${escapeHtml(publicCvUrl)}" target="_blank" rel="noopener noreferrer">View CV</a>
-          <a class="member-cv-link" href="${escapeHtml(publicCvDownloadUrl || publicCvUrl)}">Download CV</a>
-        </section>
-      ` : ""}
+      <section class="member-profile-info member-cv-section">
+        <h3>CV &amp; Experience</h3>
+        ${publicCvUrl ? `<p>This member has shared their CV.</p><a class="member-cv-link" href="${escapeHtml(publicCvUrl)}" target="_blank" rel="noopener noreferrer">View CV</a><a class="member-cv-link" href="${escapeHtml(publicCvDownloadUrl || publicCvUrl)}">Download CV</a>` : `<p>No public CV has been shared.</p>`}
+        <div class="member-work-status-row">${profileWorkStatusMarkup(profile.work_status, "member-profile-work-status")}</div>
+      </section>
 
       <div class="member-profile-links">
         ${makeLink(profile.linkedin_url, "LinkedIn")}
@@ -15747,8 +16114,9 @@ async function loadMemberConnectionButton(memberId) {
   if (memberProfileVisitorPreview && currentUser && String(currentUser.id) === String(memberId)) {
     box.innerHTML = `
       <div class="member-visitor-preview-actions" aria-label="Visitor profile actions preview">
-        <button type="button" disabled title="Preview only">Connect</button>
-        <button type="button" disabled title="Preview only">Follow</button>
+        <button type="button" class="member-connection-button member-action-primary" disabled title="Preview only">Connect</button>
+        <button type="button" class="member-follow-button member-action-primary" disabled title="Preview only">Follow</button>
+        <button type="button" class="member-connection-button member-action-primary member-action-message" disabled title="Preview only">Message</button>
       </div>
     `;
     return;
@@ -16109,6 +16477,18 @@ function setupOwnerChatResizeHandle() {
     event.preventDefault();
     applyHeight(ownerChatContacts.getBoundingClientRect().height + (event.key === "ArrowUp" ? -12 : 12));
   });
+}
+
+function profileWorkStatusMarkup(status, extraClass = "") {
+    const workStatuses = {
+        available: { label: "Available For Work", className: "work-status-available" },
+        employed: { label: "Currently Employed", className: "work-status-employed" },
+        seeking: { label: "Looking For A New Opportunity", className: "work-status-seeking" }
+    };
+    const selected = workStatuses[status];
+    const extra = extraClass ? ` ${extraClass}` : "";
+    if (!selected) return `<span class="profile-work-status-badge work-status-unavailable${extra}">Status Not Available</span>`;
+    return `<span class="profile-work-status-badge ${selected.className}${extra}">${selected.label}</span>`;
 }
 setupOwnerChatResizeHandle();
 
@@ -16730,7 +17110,10 @@ async function ownerChatLoadInbox() {
     document.getElementById("ownerChatGuestName").hidden = true;
     document.getElementById("ownerChatGuestEmail").hidden = true;
 
-    document.getElementById("ownerChatHeaderName").textContent = ownerChatDisplayName(selected.name);
+    const selectedHeaderName = String(selected.name || "").trim().toLocaleLowerCase() === "hi"
+      ? "Hello EJ Community Member!"
+      : selected.name;
+    document.getElementById("ownerChatHeaderName").textContent = ownerChatDisplayName(selectedHeaderName);
     document.getElementById("ownerChatHeaderStatus").textContent =
       selected.guestEmail;
     document.getElementById("ownerChatDelete").hidden = false;
@@ -17180,7 +17563,10 @@ ownerChatForm.addEventListener("submit", async event => {
   <main>
     <div class="community-page">
 
-      <button class="page-back-btn" onclick="showSection('homeSection')">Home</button>
+      <div class="page-navigation-row">
+        <button class="page-back-btn" onclick="showSection('homeSection')">Home</button>
+        <button type="button" class="page-back-btn section-forward-btn" onclick="goForwardFromSection()" aria-label="Go forward" title="Go forward" disabled hidden>Forward →</button>
+      </div>
 
       <h2>Share Your Voice</h2>
 
@@ -17291,13 +17677,16 @@ ownerChatForm.addEventListener("submit", async event => {
 <section id="aboutSection" class="page-section">
   <main>
     <div class="community-page">
-      <button
-        type="button"
-        class="page-back-btn"
-        onclick="showSection('homeSection')"
-      >
-        Home
-      </button>
+      <div class="page-navigation-row">
+        <button
+          type="button"
+          class="page-back-btn"
+          onclick="showSection('homeSection')"
+        >
+          Home
+        </button>
+        <button type="button" class="page-back-btn section-forward-btn" onclick="goForwardFromSection()" aria-label="Go forward" title="Go forward" disabled hidden>Forward →</button>
+      </div>
 
       <div class="about-card">
         <div class="about-voice-controls" aria-label="About page audio">
@@ -17417,16 +17806,30 @@ ownerChatForm.addEventListener("submit", async event => {
   if (!logo || !header) return;
   header.appendChild(logo);
 
+  let shine = header.querySelector(".corner-logo-shine");
+  if (!shine) {
+    shine = document.createElement("span");
+    shine.className = "corner-logo-shine";
+    shine.setAttribute("aria-hidden", "true");
+    header.appendChild(shine);
+  }
+
   function placeLogo() {
     const mobile = window.matchMedia("(max-width: 700px)").matches;
     const style = logo.style;
     style.setProperty("position", "absolute", "important");
-    style.setProperty("top", mobile ? "8px" : "32px", "important");
+    style.setProperty("top", mobile ? "18px" : "32px", "important");
     style.setProperty("right", mobile ? "max(10px, env(safe-area-inset-right))" : "18px", "important");
     style.setProperty("bottom", "auto", "important");
     style.setProperty("left", "auto", "important");
     style.setProperty("width", mobile ? "64px" : "175px", "important");
     style.setProperty("height", mobile ? "52px" : "138px", "important");
+    shine.style.position = "absolute";
+    shine.style.top = mobile ? "18px" : "32px";
+    shine.style.right = mobile ? "max(10px, env(safe-area-inset-right))" : "18px";
+    shine.style.width = mobile ? "64px" : "175px";
+    shine.style.height = mobile ? "52px" : "138px";
+    shine.style.zIndex = "3";
     style.setProperty("margin", "0", "important");
     style.setProperty("padding", "0", "important");
     style.setProperty("object-fit", "contain", "important");
