@@ -7778,8 +7778,8 @@ body > header {
 </style>
 <style>
 .owner-chat-expand { position: relative; overflow: visible; }
-.owner-chat-expand::after { position: absolute; left: 50%; top: 50%; right: auto; bottom: auto; display: grid; width: auto; height: auto; min-width: 0; place-items: center; border: 0; border-radius: 0; color: #ff263b; background: transparent; content: "+"; font-size: 16px; font-weight: 1000; line-height: 1; -webkit-text-stroke: .6px #64121b; text-shadow: 0 1px 2px #111, 0 0 4px #111; pointer-events: none; transform: translate(-50%, -50%); }
-.owner-chat-expand[aria-pressed="true"]::after { color: #25d477; -webkit-text-stroke-color: #12482d; content: "−"; }
+.owner-chat-expand::after { position: absolute; left: 50%; top: 50%; right: auto; bottom: auto; display: grid; width: auto; height: auto; min-width: 0; place-items: center; border: 0; border-radius: 0; color: #25d477; background: transparent; content: "+"; font-size: 16px; font-weight: 1000; line-height: 1; -webkit-text-stroke: .6px #12482d; text-shadow: 0 1px 2px #111, 0 0 4px #111; pointer-events: none; transform: translate(-50%, -50%); }
+.owner-chat-expand[aria-pressed="true"]::after { color: #ff263b; -webkit-text-stroke-color: #64121b; content: "−"; }
 .owner-chat-inbox-search { gap: 0; padding: 8px 10px; }
 .owner-chat-inbox-search input { border-radius: 999px 0 0 999px; border-right: 0; }
 .owner-chat-inbox-search button { flex-basis: 36px; width: 36px; height: 36px; margin-left: -1px; border-radius: 0 999px 999px 0; border-left: 0; }
@@ -8134,12 +8134,16 @@ body .page-back-btn[onclick*="homeSection"]:hover {
 #profileSection #profileEditMode .edit-field input:focus,
 #profileSection #profileEditMode .edit-field select:focus,
 #profileSection #profileEditMode .edit-field textarea:focus { outline:2px solid rgba(214,184,76,.38); outline-offset:1px; }
-/* Expanded posts keep their source width and scroll internally with a gold scrollbar. */
-.post-expanded-preview { max-width:calc(100vw - 32px); max-height:calc(100dvh - 32px); overflow-x:hidden; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#d6b84c #242424; }
-.post-expanded-preview::-webkit-scrollbar { width:10px; }
-.post-expanded-preview::-webkit-scrollbar-track { border-radius:8px; background:#242424; }
-.post-expanded-preview::-webkit-scrollbar-thumb { border:2px solid #242424; border-radius:8px; background:linear-gradient(180deg,#f1d66b,#b9952e); }
-.post-expanded-preview::-webkit-scrollbar-thumb:hover { background:linear-gradient(180deg,#ffe88a,#d0ad3c); }
+/* Post-card scrollbars use neutral grey. */
+.post-expanded-preview { max-width:calc(100vw - 32px); max-height:calc(100dvh - 32px); overflow-x:hidden; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#aaa #303030; }
+.post-expanded-preview::-webkit-scrollbar,
+#shareSection .post-card .post-content::-webkit-scrollbar { width:9px; }
+.post-expanded-preview::-webkit-scrollbar-track,
+#shareSection .post-card .post-content::-webkit-scrollbar-track { border-radius:8px; background:#303030; }
+.post-expanded-preview::-webkit-scrollbar-thumb,
+#shareSection .post-card .post-content::-webkit-scrollbar-thumb { border:2px solid #303030; border-radius:8px; background:linear-gradient(180deg,#c9c9c9,#888); }
+.post-expanded-preview::-webkit-scrollbar-thumb:hover,
+#shareSection .post-card .post-content::-webkit-scrollbar-thumb:hover { background:linear-gradient(180deg,#e1e1e1,#aaa); }
 /* Community member verification checks use green, while owner checks stay gold. */
 .member-role-line:has(> .member-owner-badge.is-member) > .member-owner-verified { color:#fff; border-color:#168454; background:linear-gradient(145deg,#2fb875,#16764c); box-shadow:0 2px 7px rgba(22,132,84,.32); }
 /* Uniform profile actions; reserve enough room for Cancel Request and its icon. */
@@ -8159,7 +8163,7 @@ body .page-back-btn[onclick*="homeSection"]:hover {
   #memberProfileSection #memberConnectionAction .member-follow-button { width:calc((100% - 14px) / 3); min-width:100px; max-width:none; flex:1 1 100px; }
 }
 /* Keep long copy compact on post cards; expand button opens the full post. */
-#shareSection .post-card .post-content { max-height:230px; overflow-x:hidden; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#d6b84c #242424; }
+#shareSection .post-card .post-content { max-height:230px; overflow-x:hidden; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#aaa #303030; }
 #shareSection .post-card .post-content::-webkit-scrollbar { width:10px; }
 #shareSection .post-card .post-content::-webkit-scrollbar-track { border-radius:8px; background:#242424; }
 #shareSection .post-card .post-content::-webkit-scrollbar-thumb { border:2px solid #242424; border-radius:8px; background:linear-gradient(180deg,#f1d66b,#b9952e); }
@@ -8641,6 +8645,321 @@ body .quick-tabs .quick-tab-home .quick-icon { fill:none !important; stroke:curr
   #connectSection #homeSocialHub > #homeSocialSummary,
   #connectSection #homeSocialHub > #homeSocialList { grid-column:1 / -1 !important; min-width:0 !important; max-width:100% !important; }
 }
+/* Make public profile links easier to spot while keeping their established dimensions. */
+#memberProfileSection .member-profile-links a.member-social-link {
+  gap:7px !important;
+  color:#292820 !important;
+  border:1px solid rgba(190,160,54,.68) !important;
+  background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(255,248,221,.96)) !important;
+  box-shadow:0 4px 12px rgba(28,32,38,.12),0 0 0 1px rgba(214,184,76,.1),inset 0 1px 0 #fff !important;
+  font-weight:700 !important;
+}
+#memberProfileSection .member-profile-links a.member-social-link::before {
+  display:inline-grid;
+  flex:0 0 22px;
+  width:22px;
+  height:22px;
+  place-items:center;
+  box-sizing:border-box;
+  border-radius:6px;
+  color:#fff;
+  font-size:11px;
+  font-weight:800;
+  line-height:1;
+  text-decoration:none;
+  content:"↗";
+}
+#memberProfileSection .member-profile-links a.member-social-link-linkedin::before { content:"in"; background:#0a66c2; }
+#memberProfileSection .member-profile-links a.member-social-link-behance::before { content:"Be"; background:#1769ff; }
+#memberProfileSection .member-profile-links a.member-social-link-instagram::before { content:"◎"; background:linear-gradient(135deg,#7938ad,#e1306c 62%,#f58529); font-size:16px; }
+#memberProfileSection .member-profile-links a.member-social-link-portfolio::before { content:"↗"; color:#302600; background:linear-gradient(135deg,#f4dc7b,#d6b84c); font-size:15px; }
+#memberProfileSection .member-profile-links a.member-social-link:hover { border-color:rgba(168,132,18,.9) !important; background:linear-gradient(135deg,#fffdf4,#f8edbe) !important; box-shadow:0 6px 15px rgba(28,32,38,.16),0 0 0 2px rgba(214,184,76,.16),inset 0 1px 0 #fff !important; }
+/* Make minimized panels fully visible and usable on phones; keep desktop docking unchanged. */
+@media (max-width:700px) {
+  #ownerChatWidget #socialSidebarPanel.is-minimized,
+  #ownerChatWidget #ownerChatPanel.is-minimized {
+    position:fixed !important;
+    top:auto !important;
+    left:max(12px,env(safe-area-inset-left)) !important;
+    right:auto !important;
+    width:min(270px,calc(100vw - 24px)) !important;
+    min-width:0 !important;
+    max-width:calc(100vw - 24px) !important;
+    height:50px !important;
+    min-height:50px !important;
+    max-height:50px !important;
+    transform:none !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    pointer-events:auto !important;
+    z-index:35000 !important;
+  }
+  #ownerChatWidget #socialSidebarPanel.is-minimized { bottom:calc(18px + env(safe-area-inset-bottom) + 142px) !important; }
+  #ownerChatWidget #ownerChatPanel.is-minimized { bottom:calc(18px + env(safe-area-inset-bottom) + 82px) !important; }
+  #ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-header,
+  #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-header { box-sizing:border-box !important; width:100% !important; height:50px !important; min-height:50px !important; max-height:50px !important; padding:6px 7px !important; gap:5px !important; }
+}
+/* Keep the signup prompt above the floating quick-tab rail, so its X can receive taps. */
+#signupPromptOverlay { z-index:40000 !important; pointer-events:auto !important; }
+#signupPromptOverlay .signup-prompt { position:relative; z-index:1; }
+#signupPromptOverlay .signup-prompt-close { position:absolute; z-index:2; pointer-events:auto !important; touch-action:manipulation; }
+/* Black, polished profile link buttons; icon badges remain platform-colored and button sizes stay fixed. */
+#memberProfileSection .member-profile-links a.member-social-link {
+  color:#fff !important;
+  border-color:rgba(214,184,76,.72) !important;
+  background:linear-gradient(145deg,#202020,#090909) !important;
+  box-shadow:0 4px 12px rgba(0,0,0,.2),0 0 0 1px rgba(214,184,76,.14),inset 0 1px 0 rgba(255,255,255,.09) !important;
+}
+#memberProfileSection .member-profile-links a.member-social-link:hover {
+  color:#fff !important;
+  border-color:#e4c74e !important;
+  background:linear-gradient(145deg,#303030,#111) !important;
+  box-shadow:0 6px 15px rgba(0,0,0,.25),0 0 0 2px rgba(214,184,76,.22),inset 0 1px 0 rgba(255,255,255,.12) !important;
+}
+/* Use simple home-footer-style hints instead of recognizable platform marks. */
+#memberProfileSection .member-profile-links a.member-social-link::before {
+  width:22px !important;
+  height:22px !important;
+  flex-basis:22px !important;
+  border:1px solid rgba(214,184,76,.66) !important;
+  border-radius:6px !important;
+  color:#f0d466 !important;
+  background:rgba(255,255,255,.06) !important;
+  font-size:11px !important;
+  font-weight:700 !important;
+}
+#memberProfileSection .member-profile-links a.member-social-link-linkedin::before { content:"in" !important; }
+#memberProfileSection .member-profile-links a.member-social-link-behance::before { content:"Be" !important; }
+#memberProfileSection .member-profile-links a.member-social-link-instagram::before { content:"◎" !important; font-size:15px !important; }
+#memberProfileSection .member-profile-links a.member-social-link-portfolio::before { content:"↗" !important; font-size:14px !important; }
+/* Match profile link symbols to the simple white contact glyphs used in the site footer. */
+#memberProfileSection .member-profile-links a.member-social-link::before {
+  display:inline-grid !important;
+  flex:0 0 auto !important;
+  width:auto !important;
+  height:auto !important;
+  place-items:center !important;
+  box-sizing:border-box !important;
+  border:0 !important;
+  border-radius:0 !important;
+  color:#fff !important;
+  background:transparent !important;
+  font-size:17px !important;
+  font-weight:500 !important;
+  line-height:1 !important;
+}
+#memberProfileSection .member-profile-links a.member-social-link-linkedin::before { content:"in" !important; }
+#memberProfileSection .member-profile-links a.member-social-link-behance::before { content:"Be" !important; }
+#memberProfileSection .member-profile-links a.member-social-link-instagram::before { content:"◎" !important; }
+/* The footer is already copied into every page section; keep its contact links visible on profiles too. */
+body:has(#memberProfileSection.active) .home-copyright .contact-links { display:flex !important; }
+/* White icon tiles on the black profile-link buttons, sized to the icon area only. */
+#memberProfileSection .member-profile-links a.member-social-link::before {
+  display:inline-grid !important;
+  flex:0 0 22px !important;
+  width:22px !important;
+  height:22px !important;
+  place-items:center !important;
+  box-sizing:border-box !important;
+  border:1px solid rgba(255,255,255,.72) !important;
+  border-radius:6px !important;
+  color:#171717 !important;
+  background:#fff !important;
+  font-size:17px !important;
+  font-weight:500 !important;
+  line-height:1 !important;
+}
+/* Match profile social-link boxes to the white outlined contact buttons on the Home page. */
+#memberProfileSection .member-profile-links a.member-social-link {
+  color:#111 !important;
+  border:1px solid rgba(17,17,17,.25) !important;
+  border-radius:8px !important;
+  background:rgba(242,242,240,.92) !important;
+  box-shadow:none !important;
+  font-weight:600 !important;
+}
+#memberProfileSection .member-profile-links a.member-social-link:hover {
+  color:#111 !important;
+  border-color:rgba(17,17,17,.36) !important;
+  background:#e9e9e6 !important;
+  box-shadow:0 2px 6px rgba(0,0,0,.08) !important;
+}
+#memberProfileSection .member-profile-links a.member-social-link::before {
+  display:inline-grid !important;
+  flex:0 0 auto !important;
+  width:30px !important;
+  height:30px !important;
+  place-items:center !important;
+  box-sizing:border-box !important;
+  border:1px solid rgba(17,17,17,.25) !important;
+  border-radius:7px !important;
+  color:#111 !important;
+  background:rgba(242,242,240,.75) !important;
+  font-size:16px !important;
+  font-weight:500 !important;
+  line-height:1 !important;
+}
+/* Keep OFF on the left and ON on the right without changing the toggle's styling or size. */
+#profileSection .profile-social-hub .social-privacy-row input:not(:checked)::before { transform:none !important; }
+#profileSection .profile-social-hub .social-privacy-row input:checked::before { transform:translateX(21px) !important; }
+#profileSection .profile-social-hub .social-privacy-row input::after { box-sizing:border-box !important; width:20px !important; max-width:20px !important; z-index:2 !important; }
+#profileSection .profile-social-hub .social-privacy-row input:not(:checked)::after { content:"OFF" !important; left:auto !important; right:0 !important; text-align:right !important; }
+#profileSection .profile-social-hub .social-privacy-row input:checked::after { content:"ON" !important; left:2px !important; right:auto !important; text-align:left !important; }
+#profileSection .profile-social-hub .social-privacy-row input:not(:checked)::after { transform:translate(-2px,-50%) !important; }
+#profileSection .profile-social-hub .social-privacy-row input:checked::after { transform:translate(2px,-50%) !important; }
+#profileSection .profile-social-hub .social-privacy-row input::after { font-size:8px !important; letter-spacing:.2px !important; }
+@media (max-width:600px) {
+  #profileSection .profile-social-hub .social-privacy-row input:not(:checked)::after { content:"OFF" !important; left:auto !important; right:0 !important; width:20px !important; max-width:20px !important; z-index:2 !important; font-size:8px !important; letter-spacing:.2px !important; text-align:right !important; }
+  #profileSection .profile-social-hub .social-privacy-row input:checked::after { content:"ON" !important; left:2px !important; right:auto !important; width:20px !important; max-width:20px !important; z-index:2 !important; font-size:8px !important; letter-spacing:.2px !important; text-align:left !important; }
+}
+/* Add compact contact-style icon tiles to the links beside the Edit Profile actions. */
+#profileSection .profile-socials a#profileLinkedIn,
+#profileSection .profile-socials a#profileBehance,
+#profileSection .profile-socials a#profileInstagram { gap:8px; }
+#profileSection .profile-socials a#profileLinkedIn::before,
+#profileSection .profile-socials a#profileBehance::before,
+#profileSection .profile-socials a#profileInstagram::before {
+  display:inline-grid;
+  flex:0 0 24px;
+  width:24px;
+  height:24px;
+  box-sizing:border-box;
+  place-items:center;
+  border:1px solid rgba(255,255,255,.42);
+  border-radius:6px;
+  color:#f2f2f0;
+  background:rgba(255,255,255,.06);
+  font-size:13px;
+  font-weight:600;
+  line-height:1;
+}
+#profileSection .profile-socials a#profileLinkedIn::before { content:"in"; }
+#profileSection .profile-socials a#profileBehance::before { content:"Be"; }
+#profileSection .profile-socials a#profileInstagram::before { content:"◎"; font-size:15px; }
+#profileSection .profile-socials a#profilePortfolio { gap:8px; }
+#profileSection .profile-socials a#profilePortfolio::before {
+  content:"";
+  display:inline-grid;
+  flex:0 0 24px;
+  width:24px;
+  height:24px;
+  box-sizing:border-box;
+  place-items:center;
+  border:1px solid rgba(255,255,255,.42);
+  border-radius:6px;
+  color:#f2f2f0;
+  background:rgba(255,255,255,.06);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f2f2f0' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='7' width='18' height='14' rx='2'/%3E%3Cpath d='M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18M10 12v2h4v-2'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:15px 15px;
+  font-size:14px;
+  font-weight:600;
+  line-height:1;
+}
+/* Ensure Portfolio uses the same icon tile and button dimensions in visitor view. */
+#memberProfileSection .member-profile-links a.member-social-link-portfolio::before {
+  content:"" !important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111111' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='7' width='18' height='14' rx='2'/%3E%3Cpath d='M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18M10 12v2h4v-2'/%3E%3C/svg%3E") !important;
+  background-repeat:no-repeat !important;
+  background-position:center !important;
+  background-size:18px 18px !important;
+}
+/* Narrow the visitor profile's three social buttons while keeping height and visual style. */
+#memberProfileSection .member-profile-links a.member-social-link {
+  flex-basis:116px !important;
+  width:116px !important;
+  min-width:116px !important;
+  max-width:116px !important;
+  box-shadow:0 2px 8px rgba(20,20,20,.12) !important;
+}
+/* A subtle grey divider strip scoped to the visitor profile's social-link row. */
+#memberProfileSection .member-profile-links {
+  box-sizing:border-box;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  padding:8px 10px;
+  border-top:1px solid rgba(95,100,105,.16);
+  border-bottom:1px solid rgba(95,100,105,.16);
+  border-radius:8px;
+  background:rgba(105,110,115,.055);
+}
+#memberProfileSection .member-profile-links > a { position:relative; z-index:1; }
+#memberProfileSection .member-profile-links > a.member-social-link::before {
+  box-shadow:0 1px 3px rgba(18,22,26,.18),inset 0 1px 0 rgba(255,255,255,.92),inset 0 -1px 2px rgba(30,34,38,.09) !important;
+}
+#profileSection .profile-socials { position:relative; isolation:isolate; overflow:hidden; border-radius:10px; }
+#profileSection .profile-socials > a { position:relative; z-index:1; }
+
+/* Standardize the color of plus/minus symbols without changing their button dimensions. */
+#ownerChatWidget .owner-chat-expand::after { color:#25d477 !important; -webkit-text-stroke-color:#12482d !important; }
+
+#ownerChatWidget .owner-chat-expand[aria-pressed="true"]::after { color:#ff263b !important; -webkit-text-stroke-color:#64121b !important; }
+#ownerChatWidget #ownerChatImageButton { color:#111 !important; font-weight:900 !important; text-shadow:0 1px 0 rgba(255,255,255,.32) !important; }
+#ownerChatWidget #ownerChatImageButton { font-size:0 !important; }
+#ownerChatWidget #ownerChatImageButton::before { content:"+"; display:block; font-size:31px; font-weight:500 !important; -webkit-text-stroke:0 !important; line-height:1; transform:none; }
+@media (max-width:700px) { #ownerChatWidget #ownerChatImageButton::before { font-size:29px; } }
+#ownerChatWidget #socialSidebarPanel #socialSidebarMinimize { color:#fff !important; }
+#ownerChatWidget #socialSidebarPanel.is-minimized #socialSidebarMinimize { color:#fff !important; }
+#memberProfileSection #memberConnectionAction .member-connection-button.member-action-primary:not(.member-action-message)::before,
+#memberProfileSection #memberConnectionAction .member-follow-button::before { color:#25d477 !important; }
+/* Override legacy post-content scrollbar colors with the requested grey, including WebKit browsers. */
+#shareSection .post-card .post-content { scrollbar-color:#d6b84c #f4f4f4 !important; }
+#shareSection .post-card .post-content::-webkit-scrollbar-track { background:linear-gradient(90deg,#e2e2e2 0%,#f7f7f7 38%,#ededed 100%) !important; box-shadow:inset 1px 0 3px rgba(0,0,0,.13),inset -1px 0 2px rgba(255,255,255,.95) !important; }
+#shareSection .post-card .post-content::-webkit-scrollbar-thumb { border-color:#f4f4f4 !important; background:linear-gradient(180deg,#f1d66b,#b9952e) !important; }
+#shareSection .post-card .post-content::-webkit-scrollbar-thumb:hover { background:linear-gradient(180deg,#ffe88a,#d0ad3c) !important; }
+.post-expanded-preview { scrollbar-color:#d6b84c #f4f4f4 !important; }
+.post-expanded-preview::-webkit-scrollbar-track { background:linear-gradient(90deg,#e2e2e2 0%,#f7f7f7 38%,#ededed 100%) !important; box-shadow:inset 1px 0 3px rgba(0,0,0,.13),inset -1px 0 2px rgba(255,255,255,.95) !important; }
+.post-expanded-preview::-webkit-scrollbar-thumb { border-color:#f4f4f4 !important; background:linear-gradient(180deg,#f1d66b,#b9952e) !important; }
+.post-expanded-preview::-webkit-scrollbar-thumb:hover { background:linear-gradient(180deg,#ffe88a,#d0ad3c) !important; }
+/* My Profile social buttons: crisp, thicker outlines without halo effects. */
+#profileSection .profile-socials > a:hover:not(.disabled) { background:#d6b84c !important; color:#111 !important; border-color:#d6b84c !important; }
+
+
+/* Yellow hover treatment for Home, Profile, and Log out in the signed-in header. */
+body > header nav #homeNav:hover, body > header nav #profileNav:hover, body > header nav #logoutNav:hover,
+body > header nav #homeNav:focus-visible, body > header nav #profileNav:focus-visible, body > header nav #logoutNav:focus-visible { color:#111 !important; background:linear-gradient(155deg,#f7e58a 0%,#e4c84e 100%) !important; border-color:#f2dc79 !important; box-shadow:inset 0 1px 0 rgba(255,255,255,.48),0 2px 0 #9f8120,0 7px 14px rgba(0,0,0,.42) !important; }
+/* Keep the familiar corner zoom mark, with a green + / red − centered inside it. */
+#shareSection .post-identity-band .post-expand-button { position:relative !important; overflow:hidden; border:1px solid rgba(255,255,255,.28) !important; border-radius:8px !important; color:#25d477 !important; background:transparent !important; cursor:zoom-in !important; }
+#shareSection .post-identity-band .post-expand-button::before {
+  content:"";
+  position:absolute;
+  inset:4px;
+  pointer-events:none;
+  background:center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ddd' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3M21 16v3a2 2 0 0 1-2 2h-3'/%3E%3C/svg%3E");
+}
+#shareSection .post-identity-band .post-expand-button .post-zoom-mark { position:relative; z-index:1; display:block; color:#25d477 !important; font-size:15px; font-weight:900; line-height:1; text-align:center; }
+#shareSection .post-identity-band .post-expand-button:hover { color:#25d477 !important; }
+#shareSection .post-card.is-post-zoomed .post-identity-band .post-expand-button { color:#ff263b !important; cursor:zoom-out !important; }
+#shareSection .post-card.is-post-zoomed .post-identity-band .post-expand-button .post-zoom-mark,
+#shareSection .post-card.is-post-zoomed .post-identity-band .post-expand-button:hover .post-zoom-mark { color:#ff263b !important; }
+body.has-post-zoomed { overflow:hidden !important; }
+#shareSection .post-card.is-post-zoomed {
+  position:fixed !important;
+  z-index:12020 !important;
+  top:50% !important;
+  left:50% !important;
+  width:min(920px,92vw) !important;
+  max-width:calc(100vw - 24px) !important;
+  max-height:calc(100dvh - 24px) !important;
+  margin:0 !important;
+  overflow:auto !important;
+  transform:translate(-50%,-50%) !important;
+  box-shadow:0 0 0 100vmax rgba(0,0,0,.68),0 22px 70px rgba(0,0,0,.48) !important;
+}
+#shareSection .post-card.is-post-zoomed .post-identity-band { position:sticky !important; top:0 !important; z-index:3 !important; }
+#shareSection .post-card.is-post-zoomed .post-content { max-height:none !important; overflow:visible !important; }
+@media (max-width:600px) {
+  #shareSection .post-card.is-post-zoomed { width:calc(100vw - 16px) !important; max-width:calc(100vw - 16px) !important; max-height:calc(100dvh - 16px) !important; }
+}
+/* Subtle gold shimmer on the home-page action words, matching the home-page glow. */
+#homeSection .home-box .box-button { animation:homeActionWordGlow 3.2s ease-in-out infinite; }
+@keyframes homeActionWordGlow {
+  0%,100% { text-shadow:0 0 1px rgba(255,255,255,.18),0 0 3px rgba(214,184,76,.18); }
+  50% { text-shadow:0 0 3px rgba(255,255,255,.42),0 0 9px rgba(214,184,76,.48); }
+}
+@media (prefers-reduced-motion:reduce) { #homeSection .home-box .box-button { animation:none; text-shadow:0 0 3px rgba(214,184,76,.22); } }
 </style></head>
 
 
@@ -8741,6 +9060,7 @@ body .quick-tabs .quick-tab-home .quick-icon { fill:none !important; stroke:curr
     <nav>
 
         <button
+            id="homeNav"
             onclick="showSection('homeSection')"
         >
             <span>Home</span>
@@ -15253,7 +15573,7 @@ async function loadPosts() {
                         </div>
                     </div>
                 <span class="post-type-badge">${post.post_type === "job_opportunity" ? "Job opportunity" : "Community post"}</span>
-                <button type="button" class="post-action-button post-expand-button" onclick="openPostExpandedViewer(this)" aria-label="Expand post for easier reading" title="Expand post">⛶</button>
+                <button type="button" class="post-action-button post-expand-button" onclick="toggleCommunityPostZoom(this)" aria-label="Zoom in on post" aria-pressed="false" title="Zoom in on post"><span class="post-zoom-mark" aria-hidden="true">+</span></button>
                 </div>
                 <div class="post-body">
                 ${jobSummary}
@@ -15316,6 +15636,38 @@ function filterPosts() {
         emptyState?.remove();
     }
 }
+
+function toggleCommunityPostZoom(button) {
+  const card = button?.closest("#shareSection .post-card");
+  if (!card) return;
+  const expand = !card.classList.contains("is-post-zoomed");
+  document.querySelectorAll("#shareSection .post-card.is-post-zoomed").forEach(openCard => {
+    openCard.classList.remove("is-post-zoomed");
+    const mark = openCard.querySelector(".post-zoom-mark");
+    const control = openCard.querySelector(".post-expand-button");
+    if (mark) mark.textContent = "+";
+    if (control) {
+      control.setAttribute("aria-pressed", "false");
+      control.setAttribute("aria-label", "Zoom in on post");
+      control.title = "Zoom in on post";
+    }
+  });
+  if (expand) {
+    card.classList.add("is-post-zoomed");
+    const mark = button.querySelector(".post-zoom-mark");
+    if (mark) mark.textContent = "−";
+    button.setAttribute("aria-pressed", "true");
+    button.setAttribute("aria-label", "Zoom out from post");
+    button.title = "Zoom out from post";
+  }
+  document.body.classList.toggle("has-post-zoomed", expand);
+}
+
+document.addEventListener("keydown", event => {
+  if (event.key !== "Escape") return;
+  const zoomed = document.querySelector("#shareSection .post-card.is-post-zoomed .post-expand-button");
+  if (zoomed) toggleCommunityPostZoom(zoomed);
+});
 
 function openPostExpandedViewer(trigger) {
     const sourceCard = trigger?.closest(".post-card");
@@ -16542,8 +16894,10 @@ async function viewMemberProfile(memberId, options = {}) {
 
       if (!["http:", "https:"].includes(parsed.protocol)) return "";
 
+      const platformClass = ({ LinkedIn: "linkedin", Behance: "behance", Instagram: "instagram", Portfolio: "portfolio" })[label] || "website";
+
       return `
-        <a href="${escapeHtml(parsed.href)}"
+        <a class="member-social-link member-social-link-${platformClass}" aria-label="${escapeHtml(label)}" href="${escapeHtml(parsed.href)}"
            target="_blank"
            rel="noopener noreferrer">
           ${label}
@@ -18461,7 +18815,7 @@ ownerChatForm.addEventListener("submit", async event => {
         </p>
 
         <p>
-          The idea for <strong>EJ Designs Community began in 2021</strong>: a place where
+          The idea for <strong>EJ Designs Community began in 2021</strong>: a platform where
           architects and designers can connect, exchange ideas, and showcase
           their work. I created this community to make creative collaboration
           and professional connection more accessible.
@@ -18607,8 +18961,26 @@ ownerChatForm.addEventListener("submit", async event => {
   }, true);
   document.addEventListener('dragstart', event => { if (!isEditable(event.target)) event.preventDefault(); }, true);
 })();
-</script></body>
+<script>
+/* Capture prompt close taps before any overlapping UI or inline-handler issue. */
+document.addEventListener("click", function(event) {
+  const closeButton = event.target.closest("#signupPromptCloseButton");
+  if (!closeButton) return;
+  event.preventDefault();
+  event.stopPropagation();
+  const overlay = document.getElementById("signupPromptOverlay");
+  if (!overlay) return;
+  overlay.classList.remove("is-visible");
+  overlay.setAttribute("aria-hidden", "true");
+}, true);
+</script></script></body>
 </html>
+
+
+
+
+
+
 
 
 
