@@ -8537,6 +8537,110 @@ body .quick-tabs .quick-tab-home .quick-icon { fill:none !important; stroke:curr
     white-space:nowrap !important;
   }
 }
+/* Force the supplied logo artwork to white on phones; the gold sweep remains a separate overlay. */
+@media (max-width:700px) {
+  img.corner-logo { filter:brightness(0) invert(1) drop-shadow(0 4px 6px rgba(0,0,0,.94)) drop-shadow(0 0 3px rgba(214,184,76,.28)) !important; -webkit-filter:brightness(0) invert(1) drop-shadow(0 4px 6px rgba(0,0,0,.94)) drop-shadow(0 0 3px rgba(214,184,76,.28)) !important; }
+}
+/* On touch screens, briefly replay the desktop quick-tab slide when a tab is tapped. */
+@media (hover:none) and (pointer:coarse) and (max-width:700px) {
+  .quick-tabs .quick-tab.is-tapped {
+    width:min(145px,calc(100vw - 22px)) !important;
+    transform:translate(-5px,-2px) !important;
+    background:rgba(226,199,95,.7) !important;
+    box-shadow:0 2px 0 rgba(145,117,35,.65),0 11px 20px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.4) !important;
+  }
+  .quick-tabs .quick-tab.is-tapped .quick-label { display:inline !important; opacity:1 !important; }
+}
+/* Compact post and feedback identity bands for phone screens without changing desktop cards. */
+@media (max-width:700px) {
+  #shareSection .post-identity-band,
+  #shareIdeasSection .feedback-header {
+    flex-wrap:nowrap !important;
+    align-items:center !important;
+    min-height:48px !important;
+    padding:6px 9px !important;
+    gap:6px !important;
+  }
+  #shareSection .post-identity-band .post-header { min-height:34px !important; flex:1 1 auto !important; padding:0 !important; overflow:hidden !important; }
+  #shareSection .post-avatar-wrap,
+  #shareSection .post-avatar { width:32px !important; height:32px !important; min-width:32px !important; flex-basis:32px !important; }
+  #shareSection .post-author-line { min-width:0 !important; flex-wrap:nowrap !important; gap:4px !important; overflow:hidden !important; }
+  #shareSection .post-author { min-width:0 !important; overflow:hidden !important; text-overflow:ellipsis !important; white-space:nowrap !important; font-size:12px !important; }
+  #shareSection .post-type-badge { flex:0 1 auto !important; width:auto !important; min-width:0 !important; max-width:82px !important; height:27px !important; min-height:27px !important; padding-inline:6px !important; overflow:hidden !important; text-overflow:ellipsis !important; font-size:8px !important; white-space:nowrap !important; }
+  #shareSection .post-identity-band .post-expand-button { flex:0 0 28px !important; width:28px !important; min-width:28px !important; height:28px !important; font-size:17px !important; }
+  #shareIdeasSection .feedback-avatar { width:32px !important; height:32px !important; flex:0 0 32px !important; }
+  #shareIdeasSection .feedback-header strong { flex:1 1 auto !important; min-width:0 !important; overflow:hidden !important; text-overflow:ellipsis !important; white-space:nowrap !important; font-size:12px !important; }
+  #shareIdeasSection .feedback-header .post-owner-badge { flex:0 1 auto !important; min-width:0 !important; max-width:96px !important; min-height:17px !important; padding:2px 5px !important; overflow:hidden !important; text-overflow:ellipsis !important; white-space:nowrap !important; font-size:8px !important; }
+  #shareIdeasSection .feedback-header .post-owner-verified { flex:0 0 13px !important; width:13px !important; height:13px !important; font-size:9px !important; }
+}
+/* Preserve the white logo treatment on mobile; the gold light is a separate overlay. */
+@media (max-width:700px) {
+  #homeSection img.corner-logo,
+  img.corner-logo { filter:brightness(0) invert(1) drop-shadow(0 4px 6px rgba(0,0,0,.94)) drop-shadow(0 0 3px rgba(214,184,76,.28)) !important; -webkit-filter:brightness(0) invert(1) drop-shadow(0 4px 6px rgba(0,0,0,.94)) drop-shadow(0 0 3px rgba(214,184,76,.28)) !important; }
+}
+/* Pin minimized floating panels directly to the phone viewport so neither can dock off-screen. */
+@media (max-width:700px) {
+  #ownerChatWidget #socialSidebarPanel.is-minimized,
+  #ownerChatWidget #ownerChatPanel.is-minimized {
+    position:fixed !important;
+    left:max(8px,env(safe-area-inset-left)) !important;
+    right:auto !important;
+    width:min(200px,calc(100vw - 16px)) !important;
+    min-width:0 !important;
+    max-width:calc(100vw - 16px) !important;
+    height:50px !important;
+    min-height:50px !important;
+    max-height:50px !important;
+    transform:none !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    pointer-events:auto !important;
+    z-index:30001 !important;
+    box-shadow:none !important;
+  }
+  #ownerChatWidget #socialSidebarPanel.is-minimized { bottom:calc(8px + env(safe-area-inset-bottom) + 148px) !important; }
+  #ownerChatWidget #ownerChatPanel.is-minimized { bottom:calc(8px + env(safe-area-inset-bottom) + 88px) !important; }
+  #ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-header,
+  #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-header { box-sizing:border-box !important; width:100% !important; height:50px !important; min-height:50px !important; max-height:50px !important; padding:6px !important; gap:4px !important; }
+}
+/* Give the Connect title its own column so the three-dot actions never cover text. */
+@media (max-width:700px) {
+  #connectSection #homeSocialHub:not([hidden]) {
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) auto !important;
+    align-items:start !important;
+    column-gap:8px !important;
+    row-gap:5px !important;
+    padding:14px 8px 8px !important;
+  }
+  #connectSection #homeSocialHub > h3 {
+    grid-column:1 !important;
+    grid-row:1 !important;
+    min-width:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow-wrap:anywhere !important;
+    white-space:normal !important;
+    text-align:left !important;
+    font-size:clamp(14px,4vw,18px) !important;
+    line-height:1.2 !important;
+  }
+  #connectSection #homeSocialHub .home-social-actions {
+    position:static !important;
+    grid-column:2 !important;
+    grid-row:1 !important;
+    align-self:start !important;
+    justify-self:end !important;
+    display:flex !important;
+    gap:4px !important;
+    margin:0 !important;
+  }
+  #connectSection #homeSocialHub .home-social-actions > details,
+  #connectSection #homeSocialHub .home-social-actions > details > summary { flex:0 0 32px !important; width:32px !important; min-width:32px !important; height:32px !important; min-height:32px !important; }
+  #connectSection #homeSocialHub > .home-social-hub-note,
+  #connectSection #homeSocialHub > #homeSocialSummary,
+  #connectSection #homeSocialHub > #homeSocialList { grid-column:1 / -1 !important; min-width:0 !important; max-width:100% !important; }
+}
 </style></head>
 
 
@@ -16887,9 +16991,11 @@ function playQuickTabSound(sectionId) {
 function selectQuickTab(button, sectionId) {
   playQuickTabSound(sectionId);
   document.querySelectorAll(".quick-tab").forEach(tab => {
-    tab.classList.remove("selected");
+    tab.classList.remove("selected", "is-tapped");
   });
   button.classList.add("selected");
+  button.classList.add("is-tapped");
+  window.setTimeout(() => button.classList.remove("is-tapped"), 850);
   showSection(sectionId);
   // Keep the active destination marked, but collapse its quick tab after selection.
   button.blur();
@@ -18503,6 +18609,10 @@ ownerChatForm.addEventListener("submit", async event => {
 })();
 </script></body>
 </html>
+
+
+
+
 
 
 
