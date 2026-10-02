@@ -8426,6 +8426,45 @@ body .quick-tabs .quick-tab-home .quick-icon { fill:none !important; stroke:curr
 .home-welcome-letter { display:inline-block; margin-inline-end:.015em; opacity:0; transform:translateY(.24em); animation:homeWelcomeLetterIn .38s cubic-bezier(.2,.75,.25,1) both; animation-delay:var(--home-letter-delay,0ms); }
 @keyframes homeWelcomeLetterIn { to { opacity:1; transform:translateY(0); } }
 @media (prefers-reduced-motion:reduce) { .home-welcome-letter { animation:none; opacity:1; transform:none; } }
+/* Keep post and feedback cards fully inside narrow phone screens. */
+@media (max-width:700px) {
+  #shareSection .community-page,
+  #shareIdeasSection .community-page,
+  #shareSection .posts-container,
+  #shareIdeasSection .feedback-card,
+  #shareSection .post-card { min-width:0 !important; max-width:100% !important; box-sizing:border-box !important; }
+  #shareSection .post-card,
+  #shareIdeasSection .feedback-card { overflow:hidden; }
+  #shareSection .post-identity-band,
+  #shareIdeasSection .feedback-header { min-width:0; max-width:100%; box-sizing:border-box; gap:8px; padding-inline:12px; }
+  #shareSection .post-header,
+  #shareIdeasSection .feedback-header strong { min-width:0; }
+  #shareSection .post-header { gap:8px; }
+  #shareSection .post-author-line { min-width:0; overflow-wrap:anywhere; }
+  #shareSection .post-type-badge { min-width:0; max-width:36%; padding-inline:6px !important; overflow:hidden; text-overflow:ellipsis; font-size:9px; }
+  #shareSection .post-body,
+  #shareIdeasSection .feedback-details { min-width:0; max-width:100%; box-sizing:border-box; padding:12px; }
+  #shareSection .post-content,
+  #shareIdeasSection .feedback-card .post-content { min-width:0; max-width:100%; overflow-wrap:anywhere; word-break:normal; }
+  #shareSection .post-images { grid-template-columns:repeat(auto-fit,minmax(min(120px,100%),1fr)); min-width:0; }
+  #shareSection .post-image-trigger,
+  #shareIdeasSection .feedback-image { max-width:100%; box-sizing:border-box; }
+  #shareSection .post-actions,
+  #shareIdeasSection .feedback-card .post-actions { min-width:0; max-width:100%; flex-wrap:wrap; gap:6px; }
+  #shareSection .post-action-button,
+  #shareIdeasSection .feedback-card .post-action-button,
+  #shareIdeasSection .feedback-delete-button { min-width:0; max-width:100%; box-sizing:border-box; padding-inline:10px; }
+}
+@media (max-width:380px) {
+  #shareSection .post-identity-band,
+  #shareIdeasSection .feedback-header { gap:6px; padding-inline:9px; }
+  #shareSection .post-avatar-wrap,
+  #shareSection .post-avatar { width:34px; height:34px; flex-basis:34px; min-width:34px; }
+  #shareIdeasSection .feedback-avatar { width:34px; height:34px; flex-basis:34px; }
+  #shareSection .post-owner-badge,
+  #shareIdeasSection .feedback-header .post-owner-badge { max-width:100%; overflow:hidden; text-overflow:ellipsis; }
+  #shareSection .post-type-badge { max-width:32%; font-size:8px; }
+}
 </style></head>
 
 
