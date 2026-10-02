@@ -8465,6 +8465,45 @@ body .quick-tabs .quick-tab-home .quick-icon { fill:none !important; stroke:curr
   #shareIdeasSection .feedback-header .post-owner-badge { max-width:100%; overflow:hidden; text-overflow:ellipsis; }
   #shareSection .post-type-badge { max-width:32%; font-size:8px; }
 }
+/* Mobile refinements: keep floating panels, profile privacy and cards inside the viewport. */
+@media (max-width:600px) {
+  /* Match the original desktop quick-tab size and treatment; keep its tap navigation intact. */
+  .quick-tabs { width:155px !important; align-items:flex-end !important; gap:8px !important; }
+  .quick-tab, .quick-tab.selected { box-sizing:border-box; width:48px !important; min-width:48px !important; max-width:48px !important; height:46px !important; min-height:46px !important; padding:0 13px !important; border-radius:12px !important; }
+  .quick-tab .quick-icon { right:13px !important; width:20px !important; height:20px !important; }
+
+  /* Prevent the compact Network and Inbox tabs from shifting beyond either phone edge. */
+  #ownerChatWidget #socialSidebarPanel.is-minimized,
+  #ownerChatWidget #ownerChatPanel.is-minimized { left:0 !important; right:auto !important; width:min(200px,calc(100vw - 24px)) !important; min-width:0 !important; max-width:calc(100vw - 24px) !important; transform:none !important; }
+
+  /* Let the privacy row shrink to the profile card and allow its description to wrap. */
+  #profileSection .profile-social-hub { display:grid !important; grid-template-columns:minmax(0,1fr) !important; width:100% !important; min-width:0 !important; box-sizing:border-box !important; }
+  #profileSection .profile-social-hub .social-summary { width:100% !important; max-width:100% !important; min-width:0 !important; flex-wrap:wrap !important; justify-content:center !important; }
+  #profileSection .profile-social-hub .social-privacy-row { width:100% !important; min-width:0 !important; max-width:100% !important; box-sizing:border-box !important; }
+  #profileSection .profile-social-hub .social-privacy-row label { width:100% !important; min-width:0 !important; max-width:100% !important; box-sizing:border-box !important; gap:6px !important; padding:4px 6px !important; }
+  #profileSection .profile-social-hub .social-privacy-copy { display:flex !important; flex:1 1 0 !important; min-width:0 !important; max-width:100% !important; flex-wrap:wrap !important; align-items:center !important; gap:4px !important; white-space:normal !important; font-size:clamp(8px,2.5vw,10px) !important; line-height:1.25 !important; }
+  #profileSection .profile-social-hub .social-privacy-copy > span { flex:1 1 110px !important; width:auto !important; min-width:0 !important; overflow-wrap:anywhere !important; white-space:normal !important; }
+  #profileSection .profile-social-hub .social-privacy-copy > strong { flex:0 0 auto !important; margin-left:auto !important; }
+
+  /* Remove the reserved desktop badge space and let post/feedback header items wrap. */
+  #shareSection .post-identity-band,
+  #shareIdeasSection .feedback-header { flex-wrap:wrap !important; min-width:0 !important; width:100% !important; max-width:100% !important; box-sizing:border-box !important; gap:8px !important; padding-inline:10px !important; }
+  #shareSection .post-identity-band .post-header { padding-right:0 !important; min-width:0 !important; flex:1 1 120px !important; }
+  #shareIdeasSection .feedback-header strong { flex:1 1 80px !important; min-width:0 !important; white-space:normal !important; overflow-wrap:anywhere !important; }
+  #shareSection .post-type-badge { max-width:100% !important; white-space:normal !important; overflow-wrap:anywhere !important; }
+  #shareSection .posts-container,
+  #shareSection .post-card,
+  #shareIdeasSection .feedback-card { width:100% !important; min-width:0 !important; max-width:100% !important; margin-inline:0 !important; box-sizing:border-box !important; }
+  #shareSection .post-body,
+  #shareIdeasSection .feedback-details { width:100% !important; min-width:0 !important; max-width:100% !important; box-sizing:border-box !important; padding:12px !important; }
+  #shareSection .post-images { grid-template-columns:repeat(auto-fit,minmax(min(112px,100%),1fr)) !important; min-width:0 !important; }
+  #shareSection .post-image-trigger,
+  #shareIdeasSection .feedback-image { width:100% !important; max-width:100% !important; box-sizing:border-box !important; }
+  #shareSection .post-actions,
+  #shareIdeasSection .feedback-card .post-actions { flex-wrap:wrap !important; min-width:0 !important; max-width:100% !important; }
+  #shareSection .post-content,
+  #shareIdeasSection .feedback-card .post-content { max-width:100% !important; overflow-wrap:anywhere !important; }
+}
 </style></head>
 
 
@@ -13812,7 +13851,9 @@ function syncProfileSocialPrivacyWidth() {
   const applyWidth = () => {
     const buttons = [...summary.querySelectorAll(".social-summary-action")];
     const bounds = buttons.map(button => button.getBoundingClientRect());
-    const width = bounds.length ? Math.max(...bounds.map(rect => rect.right)) - Math.min(...bounds.map(rect => rect.left)) : summary.getBoundingClientRect().width;
+    const measuredWidth = bounds.length ? Math.max(...bounds.map(rect => rect.right)) - Math.min(...bounds.map(rect => rect.left)) : summary.getBoundingClientRect().width;
+    const availableWidth = Math.max(0, Math.min(privacyRow.parentElement?.clientWidth || window.innerWidth, (window.visualViewport?.width || window.innerWidth) - 24));
+    const width = Math.min(measuredWidth, availableWidth);
     if (width > 0) {
       privacyRow.style.setProperty("width", `${width}px`, "important");
       privacyRow.style.setProperty("margin-left", "auto", "important");
