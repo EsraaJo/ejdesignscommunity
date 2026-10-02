@@ -7766,8 +7766,9 @@ body > header {
 #ownerChatWidget .owner-chat-messages::-webkit-scrollbar-thumb { min-height: 28px; border: 1px solid rgba(114,88,4,.55); border-radius: 999px; background: #d6b84c; background-clip: padding-box; }
 </style>
 <style>
-.owner-chat-resize-handle { position: relative; z-index: 2; display: flex; flex: 0 0 12px; align-items: center; justify-content: center; min-height: 12px; border-top: 1px solid rgba(214,184,76,.25); border-bottom: 1px solid rgba(214,184,76,.25); background: #f7f7f5; cursor: ns-resize; touch-action: none; }
-.owner-chat-resize-handle::after { width: 42px; height: 3px; border-radius: 999px; background: #d6b84c; box-shadow: 0 1px 3px rgba(0,0,0,.18); content: ""; }
+.owner-chat-resize-handle { position:relative; z-index:5; display:flex; flex:0 0 20px; align-items:center; justify-content:center; min-height:20px; border-top:1px solid rgba(214,184,76,.38); border-bottom:1px solid rgba(214,184,76,.38); background:linear-gradient(180deg,#fffdf6,#f5f1e3); cursor:ns-resize; touch-action:none; user-select:none; }
+.owner-chat-resize-handle::after { width:72px; height:5px; border:1px solid rgba(160,126,18,.34); border-radius:999px; background:linear-gradient(180deg,#f0d96a,#c49e25); box-shadow:0 1px 3px rgba(0,0,0,.2),0 0 7px rgba(214,184,76,.3); content:""; transition:width .15s ease,height .15s ease,box-shadow .15s ease; }
+.owner-chat-resize-handle:hover::after,.owner-chat-resize-handle:focus-visible::after { width:92px; height:6px; box-shadow:0 1px 4px rgba(0,0,0,.22),0 0 10px rgba(214,184,76,.52); }
 .owner-chat-resize-handle:focus-visible { outline: 2px solid #d6b84c; outline-offset: -2px; }
 #ownerChatContacts[hidden] + .owner-chat-resize-handle { display: none; }
 </style>
@@ -8255,6 +8256,176 @@ body .page-back-btn[onclick*="homeSection"]:hover {
   #memberProfileSection .member-profile-card .member-profile-header > #memberConnectionAction { grid-column:1 / -1; grid-row:2; }
   #memberProfileSection .member-profile-card .member-profile-header > .member-social-preview { grid-column:1 / -1 !important; grid-row:3 !important; margin:0 !important; }
 }
+</style><style>
+/* Center the site name on phones without changing the logo's position. */
+@media (max-width:700px) {
+  body > header h1 { padding-right:0 !important; padding-left:0 !important; text-align:center !important; margin-left:auto !important; margin-right:auto !important; }
+}
+/* Deter casual copying of visible page text; retain normal editing and clipboard use in forms. */
+body { -webkit-user-select:none; user-select:none; }
+input, textarea, select, [contenteditable="true"], [contenteditable=""] { -webkit-user-select:text; user-select:text; }
+</style><style>
+/* Gold light sweep over the existing logo mask. */
+.corner-logo-shine::before { background:linear-gradient(100deg,transparent,rgba(180,139,20,.24) 28%,rgba(237,203,69,.9) 50%,rgba(255,223,94,.58) 62%,transparent); }
+/* Match post-type labels to the transparent gold expand control and remove decorative sparkles. */
+#shareSection .post-identity-band .post-type-badge { border:1px solid rgba(214,184,76,.58) !important; border-radius:9px !important; color:#f5df84 !important; background:rgba(214,184,76,.11) !important; box-shadow:none !important; }
+#shareSection .post-identity-band .post-type-badge::before,
+#shareSection .post-identity-band .post-type-badge::after { content:none !important; display:none !important; animation:none !important; }
+/* Feedback posts use the same black identity band and white content surface as posts. */
+#shareIdeasSection .feedback-card { display:flex; flex-direction:column; align-items:stretch; gap:0; overflow:hidden; padding:0; color:#292929; border:1px solid rgba(214,184,76,.3); border-radius:12px; background:#fff; box-shadow:0 8px 24px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.82); }
+#shareIdeasSection .feedback-header { display:flex; align-items:center; align-self:stretch; box-sizing:border-box; width:100%; min-height:64px; gap:12px; padding:10px 18px; color:#f5f3ed; background:linear-gradient(135deg,#171717,#080808); border-bottom:1px solid rgba(214,184,76,.2); }
+#shareIdeasSection .feedback-header strong { overflow:hidden; color:#f7f5ef; font-size:14px; text-overflow:ellipsis; white-space:nowrap; }
+#shareIdeasSection .feedback-header .post-owner-badge { position:relative; isolation:isolate; flex:0 0 auto; min-height:18px; padding:2px 7px; border:1px solid #d6b84c; border-radius:999px; color:#8b6c0d; background:linear-gradient(135deg,#fff9e6,#f6e5a2); box-shadow:0 2px 7px rgba(214,184,76,.18); font-size:9px; font-weight:750; line-height:1; }
+#shareIdeasSection .feedback-header .post-owner-badge.is-member { border-color:rgba(44,156,104,.65); color:#176c47; background:linear-gradient(135deg,#e8f8ef,#bde9d0); box-shadow:0 2px 7px rgba(44,156,104,.2); }
+#shareIdeasSection .feedback-header .post-owner-badge::before,
+#shareIdeasSection .feedback-header .post-owner-badge::after { position:absolute; z-index:2; color:#d6b84c; font-size:10px; line-height:1; text-shadow:0 0 5px rgba(214,184,76,.58); pointer-events:none; animation:postBadgeSparkle 2.8s ease-in-out infinite; }
+#shareIdeasSection .feedback-header .post-owner-badge::before { content:"✦"; top:-5px; left:-7px; }
+#shareIdeasSection .feedback-header .post-owner-badge::after { content:"✧"; right:-7px; bottom:-5px; font-size:9px; animation-delay:1.2s; }
+#shareIdeasSection .feedback-header .post-owner-verified { width:15px; height:15px; font-size:10px; }
+#shareIdeasSection .feedback-avatar { width:42px; height:42px; flex:0 0 42px; object-fit:cover; border:1px solid rgba(214,184,76,.6); border-radius:50%; }
+#shareIdeasSection .feedback-avatar-fallback { display:grid; place-items:center; color:#111; background:#d6b84c; font-size:13px; font-weight:700; }
+#shareIdeasSection .feedback-details { width:100%; box-sizing:border-box; padding:16px 18px; color:#292929; background:#fff; }
+#shareIdeasSection .feedback-card .post-content { color:#292929; white-space:pre-wrap; overflow-wrap:anywhere; }
+#shareIdeasSection .feedback-card .post-date { color:#777; border-color:rgba(35,35,35,.12); }
+#shareIdeasSection .feedback-card .post-actions { margin-top:14px; padding-top:12px; border-color:rgba(35,35,35,.12); }
+/* Compact audio recording and playback UI beside the image attachment button. */
+#ownerChatWidget .owner-chat-send-row .owner-chat-audio-button { display:inline-flex !important; align-items:center; justify-content:center; box-sizing:border-box; flex:0 0 38px !important; width:38px !important; min-width:38px !important; height:38px !important; min-height:38px !important; padding:0 !important; border:1px solid rgba(218,185,65,.75); border-radius:10px; color:#181818; background:linear-gradient(145deg,#f5df79,#d7b640); cursor:pointer; }
+#ownerChatWidget .owner-chat-send-row .owner-chat-image-button,
+#ownerChatWidget .owner-chat-send-row .owner-chat-audio-button { box-sizing:border-box !important; flex:0 0 42px !important; width:42px !important; min-width:42px !important; max-width:42px !important; height:42px !important; min-height:42px !important; max-height:42px !important; padding:0 !important; border:1px solid rgba(218,185,65,.75) !important; border-radius:12px !important; color:#181818 !important; background:#e2c548 !important; box-shadow:0 2px 7px rgba(0,0,0,.12) !important; }
+#ownerChatWidget .owner-chat-send-row .owner-chat-image-button { font-size:27px !important; line-height:1 !important; }
+#ownerChatWidget .owner-chat-audio-button svg { width:19px; height:19px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+#ownerChatWidget .owner-chat-audio-button.is-recording { border-color:#c83e43; color:#fff; background:#c83e43; }
+@media (max-width:700px) { #ownerChatWidget .owner-chat-send-row .owner-chat-image-button, #ownerChatWidget .owner-chat-send-row .owner-chat-audio-button { flex:0 0 38px !important; width:38px !important; min-width:38px !important; max-width:38px !important; height:38px !important; min-height:38px !important; max-height:38px !important; } #ownerChatWidget .owner-chat-send-row .owner-chat-image-button { font-size:25px !important; } }
+.owner-chat-recording-dot { width:12px; height:12px; border-radius:3px; background:#fff; }
+.owner-chat-audio-preview { display:flex; align-items:center; gap:8px; min-width:0; padding:6px 8px; border:1px solid rgba(214,184,76,.48); border-radius:10px; color:#4b411e; background:#fffdf5; font-size:11px; }
+.owner-chat-audio-preview[hidden] { display:none !important; }
+.owner-chat-audio-preview audio { width:min(260px,65%); height:32px; }
+.owner-chat-audio-preview span { flex:1; }
+.owner-chat-audio-preview button { flex:0 0 27px; width:27px; height:27px; padding:0; border:0; border-radius:50%; color:#555; background:#eee; font-size:18px; }
+.owner-chat-message-audio { display:block; width:min(320px,100%); height:34px; margin:4px 0; }
+.owner-chat-audio-message-frame { max-width:100%; }
+.social-directory-count-summary { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin:0 0 12px; }
+.social-directory-count-summary > div { display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:48px; padding:10px 14px; border:1px solid rgba(214,184,76,.48); border-radius:10px; color:#745d14; background:rgba(255,255,255,.82); }
+.social-directory-count-summary strong { color:#111; font-size:18px; }
+@media (max-width:560px) { .social-directory-count-summary { grid-template-columns:1fr; gap:6px; } }
+/* Give post role labels the same small gold sparkle used throughout the community UI. */
+#shareSection .post-owner-badge { position:relative; isolation:isolate; }
+#shareSection .post-owner-badge.is-member { border-color:rgba(44,156,104,.65); color:#176c47; background:linear-gradient(135deg,#e8f8ef,#bde9d0); box-shadow:0 2px 7px rgba(44,156,104,.2); }
+#shareSection .post-owner-badge::before,
+#shareSection .post-owner-badge::after { position:absolute; z-index:2; color:#d6b84c; font-size:10px; line-height:1; text-shadow:0 0 5px rgba(214,184,76,.58); pointer-events:none; animation:postBadgeSparkle 2.8s ease-in-out infinite; }
+#shareSection .post-owner-badge::before { content:"✦"; top:-5px; left:-7px; }
+#shareSection .post-owner-badge::after { content:"✧"; right:-7px; bottom:-5px; font-size:9px; animation-delay:1.2s; }
+/* My Network tabs mirror the compact count pills on the Connect page. */
+#socialConnectionsSection .social-directory-tab { box-sizing:border-box; min-height:32px; padding:3px 9px; border:1px solid #d6b84c; border-radius:999px; color:#fff; background:linear-gradient(135deg,#171717,#29251a); font-size:11px; line-height:1.2; box-shadow:0 3px 10px rgba(214,184,76,.16); }
+#socialConnectionsSection .social-directory-tab.is-active,
+#socialConnectionsSection .social-directory-tab:hover { color:#111; border-color:#e3c957; background:linear-gradient(135deg,#ead578,#d6b84c); }
+@media (max-width:600px) { #socialConnectionsSection .social-directory-tab { min-height:32px; padding:3px 7px; font-size:11px; } }
+/* Align the post-type pill vertically with the adjacent expand control. */
+#shareSection .post-identity-band .post-type-badge { box-sizing:border-box; height:34px !important; min-height:34px !important; padding:0 11px !important; border-radius:9px !important; color:#fff !important; line-height:1.2 !important; }
+/* Make the logo sweep visibly warm gold and keep the white logo artwork bright. */
+.corner-logo { opacity:.90 !important; }
+.corner-logo-shine::before { left:-40%; width:40%; opacity:0; filter:drop-shadow(0 0 6px rgba(255,193,32,.58)) drop-shadow(0 0 10px rgba(255,190,24,.34)); mix-blend-mode:normal; background:linear-gradient(100deg,transparent 0%,rgba(255,183,0,.58) 24%,rgba(255,225,154,.72) 45%,rgba(255,190,24,.64) 61%,rgba(255,219,105,.48) 73%,transparent 100%); animation:cornerLogoLightSweep 12s linear infinite; }
+@keyframes cornerLogoLightSweep { 0% { left:-40%; opacity:.64; } 100% { left:145%; opacity:.64; } }
+@media (prefers-reduced-motion:reduce) { .corner-logo-shine::before { animation:cornerLogoLightSweep 12s linear infinite !important; } }
+#ownerChatWidget .owner-chat-resize-handle,
+#ownerChatWidget .owner-chat-composer-resize-handle { position:relative; z-index:5; display:flex; box-sizing:border-box; flex:0 0 14px; align-items:center; justify-content:center; height:14px; min-height:14px; margin:0; border-top:1px solid rgba(214,184,76,.34); border-bottom:1px solid rgba(214,184,76,.34); background:linear-gradient(180deg,#fffdf6,#f5f1e3); cursor:ns-resize; touch-action:none; user-select:none; }
+#ownerChatWidget .owner-chat-resize-handle::after,
+#ownerChatWidget .owner-chat-composer-resize-handle::after { width:42px; height:2px; border:0; border-radius:999px; background:#d6b84c; box-shadow:none; content:""; transition:width .15s ease,height .15s ease; }
+#ownerChatWidget .owner-chat-resize-handle::after { width:42px; height:2px; border:0; border-radius:999px; background:#d6b84c; box-shadow:none; content:""; transition:width .15s ease,height .15s ease; }
+#ownerChatWidget .owner-chat-resize-handle:hover::after,
+#ownerChatWidget .owner-chat-resize-handle:focus-visible::after,
+#ownerChatWidget .owner-chat-composer-resize-handle:hover::after,
+#ownerChatWidget .owner-chat-composer-resize-handle:focus-visible::after,
+#ownerChatWidget .owner-chat-resize-handle:focus-visible::after { width:42px; height:2px; background:#d6b84c; box-shadow:none; }
+#ownerChatWidget .owner-chat-send-row { align-items:flex-end; }
+#ownerChatWidget .owner-chat-send-row { box-sizing:border-box; width:100%; min-width:0; }
+#ownerChatWidget .owner-chat-send-row textarea { display:block; box-sizing:border-box; flex:1 1 0; width:0; min-width:0; max-width:100%; min-height:44px; max-height:180px; height:44px; overflow-y:auto; resize:none; margin:0; padding:12px 15px; border:1px solid #333; border-radius:22px; color:#eee; background:#1d1d1d; font:inherit; font-size:13px; line-height:1.35; }
+@media (max-width:700px) { #ownerChatWidget .owner-chat-send-row textarea { min-height:44px; font-size:16px; } }
+/* Match the privacy strip width exactly to the centered count-button group. */
+#profileSection .profile-social-hub { display:grid; grid-template-columns:fit-content(100%); justify-content:center; row-gap:8px; }
+#profileSection .profile-social-hub .social-summary { width:fit-content; max-width:100%; margin:0 auto; }
+#profileSection .profile-social-hub .social-privacy-row { box-sizing:border-box; width:100%; min-width:0; max-width:100%; margin:0; justify-content:center; }
+#profileSection .profile-social-hub .social-privacy-row label { box-sizing:border-box; width:100%; min-width:0; max-width:100%; padding:4px 8px; gap:8px; transform:none; }
+#profileSection .profile-social-hub .social-privacy-copy { flex:1 1 auto; min-width:0; flex-wrap:nowrap; gap:6px; white-space:nowrap; font-size:9px; line-height:1.2; }
+#profileSection .profile-social-hub .social-privacy-copy > span { white-space:nowrap; }
+#profileSection .profile-social-hub .social-privacy-copy > strong { flex:0 0 auto; min-height:18px; padding:2px 7px; font-size:9px; }
+@media (max-width:600px) { #profileSection .profile-social-hub .social-privacy-copy { gap:4px; font-size:7px; } #profileSection .profile-social-hub .social-privacy-row label { gap:5px; padding-inline:4px; } #profileSection .profile-social-hub .social-privacy-copy > strong { padding-inline:5px; font-size:8px; } }
+/* Slightly reduce the controls highlighted in the Connect and Chat panels. */
+#ownerChatWidget .social-sidebar-header-actions button,
+#ownerChatWidget .owner-chat-header-actions button { flex-basis:26px !important; width:26px !important; min-width:26px !important; height:26px !important; min-height:26px !important; }
+#ownerChatWidget .social-sidebar-panel.is-minimized .social-sidebar-header-actions button,
+#ownerChatWidget .owner-chat-panel.is-minimized .owner-chat-header-actions button { flex-basis:32px !important; width:32px !important; min-width:32px !important; height:32px !important; min-height:32px !important; }
+#ownerChatWidget .owner-chat-conversation-tools button { flex-basis:28px; width:28px; height:28px; }
+/* Compact both minimized panels while preserving readable labels and touch-sized controls. */
+#ownerChatWidget #socialSidebarPanel.is-minimized,
+#ownerChatWidget #ownerChatPanel.is-minimized { box-sizing:border-box !important; width:min(200px,calc(100vw - 24px)) !important; min-width:min(200px,calc(100vw - 24px)) !important; max-width:min(200px,calc(100vw - 24px)) !important; height:50px !important; min-height:50px !important; max-height:50px !important; }
+#ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-header,
+#ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-header { box-sizing:border-box !important; height:50px !important; min-height:50px !important; max-height:50px !important; padding:7px 6px !important; gap:4px !important; }
+#ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-header h3,
+#ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading { min-width:0 !important; }
+#ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-title,
+#ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading strong { box-sizing:border-box !important; display:flex !important; align-items:center !important; height:28px !important; min-height:28px !important; max-height:28px !important; min-width:0 !important; overflow:hidden !important; padding:4px !important; font-size:11.5px !important; line-height:1.2 !important; white-space:nowrap !important; text-overflow:ellipsis !important; }
+#ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading strong { font-size:0 !important; }
+/* Give both minimized title boxes the same available width. */
+#ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-header h3,
+#ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading { box-sizing:border-box !important; flex:1 1 0 !important; width:0 !important; min-width:0 !important; }
+#ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-title,
+#ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading strong { box-sizing:border-box !important; flex:1 1 auto !important; width:100% !important; max-width:100% !important; }
+#ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-header-actions,
+#ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-header-actions { grid-template-columns:repeat(2,24px) !important; grid-auto-rows:24px !important; width:52px !important; min-width:52px !important; gap:4px !important; }
+#ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-header-actions button,
+#ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-header-actions button { box-sizing:border-box !important; flex-basis:24px !important; width:24px !important; min-width:24px !important; max-width:24px !important; height:24px !important; min-height:24px !important; max-height:24px !important; }
+#ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading strong::after { content:"My Inbox"; font-size:11.5px !important; line-height:1.2 !important; }/* Keep both horizontal drag tracks slim while retaining the centered grip. */
+#ownerChatWidget .owner-chat-resize-handle,
+#ownerChatWidget .owner-chat-composer-resize-handle { flex-basis:10px !important; height:10px !important; min-height:10px !important; }
+/* Keep the privacy strip compact and aligned to the count buttons above. */
+#profileSection .profile-social-hub .social-privacy-row { width:min(475px,100%); max-width:100%; margin:0 auto; }
+#profileSection .profile-social-hub .social-privacy-row label { padding:3px 6px; gap:6px; }
+#profileSection .profile-social-hub .social-privacy-row input { box-sizing:border-box; flex:0 0 40px; width:40px; }
+#profileSection .profile-social-hub .social-privacy-row input::before { width:16px; height:16px; }
+#profileSection .profile-social-hub .social-privacy-row input:not(:checked)::before { transform:translateX(21px); }
+#profileSection .profile-social-hub .social-privacy-row input:checked::before { transform:none; }
+#profileSection .profile-social-hub .social-privacy-row input:checked::after { left:25px; }
+#profileSection .profile-social-hub .social-privacy-copy { gap:4px; font-size:8px; }
+#profileSection .profile-social-hub .social-privacy-copy > span { min-width:0; overflow:hidden; text-overflow:ellipsis; }
+#profileSection .profile-social-hub .social-privacy-copy > strong { min-height:16px; padding:1px 6px; font-size:8px; }
+@media (max-width:600px) { #profileSection .profile-social-hub .social-privacy-row { width:100%; } }
+/* Remove the lower border and every shadow source from minimized dock tabs. */
+#ownerChatWidget .social-sidebar-panel.is-minimized,
+#ownerChatWidget .owner-chat-panel.is-minimized { border-bottom:0 !important; box-shadow:none !important; filter:none !important; outline:0 !important; }
+#ownerChatWidget .social-sidebar-panel.is-minimized .social-sidebar-header,
+#ownerChatWidget .owner-chat-panel.is-minimized .owner-chat-header { border-bottom:0 !important; box-shadow:none !important; }
+/* Hide the resize grips and hover backdrops while either dock panel is minimized. */
+#ownerChatWidget .owner-chat-panel.is-minimized .owner-chat-resize-handle,
+#ownerChatWidget .owner-chat-panel.is-minimized .owner-chat-composer-resize-handle { display:none !important; }
+#ownerChatWidget:has(#socialSidebarPanel.is-minimized)::before,
+#ownerChatWidget:has(#socialSidebarPanel.is-minimized)::after,
+#ownerChatWidget:has(#ownerChatPanel.is-minimized)::before,
+#ownerChatWidget:has(#ownerChatPanel.is-minimized)::after { opacity:0 !important; }
+#ownerChatWidget:has(#socialSidebarPanel.is-minimized) .connect-hover-layer,
+#ownerChatWidget:has(#ownerChatPanel.is-minimized) .chat-hover-layer { opacity:0 !important; box-shadow:none !important; }
+/* Keep the privacy switch wide and make its white thumb nearly fill the track height. */
+#profileSection .profile-social-hub .social-privacy-row input { flex:0 0 48px !important; width:48px !important; }
+#profileSection .profile-social-hub .social-privacy-row input::before { top:1px !important; left:1px !important; width:24px !important; height:24px !important; }
+#profileSection .profile-social-hub .social-privacy-row input:not(:checked)::before { transform:translateX(21px) !important; }
+#profileSection .profile-social-hub .social-privacy-row input:checked::after { left:30px !important; }
+/* Center the check mark neatly inside every verified badge. */
+.member-owner-verified::before { font-size:9px !important; line-height:1 !important; }
+/* Match the Home shortcut to the original gold quick-tab style. */
+body .quick-tabs .quick-tab-home { color:#151515 !important; background:rgba(214,184,76,.75) !important; border:1px solid rgba(17,17,17,.12) !important; border-radius:12px !important; box-shadow:0 3px 0 rgba(145,117,35,.65),0 7px 16px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.4) !important; }
+body .quick-tabs .quick-tab-home:hover, body .quick-tabs .quick-tab-home:focus-visible { color:#151515 !important; background:rgba(226,199,95,.7) !important; border-color:rgba(17,17,17,.12) !important; box-shadow:0 2px 0 rgba(145,117,35,.65),0 11px 20px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.4) !important; transform:translate(-5px,-2px); }
+body .quick-tabs .quick-tab-home .quick-icon { fill:none !important; stroke:currentColor !important; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; color:#151515 !important; filter:none !important; animation:none !important; }
+/* Spread the privacy description and status across the transparent row. */
+#profileSection .profile-social-hub .social-privacy-copy { justify-content:space-between; gap:8px; }
+#profileSection .profile-social-hub .social-privacy-copy > span { flex:1 1 auto; width:0; min-width:0; overflow:visible; text-overflow:clip; white-space:nowrap; }
+#profileSection .profile-social-hub .social-privacy-copy > strong { margin-left:8px; }
+/* Keep both ON and OFF labels clipped neatly inside the switch track. */
+#profileSection .profile-social-hub .social-privacy-row input::after { box-sizing:border-box; max-width:16px; overflow:hidden; white-space:nowrap; }
+#profileSection .profile-social-hub .social-privacy-row input:not(:checked)::after { left:5px !important; }
+/* Reveal the home welcome heading one character at a time whenever Home opens. */
+.home-welcome-letter { display:inline-block; margin-inline-end:.015em; opacity:0; transform:translateY(.24em); animation:homeWelcomeLetterIn .38s cubic-bezier(.2,.75,.25,1) both; animation-delay:var(--home-letter-delay,0ms); }
+@keyframes homeWelcomeLetterIn { to { opacity:1; transform:translateY(0); } }
+@media (prefers-reduced-motion:reduce) { .home-welcome-letter { animation:none; opacity:1; transform:none; } }
 </style></head>
 
 
@@ -8604,7 +8775,7 @@ body .page-back-btn[onclick*="homeSection"]:hover {
                     </summary>
                     <div class="profile-options-popover" aria-label="Community options">
                       <button type="button" onclick="closeConnectNetworkOptionsMenu(); openSocialPage('connections', currentUser?.id)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"></circle><circle cx="17" cy="9" r="2.3"></circle><path d="M3 20a6 6 0 0 1 12 0m1-5a4.5 4.5 0 0 1 5 4.5"></path></svg><span>View My Network</span></button>
-                      <button type="button" onclick="openEditMyProfileFromConnect()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L8 18l-4 1 1-4Z"></path></svg><span>Edit My Profile</span></button>
+                      <button type="button" onclick="openOwnProfileFromConnect()"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20a7 7 0 0 1 14 0"></path></svg><span>View My Profile</span></button><button type="button" onclick="openEditMyProfileFromConnect()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L8 18l-4 1 1-4Z"></path></svg><span>Edit My Profile</span></button>
                     </div>
                   </details>
                 </div>
@@ -10105,7 +10276,7 @@ body .page-back-btn[onclick*="homeSection"]:hover {
 </div>
 
     <div id="ownerChatContacts" class="owner-chat-contacts" hidden></div>
-    <div id="ownerChatResizeHandle" class="owner-chat-resize-handle" role="separator" aria-orientation="horizontal" aria-label="Resize conversation list" aria-valuemin="90" aria-valuemax="260" aria-valuenow="190" tabindex="0"></div>
+    <div id="ownerChatResizeHandle" class="owner-chat-resize-handle" role="separator" aria-orientation="horizontal" aria-label="Drag up or down to resize the conversation list" title="Drag up or down to resize the conversation list" aria-valuemin="90" aria-valuemax="260" aria-valuenow="190" tabindex="0"></div>
 
     <div id="ownerChatMessages" class="owner-chat-messages">
       <p class="owner-chat-empty">Loading conversation...</p>
@@ -10125,10 +10296,13 @@ body .page-back-btn[onclick*="homeSection"]:hover {
   />
 
   <div id="ownerChatImagePreview" class="owner-chat-image-preview" hidden><img id="ownerChatImagePreviewThumb" alt="Selected image preview"><span id="ownerChatImagePreviewName"></span><button type="button" onclick="ownerChatClearImageSelection()" aria-label="Remove selected image">×</button></div>
+  <div id="ownerChatAudioPreview" class="owner-chat-audio-preview" hidden><audio id="ownerChatAudioPreviewPlayer" controls preload="metadata"></audio><span>Voice recording ready</span><button type="button" onclick="ownerChatClearAudioSelection()" aria-label="Remove voice recording">×</button></div>
+  <div id="ownerChatComposerResizeHandle" class="owner-chat-composer-resize-handle" role="separator" aria-orientation="horizontal" aria-label="Drag up or down to expand the message box" title="Drag up or down to expand the message box" aria-valuemin="44" aria-valuemax="180" aria-valuenow="44" tabindex="0"></div>
   <div class="owner-chat-send-row">
     <input id="ownerChatImageInput" type="file" accept="image/*" hidden onchange="ownerChatHandleImageSelection(this)">
-    <input id="ownerChatInput" type="text" maxlength="2000" placeholder="Write a message..." autocomplete="off">
+    <textarea id="ownerChatInput" rows="1" maxlength="2000" placeholder="Write a message..." autocomplete="off" aria-label="Write a message"></textarea>
     <button id="ownerChatImageButton" class="owner-chat-image-button" type="button" onclick="ownerChatOpenImagePicker()" aria-label="Add image" title="Add image">+</button>
+    <button id="ownerChatAudioButton" class="owner-chat-audio-button" type="button" onclick="ownerChatToggleAudioRecording()" aria-label="Record voice message" title="Record voice message"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3"></rect><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21m-4 0h8"></path></svg></button>
     <button type="submit">Send</button>
   </div>
 </form>
@@ -10374,6 +10548,30 @@ function maybeShowSocialConnectOnboarding() {
    let isNavigatingBack = false;
    let isNavigatingForward = false;
 
+   function animateHomeWelcome() {
+    const home = document.getElementById("homeSection");
+    const heading = home?.querySelector(".home-content > h2");
+    if (!home?.classList.contains("active") || !heading) return;
+
+    const phrase = heading.dataset.welcomeText || heading.textContent.trim().replace(/\s+/g, " ");
+    heading.dataset.welcomeText = phrase;
+    heading.setAttribute("aria-label", phrase);
+    heading.replaceChildren(...Array.from(phrase, (character, index) => {
+        if (character === " ") return document.createTextNode(" ");
+        const letter = document.createElement("span");
+        letter.className = "home-welcome-letter";
+        letter.setAttribute("aria-hidden", "true");
+        letter.textContent = character;
+        letter.style.setProperty("--home-letter-delay", `${index * 42}ms`);
+        return letter;
+    }));
+   }
+
+   if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", animateHomeWelcome, { once: true });
+   } else {
+    animateHomeWelcome();
+   }
    function showSection(sectionId) {
 
     if (sectionId !== "memberProfileSection") {
@@ -10426,6 +10624,7 @@ function maybeShowSocialConnectOnboarding() {
     if (selectedSection) {
 
         selectedSection.classList.add("active");
+        if (sectionId === "homeSection") animateHomeWelcome();
         if (sectionId === "socialConnectionsSection" ) maybeShowSocialConnectOnboarding();
 
         if (!currentUser) {
@@ -13541,19 +13740,19 @@ function maybeShowSocialSidebarHint() {
 
 function socialSummaryMarkup(requestCount, connectionCount, followerCount, listId) {
   return `
-    <button type="button" class="social-summary-action" onclick="toggleSocialSidebar(true);showSocialSidebarList('requests',document.querySelector('.social-sidebar-tab[data-social-type=\"requests\"]'))" aria-label="${requestCount} new connection requests">
+    <button type="button" class="social-summary-action" onclick="openSocialPage('requests',currentUser?.id)" aria-label="${requestCount} new connection requests">
       <span class="social-count-bubble is-request-count">${requestCount}</span>
       <span>New requests</span>
     </button>
-    <button type="button" class="social-summary-action" onclick="toggleSocialSidebar(true);showSocialSidebarList('connections',document.querySelector('.social-sidebar-tab[data-social-type=\"connections\"]'))" aria-label="${connectionCount} connections">
+    <button type="button" class="social-summary-action" onclick="openSocialPage('connections',currentUser?.id)" aria-label="${connectionCount} connections">
       <span class="social-count-bubble is-connection-count">${connectionCount}</span>
       <span>Connections</span>
     </button>
-    <button type="button" class="social-summary-action" onclick="toggleSocialSidebar(true);showSocialSidebarList('followers',document.querySelector('.social-sidebar-tab[data-social-type=\"followers\"]'))" aria-label="${followerCount} followers">
+    <button type="button" class="social-summary-action" onclick="openSocialPage('followers',currentUser?.id)" aria-label="${followerCount} followers">
       <span class="social-count-bubble is-follower-count">${followerCount}</span>
       <span>Followers</span>
     </button>
-    <button type="button" class="social-summary-action" onclick="toggleSocialSidebar(true);showSocialSidebarList('following',document.querySelector('.social-sidebar-tab[data-social-type=\"following\"]'))" aria-label="${memberSocialState.following.length} following">
+    <button type="button" class="social-summary-action" onclick="openSocialPage('following',currentUser?.id)" aria-label="${memberSocialState.following.length} following">
       <span class="social-count-bubble is-following-count">${memberSocialState.following.length}</span>
       <span>Following</span>
     </button>`;
@@ -13565,6 +13764,28 @@ function setSocialVisibilityStatus(visible) {
   status.textContent = visible ? "Visible" : "Hidden";
   status.classList.toggle("is-visible", Boolean(visible));
   status.classList.toggle("is-hidden", !visible);
+}
+
+function syncProfileSocialPrivacyWidth() {
+  const summary = document.getElementById("profileSocialSummary");
+  const privacyRow = document.querySelector("#profileSection .profile-social-hub .social-privacy-row");
+  if (!summary || !privacyRow) return;
+  const applyWidth = () => {
+    const buttons = [...summary.querySelectorAll(".social-summary-action")];
+    const bounds = buttons.map(button => button.getBoundingClientRect());
+    const width = bounds.length ? Math.max(...bounds.map(rect => rect.right)) - Math.min(...bounds.map(rect => rect.left)) : summary.getBoundingClientRect().width;
+    if (width > 0) {
+      privacyRow.style.setProperty("width", `${width}px`, "important");
+      privacyRow.style.setProperty("margin-left", "auto", "important");
+      privacyRow.style.setProperty("margin-right", "auto", "important");
+    }
+  };
+  applyWidth();
+  requestAnimationFrame(applyWidth);
+  if (!summary._privacyWidthObserver && window.ResizeObserver) {
+    summary._privacyWidthObserver = new ResizeObserver(applyWidth);
+    summary._privacyWidthObserver.observe(summary);
+  }
 }
 
 async function loadSocialConnections() {
@@ -13586,7 +13807,7 @@ async function loadSocialConnections() {
   document.getElementById("connectDiscoveryGroup")?.classList.add("has-community");
   targets.forEach(target => target.innerHTML = '<span class="social-summary-loading">Loading connections...</span>');
 
-  const [requestResult, connectionResult, followerResult, followingResult, settingsResult] = await Promise.all([
+  const [requestResult, connectionResult, followerResult, followingResult] = await Promise.all([
     db.from("connections").select("id,requester_id,recipient_id,created_at")
       .eq("recipient_id", currentUser.id).eq("status", "pending").order("created_at", { ascending: false }),
     db.from("connections").select("id,requester_id,recipient_id,created_at")
@@ -13645,6 +13866,7 @@ async function loadSocialConnections() {
   const visibilityToggle = document.getElementById("showSocialLists");
   if (visibilityToggle) visibilityToggle.checked = Boolean(settingsResult.data?.show_lists);
   setSocialVisibilityStatus(Boolean(settingsResult.data?.show_lists));
+  syncProfileSocialPrivacyWidth();
   if (!document.getElementById("socialSidebarPanel").hidden) showSocialSidebarList(socialDirectoryType);
 }
 
@@ -13889,11 +14111,20 @@ async function loadSocialDirectory() {
   container.innerHTML = '<p class="global-search-empty">Loading list...</p>';
   const isOwn = socialDirectoryUserId === String(currentUser.id);
   if (!isOwn) {
-    const { data: settings } = await db.from("member_social_settings").select("show_lists").eq("user_id", socialDirectoryUserId).maybeSingle();
-    if (!settings?.show_lists) {
-      container.innerHTML = '<p class="global-search-empty">This member keeps their connections private.</p>';
+    if (socialDirectoryType === "requests") {
+      container.innerHTML = '<p class="global-search-empty">Requests are only visible to the account owner.</p>';
       return;
     }
+    const { data, error } = await db.rpc("get_member_social_counts", { p_user_id: socialDirectoryUserId });
+    if (error) return socialDirectoryError(container, error);
+    const counts = Array.isArray(data) ? data[0] : data;
+    const summaries = [
+      ["connections", "Connections", counts?.connection_count],
+      ["followers", "Followers", counts?.follower_count],
+      ["following", "Following", counts?.following_count]
+    ];
+    container.innerHTML = `<div class="social-directory-count-summary">${summaries.map(([key,label,count]) => `<div><span>${label}</span><strong>${Number(count) || 0}</strong></div>`).join("")}</div><p class="global-search-empty">Member lists are private. Only counts are visible.</p>`;
+    return;
   }
   let rows = [];
   let ids = [];
@@ -14799,7 +15030,7 @@ async function loadPosts() {
                         <div class="post-user-info">
                             <div class="post-author-line">
                                 <div class="post-author">${escapeHtml(firstName)}</div>
-                                ${String(post.user_id) === OWNER_CHAT_ID ? '<span class="member-owner-badge post-owner-badge">Community Owner</span><span class="member-owner-verified post-owner-verified" role="img" aria-label="Verified community owner" title="Verified community owner"></span>' : ""}
+                <span class="member-owner-badge post-owner-badge${String(post.user_id) === OWNER_CHAT_ID ? "" : " is-member"}">${String(post.user_id) === OWNER_CHAT_ID ? "Community Owner" : "Community Member"}</span>${String(post.user_id) === OWNER_CHAT_ID ? '<span class="member-owner-verified post-owner-verified" role="img" aria-label="Verified community owner" title="Verified community owner"></span>' : ""}
                             </div>
                             ${profession ? `<div class="post-profession">${escapeHtml(profession)}</div>` : ""}
                         </div>
@@ -15328,6 +15559,63 @@ input.value = "";
 await loadFeedback();
 }
 
+async function editFeedback(feedbackId) {
+  if (!currentUser) return;
+  const { data: item, error: loadError } = await db
+    .from("community_feedback")
+    .select("id, content")
+    .eq("id", feedbackId)
+    .eq("user_id", currentUser.id)
+    .single();
+  if (loadError || !item) {
+    alert("Could not load your feedback for editing.");
+    return;
+  }
+  const updatedContent = prompt("Edit your feedback:", item.content || "");
+  if (updatedContent === null) return;
+  const content = updatedContent.trim();
+  if (!content) {
+    alert("Feedback cannot be empty.");
+    return;
+  }
+  const { error } = await db
+    .from("community_feedback")
+    .update({ content })
+    .eq("id", feedbackId)
+    .eq("user_id", currentUser.id);
+  if (error) {
+    alert("Couldn't update feedback: " + error.message);
+    return;
+  }
+  await loadFeedback();
+}
+
+async function shareFeedbackItem(feedbackId) {
+  const { data: item, error } = await db
+    .from("community_feedback")
+    .select("content")
+    .eq("id", feedbackId)
+    .single();
+  if (error || !item) {
+    alert("Could not load this feedback to share.");
+    return;
+  }
+  const content = item.content || "";
+  const shareUrl = `${location.origin}${location.pathname}#feedback-${encodeURIComponent(feedbackId)}`;
+  try {
+    if (navigator.share) await navigator.share({ title: "EJ Designs Community feedback", text: content, url: shareUrl });
+    else {
+      await navigator.clipboard.writeText(shareUrl);
+      alert("Feedback link copied.");
+    }
+  } catch (error) {
+    if (error.name !== "AbortError") {
+      try { await navigator.clipboard.writeText(shareUrl); alert("Feedback link copied."); }
+      catch { prompt("Copy this feedback link:", shareUrl); }
+    }
+  }
+}
+
 async function loadFeedback() {
   const container = document.getElementById("feedbackContainer");
   if (!container) return;
@@ -15351,7 +15639,7 @@ async function loadFeedback() {
 
   const { data: profiles } = await db
     .from("profiles")
-    .select("id, avatar_url")
+    .select("id, full_name, avatar_url")
     .in("id", userIds);
 
   const profileMap = {};
@@ -15364,43 +15652,31 @@ async function loadFeedback() {
   }));
 
   container.innerHTML = feedback.map(item => {
-    const avatar = currentUser ? profileMap[item.user_id]?.displayAvatarUrl : "";
-    const isOwner =
-      currentUser &&
-      String(currentUser.id) === String(item.user_id);
-
+    const profile = profileMap[item.user_id];
+    const avatarUrl = currentUser ? profile?.displayAvatarUrl : "";
+    const authorName = profile?.full_name || "Community member";
+    const authorFirstName = authorName.trim().split(/\s+/)[0] || "Community";
+    const isOwner = currentUser && String(currentUser.id) === String(item.user_id);
+    const memberBadge = `<span class="member-owner-badge post-owner-badge${isOwner ? "" : " is-member"}">${isOwner ? "Community Owner" : "Community Member"}</span>${isOwner ? '<span class="member-owner-verified post-owner-verified" role="img" aria-label="Verified community owner" title="Verified community owner"></span>' : ""}`;
+    const safeFeedbackId = escapeHtml(String(item.id));
+    const avatarMarkup = !currentUser
+      ? '<span class="feedback-avatar private-member-avatar" aria-label="Member photo hidden for visitors"></span>'
+      : avatarUrl
+        ? `<img class="feedback-avatar" src="${escapeHtml(avatarUrl)}" alt="${escapeHtml(authorName)}">`
+        : `<span class="feedback-avatar feedback-avatar-fallback">${escapeHtml(getInitials(authorName))}</span>`;
     return `
-      <div class="feedback-card">
-        ${!currentUser ? `
-          <span class="feedback-avatar private-member-avatar" aria-label="Member photo hidden for visitors"></span>
-        ` : avatar ? `
-          <img
-            class="feedback-avatar"
-            src="${escapeHtml(avatar)}"
-            alt="Profile picture"
-          >
-        ` : ""}
-
+      <article class="feedback-card" id="feedback-${safeFeedbackId}">
+        <header class="feedback-header">${avatarMarkup}<strong>${escapeHtml(authorFirstName)}</strong>${memberBadge}</header>
         <div class="feedback-details">
-          <div class="post-content">
-            ${escapeHtml(item.content)}
+          <div class="post-content">${escapeHtml(item.content)}</div>
+          <div class="post-date">${new Date(item.created_at).toLocaleString()}</div>
+          <div class="post-actions">
+            ${isOwner ? `<button type="button" class="post-action-button" onclick="editFeedback('${safeFeedbackId}')">Edit</button>` : ""}
+            <button type="button" class="post-action-button" onclick="shareFeedbackItem('${safeFeedbackId}')">Share</button>
+            ${isOwner ? `<button type="button" class="post-action-button is-danger" onclick="deleteFeedback('${safeFeedbackId}')">Delete</button>` : ""}
           </div>
-
-          <div class="post-date">
-            ${new Date(item.created_at).toLocaleString()}
-          </div>
-
-          ${isOwner ? `
-            <button
-              type="button"
-              class="feedback-delete-button"
-              onclick="deleteFeedback('${item.id}')"
-            >
-              Delete
-            </button>
-          ` : ""}
         </div>
-      </div>
+      </article>
     `;
   }).join("");
 }
@@ -15895,7 +16171,6 @@ async function memberSocialPreviewMarkup(memberId) {
     </section>
   `;
 }
-
 function closeProfileOptionsMenu() {
   const menu = document.querySelector("#profileSection .profile-options-menu");
   if (menu) menu.open = false;
@@ -15903,6 +16178,11 @@ function closeProfileOptionsMenu() {
 function closeConnectNetworkOptionsMenu() {
   const menu = document.getElementById("connectNetworkOptionsMenu");
   if (menu) menu.open = false;
+}
+function openOwnProfileFromConnect() {
+  closeConnectNetworkOptionsMenu();
+  if (!currentUser) { showSignupPrompt(); return; }
+  return viewMemberProfile(currentUser.id);
 }
 function openEditMyProfileFromConnect() {
   closeConnectNetworkOptionsMenu();
@@ -16526,7 +16806,9 @@ function setupOwnerChatResizeHandle() {
   if (!handle || !ownerChatContacts || !ownerChatPanel) return;
   const storageKey = "ej-owner-chat-contact-list-height";
   const minHeight = 90;
-  const getMaxHeight = () => Math.max(minHeight, ownerChatPanel.clientHeight - 70 - 58 - 14 - 80);
+  const getMaxHeight = () => ownerChatPanel.clientHeight > 0
+    ? Math.max(minHeight, ownerChatPanel.clientHeight - 70 - 58 - 14 - 80)
+    : 260;
   const applyHeight = value => {
     const maxHeight = getMaxHeight();
     const height = Math.min(maxHeight, Math.max(minHeight, Number(value) || 190));
@@ -16537,6 +16819,7 @@ function setupOwnerChatResizeHandle() {
     handle.setAttribute("aria-valuenow", String(Math.round(height)));
     try { localStorage.setItem(storageKey, String(Math.round(height))); } catch (_) {}
   };
+  window.ownerChatApplyContactListHeight = applyHeight;
   try {
     const savedHeight = Number(localStorage.getItem(storageKey));
     if (savedHeight >= minHeight) applyHeight(savedHeight);
@@ -16578,6 +16861,58 @@ function profileWorkStatusMarkup(status, extraClass = "") {
 }
 setupOwnerChatResizeHandle();
 
+function setupOwnerChatComposerResizeHandle() {
+  const handle = document.getElementById("ownerChatComposerResizeHandle");
+  const textarea = document.getElementById("ownerChatInput");
+  const storageKey = "ej-owner-chat-composer-height";
+  if (!handle || !textarea) return;
+  const minHeight = 44;
+  const getMaxHeight = () => ownerChatPanel?.clientHeight > 0
+    ? Math.max(minHeight, Math.min(180, ownerChatPanel.clientHeight - 190))
+    : 180;
+  const applyHeight = value => {
+    const maxHeight = getMaxHeight();
+    const height = Math.max(minHeight, Math.min(maxHeight, Number(value) || minHeight));
+    textarea.style.height = `${height}px`;
+    handle.setAttribute("aria-valuemax", String(Math.round(maxHeight)));
+    handle.setAttribute("aria-valuenow", String(Math.round(height)));
+    try { localStorage.setItem(storageKey, String(Math.round(height))); } catch (_) {}
+  };
+  let savedHeight = minHeight;
+  try { savedHeight = Number(localStorage.getItem(storageKey)) || minHeight; } catch (_) {}
+  applyHeight(savedHeight);
+  handle.addEventListener("pointerdown", event => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    const startY = event.clientY;
+    const startHeight = textarea.getBoundingClientRect().height;
+    handle.setPointerCapture(event.pointerId);
+    const onMove = moveEvent => applyHeight(startHeight + startY - moveEvent.clientY);
+    const onEnd = endEvent => {
+      if (handle.hasPointerCapture(endEvent.pointerId)) handle.releasePointerCapture(endEvent.pointerId);
+      handle.removeEventListener("pointermove", onMove);
+      handle.removeEventListener("pointerup", onEnd);
+      handle.removeEventListener("pointercancel", onEnd);
+    };
+    handle.addEventListener("pointermove", onMove);
+    handle.addEventListener("pointerup", onEnd);
+    handle.addEventListener("pointercancel", onEnd);
+  });
+  handle.addEventListener("keydown", event => {
+    if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+    event.preventDefault();
+    const height = textarea.getBoundingClientRect().height + (event.key === "ArrowUp" ? 12 : -12);
+    applyHeight(height);
+  });
+  textarea.addEventListener("keydown", event => {
+    if (event.key === "Enter" && !event.shiftKey && !event.isComposing) {
+      event.preventDefault();
+      ownerChatForm?.requestSubmit();
+    }
+  });
+}
+setupOwnerChatComposerResizeHandle();
+
 function ownerChatEscape(value) {
   return String(value ?? "").replace(/[&<>"']/g, character => ({
     "&": "&amp;",
@@ -16599,7 +16934,8 @@ function ownerChatHandleImageSelection(input) {
   if (!file.type.startsWith("image/") || file.size > 10 * 1024 * 1024) {
     alert("Choose an image no larger than 10 MB."); input.value = ""; return;
   }
-  ownerChatClearImageSelection(); ownerChatSelectedImageFile = file;
+  ownerChatClearImageSelection();
+  ownerChatSelectedImageFile = file;
   ownerChatImagePreviewUrl = URL.createObjectURL(file);
   document.getElementById("ownerChatImagePreviewThumb").src = ownerChatImagePreviewUrl;
   document.getElementById("ownerChatImagePreviewName").textContent = file.name;
@@ -16613,15 +16949,102 @@ function ownerChatClearImageSelection() {
   const name = document.getElementById("ownerChatImagePreviewName"); if (name) name.textContent = "";
   const input = document.getElementById("ownerChatImageInput"); if (input) input.value = "";
 }
-function ownerChatRenderMessageBody(body) {
-  const value = String(body || "");
-  const match = value.match(/^\[\[ej-chat-image:(https?:\/\/[^\]\s]+)\]\](?:\r?\n|$)/i);
-  if (!match) return ownerChatEscape(value).replace(/\r?\n/g, "<br>");
-  const url = ownerChatEscape(match[1]);
-  const text = ownerChatEscape(value.slice(match[0].length)).replace(/\r?\n/g, "<br>");
-  return `<span class="owner-chat-image-frame"><a class="owner-chat-image-link" href="${url}" target="_blank" rel="noopener noreferrer" aria-label="Open image at full size"><img class="owner-chat-message-image" src="${url}" alt="Image attachment" loading="lazy"></a></span>${text ? `<div class="owner-chat-image-caption">${text}</div>` : ""}`;
+let ownerChatSelectedAudioFile = null;
+let ownerChatAudioPreviewUrl = null;
+let ownerChatAudioRecorder = null;
+let ownerChatAudioStream = null;
+let ownerChatAudioChunks = [];
+let ownerChatAudioRecordingTimer = null;
+let ownerChatAudioRecordingStartedAt = 0;
+function ownerChatAudioStopTracks() {
+  ownerChatAudioStream?.getTracks().forEach(track => track.stop());
+  ownerChatAudioStream = null;
 }
-
+function ownerChatResetAudioButton() {
+  const button = document.getElementById("ownerChatAudioButton");
+  if (!button) return;
+  button.classList.remove("is-recording");
+  button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3"></rect><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21m-4 0h8"></path></svg>';
+  button.setAttribute("aria-label", "Record voice message");
+  button.title = "Record voice message";
+}
+function ownerChatClearAudioSelection() {
+  if (ownerChatAudioPreviewUrl) URL.revokeObjectURL(ownerChatAudioPreviewUrl);
+  ownerChatAudioPreviewUrl = null;
+  ownerChatSelectedAudioFile = null;
+  const preview = document.getElementById("ownerChatAudioPreview");
+  if (preview) preview.hidden = true;
+  const player = document.getElementById("ownerChatAudioPreviewPlayer");
+  if (player) { player.pause(); player.removeAttribute("src"); player.load(); }
+}
+async function ownerChatToggleAudioRecording() {
+  if (ownerChatAudioRecorder?.state === "recording") { ownerChatAudioRecorder.stop(); return; }
+  if (!currentUser) { alert("Please sign in to send a voice recording."); return; }
+  if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) {
+    alert("Voice recording is not supported by this browser."); return;
+  }
+  const button = document.getElementById("ownerChatAudioButton");
+  try {
+    ownerChatClearAudioSelection();
+    ownerChatAudioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const candidates = ["audio/webm;codecs=opus", "audio/webm", "audio/ogg;codecs=opus", "audio/mp4"];
+    const mimeType = candidates.find(type => MediaRecorder.isTypeSupported?.(type));
+    ownerChatAudioRecorder = mimeType ? new MediaRecorder(ownerChatAudioStream, { mimeType }) : new MediaRecorder(ownerChatAudioStream);
+    ownerChatAudioChunks = [];
+    ownerChatAudioRecorder.ondataavailable = event => { if (event.data?.size) ownerChatAudioChunks.push(event.data); };
+    ownerChatAudioRecorder.onerror = event => {
+      console.error("Voice recording failed:", event.error);
+      ownerChatAudioStopTracks(); ownerChatResetAudioButton();
+      alert("The voice recording failed. Please try again.");
+    };
+    ownerChatAudioRecorder.onstop = () => {
+      clearInterval(ownerChatAudioRecordingTimer);
+      ownerChatAudioRecordingTimer = null;
+      ownerChatAudioStopTracks();
+      ownerChatResetAudioButton();
+      const blob = new Blob(ownerChatAudioChunks, { type: ownerChatAudioRecorder?.mimeType || "audio/webm" });
+      ownerChatAudioChunks = [];
+      if (!blob.size) return;
+      if (blob.size > 12 * 1024 * 1024) { alert("The recording is larger than 12 MB. Please record a shorter message."); return; }
+      const extension = /ogg/i.test(blob.type) ? "ogg" : /mp4|m4a/i.test(blob.type) ? "m4a" : "webm";
+      ownerChatSelectedAudioFile = new File([blob], `voice-message.${extension}`, { type: blob.type || "audio/webm" });
+      ownerChatAudioPreviewUrl = URL.createObjectURL(ownerChatSelectedAudioFile);
+      const player = document.getElementById("ownerChatAudioPreviewPlayer");
+      if (player) player.src = ownerChatAudioPreviewUrl;
+      const preview = document.getElementById("ownerChatAudioPreview");
+      if (preview) preview.hidden = false;
+    };
+    ownerChatAudioRecordingStartedAt = Date.now();
+    ownerChatAudioRecorder.start();
+    button?.classList.add("is-recording");
+    if (button) { button.innerHTML = '<span class="owner-chat-recording-dot"></span>'; button.setAttribute("aria-label", "Stop voice recording"); button.title = "Stop voice recording"; }
+    ownerChatAudioRecordingTimer = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - ownerChatAudioRecordingStartedAt) / 1000);
+      if (button) button.title = `Stop voice recording (${elapsed}s)`;
+      if (elapsed >= 90 && ownerChatAudioRecorder?.state === "recording") ownerChatAudioRecorder.stop();
+    }, 1000);
+  } catch (error) {
+    ownerChatAudioStopTracks(); ownerChatResetAudioButton();
+    console.error("Could not access the microphone:", error);
+    alert("Microphone access was blocked. Allow microphone access and try again.");
+  }
+}
+function ownerChatRenderMessageBody(body) {
+  let remaining = String(body || "");
+  const attachments = [];
+  const markerPattern = /^\[\[ej-chat-(image|audio):(https?:\/\/[^\]\s]+)\]\](?:\r?\n|$)/i;
+  let match;
+  while ((match = remaining.match(markerPattern))) {
+    const url = ownerChatEscape(match[2]);
+    attachments.push(match[1].toLowerCase() === "image"
+      ? `<span class="owner-chat-image-frame"><a class="owner-chat-image-link" href="${url}" target="_blank" rel="noopener noreferrer" aria-label="Open image at full size"><img class="owner-chat-message-image" src="${url}" alt="Image attachment" loading="lazy"></a></span>`
+      : `<audio class="owner-chat-message-audio" controls preload="metadata" src="${url}" aria-label="Voice message"></audio>`);
+    remaining = remaining.slice(match[0].length);
+  }
+  const text = ownerChatEscape(remaining).replace(/\r?\n/g, "<br>");
+  if (!attachments.length) return text;
+  return `${attachments.join("")}${text ? `<div class="owner-chat-image-caption">${text}</div>` : ""}`;
+}
 function ownerChatDisplayName(value) {
   const name = String(value || "Community member");
   return name.trim().toLocaleLowerCase() === "hello" ? `${name}!` : name;
@@ -16890,7 +17313,7 @@ if ("speechSynthesis" in window) {
 
 function speakCommunityChatWelcome() {
   if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) return;
-  if (localStorage.getItem("ej-community-chat-voice") === "muted") return;
+  if (localStorage.getItem("ej-community-chat-voice") !== "enabled") return;
   if (ownerChatWelcomePlayed || sessionStorage.getItem("ej-community-chat-welcome-played") === "yes") return;
 
   window.speechSynthesis.cancel();
@@ -16915,7 +17338,7 @@ function speakCommunityChatWelcome() {
 
   const speakWithBestVoice = () => {
     if (introStarted || requestId !== ownerChatSpeechRequest || ownerChatPanel.hidden ||
-        localStorage.getItem("ej-community-chat-voice") === "muted") return;
+        localStorage.getItem("ej-community-chat-voice") !== "enabled") return;
 
     refreshOwnerChatVoices();
     const voices = ownerChatAvailableVoices;
@@ -16959,7 +17382,7 @@ function updateOwnerChatVoiceButton() {
   const button = document.getElementById("ownerChatVoiceToggle");
   if (!button) return;
 
-  const enabled = localStorage.getItem("ej-community-chat-voice") !== "muted";
+  const enabled = localStorage.getItem("ej-community-chat-voice") === "enabled";
   button.textContent = enabled ? "🔊" : "🔇";
   button.setAttribute("aria-pressed", String(enabled));
   button.setAttribute("aria-label", enabled ? "Turn voice off" : "Turn voice on");
@@ -16976,19 +17399,16 @@ async function openOwnerChat() {
   ownerChatPanel.classList.toggle("is-owner-inbox", Boolean(isOwner));
   document.getElementById("ownerChatSearchToggle").hidden = !isOwner;
 
-  if (localStorage.getItem("ej-community-chat-voice") !== "muted") {
-    ownerChatWelcomePlayed = false;
-    ownerChatWelcomeFinished = false;
-    ownerChatWelcomePaused = false;
-    sessionStorage.removeItem("ej-community-chat-welcome-played");
-    speakCommunityChatWelcome();
-  }
-
   document.getElementById("ownerChatGuestName").hidden = Boolean(currentUser);
   document.getElementById("ownerChatGuestEmail").hidden = Boolean(currentUser);
   ownerChatForm.hidden = Boolean(isOwner);
 
   ownerChatContacts.hidden = !isOwner;
+  if (isOwner) {
+    let savedContactHeight = 190;
+    try { savedContactHeight = Number(localStorage.getItem("ej-owner-chat-contact-list-height")) || 190; } catch (_) {}
+    window.ownerChatApplyContactListHeight?.(savedContactHeight);
+  }
 
   if (isOwner) {
     document.getElementById("ownerChatHeaderName").textContent =
@@ -17404,10 +17824,12 @@ window.ownerChatToggleSize = function () {
 const ownerChatExpandButton = document.getElementById("ownerChatExpand");
 const ownerChatVoiceToggle = document.getElementById("ownerChatVoiceToggle");
 
+// Begin every page session muted; the visitor can explicitly enable chat speech.
+localStorage.setItem("ej-community-chat-voice", "muted");
 updateOwnerChatVoiceButton();
 
 ownerChatVoiceToggle?.addEventListener("click", () => {
-  const enabled = localStorage.getItem("ej-community-chat-voice") !== "muted";
+  const enabled = localStorage.getItem("ej-community-chat-voice") === "enabled";
   localStorage.setItem("ej-community-chat-voice", enabled ? "muted" : "enabled");
   updateOwnerChatVoiceButton();
 
@@ -17576,34 +17998,41 @@ ownerChatForm.addEventListener("submit", async event => {
 
   const body = input.value.trim();
   const imageFile = ownerChatSelectedImageFile;
-  const isOwner =
-    currentUser && String(currentUser.id) === OWNER_CHAT_ID;
-
+  const audioFile = ownerChatSelectedAudioFile;
+  const isOwner = currentUser && String(currentUser.id) === OWNER_CHAT_ID;
   const isGuestConversation = Boolean(isOwner && ownerChatActiveGuestEmail);
-  const recipientId = isOwner
-    ? (isGuestConversation ? OWNER_CHAT_ID : ownerChatActiveUserId)
-    : OWNER_CHAT_ID;
+  const recipientId = isOwner ? (isGuestConversation ? OWNER_CHAT_ID : ownerChatActiveUserId) : OWNER_CHAT_ID;
 
-  if (!recipientId || (!body && !imageFile)) return;
-  if (imageFile && !currentUser) { alert("Please sign in to attach an image to the conversation."); return; }
-
+  if (!recipientId || (!body && !imageFile && !audioFile)) return;
+  if ((imageFile || audioFile) && !currentUser) { alert("Please sign in to attach media to the conversation."); return; }
   if (!currentUser && (!nameInput.value.trim() || !emailInput.value.trim())) {
     alert("Please enter your name and email.");
     return;
   }
 
   let outgoingBody = body;
-  let uploadedImagePath = null;
-  if (imageFile) {
-    const safeName = imageFile.name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(-100) || "image";
+  const uploadedMediaPaths = [];
+  const markers = [];
+  const mediaFiles = [
+    imageFile && { file: imageFile, folder: "chat-images", kind: "image", fallbackName: "image" },
+    audioFile && { file: audioFile, folder: "chat-audio", kind: "audio", fallbackName: "voice-message.webm" }
+  ].filter(Boolean);
+  for (const media of mediaFiles) {
+    const safeName = (media.file.name || media.fallbackName).replace(/[^a-zA-Z0-9._-]/g, "_").slice(-100) || media.fallbackName;
     const uniqueId = globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    uploadedImagePath = `${currentUser.id}/chat-images/${uniqueId}-${safeName}`;
-    const { error: uploadError } = await db.storage.from("post-media").upload(uploadedImagePath, imageFile, { contentType: imageFile.type, upsert: false });
-    if (uploadError) { console.error("Could not upload chat image:", uploadError); alert("The image could not be uploaded. Please try again."); return; }
-    const { data: publicUrlData } = db.storage.from("post-media").getPublicUrl(uploadedImagePath);
-    outgoingBody = `[[ej-chat-image:${publicUrlData.publicUrl}]]${body ? `\n${body}` : ""}`;
+    const path = `${currentUser.id}/${media.folder}/${uniqueId}-${safeName}`;
+    const { error: uploadError } = await db.storage.from("post-media").upload(path, media.file, { contentType: media.file.type || (media.kind === "audio" ? "audio/webm" : "application/octet-stream"), upsert: false });
+    if (uploadError) {
+      console.error(`Could not upload chat ${media.kind}:`, uploadError);
+      if (uploadedMediaPaths.length) await db.storage.from("post-media").remove(uploadedMediaPaths);
+      alert(`The ${media.kind} could not be uploaded. Please try again.`);
+      return;
+    }
+    uploadedMediaPaths.push(path);
+    const { data: publicUrlData } = db.storage.from("post-media").getPublicUrl(path);
+    markers.push(`[[ej-chat-${media.kind}:${publicUrlData.publicUrl}]]`);
   }
-
+  if (markers.length) outgoingBody = `${markers.join("\n")}${body ? `\n${body}` : ""}`;
   const { error } = await db
     .from("owner_messages")
     .insert({
@@ -17621,13 +18050,14 @@ ownerChatForm.addEventListener("submit", async event => {
 
   if (error) {
     console.error(error);
-    if (uploadedImagePath) await db.storage.from("post-media").remove([uploadedImagePath]);
+    if (uploadedMediaPaths.length) await db.storage.from("post-media").remove(uploadedMediaPaths);
     alert("Your message could not be sent. Please try again.");
     return;
   }
 
   input.value = "";
   ownerChatClearImageSelection();
+  ownerChatClearAudioSelection();
 
   if (!currentUser) {
     ownerChatMessages.innerHTML =
@@ -17920,8 +18350,8 @@ ownerChatForm.addEventListener("submit", async event => {
     style.setProperty("padding", "0", "important");
     style.setProperty("object-fit", "contain", "important");
     style.setProperty("z-index", "2", "important");
-    style.setProperty("opacity", ".78", "important");
-    style.setProperty("filter", "brightness(0) invert(.78) drop-shadow(0 3px 5px rgba(0,0,0,.96)) drop-shadow(0 0 2px rgba(214,184,76,.18))", "important");
+    style.setProperty("opacity", ".90", "important");
+    style.setProperty("filter", "brightness(0) invert(1) drop-shadow(0 3px 5px rgba(0,0,0,.96))", "important");
     style.setProperty("transform", "none", "important");
     style.setProperty("translate", "none", "important");
     style.setProperty("animation", "none", "important");
@@ -17945,6 +18375,18 @@ ownerChatForm.addEventListener("submit", async event => {
     syncEditSocialHub();
     if (editMode) new MutationObserver(syncEditSocialHub).observe(editMode, { attributes: true, attributeFilter: ['class'] });
   });
+})();
+</script><script>
+/* Browser-only copy deterrent for non-editable page text. */
+(() => {
+  const isEditable = target => Boolean(target?.closest?.('input, textarea, select, [contenteditable="true"], [contenteditable=""]'));
+  document.addEventListener('copy', event => { if (!isEditable(event.target)) event.preventDefault(); }, true);
+  document.addEventListener('cut', event => { if (!isEditable(event.target)) event.preventDefault(); }, true);
+  document.addEventListener('contextmenu', event => { if (!isEditable(event.target)) event.preventDefault(); }, true);
+  document.addEventListener('keydown', event => {
+    if (!isEditable(event.target) && (event.ctrlKey || event.metaKey) && ['c','x'].includes(event.key.toLowerCase())) event.preventDefault();
+  }, true);
+  document.addEventListener('dragstart', event => { if (!isEditable(event.target)) event.preventDefault(); }, true);
 })();
 </script></body>
 </html>
