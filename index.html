@@ -8504,6 +8504,39 @@ body .quick-tabs .quick-tab-home .quick-icon { fill:none !important; stroke:curr
   #shareSection .post-content,
   #shareIdeasSection .feedback-card .post-content { max-width:100% !important; overflow-wrap:anywhere !important; }
 }
+/* Make Connect social count controls fit the phone viewport like the My Network count grid. */
+@media (max-width:700px) {
+  #connectSection #homeSocialSummary {
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    align-items:stretch !important;
+    justify-content:stretch !important;
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    box-sizing:border-box !important;
+    gap:6px !important;
+  }
+  #connectSection #homeSocialSummary .social-summary-action {
+    display:flex !important;
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    box-sizing:border-box !important;
+    justify-content:flex-start !important;
+    gap:5px !important;
+    padding-inline:5px !important;
+    overflow:hidden !important;
+    white-space:nowrap !important;
+    font-size:clamp(9px,2.8vw,11px) !important;
+  }
+  #connectSection #homeSocialSummary .social-summary-action > span:last-child {
+    min-width:0 !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+    white-space:nowrap !important;
+  }
+}
 </style></head>
 
 
@@ -18470,6 +18503,7 @@ ownerChatForm.addEventListener("submit", async event => {
 })();
 </script></body>
 </html>
+
 
 
 
