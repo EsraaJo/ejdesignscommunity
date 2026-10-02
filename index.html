@@ -4932,7 +4932,7 @@ box-shadow:
   }
 }
 .community-word {
-  text-shadow: 0 0 4px rgba(214, 184, 76, 0.28);
+  text-shadow: 0 0 2px rgba(214, 184, 76, 0.12);
   animation: communityWordSoftGlow 3.4s ease-in-out infinite;
 }
 
@@ -4943,14 +4943,14 @@ box-shadow:
 }
 
 @keyframes communityWordSoftGlow {
-  0%, 100% { text-shadow: 0 0 3px rgba(214, 184, 76, 0.22); }
-  50% { text-shadow: 0 0 7px rgba(255, 225, 120, 0.42); }
+  0%, 100% { text-shadow: 0 0 1px rgba(214, 184, 76, 0.08); }
+  50% { text-shadow: 0 0 3px rgba(255, 225, 120, 0.18); }
 }
 
 .community-word .c-letter {
   position: relative;
   display: inline-block;
-  text-shadow: 0 0 3px rgba(255, 255, 255, 0.4);
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.14);
 }
 
 .community-word .c-letter::before,
@@ -8933,9 +8933,11 @@ body > header nav #homeNav:focus-visible, body > header nav #profileNav:focus-vi
 #shareSection .post-identity-band .post-expand-button:hover { color:#25d477 !important; }
 #shareSection .post-card.is-post-zoomed .post-identity-band .post-expand-button { color:#ff263b !important; cursor:zoom-out !important; }
 #shareSection .post-card.is-post-zoomed .post-identity-band .post-expand-button .post-zoom-mark,
-#shareSection .post-card.is-post-zoomed .post-identity-band .post-expand-button:hover .post-zoom-mark { color:#ff263b !important; }
+#shareSection .post-card.is-post-zoomed .post-identity-band .post-expand-button:hover .post-zoom-mark,
+#searchPostViewSection .post-card.is-post-zoomed .post-identity-band .post-expand-button .post-zoom-mark,
+#searchPostViewSection .post-card.is-post-zoomed .post-identity-band .post-expand-button:hover .post-zoom-mark { color:#ff263b !important; }
 body.has-post-zoomed { overflow:hidden !important; }
-#shareSection .post-card.is-post-zoomed {
+#shareSection .post-card.is-post-zoomed, #searchPostViewSection .post-card.is-post-zoomed {
   position:fixed !important;
   z-index:12020 !important;
   top:50% !important;
@@ -8948,10 +8950,10 @@ body.has-post-zoomed { overflow:hidden !important; }
   transform:translate(-50%,-50%) !important;
   box-shadow:0 0 0 100vmax rgba(0,0,0,.68),0 22px 70px rgba(0,0,0,.48) !important;
 }
-#shareSection .post-card.is-post-zoomed .post-identity-band { position:sticky !important; top:0 !important; z-index:3 !important; }
-#shareSection .post-card.is-post-zoomed .post-content { max-height:none !important; overflow:visible !important; }
+#shareSection .post-card.is-post-zoomed .post-identity-band, #searchPostViewSection .post-card.is-post-zoomed .post-identity-band { position:sticky !important; top:0 !important; z-index:3 !important; }
+#shareSection .post-card.is-post-zoomed .post-content, #searchPostViewSection .post-card.is-post-zoomed .post-content { max-height:none !important; overflow:visible !important; }
 @media (max-width:600px) {
-  #shareSection .post-card.is-post-zoomed { width:calc(100vw - 16px) !important; max-width:calc(100vw - 16px) !important; max-height:calc(100dvh - 16px) !important; }
+  #shareSection .post-card.is-post-zoomed, #searchPostViewSection .post-card.is-post-zoomed { width:calc(100vw - 16px) !important; max-width:calc(100vw - 16px) !important; max-height:calc(100dvh - 16px) !important; }
 }
 /* Subtle gold shimmer on the home-page action words, matching the home-page glow. */
 #homeSection .home-box .box-button { animation:homeActionWordGlow 3.2s ease-in-out infinite; }
@@ -8960,7 +8962,96 @@ body.has-post-zoomed { overflow:hidden !important; }
   50% { text-shadow:0 0 3px rgba(255,255,255,.42),0 0 9px rgba(214,184,76,.48); }
 }
 @media (prefers-reduced-motion:reduce) { #homeSection .home-box .box-button { animation:none; text-shadow:0 0 3px rgba(214,184,76,.22); } }
-</style></head>
+/* Mobile fixes: white logo, softer title glow, desktop-like quick tabs, and clear minimized docks. */
+@media (max-width:700px) {
+  img.corner-logo { filter:grayscale(1) brightness(0) invert(1) !important; -webkit-filter:grayscale(1) brightness(0) invert(1) !important; opacity:1 !important; mix-blend-mode:screen !important; }
+  body > header .site-title-brand, body > header .community-word { animation:communityWordSoftGlow 3.4s ease-in-out infinite !important; }
+  body > header .community-word .c-letter { text-shadow:0 0 1px rgba(255,255,255,.14) !important; }
+  body > header .community-word .c-letter::before, body > header .community-word .c-letter::after { opacity:.42; animation-duration:3.4s; }
+  .quick-tabs { right:12px !important; width:155px !important; align-items:flex-end !important; gap:8px !important; }
+  .quick-tab, .quick-tab.selected { width:48px !important; min-width:48px !important; max-width:48px !important; height:46px !important; min-height:46px !important; padding:0 13px !important; border-radius:12px !important; transition:width .22s ease,background .22s ease,transform .22s ease,box-shadow .22s ease !important; }
+  .quick-tabs .quick-tab.is-tapped { width:min(145px,calc(100vw - 22px)) !important; transform:translate(-5px,-2px) !important; }
+  .quick-tabs .quick-tab.is-tapped .quick-label { display:inline !important; opacity:1 !important; }
+  #ownerChatWidget #socialSidebarPanel.is-minimized, #ownerChatWidget #ownerChatPanel.is-minimized { box-sizing:border-box !important; position:fixed !important; top:auto !important; left:max(10px,env(safe-area-inset-left)) !important; right:auto !important; width:min(280px,calc(100vw - 20px)) !important; min-width:0 !important; max-width:calc(100vw - 20px) !important; height:54px !important; min-height:54px !important; max-height:54px !important; transform:none !important; visibility:visible !important; opacity:1 !important; pointer-events:auto !important; overflow:hidden !important; border-radius:12px !important; box-shadow:0 8px 24px rgba(0,0,0,.46) !important; -webkit-backdrop-filter:none !important; backdrop-filter:none !important; z-index:35000 !important; }
+  #ownerChatWidget #socialSidebarPanel.is-minimized { bottom:calc(8px + env(safe-area-inset-bottom) + 130px) !important; border:1px solid rgba(83,190,137,.9) !important; background:#14271f !important; color:#fff !important; }
+  #ownerChatWidget #ownerChatPanel.is-minimized { bottom:calc(8px + env(safe-area-inset-bottom) + 68px) !important; border:1px solid rgba(214,184,76,.92) !important; background:#211d10 !important; color:#fff !important; }
+  #ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-header, #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-header { display:flex !important; box-sizing:border-box !important; width:100% !important; height:52px !important; min-height:52px !important; max-height:52px !important; padding:6px 8px !important; gap:7px !important; background:transparent !important; }
+  #ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-header h3, #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading { display:flex !important; flex:1 1 auto !important; width:auto !important; min-width:0 !important; overflow:hidden !important; }
+  #ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-title { display:block !important; max-width:100% !important; overflow:hidden !important; color:#fff !important; font-size:13px !important; font-weight:700 !important; text-overflow:ellipsis !important; white-space:nowrap !important; }
+  #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading strong { display:block !important; flex:1 1 auto !important; width:auto !important; height:auto !important; min-height:0 !important; max-height:none !important; overflow:hidden !important; color:transparent !important; font-size:0 !important; }
+  #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading strong::after { content:"My Inbox" !important; color:#f2d35d !important; font-size:13px !important; font-weight:700 !important; line-height:1.2 !important; }
+  #ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-header-actions, #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-header-actions { display:flex !important; flex:0 0 auto !important; grid-template:none !important; width:auto !important; min-width:0 !important; gap:5px !important; }
+  #ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-header-actions button, #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-header-actions button { box-sizing:border-box !important; flex:0 0 30px !important; width:30px !important; min-width:30px !important; height:30px !important; min-height:30px !important; max-height:30px !important; padding:0 !important; border:1px solid rgba(255,255,255,.48) !important; border-radius:8px !important; color:#fff !important; background:rgba(255,255,255,.08) !important; }
+}
+#searchPostViewSection .search-post-view-page { width:min(920px,100%); margin:0 auto; }
+#searchPostViewSection .posts-container { max-width:850px; margin:20px auto 40px; }
+#searchPostViewSection .post-card { overflow-wrap:anywhere; }
+@media (max-width:700px) { #searchPostViewSection > main { padding:24px 12px 22px !important; } #searchPostViewSection .search-post-view-page { padding-inline:0; } #searchPostViewSection .posts-container { width:100%; margin-top:14px; } #searchPostViewSection .post-card { padding:16px 14px; } }
+/* Clarify My Profile social-link outlines while preserving the existing hover fill. */
+#profileSection .profile-socials { overflow:visible !important; }
+#profileSection .profile-socials > a { border:1px solid rgba(255,255,255,.68) !important; border-radius:10px !important; box-shadow:inset 0 0 0 1px rgba(255,255,255,.025) !important; }
+#profileSection .profile-socials > a:hover:not(.disabled) { border-color:#fff !important; box-shadow:0 0 5px rgba(255,255,255,.14) !important; }
+/* Keep Connect, Create, and Share text glow equally soft on phones. */
+@media (max-width:700px) {
+  #homeSection .home-box .box-button { animation:homeActionWordGlowMobile 3.2s ease-in-out infinite !important; }
+}
+@keyframes homeActionWordGlowMobile {
+  0%,100% { text-shadow:0 0 1px rgba(255,255,255,.12),0 0 2px rgba(214,184,76,.12); }
+  50% { text-shadow:0 0 2px rgba(255,255,255,.20),0 0 4px rgba(214,184,76,.22); }
+}
+#searchPostViewSection .search-post-view-page .page-navigation-row > .page-back-btn { flex:0 0 auto !important; width:170px !important; min-width:170px !important; max-width:none !important; white-space:nowrap !important; }
+/* Match the Create Posts vertical scrollbar inside search-result post cards. */
+#searchPostViewSection .post-card .post-content { max-height:230px; overflow-x:hidden; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#d6b84c #f4f4f4; }
+#searchPostViewSection .post-card .post-content::-webkit-scrollbar { width:10px; }
+#searchPostViewSection .post-card .post-content::-webkit-scrollbar-track { border-radius:8px; background:linear-gradient(90deg,#e2e2e2 0%,#f7f7f7 38%,#ededed 100%); box-shadow:inset 1px 0 3px rgba(0,0,0,.13),inset -1px 0 2px rgba(255,255,255,.95); }
+#searchPostViewSection .post-card .post-content::-webkit-scrollbar-thumb { border:2px solid #f4f4f4; border-radius:8px; background:linear-gradient(180deg,#f1d66b,#b9952e); }
+#searchPostViewSection .post-card .post-content::-webkit-scrollbar-thumb:hover { background:linear-gradient(180deg,#ffe88a,#d0ad3c); }/* Mirror Create Posts card styling in the dedicated search result view. */
+#searchPostViewSection .post-card { overflow:hidden; padding:0; color:#242424; border:1px solid rgba(214,184,76,.24); background:rgba(255,255,255,.9); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); box-shadow:0 8px 24px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.82); }
+#searchPostViewSection .post-identity-band { display:flex; align-items:center; justify-content:space-between; gap:12px; min-width:0; margin:0; padding:14px 22px; border:0; border-bottom:1px solid rgba(214,184,76,.2); border-radius:11px 11px 0 0; color:#f5f3ed; background:linear-gradient(135deg,#171717,#080808); box-shadow:inset 0 1px 0 rgba(255,255,255,.08); }
+#searchPostViewSection .post-identity-band .post-header { flex:1 1 auto; min-width:0; min-height:42px; margin:0; padding:0; }
+#searchPostViewSection .post-identity-band .post-author { color:#f7f5ef; }
+#searchPostViewSection .post-identity-band .post-profession { color:rgba(255,255,255,.62); }
+#searchPostViewSection .post-identity-band .post-type-badge { position:relative; top:auto; right:auto; flex:0 0 auto; box-sizing:border-box; height:34px !important; min-height:34px !important; padding:0 11px !important; border:1px solid rgba(214,184,76,.58) !important; border-radius:9px !important; color:#fff !important; background:rgba(214,184,76,.11) !important; box-shadow:none !important; line-height:1.2 !important; }
+#searchPostViewSection .post-identity-band .post-type-badge::before, #searchPostViewSection .post-identity-band .post-type-badge::after { content:none !important; display:none !important; animation:none !important; }
+#searchPostViewSection .post-author-line { display:flex; align-items:center; flex-wrap:wrap; gap:6px; }
+#searchPostViewSection .post-owner-badge { position:relative; isolation:isolate; min-height:18px; padding:2px 7px; font-size:9px; }
+#searchPostViewSection .post-owner-badge.is-member { border-color:rgba(44,156,104,.65); color:#176c47; background:linear-gradient(135deg,#e8f8ef,#bde9d0); box-shadow:0 2px 7px rgba(44,156,104,.2); }
+#searchPostViewSection .post-owner-badge::before, #searchPostViewSection .post-owner-badge::after { position:absolute; z-index:2; color:#d6b84c; font-size:10px; line-height:1; text-shadow:0 0 5px rgba(214,184,76,.58); pointer-events:none; animation:postBadgeSparkle 2.8s ease-in-out infinite; }
+#searchPostViewSection .post-owner-badge::before { content:"✦"; top:-5px; left:-7px; }
+#searchPostViewSection .post-owner-badge::after { content:"✧"; right:-7px; bottom:-5px; font-size:9px; animation-delay:1.2s; }
+#searchPostViewSection .post-owner-verified { width:15px; height:15px; font-size:10px; }
+#searchPostViewSection .post-body { padding:14px 22px 18px; }
+#searchPostViewSection .post-content { color:#292929; }
+#searchPostViewSection .post-date { color:#777; border-color:rgba(35,35,35,.12); }
+#searchPostViewSection .post-actions { border-color:rgba(35,35,35,.12); }
+#searchPostViewSection .post-body .post-actions { margin-top:12px; }
+#searchPostViewSection .post-avatar-presence { border-color:rgba(255,255,255,.95); }
+#searchPostViewSection .post-identity-band .post-expand-button { position:relative !important; display:grid; flex:0 0 34px; width:34px; min-width:34px; height:34px; place-items:center; margin:0; padding:0; overflow:hidden; border:1px solid rgba(255,255,255,.28) !important; border-radius:9px; color:#25d477 !important; background:transparent !important; font-size:20px; line-height:1; cursor:zoom-in !important; }
+#searchPostViewSection .post-identity-band .post-expand-button::before { content:""; position:absolute; inset:4px; pointer-events:none; background:center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ddd' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3M21 16v3a2 2 0 0 1-2 2h-3'/%3E%3C/svg%3E"); }
+#searchPostViewSection .post-identity-band .post-expand-button .post-zoom-mark { position:relative; z-index:1; display:block; color:#25d477 !important; font-size:15px; font-weight:900; line-height:1; text-align:center; }
+#searchPostViewSection .post-identity-band .post-expand-button:hover { color:#25d477 !important; }
+#searchPostViewSection .post-card .post-content { scrollbar-color:#d6b84c #f4f4f4 !important; }
+#searchPostViewSection .post-card .post-content::-webkit-scrollbar { width:10px; }
+#searchPostViewSection .post-card .post-content::-webkit-scrollbar-track { border-radius:8px; background:linear-gradient(90deg,#e2e2e2 0%,#f7f7f7 38%,#ededed 100%) !important; box-shadow:inset 1px 0 3px rgba(0,0,0,.13),inset -1px 0 2px rgba(255,255,255,.95) !important; }
+#searchPostViewSection .post-card .post-content::-webkit-scrollbar-thumb { border:2px solid #f4f4f4; border-radius:8px; background:linear-gradient(180deg,#f1d66b,#b9952e) !important; }
+@media (max-width:650px) { #searchPostViewSection .post-identity-band { padding:12px 14px; } #searchPostViewSection .post-body { padding:12px 14px 14px; } #searchPostViewSection .post-owner-badge { font-size:8px; } }
+@media (max-width:700px) {
+  #searchPostViewSection .post-card { min-width:0 !important; max-width:100% !important; box-sizing:border-box !important; }
+  #searchPostViewSection .post-identity-band { flex-wrap:nowrap !important; align-items:center !important; min-height:48px !important; padding:6px 9px !important; gap:6px !important; min-width:0 !important; max-width:100% !important; box-sizing:border-box; }
+  #searchPostViewSection .post-identity-band .post-header { min-height:34px !important; flex:1 1 auto !important; padding:0 !important; overflow:hidden !important; }
+  #searchPostViewSection .post-avatar-wrap, #searchPostViewSection .post-avatar { width:32px !important; height:32px !important; min-width:32px !important; flex-basis:32px !important; }
+  #searchPostViewSection .post-author-line { min-width:0 !important; flex-wrap:nowrap !important; gap:4px !important; overflow:hidden !important; }
+  #searchPostViewSection .post-author { min-width:0 !important; overflow:hidden !important; text-overflow:ellipsis !important; white-space:nowrap !important; font-size:12px !important; }
+  #searchPostViewSection .post-type-badge { flex:0 1 auto !important; width:auto !important; min-width:0 !important; max-width:82px !important; height:27px !important; min-height:27px !important; padding-inline:6px !important; overflow:hidden !important; text-overflow:ellipsis !important; font-size:8px !important; white-space:nowrap !important; }
+  #searchPostViewSection .post-identity-band .post-expand-button { flex:0 0 28px !important; width:28px !important; min-width:28px !important; height:28px !important; font-size:17px !important; }
+  #searchPostViewSection .post-body { min-width:0 !important; max-width:100% !important; box-sizing:border-box !important; padding:12px !important; }
+  #searchPostViewSection .post-content { min-width:0 !important; max-width:100% !important; overflow-wrap:anywhere !important; word-break:normal; }
+  #searchPostViewSection .post-images { grid-template-columns:repeat(auto-fit,minmax(min(112px,100%),1fr)) !important; min-width:0 !important; }
+  #searchPostViewSection .post-image-trigger { width:100% !important; max-width:100% !important; box-sizing:border-box !important; }
+  #searchPostViewSection .post-actions { min-width:0 !important; max-width:100% !important; flex-wrap:wrap !important; gap:6px; }
+  #searchPostViewSection .post-action-button { min-width:0; max-width:100%; box-sizing:border-box; padding-inline:10px; }
+}
+@media (max-width:380px) { #searchPostViewSection .post-identity-band { gap:6px !important; padding-inline:9px !important; } #searchPostViewSection .post-owner-badge { max-width:100%; overflow:hidden; text-overflow:ellipsis; } #searchPostViewSection .post-type-badge { max-width:32% !important; font-size:8px !important; } }</style></head>
 
 
 <body>
@@ -9133,6 +9224,17 @@ body.has-post-zoomed { overflow:hidden !important; }
 </section>
 
 
+<section id="searchPostViewSection" class="page-section">
+  <main>
+    <div class="community-page search-post-view-page">
+      <div class="page-navigation-row">
+        <button class="page-back-btn" type="button" onclick="showSection('searchResultsSection')">← Back to search</button>
+      </div>
+      <h2>Community post</h2>
+      <div id="searchPostViewContainer" class="posts-container" aria-live="polite"></div>
+    </div>
+  </main>
+</section>
 <!-- =====================================================
      HOME
 ===================================================== -->
@@ -11698,11 +11800,24 @@ async function runGlobalSearch() {
 }
 
 async function openSearchPost(postId) {
-  showSection("shareSection");
+  const view = document.getElementById("searchPostViewContainer");
+  if (!view) return;
+  showSection("searchPostViewSection");
+  view.innerHTML = '<p class="global-search-empty">Loading post…</p>';
   await loadPosts();
-  requestAnimationFrame(() => {
-    document.querySelector(`[data-post-id="${CSS.escape(String(postId))}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+  const source = [...document.querySelectorAll("#postsContainer .post-card")]
+    .find(card => String(card.dataset.postId) === String(postId));
+  if (!source) {
+    view.innerHTML = '<p class="global-search-empty">This post is unavailable or you do not have permission to view it.</p>';
+    return;
+  }
+  const card = source.cloneNode(true);
+  card.hidden = false;
+  card.classList.remove("is-post-zoomed");
+  card.querySelectorAll(".post-image-trigger img").forEach(image => {
+    image.closest(".post-image-trigger")?.addEventListener("click", () => openPostImageViewer(image.currentSrc || image.src));
   });
+  view.replaceChildren(card);
 }
 
     /* =====================================================
@@ -15638,10 +15753,10 @@ function filterPosts() {
 }
 
 function toggleCommunityPostZoom(button) {
-  const card = button?.closest("#shareSection .post-card");
+  const card = button?.closest("#shareSection .post-card, #searchPostViewSection .post-card");
   if (!card) return;
   const expand = !card.classList.contains("is-post-zoomed");
-  document.querySelectorAll("#shareSection .post-card.is-post-zoomed").forEach(openCard => {
+  document.querySelectorAll("#shareSection .post-card.is-post-zoomed, #searchPostViewSection .post-card.is-post-zoomed").forEach(openCard => {
     openCard.classList.remove("is-post-zoomed");
     const mark = openCard.querySelector(".post-zoom-mark");
     const control = openCard.querySelector(".post-expand-button");
@@ -15665,7 +15780,7 @@ function toggleCommunityPostZoom(button) {
 
 document.addEventListener("keydown", event => {
   if (event.key !== "Escape") return;
-  const zoomed = document.querySelector("#shareSection .post-card.is-post-zoomed .post-expand-button");
+  const zoomed = document.querySelector("#shareSection .post-card.is-post-zoomed .post-expand-button, #searchPostViewSection .post-card.is-post-zoomed .post-expand-button");
   if (zoomed) toggleCommunityPostZoom(zoomed);
 });
 
@@ -17349,7 +17464,7 @@ function selectQuickTab(button, sectionId) {
   });
   button.classList.add("selected");
   button.classList.add("is-tapped");
-  window.setTimeout(() => button.classList.remove("is-tapped"), 850);
+  window.setTimeout(() => button.classList.remove("is-tapped"), window.matchMedia("(hover:none) and (pointer:coarse)").matches ? 1400 : 850);
   showSection(sectionId);
   // Keep the active destination marked, but collapse its quick tab after selection.
   button.blur();
@@ -18875,7 +18990,7 @@ ownerChatForm.addEventListener("submit", async event => {
     style.setProperty("position", "fixed", "important");
     style.setProperty("display", "flex", "important");
     style.setProperty("top", "50%", "important");
-    style.setProperty("right", mobile ? "8px" : "12px", "important");
+    style.setProperty("right", "12px", "important");
     style.setProperty("left", "auto", "important");
     style.setProperty("bottom", "auto", "important");
     style.setProperty("z-index", "30000", "important");
