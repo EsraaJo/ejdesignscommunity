@@ -620,6 +620,7 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
             font: inherit;
             font-size: 15px;
         }
+        #searchResultsSection .search-results-search input { margin-right:10px; box-shadow: inset 0 3px 8px rgba(0,0,0,.18), inset 0 0 0 1px rgba(0,0,0,.045); }
         .search-results-search button {
             display: grid;
             flex: 0 0 38px;
@@ -1498,7 +1499,7 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
             border: 1px solid #d6b84c;
             border-radius: 8px;
             background: linear-gradient(135deg, #171717, #29251a);
-            color: #fff;
+            color: #d6b84c;
             font-size: 13px;
             font-weight: 700;
             line-height: 1.2;
@@ -1510,7 +1511,7 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
 
         .profile-cv-button:hover {
             background: linear-gradient(135deg, #29251a, #3a321c);
-            color: #fff;
+            color: #e1c24d;
             transform: translateY(-1px);
             box-shadow: 0 5px 13px rgba(214,184,76,.28);
         }
@@ -2375,10 +2376,10 @@ backdrop-filter: blur(6px);  border-color: #d6b84c;
 .post-image-picker > span { display: grid; width: 28px; height: 28px; place-items: center; border-radius: 50%; color: #111; background: #e2c64e; font-size: 20px; line-height: 1; }
 .post-image-picker small { color: #777; font-size: 12px; font-weight: 400; }
 .post-image-input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; clip-path: inset(50%); }
-.share-image-preview { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 10px; margin: 0 0 14px; color: #555; font-size: 12px; }
+.share-image-preview { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin: 0 0 14px; color: #555; font-size: 12px; }
 .share-image-preview[hidden] { display: none; }
-.share-image-preview-item { display: grid; gap: 4px; width: 96px; }
-.share-image-preview img { display: block; width: 96px; height: 72px; border-radius: 8px; object-fit: cover; border: 1px solid #ddd; }
+.share-image-preview-item { display: grid; flex: 0 0 80px; gap: 3px; width: 80px; min-width:0; }
+.share-image-preview img { display: block; width: 80px; height: 60px; border-radius: 7px; object-fit: cover; border: 1px solid #ddd; }
 .share-image-preview-item span { overflow: hidden; color: #666; text-overflow: ellipsis; white-space: nowrap; }
 .share-image-preview-note { align-self: center; }
 .share-image-preview button { border: 1px solid #ddd; border-radius: 7px; padding: 6px 10px; color: #8d2222; background: #fff; cursor: pointer; }
@@ -3275,7 +3276,7 @@ select {
 
 /* Project detail: themed white panels */
 #projectDetailsSection .project-detail-page {
-  max-width: 980px !important;
+  max-width: 760px !important;
   margin: 24px auto !important;
   padding: 28px !important;
   color: #222 !important;
@@ -3369,6 +3370,14 @@ select {
   font-size: 14px !important;
 }
 
+/* Present project facts and descriptions like the clear information panels on member profiles. */
+#projectDetailsSection .project-facts { display:grid !important; grid-template-columns:repeat(auto-fit,minmax(135px,1fr)); gap:10px !important; margin:18px 0 22px !important; }
+#projectDetailsSection .project-facts span { display:flex !important; flex-direction:column; gap:5px; min-width:0; padding:11px 13px !important; background:#faf9f6 !important; border:1px solid #e9e6dc !important; border-radius:10px !important; color:#333 !important; font-size:14px !important; }
+#projectDetailsSection .project-facts span small { color:#a88b28 !important; font-size:10px !important; font-weight:700; letter-spacing:.55px; text-transform:uppercase; }
+#projectDetailsSection .project-facts span strong { color:#333 !important; font-size:14px !important; font-weight:600; overflow-wrap:anywhere; }
+#projectDetailsSection .project-detail-description { margin:0 !important; padding:0 !important; color:#555 !important; background:transparent !important; border:0 !important; border-radius:0 !important; line-height:1.7 !important; }
+#projectDetailsSection .project-info-section { margin-top:16px !important; padding:16px !important; background:#fff !important; border:1px solid #ece9df !important; border-radius:10px !important; }
+
 /* Images and owner actions */
 #projectDetailsSection .project-detail-images {
   gap: 14px !important;
@@ -3378,6 +3387,10 @@ select {
 #projectDetailsSection .project-detail-images img {
   border-radius: 10px !important;
 }
+#projectDetailsSection .project-detail-image-item { position:relative; min-width:0; }
+#projectDetailsSection .project-restore-original-button { position:absolute; left:10px; bottom:10px; z-index:2; min-height:30px !important; padding:5px 9px !important; border:1px solid rgba(205,92,112,.7) !important; border-radius:8px !important; color:#8f293d !important; background:rgba(255,235,239,.72) !important; -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px); font-size:12px !important; font-weight:600 !important; }
+#projectDetailsSection .project-cover-crop-button { position:absolute; right:10px; bottom:10px; z-index:2; min-height:30px !important; padding:5px 9px !important; border:1px solid rgba(214,184,76,.78) !important; border-radius:8px !important; color:#765f12 !important; background:rgba(255,244,192,.34) !important; -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px); box-shadow:0 2px 7px rgba(0,0,0,.12); font-size:12px !important; font-weight:600 !important; text-shadow:0 1px 2px rgba(255,255,255,.9); }
+#projectDetailsSection .project-cover-crop-button:hover { color:#5c480b !important; background:rgba(255,232,139,.48) !important; border-color:rgba(214,184,76,.95) !important; }
 
 #projectDetailsSection .project-owner-actions {
   display: flex;
@@ -5490,7 +5503,7 @@ box-shadow:
   .home-copyright { gap: 8px; padding: 12px 12px max(14px, env(safe-area-inset-bottom)); }
   .home-copyright .contact-links { gap: 7px; }
   .home-copyright .contact-links a { width: 34px; height: 34px; flex-basis: 34px; }
-  .connect-view-switch { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .connect-view-switch { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
   .connection-requests-section { margin: 18px 0 10px; padding: 14px; }
   .connection-requests-section h3 { font-size: 15px; }
   .social-list-person { align-items: flex-start; flex-direction: column; }
@@ -7682,8 +7695,8 @@ body > header {
 #shareSection .posts-filter-search input { color: #292929; background: #fff; box-shadow: none; }
 #shareSection .posts-filter-search button { flex-basis: 44px; width: 44px; height: 44px; color: #fff; background: #171717; box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 2px 5px rgba(0,0,0,.16); }
 #shareSection .posts-filter-search button:hover { background: #292929; }
-#shareSection .posts-filter-toolbar select { height: 60px; min-height: 60px; padding-right: 48px; border-color: #d9bd54; color: #343434; background-color: #fff; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28' fill='none'%3E%3Ccircle cx='14' cy='14' r='11' stroke='%23c3a234' stroke-opacity='.42'/%3E%3Cpath d='m10 12 4 4 4-4' stroke='%23b49324' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; background-size: 28px 28px; box-shadow: inset 0 1px 5px rgba(0,0,0,.065), 0 3px 10px rgba(0,0,0,.055); }
-#shareSection .posts-filter-toolbar select:focus { border-color: #c3a234; box-shadow: 0 0 0 2px rgba(214,184,76,.1), 0 4px 12px rgba(0,0,0,.06); }
+#shareSection .posts-filter-toolbar select { height: 60px; min-height: 60px; padding-right: 48px; border-color: #d9bd54; color: #343434; background-color: #fff; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28' fill='none'%3E%3Ccircle cx='14' cy='14' r='11' stroke='%23c3a234' stroke-opacity='.42'/%3E%3Cpath d='m10 12 4 4 4-4' stroke='%23b49324' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; background-size: 28px 28px; box-shadow: none; }
+#shareSection .posts-filter-toolbar select:focus { border-color: #c3a234; box-shadow: none; }
 #shareSection .posts-filter-toolbar select option { color: #292929; background: #fff; }
 #shareSection .share-page-card { padding: 14px 18px; }
 #shareSection .share-post-type-row { display: flex; align-items: center; gap: 8px; min-height: 42px; box-sizing: border-box; margin: 8px 0; padding: 0 10px 0 13px; border: 1px solid #d8d5cc; border-radius: 8px; background: #fff; }
@@ -7695,6 +7708,9 @@ body > header {
 #shareSection #shareContent { box-sizing: border-box; height: 88px; min-height: 88px; margin: 0; padding: 10px 12px; overflow-y: hidden; resize: vertical; }
 #shareSection .post-image-picker { min-height: 42px; margin: 0 0 8px; padding: 6px 11px; }
 #shareSection .share-page-card > .community-action-btn { margin-top: 0; padding-top: 8px; padding-bottom: 8px; }
+#shareSection.showing-own-posts .share-page-card,
+#shareSection.showing-own-posts .whatsapp-invite-card { display:none !important; }
+#shareSection.showing-own-posts #myPostsHeading { margin:18px 0 12px; text-align:center; }
 #shareSection .post-card { overflow: hidden; padding: 0; color: #242424; border: 1px solid rgba(214,184,76,.24); background: rgba(255,255,255,.9); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: 0 8px 24px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,.82); }
 #shareSection .post-identity-band { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; margin: 0; padding: 14px 22px; border: 0; border-bottom: 1px solid rgba(214,184,76,.2); border-radius: 11px 11px 0 0; color: #f5f3ed; background: linear-gradient(135deg,#171717,#080808); box-shadow: inset 0 1px 0 rgba(255,255,255,.08); }
 #shareSection .post-identity-band .post-header { flex: 1 1 auto; min-width: 0; min-height: 42px; margin: 0; padding: 0; }
@@ -9163,6 +9179,226 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
   #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-minimized-title { display:none !important; }
   #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading strong::after { content:none !important; }
 }
+.freelance-project-card { border-color: rgba(214,184,76,.65); box-shadow: 0 5px 18px rgba(26,20,6,.08); }
+.freelance-project-card h3 { color: #222; overflow-wrap: anywhere; }
+.freelance-project-skills { color: #555; overflow-wrap: anywhere; }
+.freelance-project-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
+.project-existing-media { display:flex; flex-wrap:wrap; align-items:center; gap:7px; margin:8px 0 14px; color:#555; font-size:12px; }
+.project-existing-media[hidden] { display:none; }
+.project-existing-media-item { display:flex; align-items:center; gap:7px; flex:0 1 160px; width:160px; min-width:0; }
+.project-existing-media-item img { display:block; width:80px; height:60px; border:1px solid #ddd; border-radius:7px; object-fit:cover; }
+.project-existing-media-item button,.post-existing-image-crop { min-height:28px; padding:4px 7px; border:1px solid #d6b84c; border-radius:7px; color:#222; background:#fffdf5; font:inherit; font-size:10px; font-weight:600; white-space:nowrap; cursor:pointer; }
+.project-existing-media-note { align-self:center; }
+.freelance-project-button { min-height: 38px; padding: 8px 13px; border: 1px solid #d6b84c; border-radius: 8px; color: #171717; background: #f5e7a3; font: inherit; font-weight: 600; cursor: pointer; }
+.freelance-project-button.is-secondary { color: #333; background: #fff; }
+@media (max-width: 600px) {
+  .connect-view-tab { overflow-wrap: anywhere; line-height: 1.25; }
+  .freelance-project-card { min-width: 0; padding: 13px; }
+  .freelance-project-actions > * { flex: 1 1 auto; min-width: 0; text-align: center; }
+}
+/* Page-heading light sweep in the same muted gold family as the logo shine. */
+#connectSection .community-page > h2,
+#createSection .community-page > h2,
+#shareIdeasSection .community-page > h2 {
+  color:#222;
+  background-image:linear-gradient(105deg,#222 0%,#222 41%,#ad8b20 47%,#fff2ad 50%,#d4ad36 53%,#222 60%,#222 100%);
+  background-size:260% 100%; background-position:100% 0; background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  animation:pageHeadingGoldSweep 7s linear infinite;
+}
+@keyframes pageHeadingGoldSweep { from { background-position:100% 0; } to { background-position:10% 0; } }
+@media (prefers-reduced-motion:reduce) { #connectSection .community-page > h2, #createSection .community-page > h2, #shareIdeasSection .community-page > h2 { animation:none; background-position:50% 0; } }
+/* Keep the feedback author, role badge and owner tick together on one mobile row. */
+@media (max-width:700px) {
+  #shareIdeasSection .feedback-header { display:flex !important; flex-flow:row nowrap !important; align-items:center !important; gap:6px !important; overflow:hidden !important; }
+  #shareIdeasSection .feedback-header > .feedback-avatar { flex:0 0 32px !important; width:32px !important; height:32px !important; }
+  #shareIdeasSection .feedback-header > strong { flex:1 1 0 !important; min-width:0 !important; white-space:nowrap !important; }
+  #shareIdeasSection .feedback-header > .post-owner-badge { flex:0 1 auto !important; max-width:clamp(64px,25vw,104px) !important; white-space:nowrap !important; }
+  #shareIdeasSection .feedback-header > .post-owner-verified { flex:0 0 15px !important; width:15px !important; height:15px !important; }
+}
+/* Hidden title text must not leave pseudo-text or clipped character fragments. */
+@media (max-width:700px) {
+  #ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-header h3,
+  #ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-title,
+  #ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-title::before,
+  #ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-title::after,
+  #ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-header h3::before,
+  #ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-header h3::after,
+  #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading,
+  #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading::before,
+  #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading::after,
+  #ownerChatWidget #ownerChatPanel.is-minimized #ownerChatHeaderName,
+  #ownerChatWidget #ownerChatPanel.is-minimized #ownerChatHeaderStatus,
+  #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-minimized-title,
+  #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading strong::before,
+  #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading strong::after { display:none !important; content:none !important; visibility:hidden !important; width:0 !important; height:0 !important; margin:0 !important; padding:0 !important; overflow:hidden !important; font-size:0 !important; color:transparent !important; -webkit-text-fill-color:transparent !important; text-shadow:none !important; }
+}
+@media (max-width:700px) {
+  #ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-header h3 { display:flex !important; flex:1 1 auto !important; width:auto !important; height:auto !important; min-width:0 !important; visibility:visible !important; overflow:hidden !important; }
+  #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading { display:flex !important; flex:1 1 auto !important; width:auto !important; height:auto !important; min-width:0 !important; visibility:visible !important; overflow:hidden !important; }
+}/* Native, dependency-free project photo crop dialog. */
+#projectSection .my-project-search { display:flex; align-items:center; gap:8px; box-sizing:border-box; width:100%; max-width:680px; min-height:52px; margin:18px auto 14px; padding:5px 6px 5px 18px; border:1px solid #d6b84c; border-radius:999px; background:rgba(255,255,255,.92); box-shadow:0 5px 16px rgba(35,32,22,.08); }
+#projectSection .my-project-search input { flex:1 1 auto; width:100%; min-width:0; height:40px; margin:0; padding:0 15px !important; color:#171717 !important; background:#fff !important; border:0 !important; border-radius:999px !important; outline:none; box-shadow:inset 0 3px 7px rgba(0,0,0,.2) !important; font-size:14px !important; }
+#projectSection .my-project-search input::placeholder { color:#777; opacity:1; }
+#projectSection .my-project-search button { display:grid; flex:0 0 40px !important; width:40px !important; min-width:40px !important; height:40px !important; min-height:40px !important; place-items:center; margin:0; padding:0 !important; border:0 !important; border-radius:50% !important; color:#111 !important; background:#d6b84c !important; cursor:pointer; box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 2px 4px rgba(0,0,0,.24); }
+#projectSection .my-project-search button:hover { background:#ead578 !important; }
+#projectSection .my-project-search button svg { width:19px; height:19px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; }
+#projectSection .my-project-search:focus-within { border-color:#d6b84c; box-shadow:0 0 0 3px rgba(214,184,76,.13),0 5px 16px rgba(35,32,22,.08); }
+#projectSection .project-search-empty { margin:12px 0; color:#777; text-align:center; }
+@media (max-width:700px) { #projectSection .my-project-search { width:calc(100vw - 32px); max-width:680px; min-height:46px; margin:14px auto 12px; padding:3px 4px 3px 13px; } #projectSection .my-project-search input { height:38px; font-size:13px !important; } #projectSection .my-project-search button { flex-basis:36px !important; width:36px !important; min-width:36px !important; height:36px !important; min-height:36px !important; } }
+.project-crop-overlay { position:fixed; inset:0; z-index:12000; display:grid; place-items:center; box-sizing:border-box; overflow-y:auto; padding:16px; background:rgba(0,0,0,.72); }
+.project-crop-dialog { box-sizing:border-box; min-width:0; width:min(940px,100%); max-height:calc(100dvh - 32px); overflow:auto; padding:20px; border:1px solid rgba(214,184,76,.7); border-radius:16px; background:#fff; color:#222; box-shadow:0 20px 70px rgba(0,0,0,.4); }
+.project-crop-dialog h2 { margin:0 0 6px; font-size:21px; }
+.project-crop-dialog p { margin:0 0 14px; color:#666; font-size:14px; }
+.project-crop-ratio-label,.project-crop-zoom-label { display:flex; align-items:center; gap:10px; margin:12px 0; font-size:14px; font-weight:600; }
+.project-crop-ratio { min-height:36px; padding:5px 10px; border:1px solid #d6b84c; border-radius:8px; background:#fff; color:#222; font:inherit; }
+.project-crop-stage { position:relative; box-sizing:border-box; max-width:100%; margin:0 auto; aspect-ratio:4/3; overflow:hidden; contain:layout paint; border:1px solid #ccc; border-radius:8px; background:#171717; touch-action:none; cursor:grab; }
+.project-crop-stage:active { cursor:grabbing; }
+.project-crop-stage.is-free-crop { aspect-ratio:auto !important; }
+.project-crop-free-selection { position:absolute; z-index:2; box-sizing:border-box; border:2px solid #e4c44e; box-shadow:0 0 0 9999px rgba(0,0,0,.4); cursor:move; touch-action:none; }
+.project-crop-resize-handle { position:absolute; right:-2px; bottom:-2px; z-index:2; display:grid; width:22px; height:22px; place-items:center; border:0; border-radius:8px 0 0 0; color:#171717; background:rgba(255,232,139,.95); font-size:18px; line-height:1; cursor:nwse-resize; touch-action:none; }
+.project-crop-resize-handle[hidden] { display:none; }
+.project-crop-free-hint { margin:6px 0 0 !important; color:#78621c !important; font-size:12px !important; }
+.project-crop-image { position:absolute; max-width:none !important; object-fit:fill; user-select:none; -webkit-user-drag:none; pointer-events:none; }
+.project-crop-zoom-label input { flex:1; accent-color:#d6b84c; }
+.project-crop-reset-zoom { display:block; margin:8px 0 0 auto; padding:5px 9px; border:1px solid #d6b84c; border-radius:7px; color:#5c4a12; background:#fffdf5; font:inherit; font-size:12px; cursor:pointer; }
+.project-crop-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:16px; }
+.project-crop-actions button { min-height:40px; padding:8px 14px; border:1px solid #d6b84c; border-radius:9px; background:#fff; color:#222; font:inherit; font-weight:600; cursor:pointer; }
+.project-crop-actions .project-crop-save { background:#e7cd65; }
+@media (max-width:600px) { .project-crop-overlay { padding:8px; } .project-crop-dialog { width:100%; max-height:calc(100dvh - 16px); padding:12px; } .project-crop-actions button { flex:1; min-width:0; padding-inline:8px; } }
+/* Keep every search category on a single horizontal row at all sizes. */
+.global-search-quick-filters { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); width:min(640px,calc(100vw - 32px)); max-width:none; gap:6px; }
+.global-search-quick-filters button { box-sizing:border-box; width:100%; min-width:0; padding:6px 3px; white-space:normal; overflow-wrap:anywhere; text-align:center; font-size:clamp(9px,1vw,12px); line-height:1.15; }
+.search-results-toolbar { display:grid; grid-template-columns:minmax(0,1.2fr) minmax(280px,.9fr); align-items:center; gap:14px; }
+.global-search-filters { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); flex:1 1 auto; min-width:0; gap:6px; }
+.global-search-filter { min-width:0; width:100%; box-sizing:border-box; padding:8px 3px; white-space:normal; overflow-wrap:anywhere; text-align:center; font-size:clamp(9px,1vw,13px); line-height:1.15; }
+@media (max-width:700px) {
+  #searchResultsSection .search-results-toolbar { grid-template-columns:minmax(0,1fr) !important; }
+  #searchResultsSection .global-search-filters { display:grid !important; grid-template-columns:repeat(6,minmax(0,1fr)) !important; flex-wrap:initial !important; width:100% !important; gap:4px !important; }
+  #searchResultsSection .global-search-filter { min-width:0 !important; width:100% !important; padding:6px 2px !important; font-size:clamp(8px,2.6vw,10px) !important; line-height:1.05 !important; white-space:normal !important; overflow-wrap:anywhere !important; }
+  body > header .global-search .global-search-quick-filters { display:grid !important; grid-template-columns:repeat(6,minmax(0,1fr)) !important; flex-wrap:initial !important; width:min(640px,calc(100vw - 28px)) !important; gap:3px !important; }
+  body > header .global-search .global-search-quick-filters button { flex:initial !important; width:100% !important; padding:5px 1px !important; font-size:clamp(7px,2.25vw,9px) !important; line-height:1.05 !important; white-space:normal !important; overflow-wrap:anywhere !important; }
+}
+#shareSection label[for="shareContent"][hidden], #shareSection #shareContent[hidden], #shareSection label[for="freelanceDescription"][hidden], #shareSection #freelanceDescription[hidden] { display:none !important; }
+#shareSection .job-post-fields textarea { width:100%; min-height:110px; margin:6px 0 12px; padding:9px 11px; box-sizing:border-box; border:1px solid #d8d5cc; border-radius:8px; font:inherit; resize:vertical; }
+body > header .global-search .global-search-quick-filters[hidden] { display:none !important; }
+/* Center compact quick-navigation symbols precisely without changing expanded labels. */
+body .quick-tabs .quick-tab:not(:hover):not(:focus-visible):not(.is-tapped) .quick-icon,
+body .quick-tabs .quick-tab.selected:not(.is-tapped) .quick-icon {
+  top:50% !important; right:auto !important; left:50% !important;
+  margin:0 !important; transform:translate(-50%,-50%) !important;
+  display:grid !important; place-items:center !important; text-align:center !important;
+  line-height:1 !important;
+}
+/* Restore natural search filter pills and give the adjacent search field a compact width. */
+#searchResultsSection .search-results-toolbar { display:flex !important; align-items:center !important; justify-content:space-between !important; gap:10px !important; padding:10px !important; border-radius:14px; background:#e2e2e2; }
+#searchResultsSection .global-search-filters { display:flex !important; flex:0 1 auto !important; flex-wrap:nowrap !important; align-items:center !important; min-width:0 !important; gap:6px !important; overflow-x:auto; scrollbar-width:thin; }
+#searchResultsSection .global-search-filter { flex:0 0 auto !important; width:auto !important; min-width:max-content !important; padding:8px 11px !important; white-space:nowrap !important; overflow-wrap:normal !important; font-size:12px !important; line-height:1.15 !important; }
+#searchResultsSection .search-results-search { flex:1 1 440px !important; width:auto !important; min-width:280px !important; max-width:none !important; box-sizing:border-box !important; }
+@media (min-width:701px) and (max-width:1100px) {
+  #searchResultsSection .search-results-toolbar { gap:8px !important; }
+  #searchResultsSection .global-search-filters { gap:4px !important; }
+  #searchResultsSection .global-search-filter { padding:7px 8px !important; font-size:11px !important; }
+  #searchResultsSection .search-results-search { flex:1 1 440px !important; width:auto !important; min-width:280px !important; max-width:none !important; }
+}
+@media (max-width:700px) {
+  #searchResultsSection .search-results-toolbar { display:flex !important; flex-direction:column !important; align-items:stretch !important; padding:9px !important; }
+  #searchResultsSection .global-search-filters { width:100% !important; min-width:0 !important; gap:6px !important; }
+  #searchResultsSection .global-search-filter { padding:8px 11px !important; font-size:12px !important; }
+  #searchResultsSection .search-results-search { flex:1 1 auto !important; width:100% !important; min-width:0 !important; max-width:none !important; }
+}
+.freelance-post-summary { margin:0 0 10px; padding:12px 14px; border:1px solid rgba(214,184,76,.45); border-radius:10px; background:#fbf9f1; }
+.freelance-post-summary h3 { margin:0 0 6px; color:#222; font-size:16px; line-height:1.3; overflow-wrap:anywhere; }
+.freelance-post-summary .opportunity-meta { display:flex; flex-wrap:wrap; gap:6px; margin:0 0 6px; font-size:12px; }
+.freelance-post-summary .opportunity-meta span { padding:4px 8px; }
+.freelance-post-skills { margin:5px 0; font-size:13px; line-height:1.4; overflow-wrap:anywhere; }
+.post-card.freelance-post-card .post-content { max-height:none !important; overflow:visible !important; white-space:pre-wrap; }
+#searchResultsSection .community-page > h2 { color:#222; background-image:linear-gradient(105deg,#222 0%,#222 41%,#ad8b20 47%,#fff2ad 50%,#d4ad36 53%,#222 60%,#222 100%); background-size:260% 100%; background-position:100% 0; background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation:pageHeadingGoldSweep 7s linear infinite; }
+@media (prefers-reduced-motion:reduce) { #searchResultsSection .community-page > h2 { animation:none; background-position:50% 0; } }
+/* Keep the letters' entrance motion while one shared gold band sweeps across the full phrase. */
+@property --home-welcome-shift { syntax:"<length>"; inherits:true; initial-value:0px; }
+@keyframes homeWelcomeGoldSweep { from { --home-welcome-shift:0px; } to { --home-welcome-shift:var(--home-welcome-shift-end,-1000px); } }
+#homeSection .home-content > h2 { color:#222; background:none; -webkit-text-fill-color:#222; --home-welcome-shift:0px; animation:homeWelcomeGoldSweep 6s linear infinite; }
+#homeSection .home-content > h2 .home-welcome-letter { color:transparent; background-image:linear-gradient(105deg,#222 0%,#222 41%,#ad8b20 47%,#fff2ad 50%,#d4ad36 53%,#222 60%,#222 100%); background-size:var(--home-welcome-gradient-width,1000px) 100%; background-position:calc(var(--home-welcome-shift,0px) - var(--home-welcome-letter-left,0px)) 0; background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+@media (prefers-reduced-motion:reduce) { #homeSection .home-content > h2 { animation:homeWelcomeGoldSweep 6s linear infinite !important; } #homeSection .home-content > h2 .home-welcome-letter { animation:homeWelcomeLetterIn .38s cubic-bezier(.2,.75,.25,1) both !important; } }
+/* Compact, mobile-safe controls and project details. */
+@media (max-width:700px) {
+  #shareSection .share-page-card, #shareSection .job-post-fields, #shareSection .share-image-preview { box-sizing:border-box; width:100%; max-width:100%; min-width:0; }
+  #shareSection .post-image-picker { box-sizing:border-box; width:100%; min-width:0; flex-wrap:wrap; gap:6px; padding:9px 10px; line-height:1.25; }
+  #shareSection .post-image-picker small { flex:1 1 100%; margin-left:34px; }
+  #shareSection .share-image-preview { gap:8px; overflow:hidden; }
+  #shareSection .share-image-preview-item, #shareSection .project-existing-media-item { box-sizing:border-box; flex:0 0 72px; width:72px; min-width:0; }
+  #shareSection .share-image-preview img, #shareSection .project-existing-media-item img { box-sizing:border-box; width:72px; max-width:100%; height:54px; }
+  #shareSection .share-image-preview-note, #shareSection .project-existing-media-note { flex:1 1 130px; min-width:0; overflow-wrap:anywhere; }
+  #shareSection .share-image-preview button { flex:0 1 auto; max-width:100%; }
+  #shareSection #shareSubmitButton, #shareSection #cancelPostEditButton { box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; width:calc(50% - 5px); min-width:0; min-height:42px; margin:8px 0 0; padding:9px 8px; vertical-align:top; text-align:center; }
+  #shareSection #shareSubmitButton { margin-right:6px; }
+  #shareSection #cancelPostEditButton[hidden] { display:none !important; }
+  .freelance-post-summary { box-sizing:border-box; min-width:0; padding:9px 11px; }
+  .freelance-post-summary h3 { margin-bottom:6px; font-size:16px; line-height:1.25; }
+  .freelance-post-summary .opportunity-meta { gap:5px; margin-bottom:5px; font-size:12px; }
+  .freelance-post-skills { margin:5px 0; font-size:13px; line-height:1.4; }
+  .freelance-post-summary .opportunity-apply { display:inline-flex; max-width:100%; margin-top:3px; font-size:12px; }
+}
+/* Make freelance titles/details visibly more compact and keep edit actions equal. */
+#shareSection .post-card.freelance-post-card .freelance-post-summary { padding:8px 10px !important; }
+#shareSection .post-card.freelance-post-card .freelance-post-summary h3 { margin:0 0 5px !important; font-size:14px !important; line-height:1.25 !important; }
+#shareSection .post-card.freelance-post-card .freelance-post-summary .opportunity-meta { gap:5px !important; margin:0 0 5px !important; font-size:11px !important; }
+#shareSection .post-card.freelance-post-card .freelance-post-summary .opportunity-meta span { padding:3px 7px !important; }
+#shareSection .post-card.freelance-post-card .freelance-post-skills,
+#shareSection .post-card.freelance-post-card .post-content { font-size:12px !important; line-height:1.45 !important; }
+#shareSection #shareSubmitButton, #shareSection #cancelPostEditButton { box-sizing:border-box; display:inline-flex; width:176px; min-height:48px; align-items:center; justify-content:center; text-align:center; }
+#shareSection .share-image-preview-item.has-existing-image-crop { display:grid; flex:0 1 174px; width:174px; grid-template-columns:80px 88px; grid-template-rows:auto auto auto; align-items:center; gap:3px 6px; }
+#shareSection .share-image-preview-item.has-existing-image-crop img { grid-column:1; grid-row:1 / 4; }
+#shareSection .share-image-preview-item.has-existing-image-crop span { grid-column:2; grid-row:1; min-width:0; }
+#shareSection .share-image-preview-item.has-existing-image-crop .post-existing-image-crop,
+#shareSection .share-image-preview-item.has-existing-image-crop .post-existing-image-remove { display:inline-flex; align-items:center; justify-content:center; justify-self:start; box-sizing:border-box; width:88px !important; min-width:88px !important; max-width:88px !important; min-height:27px; margin:0; padding:3px 4px; border:1px solid #e6a0aa; border-radius:7px; color:#74323a; background:#ffe4e8; font-family:inherit; font-size:10px !important; font-weight:600; line-height:1.1; text-align:center; white-space:nowrap !important; }
+#shareSection .share-image-preview-item.has-existing-image-crop .post-existing-image-crop { grid-column:2; grid-row:2; }
+#shareSection .share-image-preview-item.has-existing-image-crop .post-existing-image-remove { grid-column:2; grid-row:3; }
+#shareSection .share-image-preview-item.has-existing-image-crop .post-existing-image-crop:hover,
+#shareSection .share-image-preview-item.has-existing-image-crop .post-existing-image-remove:hover { border-color:#d77d8a; color:#64222a; background:#ffd1d8; }
+#searchPostViewSection .freelance-post-summary { display:flex; flex-direction:column; justify-content:center; min-height:72px; }
+#searchPostViewSection .freelance-post-summary h3 { display:flex; min-height:44px; align-items:center; justify-content:center; margin:0 !important; text-align:center; }
+@media (max-width:700px) {
+  #shareSection #shareSubmitButton, #shareSection #cancelPostEditButton { width:calc((100% - 8px) / 2); min-height:44px; }
+  #shareSection #shareSubmitButton { margin-right:0; }
+  #shareSection .share-image-preview-item.has-existing-image-crop { flex-basis:166px; width:166px; grid-template-columns:72px 88px; }
+  #shareSection .share-image-preview-item.has-existing-image-crop .post-existing-image-crop,
+  #shareSection .share-image-preview-item.has-existing-image-crop .post-existing-image-remove { padding:3px 4px; font-size:10px !important; }
+  #shareSection .project-existing-media-item { flex:0 1 160px; width:160px; }
+}
+.project-crop-tools { display:flex; justify-content:flex-end; gap:8px; margin:8px 0 0; }
+.member-cv-section .member-cv-link { color:#b49324 !important; }
+.member-cv-section .member-cv-link:hover { color:#9a7a10 !important; }/* Crop modal fit and controls; applied to the shared crop dialog everywhere it is opened. */
+.project-crop-dialog { width:min(760px,100%); padding:16px; }
+.project-crop-stage { max-height:min(360px,calc(100dvh - 380px)); }
+.project-crop-reset-zoom,.project-crop-change-photo { display:inline-flex; align-items:center; justify-content:center; min-width:108px; min-height:34px; margin:0; padding:6px 10px; border:1px solid #d6b84c; border-radius:8px; color:#5c4a12; background:#fffdf5; font:inherit; font-size:12px; cursor:pointer; }
+.project-crop-change-photo { color:#222; background:#fff; }
+.project-crop-file-input { display:none !important; }
+@media (max-width:600px) { .project-crop-dialog { padding:14px; } .project-crop-stage { max-height:calc(100dvh - 430px); } .project-crop-reset-zoom,.project-crop-change-photo { flex:1; min-width:0; } }
+/* My Posts search bar uses an inset shadow only, matching the primary search. */
+#shareSection .posts-filter-search { box-shadow:none !important; }
+#shareSection .posts-filter-search:focus-within { box-shadow:none !important; }
+#searchResultsSection .search-results-search,
+#searchResultsSection .search-results-search:focus-within { box-shadow:none !important; }
+#searchResultsSection .search-results-search input { box-shadow:inset 0 3px 8px rgba(0,0,0,.18), inset 0 0 0 1px rgba(0,0,0,.045) !important; }
+#searchResultsSection .search-results-search button { box-shadow:none !important; }
+#memberProfileSection .member-profile-links a.member-social-link,
+#memberProfileSection .member-profile-links a.member-social-link:hover { color:#fff !important; }
+#shareSection .posts-filter-search input { box-shadow:inset 0 3px 8px rgba(0,0,0,.18), inset 0 0 0 1px rgba(0,0,0,.045) !important; }
+#shareSection .posts-filter-search button { box-shadow:none !important; }
+#shareSection .posts-filter-toolbar select,
+#shareSection .posts-filter-toolbar select:focus { box-shadow:none !important; }#projectDetailsSection .project-detail-image-item.has-project-image-actions { grid-column:1 / -1; display:flex; align-items:flex-end; gap:14px; }
+#projectDetailsSection .project-detail-image-item.has-project-image-actions > img { flex:0 1 380px; width:min(380px,calc(100% - 136px)); max-width:calc(100% - 136px); min-width:0; height:auto; object-fit:contain; }
+#projectDetailsSection .project-detail-image-actions { display:flex; flex:0 0 120px; flex-direction:column; align-items:stretch; gap:8px; }
+#projectDetailsSection .project-detail-image-actions > button.project-cover-crop-button,
+#projectDetailsSection .project-detail-image-actions > button.project-restore-original-button { position:static !important; inset:auto !important; display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; width:120px; min-width:120px; max-width:120px; min-height:34px !important; margin:0 !important; padding:6px 8px !important; border:1px solid #df9aa6 !important; border-radius:8px !important; color:#a1263a !important; background:#ffe8ec !important; opacity:1 !important; -webkit-backdrop-filter:none !important; backdrop-filter:none !important; box-shadow:none !important; font-size:12px !important; font-weight:600 !important; line-height:1.15; text-align:center; text-shadow:none !important; white-space:normal; }
+#projectDetailsSection .project-detail-image-actions > button.project-cover-crop-button:hover,
+#projectDetailsSection .project-detail-image-actions > button.project-restore-original-button:hover { color:#861b2e !important; background:#ffd9e0 !important; border-color:#cf7887 !important; }
+@media (max-width:600px) { #projectDetailsSection .project-detail-image-item.has-project-image-actions { gap:10px; } #projectDetailsSection .project-detail-image-item.has-project-image-actions > img { flex-basis:auto; width:calc(100% - 116px); max-width:calc(100% - 116px); } #projectDetailsSection .project-detail-image-actions { flex-basis:106px; } #projectDetailsSection .project-detail-image-actions > button.project-cover-crop-button, #projectDetailsSection .project-detail-image-actions > button.project-restore-original-button { width:106px; min-width:106px; max-width:106px; } }
+#memberProfileSection .member-profile-links a.member-social-link,
+#memberProfileSection .member-profile-links a.member-social-link:hover { color:#111 !important; background:#fff !important; }
+body > header .global-search input { box-shadow:inset 0 3px 7px rgba(0,0,0,.29), inset 0 0 0 1px rgba(0,0,0,.055); }
+body > header .global-search input:focus { box-shadow:inset 0 2px 5px rgba(0,0,0,.32); }
 </style></head>
 
 
@@ -9251,6 +9487,7 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
             <button type="button" onclick="chooseQuickSearchFilter('projects', this)">Projects</button>
             <button type="button" onclick="chooseQuickSearchFilter('posts', this)">Posts</button>
             <button type="button" onclick="chooseQuickSearchFilter('opportunities', this)">Job Opportunities</button>
+            <button type="button" onclick="chooseQuickSearchFilter('freelance', this)">Freelance Projects</button>
         </div>
     </form>
 
@@ -9310,6 +9547,7 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
     <main>
         <div class="community-page global-search-results">
             <div class="page-navigation-row">
+              <button id="searchResultsBackButton" class="page-back-btn" type="button" onclick="goBackFromSearchResults()" hidden>← Back</button>
               <button class="page-back-btn" type="button" onclick="showSection('homeSection')">Home</button>
               <button class="page-back-btn section-forward-btn" type="button" onclick="goForwardFromSection()" aria-label="Go forward" title="Go forward" disabled hidden>Forward →</button>
             </div>
@@ -9322,6 +9560,7 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
                   <button type="button" class="global-search-filter" data-search-filter="projects" onclick="filterGlobalSearch('projects')">Projects</button>
                   <button type="button" class="global-search-filter" data-search-filter="posts" onclick="filterGlobalSearch('posts')">Posts</button>
                   <button type="button" class="global-search-filter" data-search-filter="opportunities" onclick="filterGlobalSearch('opportunities')">Job Opportunities</button>
+                  <button type="button" class="global-search-filter" data-search-filter="freelance" onclick="filterGlobalSearch('freelance')">Freelance Projects</button>
               </div>
               <form class="search-results-search" onsubmit="submitSearchResultsSearch(event)" role="search">
                 <input id="searchResultsInput" type="search" placeholder="Search again..." aria-label="Search again">
@@ -9543,6 +9782,7 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
 <div class="connect-view-switch" role="tablist" aria-label="Connect directory">
   <button id="connectMembersTab" type="button" class="connect-view-tab is-active" role="tab" aria-selected="true" aria-controls="membersGrid" onclick="showConnectView('members', this)">Members</button>
   <button id="connectOpportunitiesTab" type="button" class="connect-view-tab" role="tab" aria-selected="false" aria-controls="opportunitiesList" onclick="showConnectView('opportunities', this)">Job Opportunities</button>
+  <button id="connectFreelanceTab" type="button" class="connect-view-tab" role="tab" aria-selected="false" aria-controls="freelanceProjectsList" onclick="showConnectView('freelance', this)">Freelance Projects</button>
   <button id="connectMessagesTab" type="button" class="connect-view-tab" role="tab" aria-selected="false" aria-controls="memberInbox" onclick="showConnectView('messages', this)">Messages</button>
 </div>
 
@@ -9558,6 +9798,7 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
             </div>
 
             <div id="opportunitiesList" class="opportunities-list" role="tabpanel" aria-labelledby="connectOpportunitiesTab" tabindex="0" hidden></div>
+            <div id="freelanceProjectsList" class="opportunities-list freelance-projects-list" role="tabpanel" aria-labelledby="connectFreelanceTab" tabindex="0" hidden></div>
             <div id="memberInbox" class="member-inbox" role="tabpanel" aria-labelledby="connectMessagesTab" tabindex="0" hidden></div>
 
         </div>
@@ -9605,6 +9846,7 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
                     <select id="sharePostType" onchange="toggleJobPostFields()">
                         <option value="community">Community post</option>
                         <option value="job_opportunity">Job opportunity</option>
+                        <option value="freelance_project">Freelance project</option>
                     </select>
                 </div>
                 <div id="jobPostFields" class="job-post-fields" hidden>
@@ -9618,6 +9860,16 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
                     <input id="jobApplyUrl" type="url" placeholder="Application link (optional)">
                     <label for="jobDeadline">Application deadline (optional)</label>
                     <input id="jobDeadline" type="date">
+                </div>
+                <div id="freelancePostFields" class="job-post-fields" hidden>
+                    <input id="freelanceTitle" type="text" placeholder="Project title">
+                    <label for="freelanceDescription">Project description (optional)</label>
+                    <textarea id="freelanceDescription" rows="4" placeholder="Describe the project, expected work, and deliverables..."></textarea>
+                    <input id="freelanceBudget" type="text" placeholder="Budget (optional, e.g. $500 fixed)">
+                    <input id="freelanceSkills" type="text" placeholder="Skills needed (optional)">
+                    <label for="freelanceDeadline">Project deadline (optional)</label>
+                    <input id="freelanceDeadline" type="date">
+                    <input id="freelanceApplyUrl" type="url" placeholder="Contact or proposal link (optional)">
                 </div>
 
                 <label class="post-image-picker" for="shareImage">
@@ -9649,6 +9901,7 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
             </div>
 
 
+            <h3 id="myPostsHeading" hidden>My Posts</h3>
             <div class="posts-filter-toolbar" role="search" aria-label="Search and filter posts">
                 <label class="community-search posts-filter-search" for="postSearchInput">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m16.5 16.5 4 4"></path></svg>
@@ -9661,6 +9914,7 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
                     <option value="all">All posts</option>
                     <option value="community">Community posts</option>
                     <option value="job_opportunity">Job opportunities</option>
+                    <option value="freelance_project">Freelance projects</option>
                 </select>
             </div>
 
@@ -9816,12 +10070,17 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
       <p class="community-page-subtitle">
         Upload and showcase your creative work.
       </p>
+<div class="my-project-search">
+  <input id="projectSearchInput" type="search" aria-label="Search projects by keyword" placeholder="Search projects by keyword..." oninput="filterProjectsByKeyword()">
+  <button type="button" onclick="filterProjectsByKeyword()" aria-label="Search projects"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg></button>
+</div>
 <h3 class="project-list-heading">My Projects</h3>
 
 <div class="project-gallery">
   <div id="projectsGrid" class="projects-grid">
     Loading projects...
   </div>
+  <p id="projectSearchEmpty" class="project-search-empty" hidden>No projects match that keyword.</p>
 </div>
 
 <div class="project-upload-card">
@@ -9928,6 +10187,8 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
           <p class="project-upload-note">
             Choose one or more images. Maximum size: 10 MB per image.
           </p>
+
+          <div id="projectExistingMedia" class="project-existing-media" hidden></div>
 
           <p id="projectError" class="project-form-message" role="status" aria-live="polite" hidden></p>
 
@@ -10366,6 +10627,7 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
                           <button type="button" onclick="closeProfileOptionsMenu(); currentUser && viewMemberProfile(currentUser.id)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20a7 7 0 0 1 14 0"></path></svg><span>View My Profile</span></button>
                           <button type="button" onclick="closeProfileOptionsMenu(); showSection('projectSection'); loadProjects();"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="7" height="7" rx="1.5"></rect><rect x="13.5" y="4" width="7" height="7" rx="1.5"></rect><rect x="3.5" y="14" width="7" height="7" rx="1.5"></rect><rect x="13.5" y="14" width="7" height="7" rx="1.5"></rect></svg><span>View My Projects</span></button>
                           <button type="button" onclick="closeProfileOptionsMenu(); openSocialPage('connections', currentUser?.id)" aria-label="View My Network"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"></circle><circle cx="17" cy="9" r="2.3"></circle><path d="M3 20a6 6 0 0 1 12 0m1-5a4.5 4.5 0 0 1 5 4.5"></path></svg><span>View My Network</span></button>
+                          <button type="button" onclick="closeProfileOptionsMenu(); openMyPosts()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h14a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-11a2 2 0 0 1 2-2Z"></path><path d="M7 8h10M7 12h10M7 16h6"></path></svg><span>View My Posts</span></button>
                           <button type="button" onclick="openEditMyProfileFromConnect()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L8 18l-4 1 1-4Z"></path></svg><span>Edit My Profile</span></button>
                         </div>
                       </details>
@@ -11262,9 +11524,15 @@ document.addEventListener("click", function(event) {
 
 let editingProjectId = null;
 let editingProjectMedia = [];
+let editingProjectCroppedMedia = new Map();
+let projectMediaPreviewUrls = [];
 
 let pendingProjectCoverFile = null;
 let pendingProjectCoverProjectId = null;
+let pendingProjectCoverOriginalFile = null;
+let pendingProjectCoverOriginalPath = null;
+let pendingProjectCoverOriginalUrl = null;
+let pendingProjectCoverOriginalAlt = null;
 
     let selectedAvatarFile = null;
     let selectedCvFile = null;
@@ -11315,6 +11583,21 @@ function maybeShowSocialConnectOnboarding() {
         letter.style.setProperty("--home-letter-delay", `${index * 42}ms`);
         return letter;
     }));
+    const updateSweepGeometry = () => {
+        const headingRect = heading.getBoundingClientRect();
+        const width = Math.max(1, headingRect.width);
+        heading.style.setProperty("--home-welcome-gradient-width", `${width * 2.6}px`);
+        heading.style.setProperty("--home-welcome-shift-end", `${width * -1.6}px`);
+        heading.querySelectorAll(".home-welcome-letter").forEach(letter => {
+            letter.style.setProperty("--home-welcome-letter-left", `${letter.getBoundingClientRect().left - headingRect.left}px`);
+        });
+    };
+    requestAnimationFrame(updateSweepGeometry);
+    window.homeWelcomeResizeObserver?.disconnect();
+    if ("ResizeObserver" in window) {
+        window.homeWelcomeResizeObserver = new ResizeObserver(updateSweepGeometry);
+        window.homeWelcomeResizeObserver.observe(heading);
+    }
    }
 
    if (document.readyState === "loading") {
@@ -11348,6 +11631,12 @@ function maybeShowSocialConnectOnboarding() {
 
     const currentSectionId = document.querySelector(".page-section.active")?.id;
     if (currentSectionId && currentSectionId !== sectionId) {
+        showOnlyCurrentUserPosts = false;
+        document.getElementById("shareSection")?.classList.remove("showing-own-posts");
+        const myPostsHeading = document.getElementById("myPostsHeading");
+        if (myPostsHeading) myPostsHeading.hidden = true;
+    }
+    if (currentSectionId && currentSectionId !== sectionId) {
         if (isNavigatingBack) {
             sectionForwardHistory.push(currentSectionId);
             if (sectionForwardHistory.length > 30) sectionForwardHistory.shift();
@@ -11359,6 +11648,11 @@ function maybeShowSocialConnectOnboarding() {
             if (sectionNavigationHistory.length > 30) sectionNavigationHistory.shift();
             sectionForwardHistory = [];
         }
+    }
+    if (sectionId === "searchResultsSection") {
+        const backButton = document.getElementById("searchResultsBackButton");
+        const canReturn = sectionNavigationHistory.some(id => id && id !== "searchResultsSection" && id !== "searchPostViewSection" && document.getElementById(id));
+        if (backButton) backButton.hidden = !canReturn;
     }
 
     const sections =
@@ -11505,6 +11799,7 @@ function showConnectView(view, button) {
   button = button || document.querySelector(`.connect-view-tab[onclick*="'${view}'"]`);
   const members = document.getElementById("membersGrid");
   const opportunities = document.getElementById("opportunitiesList");
+  const freelance = document.getElementById("freelanceProjectsList");
   const inbox = document.getElementById("memberInbox");
   const searchInput = document.getElementById("connectSearch");
   document.querySelectorAll(".connect-view-tab").forEach(tab => {
@@ -11513,15 +11808,18 @@ function showConnectView(view, button) {
     tab.setAttribute("aria-selected", String(active));
   });
   const showJobs = view === "opportunities";
+  const showFreelance = view === "freelance";
   const showMessages = view === "messages";
-  const searchLabel = showMessages ? "Search messages" : showJobs ? "Search job opportunities" : "Search professionals";
+  const searchLabel = showMessages ? "Search messages" : showJobs ? "Search job opportunities" : showFreelance ? "Search freelance projects" : "Search professionals";
   if (searchInput) { searchInput.placeholder = searchLabel + "..."; searchInput.setAttribute("aria-label", searchLabel); }
   const searchButton = document.querySelector("#connectSection .community-search button");
   if (searchButton) { searchButton.setAttribute("aria-label", searchLabel); searchButton.title = searchLabel; }
-  members.hidden = showJobs || showMessages;
+  members.hidden = showJobs || showFreelance || showMessages;
   opportunities.hidden = !showJobs;
+  if (freelance) freelance.hidden = !showFreelance;
   inbox.hidden = !showMessages;
   if (showJobs) loadJobOpportunities(searchInput?.value || "");
+  if (showFreelance) loadFreelanceProjects(searchInput?.value || "");
   if (showMessages) loadMemberInbox();
 }
 
@@ -11554,6 +11852,28 @@ async function loadJobOpportunities(search = "") {
   }).join("");
 }
 
+async function loadFreelanceProjects(search = "") {
+  const list = document.getElementById("freelanceProjectsList");
+  if (!list) return;
+  list.innerHTML = '<div class="global-search-empty">Loading freelance projects…</div>';
+  const { data: posts, error } = await db.from("posts").select("*").eq("post_type", "freelance_project").order("created_at", { ascending: false });
+  if (error) { console.error("Load freelance projects failed:", error); list.innerHTML = '<div class="global-search-empty">Could not load freelance projects. Run the updated job-opportunities.sql setup, then try again.</div>'; return; }
+  if (!posts?.length) { list.innerHTML = '<div class="global-search-empty">No freelance projects posted yet.</div>'; return; }
+  const needle = String(search || "").trim().toLocaleLowerCase();
+  const filtered = posts.filter(post => !needle || [post.freelance_title, post.freelance_budget, post.freelance_skills, post.content].some(value => String(value || "").toLocaleLowerCase().includes(needle)));
+  if (!filtered.length) { list.innerHTML = '<div class="global-search-empty">No matching freelance projects.</div>'; return; }
+  list.innerHTML = filtered.map(post => {
+    const title = escapeHtml(post.freelance_title || "Freelance project");
+    const meta = [post.freelance_budget && ("Budget: " + post.freelance_budget), post.freelance_deadline && ("Due: " + new Date(post.freelance_deadline + "T00:00:00").toLocaleDateString())].filter(Boolean).map(item => "<span>" + escapeHtml(item) + "</span>").join("");
+    const skills = post.freelance_skills ? '<p class="freelance-project-skills"><strong>Skills:</strong> ' + escapeHtml(post.freelance_skills) + "</p>" : "";
+    const brief = post.content ? "<p>" + escapeHtml(post.content) + "</p>" : "";
+    const link = post.freelance_apply_url && /^https?:\/\//i.test(post.freelance_apply_url) ? '<a class="opportunity-apply" href="' + escapeHtml(post.freelance_apply_url) + '" target="_blank" rel="noopener noreferrer">Project link</a>' : "";
+    const postId = escapeHtml(post.id), ownerId = escapeHtml(post.user_id);
+    return '<article class="opportunity-card freelance-project-card"><h3>' + title + '</h3><div class="opportunity-meta">' + meta + '</div>' + skills + brief + '<div class="freelance-project-actions"><button type="button" class="freelance-project-button" data-project-id="' + postId + '">View details</button><button type="button" class="freelance-project-button is-secondary" data-owner-id="' + ownerId + '">View poster</button>' + link + '</div></article>';
+  }).join("");
+  list.querySelectorAll("[data-project-id]").forEach(button => button.addEventListener("click", () => openSearchPost(button.dataset.projectId)));
+  list.querySelectorAll("[data-owner-id]").forEach(button => button.addEventListener("click", () => viewMemberProfile(button.dataset.ownerId)));
+}
 let activeMemberConversationId = null;
 let activeMemberConversationName = "";
 let memberConversationRefreshTimer = null;
@@ -11576,12 +11896,16 @@ function clearPrivateMemberMessageState() {
   if (status) status.textContent = "";
   const members = document.getElementById("membersGrid");
   const opportunities = document.getElementById("opportunitiesList");
+  const freelance = document.getElementById("freelanceProjectsList");
   if (members) members.hidden = false;
   if (opportunities) opportunities.hidden = true;
+  if (freelance) freelance.hidden = true;
   document.getElementById("connectMembersTab")?.classList.add("is-active");
   document.getElementById("connectMembersTab")?.setAttribute("aria-selected", "true");
   document.getElementById("connectOpportunitiesTab")?.classList.remove("is-active");
   document.getElementById("connectOpportunitiesTab")?.setAttribute("aria-selected", "false");
+  document.getElementById("connectFreelanceTab")?.classList.remove("is-active");
+  document.getElementById("connectFreelanceTab")?.setAttribute("aria-selected", "false");
   document.getElementById("connectMessagesTab")?.classList.remove("is-active");
   document.getElementById("connectMessagesTab")?.setAttribute("aria-selected", "false");
   const search = document.getElementById("connectSearch");
@@ -11789,9 +12113,17 @@ document.addEventListener("keydown", event => {
 });
 
 function toggleJobPostFields() {
-  const isJob = document.getElementById("sharePostType")?.value === "job_opportunity";
+  const type = document.getElementById("sharePostType")?.value || "community";
+  const isJob = type === "job_opportunity", isFreelance = type === "freelance_project";
   document.getElementById("jobPostFields").hidden = !isJob;
-  document.getElementById("shareContent").placeholder = isJob ? "Describe the role and how to apply..." : "Share something with the community...";
+  document.getElementById("freelancePostFields").hidden = !isFreelance;
+  const shareContent = document.getElementById("shareContent");
+  const shareContentLabel = document.querySelector('label[for="shareContent"]');
+  shareContent.hidden = isFreelance;
+  if (shareContentLabel) shareContentLabel.hidden = isFreelance;
+  document.getElementById("freelanceDescription").hidden = !isFreelance;
+  document.querySelector('label[for="freelanceDescription"]').hidden = !isFreelance;
+  shareContent.placeholder = isJob ? "Describe the role and how to apply..." : "Share something with the community...";
 }
 
 function resizeSharePostContent(textarea) {
@@ -11880,7 +12212,7 @@ async function runGlobalSearch() {
       .select("*")
       .then(result => ({ type: "projects", ...result })));
   }
-  if (["all", "posts", "opportunities"].includes(globalSearchFilterType)) {
+  if (["all", "posts", "opportunities", "freelance"].includes(globalSearchFilterType)) {
     jobs.push(db.from("posts")
       .select("*")
       .order("created_at", { ascending: false })
@@ -11888,7 +12220,7 @@ async function runGlobalSearch() {
   }
 
   const responses = await Promise.allSettled(jobs);
-  const collections = { people: [], projects: [], posts: [], opportunities: [] };
+  const collections = { people: [], projects: [], posts: [], opportunities: [], freelance: [] };
   let failedQueries = 0;
   responses.forEach(response => {
     if (response.status !== "fulfilled") {
@@ -11910,8 +12242,9 @@ async function runGlobalSearch() {
   collections.people = collections.people.filter(person => [person.full_name, person.profession, person.headline, person.location, person.bio].some(matches)).slice(0, 8);
   collections.projects = collections.projects.filter(project => [project.title, project.category, project.description, project.location].some(matches)).slice(0, 8);
   const allPosts = collections.posts;
-  collections.posts = allPosts.filter(post => (globalSearchFilterType !== "posts" || post.post_type !== "job_opportunity") && post.post_type !== "job_opportunity" && matches(post.content)).slice(0, 8);
-  collections.opportunities = allPosts.filter(post => post.post_type === "job_opportunity" && [post.job_title, post.job_company, post.job_location, post.job_workplace, post.job_employment_type, post.content].some(matches)).slice(0, 8);
+  collections.posts = ["all", "posts"].includes(globalSearchFilterType) ? allPosts.filter(post => post.post_type !== "job_opportunity" && post.post_type !== "freelance_project" && matches(post.content)).slice(0, 8) : [];
+  collections.opportunities = ["all", "opportunities"].includes(globalSearchFilterType) ? allPosts.filter(post => post.post_type === "job_opportunity" && [post.job_title, post.job_company, post.job_location, post.job_workplace, post.job_employment_type, post.content].some(matches)).slice(0, 8) : [];
+  collections.freelance = ["all", "freelance"].includes(globalSearchFilterType) ? allPosts.filter(post => post.post_type === "freelance_project" && [post.freelance_title, post.freelance_budget, post.freelance_skills, post.content].some(matches)).slice(0, 8) : [];
 
   const peopleForView = await Promise.all(collections.people.map(async person => ({
     ...person,
@@ -11953,6 +12286,9 @@ async function runGlobalSearch() {
     }).join("")}</div></section>`);
   }
 
+  if (collections.freelance.length) {
+    sections.push(`<section class="global-search-group"><h3>Freelance Projects</h3><div class="global-search-list">${collections.freelance.map(post => `<button type="button" class="global-search-item" onclick="openSearchFreelanceProjects()"><span class="global-search-thumb">F</span><span class="global-search-item-copy"><strong>${escapeHtml(post.freelance_title || "Freelance project")}</strong><span>${escapeHtml([post.freelance_budget, post.freelance_skills].filter(Boolean).join(" · ") || (post.content || "").trim().slice(0, 150))}</span></span></button>`).join("")}</div></section>`);
+  }
   resultsBox.innerHTML = sections.join("") || `<div class="global-search-empty">${failedQueries ? "Some results could not be loaded. Check your Supabase read policies and try again." : "No results found. Try another search."}</div>`;
 }
 
@@ -11962,6 +12298,12 @@ function openSearchOpportunities() {
   showSection("connectSection");
   const opportunitiesTab = document.querySelector('#connectSection .connect-view-tab[onclick*="opportunities"]');
   showConnectView("opportunities", opportunitiesTab);
+}
+function openSearchFreelanceProjects() {
+  const searchInput = document.getElementById("connectSearch");
+  if (searchInput) searchInput.value = globalSearchTerm;
+  showSection("connectSection");
+  showConnectView("freelance", document.getElementById("connectFreelanceTab"));
 }
 async function openSearchPost(postId) {
   const view = document.getElementById("searchPostViewContainer");
@@ -15224,6 +15566,10 @@ document
                 await loadJobOpportunities(this.value);
                 return;
             }
+            if (!document.getElementById("freelanceProjectsList")?.hidden) {
+                await loadFreelanceProjects(this.value);
+                return;
+            }
 
             const search =
                 this.value
@@ -15468,17 +15814,35 @@ function renderExistingPostImages(images) {
         const item = document.createElement("div");
         item.className = "share-image-preview-item";
         const img = document.createElement("img");
-        img.src = image.url;
+        const croppedFile = window.editingCommunityPostCroppedImages?.get(index);
+        img.src = croppedFile ? URL.createObjectURL(croppedFile) : image.url;
+        if (croppedFile) window.postImagePreviewObjectUrls.push(img.src);
         img.alt = `Current post image ${index + 1}`;
         const caption = document.createElement("span");
-        caption.textContent = `Image ${index + 1}`;
+        caption.textContent = croppedFile ? `Image ${index + 1} · crop ready` : `Image ${index + 1}`;
         item.append(img, caption);
+        if (window.editingCommunityPostId) {
+            item.classList.add("has-existing-image-crop");
+            const crop = document.createElement("button");
+            crop.type = "button";
+            crop.className = "post-existing-image-crop";
+            crop.textContent = croppedFile ? "Crop again" : "Crop photo";
+            crop.addEventListener("click", () => cropExistingPostImage(index));
+            const removeOne = document.createElement("button");
+            removeOne.type = "button";
+            removeOne.className = "post-existing-image-remove";
+            removeOne.textContent = "Remove photo";
+            removeOne.addEventListener("click", () => removeExistingPostImageAt(index));
+            item.append(crop, removeOne);
+        }
         preview.append(item);
     });
     if (images.length) {
         const note = document.createElement("span");
         note.className = "share-image-preview-note";
-        note.textContent = `${images.length} image${images.length === 1 ? "" : "s"} attached. Selecting new images will replace this set.`;
+        note.textContent = window.editingCommunityPostCroppedImages?.size
+            ? "Cropped photos replace their originals when you save."
+            : `${images.length} saved photo${images.length === 1 ? "" : "s"} kept. Add one more whenever you like, then save.`;
         preview.append(note);
         const remove = document.createElement("button");
         remove.type = "button";
@@ -15487,6 +15851,34 @@ function renderExistingPostImages(images) {
         preview.append(remove);
     }
     preview.hidden = images.length === 0;
+}
+
+async function cropExistingPostImage(index) {
+    const image = window.editingCommunityPostImages?.[index];
+    if (!image?.url) return;
+    const message = document.getElementById("postFormMessage");
+    try {
+        let blob;
+        if (image.path) {
+            const { data, error } = await db.storage.from("post-media").download(image.path);
+            if (error) throw error;
+            blob = data;
+        } else {
+            const response = await fetch(image.url);
+            if (!response.ok) throw new Error(`Image could not be loaded (${response.status}).`);
+            blob = await response.blob();
+        }
+        const file = new File([blob], `freelance-project-photo-${index + 1}.jpg`, { type: blob.type || "image/jpeg" });
+        const cropped = await openProjectImageCrop(file);
+        if (!cropped) return;
+        window.editingCommunityPostCroppedImages ||= new Map();
+        window.editingCommunityPostCroppedImages.set(index, cropped);
+        message.hidden = true;
+        renderPostImageSelectionPreview();
+    } catch (error) {
+        message.textContent = "Could not open this uploaded photo for cropping: " + error.message;
+        message.hidden = false;
+    }
 }
 
 async function createPost() {
@@ -15498,11 +15890,14 @@ async function createPost() {
     const imageInput = document.getElementById("shareImage");
     const message = document.getElementById("postFormMessage");
     const submitButton = document.getElementById("shareSubmitButton");
-    const content = textarea.value.trim();
     const postType = document.getElementById("sharePostType")?.value || "community";
+    const content = postType === "freelance_project"
+        ? document.getElementById("freelanceDescription").value.trim()
+        : textarea.value.trim();
     const jobTitle = document.getElementById("jobTitle")?.value.trim() || "";
+    const freelanceTitle = document.getElementById("freelanceTitle")?.value.trim() || "";
     const editingId = window.editingCommunityPostId || null;
-    const files = Array.from(imageInput.files || []);
+    let files = Array.from(window.pendingPostImageFiles || imageInput.files || []);
     const oldImages = window.editingCommunityPostImages || [];
     const showPostMessage = (text, error = false) => {
         message.textContent = text;
@@ -15513,12 +15908,17 @@ async function createPost() {
         showPostMessage("Add a job title before sharing the opportunity.", true);
         return;
     }
-    if (files.length > 10) {
-        showPostMessage("Choose up to 10 images per post.", true);
+    if (postType === "freelance_project" && !freelanceTitle) {
+        showPostMessage("Add a project title before sharing the freelance project.", true);
         return;
     }
-    const keepingExistingImages = Boolean(editingId && !window.editingCommunityPostRemoveImages && files.length === 0);
-    if (!content && files.length === 0 && !(keepingExistingImages && oldImages.length)) {
+    const keepingExistingImages = Boolean(editingId && !window.editingCommunityPostRemoveImages);
+    const retainedImageCount = keepingExistingImages ? oldImages.length : 0;
+    if (retainedImageCount + files.length > 10) {
+        showPostMessage(`This post already has ${retainedImageCount} image${retainedImageCount === 1 ? "" : "s"}. Choose up to ${Math.max(0, 10 - retainedImageCount)} more.`, true);
+        return;
+    }
+    if (!content && postType !== "freelance_project" && files.length === 0 && !(keepingExistingImages && oldImages.length)) {
         showPostMessage("Add some text or choose an image before sharing.", true);
         return;
     }
@@ -15526,6 +15926,47 @@ async function createPost() {
     if (invalidFile) {
         showPostMessage("Each image must be an image file under 10 MB.", true);
         return;
+    }
+    if (files.length) {
+        const croppedFiles = [];
+        for (const file of files) {
+            const croppedFile = await openProjectImageCrop(file);
+            if (!croppedFile) {
+                showPostMessage("Image cropping was cancelled. Crop or remove the selected images to continue.", true);
+                return;
+            }
+            croppedFiles.push(croppedFile);
+        }
+        files = croppedFiles;
+        const preview = document.getElementById("shareImagePreview");
+        if (!editingId || !keepingExistingImages) {
+            releasePostImagePreviewUrls();
+            preview.replaceChildren();
+        }
+        if (editingId && keepingExistingImages) renderExistingPostImages(oldImages);
+        files.forEach((file, index) => {
+            const item = document.createElement("div");
+            item.className = "share-image-preview-item";
+            const imageUrl = URL.createObjectURL(file);
+            window.postImagePreviewObjectUrls.push(imageUrl);
+            const img = document.createElement("img");
+            img.src = imageUrl;
+            img.alt = `Cropped post image ${index + 1}`;
+            const caption = document.createElement("span");
+            caption.textContent = file.name;
+            item.append(img, caption);
+            preview.append(item);
+        });
+        const note = document.createElement("span");
+        note.className = "share-image-preview-note";
+        note.textContent = `${files.length} new cropped image${files.length === 1 ? "" : "s"} will be added${retainedImageCount ? ` to the ${retainedImageCount} existing` : ""}.`;
+        preview.append(note);
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.textContent = "Clear selection";
+        remove.onclick = removeSelectedPostImage;
+        preview.append(remove);
+        preview.hidden = false;
     }
     submitButton.disabled = true;
     submitButton.textContent = editingId ? "Saving…" : "Sharing…";
@@ -15550,6 +15991,22 @@ async function createPost() {
             uploadedImages.push(uploadedImage);
             savedImages.push(uploadedImage);
         }
+        const croppedExisting = editingId && keepingExistingImages
+            ? (window.editingCommunityPostCroppedImages || new Map())
+            : new Map();
+        for (const [index, file] of croppedExisting) {
+            const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
+            const path = `${currentUser.id}/${crypto.randomUUID()}-${safeName}`;
+            const { error: uploadError } = await db.storage.from("post-media").upload(path, file, {
+                contentType: file.type,
+                upsert: false
+            });
+            if (uploadError) throw uploadError;
+            const { data: publicData } = db.storage.from("post-media").getPublicUrl(path);
+            const uploadedImage = { path, url: publicData.publicUrl };
+            uploadedImages.push(uploadedImage);
+            if (index >= 0 && index < savedImages.length) savedImages[index] = uploadedImage;
+        }
         const postData = {
             user_id: currentUser.id,
             content,
@@ -15562,17 +16019,29 @@ async function createPost() {
             job_workplace: postType === "job_opportunity" ? document.getElementById("jobWorkplace").value || null : null,
             job_employment_type: postType === "job_opportunity" ? document.getElementById("jobEmploymentType").value || null : null,
             job_apply_url: postType === "job_opportunity" ? document.getElementById("jobApplyUrl").value.trim() || null : null,
-            job_deadline: postType === "job_opportunity" ? document.getElementById("jobDeadline").value || null : null
+            job_deadline: postType === "job_opportunity" ? document.getElementById("jobDeadline").value || null : null,
+            freelance_title: postType === "freelance_project" ? freelanceTitle : null,
+            freelance_budget: postType === "freelance_project" ? document.getElementById("freelanceBudget").value.trim() || null : null,
+            freelance_skills: postType === "freelance_project" ? document.getElementById("freelanceSkills").value.trim() || null : null,
+            freelance_deadline: postType === "freelance_project" ? document.getElementById("freelanceDeadline").value || null : null,
+            freelance_apply_url: postType === "freelance_project" ? document.getElementById("freelanceApplyUrl").value.trim() || null : null
         };
         const result = editingId
             ? await db.from("posts").update(postData).eq("id", editingId).eq("user_id", currentUser.id).select("id").maybeSingle()
             : await db.from("posts").insert(postData).select("id").single();
         if (result.error) throw result.error;
         if (editingId && !result.data) throw new Error("This post could not be updated. Check the posts update policy in Supabase.");
-        if (editingId && (files.length || window.editingCommunityPostRemoveImages)) {
-            const oldPaths = oldImages.map(image => image.path).filter(Boolean);
+        if (editingId && (window.editingCommunityPostRemoveImages || croppedExisting.size)) {
+            const replacedOrRemoved = window.editingCommunityPostRemoveImages
+                ? [...oldImages, ...(window.editingCommunityPostRemovedImages || [])]
+                : [...[...croppedExisting.keys()].map(index => oldImages[index]), ...(window.editingCommunityPostRemovedImages || [])];
+            const oldPaths = [...new Set(replacedOrRemoved.map(image => image?.path).filter(Boolean))];
             const { error: removeError } = oldPaths.length ? await db.storage.from("post-media").remove(oldPaths) : { error: null };
             if (removeError) console.warn("Could not remove replaced post image:", removeError);
+        } else if (editingId && window.editingCommunityPostRemovedImages?.length) {
+            const oldPaths = [...new Set(window.editingCommunityPostRemovedImages.map(image => image?.path).filter(Boolean))];
+            const { error: removeError } = oldPaths.length ? await db.storage.from("post-media").remove(oldPaths) : { error: null };
+            if (removeError) console.warn("Could not remove deleted post image:", removeError);
         }
         cancelPostEdit();
         showPostMessage(editingId ? "Your post was updated." : "Your post was shared.");
@@ -15581,7 +16050,10 @@ async function createPost() {
         console.error("Save post error:", error);
         const uploadedPaths = uploadedImages.map(image => image.path);
         if (uploadedPaths.length) await db.storage.from("post-media").remove(uploadedPaths);
-        showPostMessage(error.message || "Something went wrong while saving the post.", true);
+        const schemaError = postType === "freelance_project" && /could not find the .*column.*schema cache|schema cache.*column/i.test(error.message || "");
+        showPostMessage(schemaError
+            ? "Freelance project fields are not installed in Supabase yet. Run freelance-project-schema-fix.sql in the Supabase SQL Editor, then try again."
+            : error.message || "Something went wrong while saving the post.", true);
     } finally {
         submitButton.disabled = false;
         submitButton.textContent = window.editingCommunityPostId ? "Save Changes" : "Share";
@@ -15589,74 +16061,99 @@ async function createPost() {
 }
 
 function handlePostImageSelection(input) {
-    const files = Array.from(input.files || []);
-    const preview = document.getElementById("shareImagePreview");
-    if (!files.length) return;
+    const addedFiles = Array.from(input.files || []);
+    if (!addedFiles.length) return;
+    const files = [...(window.pendingPostImageFiles || []), ...addedFiles];
+    const retainedCount = window.editingCommunityPostId && !window.editingCommunityPostRemoveImages
+        ? (window.editingCommunityPostImages || []).length
+        : 0;
     const invalidFile = files.find(file => !file.type.startsWith("image/") || file.size > 10 * 1024 * 1024);
-    if (files.length > 10 || invalidFile) {
+    if (retainedCount + files.length > 10 || invalidFile) {
         input.value = "";
-        releasePostImagePreviewUrls();
-        preview.replaceChildren();
-        preview.hidden = true;
         const message = document.getElementById("postFormMessage");
-        message.textContent = files.length > 10 ? "Choose up to 10 images per post." : "Each image must be an image file under 10 MB.";
+        message.textContent = retainedCount + files.length > 10
+            ? `You can add only ${Math.max(0, 10 - retainedCount)} more image${10 - retainedCount === 1 ? "" : "s"} to this post.`
+            : "Each image must be an image file under 10 MB.";
         message.hidden = false;
         return;
     }
-    window.editingCommunityPostRemoveImages = false;
-    releasePostImagePreviewUrls();
-    preview.replaceChildren();
-    files.forEach((file, index) => {
+    window.pendingPostImageFiles = files;
+    input.value = "";
+    renderPostImageSelectionPreview();
+    document.getElementById("postFormMessage").hidden = true;
+}
+
+function renderPostImageSelectionPreview() {
+    const preview = document.getElementById("shareImagePreview");
+    if (!preview) return;
+    if (window.editingCommunityPostId && !window.editingCommunityPostRemoveImages) {
+        renderExistingPostImages(window.editingCommunityPostImages || []);
+    } else {
+        releasePostImagePreviewUrls();
+        preview.replaceChildren();
+    }
+    (window.pendingPostImageFiles || []).forEach((file, index) => {
         const item = document.createElement("div");
         item.className = "share-image-preview-item";
         const imageUrl = URL.createObjectURL(file);
         window.postImagePreviewObjectUrls.push(imageUrl);
         const img = document.createElement("img");
         img.src = imageUrl;
-        img.alt = `Selected post image ${index + 1}`;
+        img.alt = `New post image ${index + 1}`;
         const caption = document.createElement("span");
         caption.textContent = file.name;
         item.append(img, caption);
         preview.append(item);
     });
-    const note = document.createElement("span");
-    note.className = "share-image-preview-note";
-    note.textContent = `${files.length} image${files.length === 1 ? "" : "s"} selected${window.editingCommunityPostId ? "; this will replace the current set" : ""}.`;
-    preview.append(note);
-    const remove = document.createElement("button");
-    remove.type = "button";
-    remove.textContent = "Clear selection";
-    remove.onclick = removeSelectedPostImage;
-    preview.append(remove);
-    preview.hidden = false;
-    document.getElementById("postFormMessage").hidden = true;
+    if (window.pendingPostImageFiles?.length) {
+        const note = document.createElement("span");
+        note.className = "share-image-preview-note";
+        const keptCount = window.editingCommunityPostId && !window.editingCommunityPostRemoveImages
+            ? (window.editingCommunityPostImages || []).length
+            : 0;
+        note.textContent = `${window.pendingPostImageFiles.length} new image${window.pendingPostImageFiles.length === 1 ? "" : "s"} selected${keptCount ? `; ${keptCount} existing image${keptCount === 1 ? "" : "s"} will stay` : ""}.`;
+        preview.append(note);
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.textContent = "Clear new images";
+        remove.onclick = removeSelectedPostImage;
+        preview.append(remove);
+    }
+    preview.hidden = !preview.childElementCount;
 }
 
 function removeSelectedPostImage() {
     const input = document.getElementById("shareImage");
     input.value = "";
-    releasePostImagePreviewUrls();
+    window.pendingPostImageFiles = [];
+    renderPostImageSelectionPreview();
+    /* Keep saved images visible while clearing only the newly selected files. */
     const preview = document.getElementById("shareImagePreview");
     if (window.editingCommunityPostId && !window.editingCommunityPostRemoveImages) {
-        renderExistingPostImages(window.editingCommunityPostImages || []);
+        return;
     } else {
-        preview.replaceChildren();
-        preview.hidden = true;
+        if (!preview.childElementCount) preview.hidden = true;
     }
 }
 
 function cancelPostEdit() {
     window.editingCommunityPostId = null;
     window.editingCommunityPostImages = [];
+    window.editingCommunityPostRemovedImages = [];
+    window.pendingPostImageFiles = [];
+    window.editingCommunityPostCroppedImages = new Map();
     window.editingCommunityPostRemoveImages = false;
     const textarea = document.getElementById("shareContent");
     if (textarea) { textarea.value = ""; resizeSharePostContent(textarea); }
+    const freelanceDescription = document.getElementById("freelanceDescription");
+    if (freelanceDescription) freelanceDescription.value = "";
     const postType = document.getElementById("sharePostType");
     if (postType) postType.value = "community";
     ["jobTitle", "jobCompany", "jobLocation", "jobApplyUrl", "jobDeadline"].forEach(id => {
         const field = document.getElementById(id);
         if (field) field.value = "";
     });
+    ["freelanceTitle", "freelanceBudget", "freelanceSkills", "freelanceDeadline", "freelanceApplyUrl"].forEach(id => { const f=document.getElementById(id); if(f) f.value=""; });
     ["jobWorkplace", "jobEmploymentType"].forEach(id => {
         const field = document.getElementById(id);
         if (field) field.selectedIndex = 0;
@@ -15683,10 +16180,19 @@ async function editPost(postId) {
         console.error("Load post for edit failed:", error);
         return;
     }
+    showOnlyCurrentUserPosts = false;
+    document.getElementById("shareSection")?.classList.remove("showing-own-posts");
+    const myPostsHeading = document.getElementById("myPostsHeading");
+    if (myPostsHeading) myPostsHeading.hidden = true;
+    filterPosts();
     window.editingCommunityPostId = post.id;
     window.editingCommunityPostImages = getPostImages(post);
+    window.editingCommunityPostRemovedImages = [];
+    window.pendingPostImageFiles = [];
+    window.editingCommunityPostCroppedImages = new Map();
     window.editingCommunityPostRemoveImages = false;
-    document.getElementById("shareContent").value = post.content || "";
+    document.getElementById("shareContent").value = post.post_type === "freelance_project" ? "" : (post.content || "");
+    document.getElementById("freelanceDescription").value = post.post_type === "freelance_project" ? (post.content || "") : "";
     resizeSharePostContent(document.getElementById("shareContent"));
     document.getElementById("sharePostType").value = post.post_type || "community";
     toggleJobPostFields();
@@ -15697,35 +16203,63 @@ async function editPost(postId) {
     document.getElementById("jobEmploymentType").value = post.job_employment_type || "";
     document.getElementById("jobApplyUrl").value = post.job_apply_url || "";
     document.getElementById("jobDeadline").value = post.job_deadline || "";
+    document.getElementById("freelanceTitle").value = post.freelance_title || "";
+    document.getElementById("freelanceBudget").value = post.freelance_budget || "";
+    document.getElementById("freelanceSkills").value = post.freelance_skills || "";
+    document.getElementById("freelanceDeadline").value = post.freelance_deadline || "";
+    document.getElementById("freelanceApplyUrl").value = post.freelance_apply_url || "";
     document.getElementById("shareImage").value = "";
     renderExistingPostImages(window.editingCommunityPostImages);
     document.getElementById("shareSubmitButton").textContent = "Save Changes";
     document.getElementById("cancelPostEditButton").hidden = false;
     document.getElementById("postFormMessage").hidden = true;
-    document.getElementById("shareContent").scrollIntoView({ behavior: "smooth", block: "center" });
-    document.getElementById("shareContent").focus({ preventScroll: true });
+    const postDescriptionInput = post.post_type === "freelance_project" ? document.getElementById("freelanceDescription") : document.getElementById("shareContent");
+    postDescriptionInput.scrollIntoView({ behavior: "smooth", block: "center" });
+    postDescriptionInput.focus({ preventScroll: true });
 }
 
 function removeExistingPostImage() {
     if (!window.editingCommunityPostId || !window.editingCommunityPostImages?.length) return;
     window.editingCommunityPostRemoveImages = true;
-    releasePostImagePreviewUrls();
     const preview = document.getElementById("shareImagePreview");
-    preview.replaceChildren();
+    renderPostImageSelectionPreview();
     const note = document.createElement("span");
+    note.className = "share-image-preview-note";
     note.textContent = `${window.editingCommunityPostImages.length} image${window.editingCommunityPostImages.length === 1 ? "" : "s"} will be removed when you save.`;
     const undo = document.createElement("button");
     undo.type = "button";
     undo.textContent = "Undo";
     undo.onclick = restoreExistingPostImage;
-    preview.append(note, undo);
+    preview.prepend(note, undo);
     preview.hidden = false;
+}
+
+function removeExistingPostImageAt(index) {
+    const images = window.editingCommunityPostImages || [];
+    if (!window.editingCommunityPostId || index < 0 || index >= images.length) return;
+    const [removed] = images.splice(index, 1);
+    window.editingCommunityPostRemovedImages ||= [];
+    window.editingCommunityPostRemovedImages.push(removed);
+    const cropped = window.editingCommunityPostCroppedImages || new Map();
+    const shifted = new Map();
+    cropped.forEach((file, oldIndex) => {
+        if (oldIndex < index) shifted.set(oldIndex, file);
+        else if (oldIndex > index) shifted.set(oldIndex - 1, file);
+    });
+    window.editingCommunityPostCroppedImages = shifted;
+    renderPostImageSelectionPreview();
+    const message = document.getElementById("postFormMessage");
+    if (message) {
+        message.textContent = "This photo will be removed when you save the post.";
+        message.hidden = false;
+        message.style.color = "#6d5a15";
+    }
 }
 
 function restoreExistingPostImage() {
     if (!window.editingCommunityPostImages?.length) return;
     window.editingCommunityPostRemoveImages = false;
-    renderExistingPostImages(window.editingCommunityPostImages);
+    renderPostImageSelectionPreview();
 }
 
 async function sharePost(postId) {
@@ -15743,6 +16277,23 @@ async function sharePost(postId) {
         }
     }
 }
+let showOnlyCurrentUserPosts = false;
+
+async function openMyPosts() {
+    if (!currentUser?.id) { showSignupPrompt(); return; }
+    const search = document.getElementById("postSearchInput");
+    const typeFilter = document.getElementById("postTypeFilter");
+    if (search) search.value = "";
+    if (typeFilter) typeFilter.value = "all";
+    showSection("shareSection");
+    showOnlyCurrentUserPosts = true;
+    document.getElementById("shareSection")?.classList.add("showing-own-posts");
+    const heading = document.getElementById("myPostsHeading");
+    if (heading) heading.hidden = false;
+    await loadPosts();
+    document.getElementById("myPostsHeading")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 async function loadPosts() {
 
     const container =
@@ -15772,7 +16323,7 @@ async function loadPosts() {
         if (!posts || posts.length === 0) {
 
             container.innerHTML =
-                "No posts yet. Be the first to share something!";
+                showOnlyCurrentUserPosts ? "You have not shared any posts yet." : "No posts yet. Be the first to share something!";
 
             return;
         }
@@ -15834,6 +16385,8 @@ async function loadPosts() {
             postCard.className = "post-card";
             postCard.dataset.postId = post.id;
             postCard.dataset.postType = post.post_type || "community";
+            postCard.dataset.postUserId = post.user_id;
+            if (post.post_type === "freelance_project") postCard.classList.add("freelance-post-card");
             const cleanContent = escapeHtml((post.content || "").trim());
             const postImages = getPostImages(post);
             const postImage = postImages.length
@@ -15841,6 +16394,9 @@ async function loadPosts() {
                 : "";
             const jobSummary = post.post_type === "job_opportunity"
                 ? `<div class="opportunity-meta">${[post.job_company, post.job_location, post.job_workplace, post.job_employment_type].filter(Boolean).map(value => `<span>${escapeHtml(value)}</span>`).join("")}</div><h3>${escapeHtml(post.job_title || "Job opportunity")}</h3>${post.job_apply_url && /^https?:\/\//i.test(post.job_apply_url) ? `<a class="opportunity-apply" href="${escapeHtml(post.job_apply_url)}" target="_blank" rel="noopener noreferrer">Apply</a>` : ""}`
+                : "";
+            const freelanceSummary = post.post_type === "freelance_project"
+                ? `<section class="freelance-post-summary"><h3>${escapeHtml(post.freelance_title || "Freelance project")}</h3><div class="opportunity-meta">${[post.freelance_budget && "Budget: " + post.freelance_budget, post.freelance_deadline && "Due: " + new Date(post.freelance_deadline + "T00:00:00").toLocaleDateString()].filter(Boolean).map(value => `<span>${escapeHtml(value)}</span>`).join("")}</div>${post.freelance_skills ? `<p class="freelance-post-skills"><strong>Skills needed:</strong> ${escapeHtml(post.freelance_skills)}</p>` : ""}${post.freelance_apply_url && /^https?:\/\//i.test(post.freelance_apply_url) ? `<a class="opportunity-apply" href="${escapeHtml(post.freelance_apply_url)}" target="_blank" rel="noopener noreferrer">Project link</a>` : ""}</section>`
                 : "";
             const safeId = escapeHtml(post.id);
             postCard.innerHTML = `
@@ -15862,11 +16418,12 @@ async function loadPosts() {
                             ${profession ? `<div class="post-profession">${escapeHtml(profession)}</div>` : ""}
                         </div>
                     </div>
-                <span class="post-type-badge">${post.post_type === "job_opportunity" ? "Job opportunity" : "Community post"}</span>
+                <span class="post-type-badge">${post.post_type === "job_opportunity" ? "Job opportunity" : post.post_type === "freelance_project" ? "Freelance project" : "Community post"}</span>
                 <button type="button" class="post-action-button post-expand-button" onclick="toggleCommunityPostZoom(this)" aria-label="Zoom in on post" aria-pressed="false" title="Zoom in on post"><span class="post-zoom-mark" aria-hidden="true">+</span></button>
                 </div>
                 <div class="post-body">
                 ${jobSummary}
+                ${freelanceSummary}
                 <div class="post-content">${cleanContent}</div>
                 ${postImage}
                 <div class="post-date">${new Date(post.created_at).toLocaleString()}</div>
@@ -15909,7 +16466,8 @@ function filterPosts() {
     cards.forEach(card => {
         const matchesText = !query || card.textContent.toLocaleLowerCase().includes(query);
         const matchesType = selectedType === "all" || card.dataset.postType === selectedType;
-        card.hidden = !(matchesText && matchesType);
+        const matchesOwner = !showOnlyCurrentUserPosts || String(card.dataset.postUserId) === String(currentUser?.id || "");
+        card.hidden = !(matchesText && matchesType && matchesOwner);
         if (!card.hidden) visibleCount += 1;
     });
 
@@ -15921,7 +16479,7 @@ function filterPosts() {
             emptyState.className = "posts-filter-empty";
             container.appendChild(emptyState);
         }
-        emptyState.textContent = "No posts match your search and filter.";
+        emptyState.textContent = showOnlyCurrentUserPosts ? "No posts match your search and filter." : "No posts match your search and filter.";
     } else {
         emptyState?.remove();
     }
@@ -16098,16 +16656,17 @@ async function openProject(projectId) {
       <h2>${escapeHtml(project.title || "Untitled Project")}</h2>
 
       <div class="project-facts">
-        ${project.location ? `<span>${escapeHtml(project.location)}</span>` : ""}
-        ${project.project_year ? `<span>${escapeHtml(project.project_year)}</span>` : ""}
-        ${project.project_area ? `<span>${escapeHtml(project.project_area)}</span>` : ""}
-        ${project.project_status ? `<span>${escapeHtml(project.project_status)}</span>` : ""}
+        ${project.location ? `<span><small>Location</small><strong>${escapeHtml(project.location)}</strong></span>` : ""}
+        ${project.project_year ? `<span><small>Year</small><strong>${escapeHtml(project.project_year)}</strong></span>` : ""}
+        ${project.project_area ? `<span><small>Area</small><strong>${escapeHtml(project.project_area)}</strong></span>` : ""}
+        ${project.project_status ? `<span><small>Status</small><strong>${escapeHtml(project.project_status)}</strong></span>` : ""}
       </div>
 
       ${project.description ? `
-        <p class="project-detail-description">
-          ${escapeHtml(project.description)}
-        </p>
+        <section class="project-info-section project-overview-section">
+          <h3>Project Overview</h3>
+          <p class="project-detail-description">${escapeHtml(project.description)}</p>
+        </section>
       ` : ""}
 
       ${project.project_brief ? `
@@ -16160,11 +16719,10 @@ async function openProject(projectId) {
       ` : ""}
 
       <div class="project-detail-images">
-        ${(project.media || []).map(image => `
-          <img
-            src="${escapeHtml(image.url)}"
-            alt="${escapeHtml(image.alt || project.title)}"
-          >
+        ${(project.media || []).map((image, index) => `
+          <div class="project-detail-image-item${isOwner && (index === 0 || (image.original_path && image.path !== image.original_path)) ? " has-project-image-actions" : ""}">
+            <img src="${escapeHtml(image.url)}" alt="${escapeHtml(image.alt || project.title)}">
+            ${isOwner && (index === 0 || (image.original_path && image.path !== image.original_path)) ? `<div class="project-detail-image-actions">${index === 0 ? `<button type="button" class="project-cover-crop-button" onclick="cropExistingProjectCover('${escapeHtml(project.id)}')" aria-label="Crop project cover photo">Crop photo</button>` : ""}${image.original_path && image.path !== image.original_path ? `<button type="button" class="project-restore-original-button" onclick="restoreOriginalProjectImage('${escapeHtml(project.id)}', ${index})" aria-label="Restore original project photo">Restore original</button>` : ""}</div>` : ""}          </div>
         `).join("")}
       </div>
 
@@ -16196,6 +16754,20 @@ async function openProject(projectId) {
       ` : ""}
     </article>
   `;
+}
+
+function goBackFromSearchResults() {
+  while (sectionNavigationHistory.length) {
+    const previousId = sectionNavigationHistory.pop();
+    if (previousId && previousId !== "searchResultsSection" && previousId !== "searchPostViewSection" && document.getElementById(previousId)) {
+      isNavigatingBack = true;
+      showSection(previousId);
+      isNavigatingBack = false;
+      return;
+    }
+  }
+  const backButton = document.getElementById("searchResultsBackButton");
+  if (backButton) backButton.hidden = true;
 }
 
 function goBackFromProject() {
@@ -16244,10 +16816,12 @@ async function editProject(projectId) {
 
   editingProjectId = project.id;
   editingProjectMedia = project.media || [];
+  editingProjectCroppedMedia = new Map();
 
   showSection("projectSection");
 
   document.getElementById("projectForm").reset();
+  renderProjectExistingMedia();
 
   document.getElementById("projectTitle").value = project.title || "";
   document.getElementById("projectCategory").value = project.category || "";
@@ -16294,6 +16868,102 @@ async function editProject(projectId) {
 
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
+function renderProjectExistingMedia() {
+  const preview = document.getElementById("projectExistingMedia");
+  if (!preview) return;
+  projectMediaPreviewUrls.forEach(url => URL.revokeObjectURL(url));
+  projectMediaPreviewUrls = [];
+  preview.replaceChildren();
+  if (!editingProjectId || !editingProjectMedia.length) { preview.hidden = true; return; }
+  editingProjectMedia.forEach((media, index) => {
+    const item = document.createElement("div");
+    item.className = "project-existing-media-item";
+    const image = document.createElement("img");
+    const croppedFile = editingProjectCroppedMedia.get(index);
+    image.src = croppedFile ? URL.createObjectURL(croppedFile) : media.url;
+    if (croppedFile) projectMediaPreviewUrls.push(image.src);
+    image.alt = media.alt || `Project photo ${index + 1}`;
+    item.append(image);
+    const crop = document.createElement("button");
+    crop.type = "button";
+    crop.textContent = croppedFile ? "Crop again" : "Crop photo";
+    crop.addEventListener("click", () => cropExistingProjectImage(index));
+    item.append(crop);
+    if (media.original_path && media.path !== media.original_path) {
+      const restore = document.createElement("button");
+      restore.type = "button";
+      restore.textContent = "Restore original";
+      restore.addEventListener("click", () => restoreOriginalProjectImage(editingProjectId, index));
+      item.append(restore);
+    }
+    preview.append(item);
+  });
+  const note = document.createElement("span");
+  note.className = "project-existing-media-note";
+  note.textContent = editingProjectCroppedMedia.size ? "Cropped photos will replace the originals when you save changes." : "Crop an uploaded photo here, then save the project.";
+  preview.append(note);
+  preview.hidden = false;
+}
+async function cropExistingProjectImage(index) {
+  const media = editingProjectMedia[index];
+  if (!media?.url) return;
+    const errorBox = document.getElementById("projectError");
+    try {
+    const sourcePath = media.original_path || media.path;
+    let blob;
+    if (sourcePath) {
+      const { data, error } = await db.storage.from("project-media").download(sourcePath);
+      if (error) throw error;
+      blob = data;
+    } else {
+      const response = await fetch(media.url);
+      if (!response.ok) throw new Error(`Image could not be loaded (${response.status}).`);
+      blob = await response.blob();
+    }
+    const file = new File([blob], media.alt || `project-photo-${index + 1}.jpg`, { type: blob.type || "image/jpeg" });
+    const cropped = await openProjectImageCrop(file);
+    if (!cropped) return;
+    cropped.originalFile = cropped.originalFile || file;
+    cropped.originalPath = cropped.sourceChanged ? null : (media.original_path || media.path || null);
+    editingProjectCroppedMedia.set(index, cropped);
+    errorBox.hidden = true;
+    renderProjectExistingMedia();
+  } catch (error) {
+    errorBox.textContent = "Could not open this uploaded photo for cropping: " + error.message;
+    errorBox.hidden = false;
+    errorBox.classList.add("is-error");
+  }
+}
+async function restoreOriginalProjectImage(projectId, index) {
+  if (!currentUser?.id) return;
+  const { data: project, error: readError } = await db.from("projects")
+    .select("media").eq("id", projectId).eq("owner_id", currentUser.id).single();
+  if (readError || !project) { alert("Could not load this project photo."); return; }
+  const media = Array.isArray(project.media) ? [...project.media] : [];
+  const image = media[index];
+  if (!image?.original_path || !image?.original_url) { alert("There is no saved original photo to restore."); return; }
+  const previousPath = image.path;
+  media[index] = { ...image, path: image.original_path, url: image.original_url, alt: image.original_alt || image.alt };
+  const { data: updatedProject, error: updateError } = await db.from("projects")
+    .update({ media }).eq("id", projectId).eq("owner_id", currentUser.id).select("id,media").maybeSingle();
+  const restored = Array.isArray(updatedProject?.media) ? updatedProject.media[index] : null;
+  if (updateError || !updatedProject || restored?.path !== image.original_path) {
+    alert("Could not restore the original photo" + (updateError?.message ? ": " + updateError.message : "."));
+    return;
+  }
+  if (previousPath && previousPath !== image.original_path) {
+    const { error: cleanupError } = await db.storage.from("project-media").remove([previousPath]);
+    if (cleanupError) console.warn("Could not remove the cropped project photo:", cleanupError.message);
+  }
+  if (editingProjectId === projectId) {
+    editingProjectMedia = media;
+    editingProjectCroppedMedia.delete(index);
+    renderProjectExistingMedia();
+  }
+  await loadProjects();
+  const details = document.getElementById("projectDetailsSection");
+  if (details?.classList.contains("active")) await openProject(projectId);
+}
 async function deleteProject(projectId) {
   if (!currentUser) return;
 
@@ -16327,7 +16997,7 @@ async function deleteProject(projectId) {
   }
 
   const imagePaths = (project.media || [])
-    .map(image => image.path)
+    .flatMap(image => [image.path, image.original_path])
     .filter(Boolean);
 
   if (imagePaths.length) {
@@ -16563,6 +17233,202 @@ async function deleteFeedback(feedbackId) {
 
   await loadFeedback();
 }
+function openProjectImageCrop(file) {
+  return new Promise(resolve => {
+    let sourceFile = file;
+    let sourceUrl = URL.createObjectURL(sourceFile);
+    const overlay = document.createElement("div");
+    overlay.className = "project-crop-overlay";
+    overlay.innerHTML = '<section class="project-crop-dialog" role="dialog" aria-modal="true" aria-labelledby="projectCropTitle"><h2 id="projectCropTitle">Crop photo</h2><p>Choose a crop ratio, then drag or zoom the photo. In Free crop, the photo stays still while you move and resize the crop frame.</p><label class="project-crop-ratio-label">Crop shape <select class="project-crop-ratio"><option value="4/3">Landscape (4:3)</option><option value="1/1">Square (1:1)</option><option value="16/9">Wide (16:9)</option><option value="free">Free crop</option></select></label><p class="project-crop-free-hint" hidden>Drag inside the frame to move it; drag its corner to resize.</p><div class="project-crop-stage"><img class="project-crop-image" alt="Photo crop preview"><div class="project-crop-free-selection" hidden><button type="button" class="project-crop-resize-handle" aria-label="Resize free crop area" title="Resize crop area">↘</button></div></div><label class="project-crop-zoom-label">Zoom <input class="project-crop-zoom" type="range" min="1" max="3" step="0.01" value="1"></label><div class="project-crop-tools"><button type="button" class="project-crop-reset-zoom">Reset zoom</button><button type="button" class="project-crop-change-photo">Change photo</button></div><input class="project-crop-file-input" type="file" accept="image/*" hidden><div class="project-crop-actions"><button type="button" class="project-crop-cancel">Cancel</button><button type="button" class="project-crop-save">Save Changes</button></div></section>';
+    document.body.append(overlay);
+    const stage = overlay.querySelector(".project-crop-stage");
+    const image = overlay.querySelector(".project-crop-image");
+    const zoom = overlay.querySelector(".project-crop-zoom");
+    const ratioSelect = overlay.querySelector(".project-crop-ratio");
+    const freeSelectionElement = overlay.querySelector(".project-crop-free-selection");
+    const resizeHandle = overlay.querySelector(".project-crop-resize-handle");
+    const freeHint = overlay.querySelector(".project-crop-free-hint");
+    const fitStageToViewport = () => {
+      const dialog = overlay.querySelector(".project-crop-dialog");
+      const viewportWidth = window.visualViewport?.width || window.innerWidth;
+      const viewportHeight = window.visualViewport?.height || window.innerHeight;
+      const availableWidth = Math.max(1, Math.min(620, dialog.clientWidth - 40, viewportWidth - 40));
+      const availableHeight = Math.max(100, Math.min(360, viewportHeight - 380));
+      const isFreeCrop = ratioSelect.value === "free";
+      stage.classList.toggle("is-free-crop", isFreeCrop);
+      freeSelectionElement.hidden = !isFreeCrop;
+      freeHint.hidden = !isFreeCrop;
+      if (isFreeCrop) {
+        const naturalWidth = image.naturalWidth || 4;
+        const naturalHeight = image.naturalHeight || 3;
+        const displayScale = Math.min(availableWidth / naturalWidth, availableHeight / naturalHeight);
+        stage.style.width = Math.max(1, Math.floor(naturalWidth * displayScale)) + "px";
+        stage.style.height = Math.max(1, Math.floor(naturalHeight * displayScale)) + "px";
+        stage.style.aspectRatio = "auto";
+      } else {
+        const [ratioWidth, ratioHeight] = ratioSelect.value.split("/").map(Number);
+        stage.style.height = "";
+        stage.style.width = Math.floor(Math.min(availableWidth, availableHeight * ratioWidth / ratioHeight)) + "px";
+        stage.style.aspectRatio = `${ratioWidth} / ${ratioHeight}`;
+      }
+    };
+    let scale = 1, left = 0, top = 0, baseScale = 1, pointer = null;
+    let freeSelection = { x: 0, y: 0, width: 0, height: 0 };
+    let settled = false;
+    const finish = value => {
+      if (settled) return;
+      settled = true;
+      URL.revokeObjectURL(sourceUrl);
+      overlay.remove();
+      resolve(value);
+    };
+    const clampPosition = () => {
+      const bounds = stage.getBoundingClientRect();
+      const width = image.naturalWidth * scale, height = image.naturalHeight * scale;
+      left = Math.min(0, Math.max(bounds.width - width, left));
+      top = Math.min(0, Math.max(bounds.height - height, top));
+      image.style.width = width + "px"; image.style.height = height + "px";
+      image.style.left = left + "px"; image.style.top = top + "px";
+    };
+    const renderFreeSelection = () => {
+      freeSelectionElement.style.left = `${freeSelection.x}px`;
+      freeSelectionElement.style.top = `${freeSelection.y}px`;
+      freeSelectionElement.style.width = `${freeSelection.width}px`;
+      freeSelectionElement.style.height = `${freeSelection.height}px`;
+    };
+    const resetFreeSelection = () => {
+      const bounds = stage.getBoundingClientRect();
+      freeSelection.width = Math.max(40, Math.min(bounds.width * .82, bounds.width - 4));
+      freeSelection.height = Math.max(40, Math.min(bounds.height * .82, bounds.height - 4));
+      freeSelection.x = (bounds.width - freeSelection.width) / 2;
+      freeSelection.y = (bounds.height - freeSelection.height) / 2;
+      renderFreeSelection();
+    };
+    const resetCrop = () => {
+      const bounds = stage.getBoundingClientRect();
+      if (!bounds.width || !bounds.height || !image.naturalWidth) return;
+      baseScale = (ratioSelect.value === "free" ? Math.min : Math.max)(bounds.width / image.naturalWidth, bounds.height / image.naturalHeight);
+      scale = baseScale * Number(zoom.value);
+      left = (bounds.width - image.naturalWidth * scale) / 2;
+      top = (bounds.height - image.naturalHeight * scale) / 2;
+      clampPosition();
+    };
+    fitStageToViewport();
+    image.onload = () => requestAnimationFrame(() => { fitStageToViewport(); resetCrop(); if (ratioSelect.value === "free") resetFreeSelection(); });
+    image.src = sourceUrl;
+    ratioSelect.addEventListener("change", () => { fitStageToViewport(); requestAnimationFrame(() => { resetCrop(); if (ratioSelect.value === "free") resetFreeSelection(); }); });
+    zoom.addEventListener("input", () => {
+      const before = stage.getBoundingClientRect();
+      const centerX = (before.width / 2 - left) / scale, centerY = (before.height / 2 - top) / scale;
+      scale = baseScale * Number(zoom.value);
+      left = before.width / 2 - centerX * scale; top = before.height / 2 - centerY * scale;
+      clampPosition();
+    });
+    stage.addEventListener("pointerdown", event => { if (ratioSelect.value === "free") return; pointer = { id: event.pointerId, x: event.clientX, y: event.clientY }; stage.setPointerCapture(event.pointerId); });
+    stage.addEventListener("pointermove", event => { if (!pointer || pointer.id !== event.pointerId) return; left += event.clientX - pointer.x; top += event.clientY - pointer.y; pointer.x = event.clientX; pointer.y = event.clientY; clampPosition(); });
+    stage.addEventListener("pointerup", event => { pointer = null; if (stage.hasPointerCapture(event.pointerId)) stage.releasePointerCapture(event.pointerId); });
+    let resizePointer = null;
+    resizeHandle.addEventListener("pointerdown", event => {
+      if (ratioSelect.value !== "free") return;
+      event.preventDefault();
+      event.stopPropagation();
+      resizePointer = { id:event.pointerId, x:event.clientX, y:event.clientY, width:freeSelection.width, height:freeSelection.height };
+      resizeHandle.setPointerCapture(event.pointerId);
+    });
+    resizeHandle.addEventListener("pointermove", event => {
+      if (!resizePointer || resizePointer.id !== event.pointerId) return;
+      const bounds = stage.getBoundingClientRect();
+      freeSelection.width = Math.max(40, Math.min(bounds.width - freeSelection.x, resizePointer.width + event.clientX - resizePointer.x));
+      freeSelection.height = Math.max(40, Math.min(bounds.height - freeSelection.y, resizePointer.height + event.clientY - resizePointer.y));
+      renderFreeSelection();
+    });
+    const finishResize = event => {
+      if (!resizePointer || resizePointer.id !== event.pointerId) return;
+      resizePointer = null;
+      if (resizeHandle.hasPointerCapture(event.pointerId)) resizeHandle.releasePointerCapture(event.pointerId);
+    };
+    resizeHandle.addEventListener("pointerup", finishResize);
+    resizeHandle.addEventListener("pointercancel", finishResize);
+    let movePointer = null;
+    freeSelectionElement.addEventListener("pointerdown", event => {
+      if (ratioSelect.value !== "free" || event.target === resizeHandle) return;
+      event.preventDefault();
+      movePointer = { id:event.pointerId, x:event.clientX, y:event.clientY, left:freeSelection.x, top:freeSelection.y };
+      freeSelectionElement.setPointerCapture(event.pointerId);
+    });
+    freeSelectionElement.addEventListener("pointermove", event => {
+      if (!movePointer || movePointer.id !== event.pointerId) return;
+      const bounds = stage.getBoundingClientRect();
+      freeSelection.x = Math.max(0, Math.min(bounds.width - freeSelection.width, movePointer.left + event.clientX - movePointer.x));
+      freeSelection.y = Math.max(0, Math.min(bounds.height - freeSelection.height, movePointer.top + event.clientY - movePointer.y));
+      renderFreeSelection();
+    });
+    const finishMove = event => {
+      if (!movePointer || movePointer.id !== event.pointerId) return;
+      movePointer = null;
+      if (freeSelectionElement.hasPointerCapture(event.pointerId)) freeSelectionElement.releasePointerCapture(event.pointerId);
+    };
+    freeSelectionElement.addEventListener("pointerup", finishMove);
+    freeSelectionElement.addEventListener("pointercancel", finishMove);
+    const resetZoomButton = overlay.querySelector(".project-crop-reset-zoom");
+    const resetZoomToOriginalView = () => {
+      zoom.value = "1";
+      zoom.dispatchEvent(new Event("input", { bubbles: true }));
+      requestAnimationFrame(() => {
+        fitStageToViewport();
+        const bounds = stage.getBoundingClientRect();
+        if (!bounds.width || !bounds.height || !image.naturalWidth) return;
+        baseScale = (ratioSelect.value === "free" ? Math.min : Math.max)(bounds.width / image.naturalWidth, bounds.height / image.naturalHeight);
+        scale = baseScale;
+        left = (bounds.width - image.naturalWidth * scale) / 2;
+        top = (bounds.height - image.naturalHeight * scale) / 2;
+        clampPosition();
+        if (ratioSelect.value === "free") resetFreeSelection();
+      });
+    };
+    resetZoomButton.onclick = resetZoomToOriginalView;
+    const replacementPicker = overlay.querySelector(".project-crop-file-input");
+    overlay.querySelector(".project-crop-change-photo").addEventListener("click", () => replacementPicker.click());
+    replacementPicker.addEventListener("change", () => {
+      const replacement = replacementPicker.files?.[0];
+      if (!replacement || !replacement.type.startsWith("image/")) return;
+      URL.revokeObjectURL(sourceUrl);
+      sourceFile = replacement;
+      sourceUrl = URL.createObjectURL(sourceFile);
+      zoom.value = "1";
+      image.onload = () => requestAnimationFrame(() => { fitStageToViewport(); resetCrop(); if (ratioSelect.value === "free") resetFreeSelection(); });
+      image.src = sourceUrl;
+      replacementPicker.value = "";
+    });
+    overlay.querySelector(".project-crop-cancel").addEventListener("click", () => finish(null));
+    overlay.addEventListener("click", event => { if (event.target === overlay) finish(null); });
+    overlay.querySelector(".project-crop-save").addEventListener("click", () => {
+      const bounds = stage.getBoundingClientRect();
+      const isFreeCrop = ratioSelect.value === "free";
+      const cropX = isFreeCrop ? freeSelection.x : 0;
+      const cropY = isFreeCrop ? freeSelection.y : 0;
+      const cropWidth = isFreeCrop ? freeSelection.width : bounds.width;
+      const cropHeight = isFreeCrop ? freeSelection.height : bounds.height;
+      const sx = Math.max(0, (cropX - left) / scale);
+      const sy = Math.max(0, (cropY - top) / scale);
+      const sw = Math.min(image.naturalWidth - sx, cropWidth / scale);
+      const sh = Math.min(image.naturalHeight - sy, cropHeight / scale);
+      const ratio = sw / sh;
+      const outputWidth = 1200, outputHeight = Math.max(1, Math.round(outputWidth / ratio));
+      const canvas = document.createElement("canvas"); canvas.width = outputWidth; canvas.height = outputHeight;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(image, sx, sy, sw, sh, 0, 0, outputWidth, outputHeight);
+      canvas.toBlob(blob => {
+        if (!blob) { alert("Could not crop this photo. Try another image."); return; }
+        const cropped = new File([blob], (sourceFile.name.replace(/\.[^.]+$/, "") || "project-photo") + "-cropped.jpg", { type: "image/jpeg", lastModified: Date.now() });
+        cropped.originalFile = sourceFile;
+        cropped.sourceChanged = sourceFile !== file;
+        finish(cropped);
+      }, "image/jpeg", .92);
+    });
+    overlay.querySelector(".project-crop-cancel").focus();
+  });
+}
 async function uploadProject(event) {
   event.preventDefault();
 
@@ -16571,7 +17437,8 @@ async function uploadProject(event) {
     return;
   }
 
-  const files = [...document.getElementById("projectFiles").files];
+  const selectedFiles = [...document.getElementById("projectFiles").files];
+  const files = [];
   const errorBox = document.getElementById("projectError");
   const submitButton = document.getElementById("projectSubmitButton");
   const wasEditing = Boolean(editingProjectId);
@@ -16579,13 +17446,30 @@ async function uploadProject(event) {
   errorBox.hidden = true;
   errorBox.classList.remove("is-error", "is-success");
 
-  if (!files.length && !editingProjectId) {
+  if (!selectedFiles.length && !editingProjectId) {
     errorBox.textContent = "Please select at least one image.";
     errorBox.hidden = false;
     errorBox.classList.add("is-error");
     return;
   }
+  if (selectedFiles.some(file => !file.type.startsWith("image/") || file.size > 10 * 1024 * 1024)) {
+    errorBox.textContent = "Choose image files no larger than 10 MB each.";
+    errorBox.hidden = false;
+    errorBox.classList.add("is-error");
+    return;
+  }
 
+  for (const selectedFile of selectedFiles) {
+    const croppedFile = await openProjectImageCrop(selectedFile);
+    if (!croppedFile) {
+      errorBox.textContent = "Photo cropping was cancelled. Select the photos again to continue.";
+      errorBox.hidden = false;
+      errorBox.classList.add("is-error");
+      return;
+    }
+    croppedFile.originalFile = croppedFile.originalFile || selectedFile;
+    files.push(croppedFile);
+  }
   if (files.some(file =>
     !file.type.startsWith("image/") ||
     file.size > 10 * 1024 * 1024
@@ -16599,6 +17483,8 @@ async function uploadProject(event) {
 
   const projectId = editingProjectId || crypto.randomUUID();
   const newlyUploadedImages = [];
+  const replacementUploads = [];
+  const uploadedProjectStoragePaths = [];
   submitButton.disabled = true;
   submitButton.textContent = "Saving...";
 
@@ -16613,16 +17499,51 @@ async function uploadProject(event) {
         .upload(path, file);
 
       if (uploadError) throw uploadError;
+      uploadedProjectStoragePaths.push(path);
 
       const { data } = db.storage
         .from("project-media")
         .getPublicUrl(path);
 
+      const originalFile = file.originalFile || file;
+      const originalSafeName = originalFile.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+      const originalPath = `${currentUser.id}/${projectId}/original-${crypto.randomUUID()}-${originalSafeName}`;
+      const { error: originalUploadError } = await db.storage.from("project-media").upload(originalPath, originalFile, { contentType: originalFile.type, upsert: false });
+      if (originalUploadError) throw originalUploadError;
+      uploadedProjectStoragePaths.push(originalPath);
+      const { data: originalUrlData } = db.storage.from("project-media").getPublicUrl(originalPath);
+
       newlyUploadedImages.push({
         path,
         url: data.publicUrl,
-        alt: file.name
+        alt: file.name,
+        original_path: originalPath,
+        original_url: originalUrlData.publicUrl,
+        original_alt: originalFile.name
       });
+    }
+
+    for (const [index, file] of editingProjectCroppedMedia) {
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+      const path = `${currentUser.id}/${projectId}/crop-${crypto.randomUUID()}-${safeName}`;
+      const { error: uploadError } = await db.storage.from("project-media").upload(path, file, { contentType: file.type, upsert: false });
+      if (uploadError) throw uploadError;
+      uploadedProjectStoragePaths.push(path);
+      const { data } = db.storage.from("project-media").getPublicUrl(path);
+      const previous = editingProjectMedia[index];
+      let originalPath = file.originalPath || previous?.original_path || previous?.path;
+      let originalUrl = previous?.original_url || previous?.url;
+      let originalAlt = previous?.original_alt || previous?.alt || file.originalFile?.name || file.name;
+      if (!originalPath && file.originalFile) {
+        const originalFile = file.originalFile;
+        const originalSafeName = originalFile.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+        originalPath = `${currentUser.id}/${projectId}/original-${crypto.randomUUID()}-${originalSafeName}`;
+        const { error: originalUploadError } = await db.storage.from("project-media").upload(originalPath, originalFile, { contentType: originalFile.type, upsert: false });
+        if (originalUploadError) throw originalUploadError;
+        uploadedProjectStoragePaths.push(originalPath);
+        originalUrl = db.storage.from("project-media").getPublicUrl(originalPath).data.publicUrl;
+      }
+      replacementUploads.push({ index, previous, image: { path, url: data.publicUrl, alt: previous?.alt || file.name, original_path: originalPath, original_url: originalUrl, original_alt: originalAlt } });
     }
 
     const splitList = id =>
@@ -16658,7 +17579,10 @@ async function uploadProject(event) {
       design_solution: document.getElementById("projectSolution").value.trim(),
       external_url: document.getElementById("projectLink").value.trim(),
 
-      media: [...editingProjectMedia, ...newlyUploadedImages]
+      media: [
+        ...editingProjectMedia.map((image, index) => replacementUploads.find(item => item.index === index)?.image || image),
+        ...newlyUploadedImages
+      ]
     };
 
     let saveError;
@@ -16692,8 +17616,18 @@ async function uploadProject(event) {
 
     if (saveError) throw saveError;
 
+    const replacedPaths = replacementUploads
+      .filter(item => item.previous?.path && item.previous.path !== item.image.original_path)
+      .map(item => item.previous.path);
+    if (replacedPaths.length) {
+      const { error: removeError } = await db.storage.from("project-media").remove(replacedPaths);
+      if (removeError) console.warn("Could not remove replaced project photos:", removeError);
+    }
+
     editingProjectId = null;
     editingProjectMedia = [];
+    editingProjectCroppedMedia = new Map();
+    renderProjectExistingMedia();
 
     document.getElementById("projectForm").reset();
     document.getElementById("projectFormTitle").textContent =
@@ -16712,10 +17646,11 @@ async function uploadProject(event) {
   } catch (error) {
     console.error("Project save error:", error);
 
-    if (newlyUploadedImages.length) {
+    const uploadedPaths = uploadedProjectStoragePaths;
+    if (uploadedPaths.length) {
       await db.storage
         .from("project-media")
-        .remove(newlyUploadedImages.map(image => image.path));
+        .remove(uploadedPaths);
     }
 
     errorBox.textContent = "Could not save project: " + error.message;
@@ -16726,6 +17661,23 @@ async function uploadProject(event) {
     submitButton.textContent = editingProjectId ? "Save Changes" : "Upload Project";
   }
 }
+function filterProjectsByKeyword() {
+  const grid = document.getElementById("projectsGrid");
+  const input = document.getElementById("projectSearchInput");
+  const emptyState = document.getElementById("projectSearchEmpty");
+  if (!grid || !input || !emptyState) return;
+
+  const keyword = input.value.trim().toLocaleLowerCase();
+  const cards = [...grid.querySelectorAll(".project-card")];
+  let visibleCount = 0;
+  cards.forEach(card => {
+    const matches = !keyword || (card.dataset.projectSearch || card.textContent).toLocaleLowerCase().includes(keyword);
+    card.hidden = !matches;
+    if (matches) visibleCount++;
+  });
+  emptyState.hidden = !keyword || visibleCount > 0;
+}
+
 async function loadProjects() {
   const grid = document.getElementById("projectsGrid");
   if (!grid) return;
@@ -16752,9 +17704,16 @@ async function loadProjects() {
     const cover = project.media?.[0]?.url || "";
     const isOwner =
       currentUser && currentUser.id === project.owner_id;
+    const searchableText = [
+      project.title, project.category, project.description, project.location,
+      project.project_year, project.project_area, project.project_status,
+      project.role, project.client, project.project_brief, project.design_concept,
+      project.design_solution, project.team_members, project.tools,
+      project.materials, project.skills, project.tags
+    ].flatMap(value => Array.isArray(value) ? value : [value]).filter(value => value != null).join(" ");
 
     return `
-      <article class="project-card">
+      <article class="project-card" data-project-search="${escapeHtml(searchableText)}">
         ${cover ? `
           <img
             src="${escapeHtml(cover)}"
@@ -16796,19 +17755,122 @@ async function loadProjects() {
   ` : ""}
 </div>
       </article>
-    `;
+`;
 }).join("");
 
+filterProjectsByKeyword();
 startProjectsAutoScroll();
 }
 
+
+function showPendingProjectCoverPreview(projectId, croppedCover, originalFile, originalMetadata = null) {
+  pendingProjectCoverFile = croppedCover;
+  pendingProjectCoverProjectId = projectId;
+  pendingProjectCoverOriginalFile = originalFile || null;
+  pendingProjectCoverOriginalPath = originalMetadata?.path || null;
+  pendingProjectCoverOriginalUrl = originalMetadata?.url || null;
+  pendingProjectCoverOriginalAlt = originalMetadata?.alt || originalFile?.name || null;
+  const projectDetails = document.getElementById("projectDetails");
+  const oldPanel = document.getElementById("coverEditPanel");
+  if (oldPanel) oldPanel.remove();
+  if (window.projectCoverPreviewObjectUrl) URL.revokeObjectURL(window.projectCoverPreviewObjectUrl);
+  window.projectCoverPreviewObjectUrl = URL.createObjectURL(croppedCover);
+
+  const panel = document.createElement("div");
+  panel.id = "coverEditPanel";
+  panel.className = "cover-edit-panel";
+  const heading = document.createElement("p");
+  heading.textContent = "Cropped cover preview:";
+  const image = document.createElement("img");
+  image.className = "cover-edit-preview";
+  image.src = window.projectCoverPreviewObjectUrl;
+  image.alt = "Cropped project cover preview";
+  const actions = document.createElement("div");
+  actions.className = "project-owner-actions";
+  const save = document.createElement("button");
+  save.type = "button";
+  save.className = "project-owner-button";
+  save.textContent = "Save Cover Image";
+  save.onclick = savePendingProjectCover;
+  const cancel = document.createElement("button");
+  cancel.type = "button";
+  cancel.className = "project-owner-button";
+  cancel.textContent = "Cancel";
+  cancel.onclick = cancelProjectCoverChange;
+  actions.append(save, cancel);
+  panel.append(heading, image, actions);
+  projectDetails.append(panel);
+  panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+async function savePendingProjectCover() {
+  const save = document.querySelector("#coverEditPanel .project-owner-actions button");
+  if (save) {
+    save.disabled = true;
+    save.textContent = "Saving...";
+  }
+  try {
+    await saveProjectCover();
+  } catch (error) {
+    alert("Could not save the new cover: " + (error?.message || error));
+  } finally {
+    if (save?.isConnected) {
+      save.disabled = false;
+      save.textContent = "Save Cover Image";
+    }
+  }
+}
+
+async function cropExistingProjectCover(projectId) {
+  if (!currentUser) return;
+  const { data: project, error } = await db
+    .from("projects")
+    .select("media")
+    .eq("id", projectId)
+    .eq("owner_id", currentUser.id)
+    .single();
+  if (error || !project) {
+    alert("Could not load the project cover photo.");
+    return;
+  }
+  const cover = Array.isArray(project.media) ? project.media[0] : null;
+  if (!cover?.url) {
+    alert("This project does not have a cover photo to crop.");
+    return;
+  }
+  try {
+    const sourcePath = cover.original_path || cover.path;
+    let blob;
+    if (sourcePath) {
+      const { data, error: downloadError } = await db.storage.from("project-media").download(sourcePath);
+      if (downloadError) throw downloadError;
+      blob = data;
+    } else {
+      const response = await fetch(cover.url);
+      if (!response.ok) throw new Error(`Photo could not be loaded (${response.status}).`);
+      blob = await response.blob();
+    }
+    const source = new File([blob], cover.alt || "project-cover.jpg", { type: blob.type || "image/jpeg" });
+    const cropped = await openProjectImageCrop(source);
+    if (cropped) {
+      showPendingProjectCoverPreview(projectId, cropped, source, {
+        path: sourcePath,
+        url: cover.original_url || cover.url,
+        alt: cover.original_alt || cover.alt
+      });
+      await savePendingProjectCover();
+    }
+  } catch (error) {
+    alert("Could not open this cover photo for cropping: " + error.message);
+  }
+}
 
 function changeProjectCover(projectId) {
   const fileInput = document.createElement("input");
   fileInput.type = "file";
   fileInput.accept = "image/*";
 
-  fileInput.onchange = () => {
+  fileInput.onchange = async () => {
     const file = fileInput.files[0];
     if (!file) return;
 
@@ -16817,44 +17879,14 @@ function changeProjectCover(projectId) {
       return;
     }
 
-    pendingProjectCoverFile = file;
-    pendingProjectCoverProjectId = projectId;
-
-    const oldPanel = document.getElementById("coverEditPanel");
-    if (oldPanel) oldPanel.remove();
-
-    document.getElementById("projectDetails").insertAdjacentHTML(
-      "beforeend",
-      `
-        <div id="coverEditPanel" class="cover-edit-panel">
-          <p>New cover preview:</p>
-
-          <img
-            class="cover-edit-preview"
-            src="${URL.createObjectURL(file)}"
-            alt="New cover preview"
-          >
-
-          <div class="project-owner-actions">
-            <button
-              type="button"
-              class="project-owner-button"
-              onclick="saveProjectCover()"
-            >
-              Save Cover Image
-            </button>
-
-            <button
-              type="button"
-              class="project-owner-button"
-              onclick="cancelProjectCoverChange()"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      `
-    );
+    try {
+      const croppedCover = await openProjectImageCrop(file);
+      if (!croppedCover) return;
+      showPendingProjectCoverPreview(projectId, croppedCover, file);
+      await savePendingProjectCover();
+    } catch (error) {
+      alert("Could not crop or save this cover photo: " + (error?.message || error));
+    }
   };
 
   fileInput.click();
@@ -16862,6 +17894,10 @@ function changeProjectCover(projectId) {
 
 async function saveProjectCover() {
   if (!pendingProjectCoverFile || !pendingProjectCoverProjectId) {
+    return;
+  }
+  if (!currentUser?.id) {
+    alert("Please sign in before changing the project cover.");
     return;
   }
 
@@ -16895,6 +17931,23 @@ async function saveProjectCover() {
     alert("Could not upload the new cover: " + uploadError.message);
     return;
   }
+  let originalPath = pendingProjectCoverOriginalPath;
+  let originalUrl = pendingProjectCoverOriginalUrl;
+  let originalAlt = pendingProjectCoverOriginalAlt || pendingProjectCoverOriginalFile?.name || file.name;
+  let uploadedOriginalPath = null;
+  if (!originalPath && pendingProjectCoverOriginalFile) {
+    const originalFile = pendingProjectCoverOriginalFile;
+    const originalName = originalFile.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+    originalPath = `${currentUser.id}/${projectId}/original-cover-${crypto.randomUUID()}-${originalName}`;
+    const { error: originalUploadError } = await db.storage.from("project-media").upload(originalPath, originalFile, { contentType: originalFile.type, upsert: false });
+    if (originalUploadError) {
+      await db.storage.from("project-media").remove([newPath]);
+      alert("Could not save the original photo for restoring: " + originalUploadError.message);
+      return;
+    }
+    uploadedOriginalPath = originalPath;
+    originalUrl = db.storage.from("project-media").getPublicUrl(originalPath).data.publicUrl;
+  }
 
   const { data } = db.storage
     .from("project-media")
@@ -16903,31 +17956,41 @@ async function saveProjectCover() {
   const newCover = {
     path: newPath,
     url: data.publicUrl,
-    alt: file.name
+    alt: file.name,
+    ...(originalPath ? { original_path: originalPath, original_url: originalUrl, original_alt: originalAlt } : {})
   };
 
   const updatedMedia = oldMedia.length
     ? [newCover, ...oldMedia.slice(1)]
     : [newCover];
 
-  const { error: updateError } = await db
+  const { data: updatedProject, error: updateError } = await db
     .from("projects")
     .update({ media: updatedMedia })
     .eq("id", projectId)
-    .eq("owner_id", currentUser.id);
+    .eq("owner_id", currentUser.id)
+    .select("id,media")
+    .maybeSingle();
 
-  if (updateError) {
-    await db.storage.from("project-media").remove([newPath]);
-    alert("Could not save the new cover: " + updateError.message);
+  const savedCover = Array.isArray(updatedProject?.media) ? updatedProject.media[0] : null;
+  if (updateError || !updatedProject || savedCover?.path !== newPath) {
+    await db.storage.from("project-media").remove([newPath, uploadedOriginalPath].filter(Boolean));
+    alert("Could not save the new cover" + (updateError?.message ? ": " + updateError.message : ". Please verify that you own this project and try again."));
     return;
   }
 
-  if (oldCover?.path) {
-    await db.storage.from("project-media").remove([oldCover.path]);
-  }
+  const oldPathsToRemove = [oldCover?.path, oldCover?.original_path]
+    .filter(path => path && path !== originalPath);
+  if (oldPathsToRemove.length) await db.storage.from("project-media").remove([...new Set(oldPathsToRemove)]);
 
   pendingProjectCoverFile = null;
   pendingProjectCoverProjectId = null;
+  pendingProjectCoverOriginalFile = null;
+  pendingProjectCoverOriginalPath = null;
+  pendingProjectCoverOriginalUrl = null;
+  pendingProjectCoverOriginalAlt = null;
+  if (window.projectCoverPreviewObjectUrl) URL.revokeObjectURL(window.projectCoverPreviewObjectUrl);
+  window.projectCoverPreviewObjectUrl = null;
 
   await loadProjects();
   await openProject(projectId);
@@ -16936,6 +17999,12 @@ async function saveProjectCover() {
 function cancelProjectCoverChange() {
   pendingProjectCoverFile = null;
   pendingProjectCoverProjectId = null;
+  pendingProjectCoverOriginalFile = null;
+  pendingProjectCoverOriginalPath = null;
+  pendingProjectCoverOriginalUrl = null;
+  pendingProjectCoverOriginalAlt = null;
+  if (window.projectCoverPreviewObjectUrl) URL.revokeObjectURL(window.projectCoverPreviewObjectUrl);
+  window.projectCoverPreviewObjectUrl = null;
 
   const panel = document.getElementById("coverEditPanel");
   if (panel) panel.remove();
@@ -19033,7 +20102,7 @@ ownerChatForm.addEventListener("submit", async event => {
       <circle cx="12" cy="8" r="3.4" />
       <path d="M5.2 20c.5-3.5 3-5.6 6.8-5.6s6.3 2.1 6.8 5.6" />
     </svg>
-    <span class="quick-label">Members</span>
+    <span class="quick-label">Connect</span>
   </button>
 
   <button
@@ -19311,39 +20380,3 @@ document.addEventListener("click", function(event) {
 }, true);
 </script></body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
