@@ -9051,7 +9051,42 @@ body.has-post-zoomed { overflow:hidden !important; }
   #searchPostViewSection .post-actions { min-width:0 !important; max-width:100% !important; flex-wrap:wrap !important; gap:6px; }
   #searchPostViewSection .post-action-button { min-width:0; max-width:100%; box-sizing:border-box; padding-inline:10px; }
 }
-@media (max-width:380px) { #searchPostViewSection .post-identity-band { gap:6px !important; padding-inline:9px !important; } #searchPostViewSection .post-owner-badge { max-width:100%; overflow:hidden; text-overflow:ellipsis; } #searchPostViewSection .post-type-badge { max-width:32% !important; font-size:8px !important; } }</style></head>
+@media (max-width:380px) { #searchPostViewSection .post-identity-band { gap:6px !important; padding-inline:9px !important; } #searchPostViewSection .post-owner-badge { max-width:100%; overflow:hidden; text-overflow:ellipsis; } #searchPostViewSection .post-type-badge { max-width:32% !important; font-size:8px !important; } }@media (max-width:700px) {
+  /* Keep the Home logo pure white on mobile browsers. */
+  body > header img.corner-logo { opacity:1 !important; filter:grayscale(1) brightness(0) invert(1) contrast(1.15) drop-shadow(0 2px 4px rgba(0,0,0,.88)) !important; -webkit-filter:grayscale(1) brightness(0) invert(1) contrast(1.15) drop-shadow(0 2px 4px rgba(0,0,0,.88)) !important; mix-blend-mode:normal !important; }
+  body > header .corner-logo-shine::before { display:none !important; animation:none !important; }
+  /* On touch, expand the selected quick button to the left just like desktop hover. */
+  body .quick-tabs { right:12px !important; left:auto !important; width:155px !important; align-items:flex-end !important; transform:translateY(-50%) !important; }
+  body .quick-tabs .quick-tab { transform-origin:right center !important; transition:width .22s ease,transform .22s ease,background .22s ease,box-shadow .22s ease !important; }
+  body .quick-tabs .quick-tab.is-tapped { width:min(145px,calc(100vw - 22px)) !important; min-width:min(145px,calc(100vw - 22px)) !important; max-width:min(145px,calc(100vw - 22px)) !important; transform:translate(-5px,-2px) !important; }
+  body .quick-tabs .quick-tab.is-tapped .quick-label { display:inline !important; opacity:1 !important; }
+}@media (max-width:700px) {
+  /* Keep My Profile social links in a tidy, evenly aligned two-column grid. */
+  #profileSection .profile-socials { display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)) !important; align-items:stretch !important; justify-items:stretch !important; gap:8px !important; width:100% !important; box-sizing:border-box !important; }
+  #profileSection .profile-socials > a { display:inline-flex !important; justify-content:flex-start !important; align-items:center !important; box-sizing:border-box !important; width:100% !important; min-width:0 !important; max-width:100% !important; min-height:44px !important; margin:0 !important; padding:8px 12px !important; white-space:nowrap !important; }
+}
+/* Give Profile and Connect count buttons one shared width based on the longest label. */
+#profileSection #profileSocialSummary .social-summary-action,
+#connectSection #homeSocialSummary .social-summary-action { box-sizing:border-box !important; flex:0 0 112px !important; width:112px !important; min-width:112px !important; max-width:112px !important; justify-content:flex-start !important; white-space:nowrap !important; }
+@media (max-width:700px) {
+  #profileSection #profileSocialSummary,
+  #connectSection #homeSocialSummary { display:grid !important; grid-template-columns:repeat(2,minmax(0,112px)) !important; justify-content:center !important; align-content:start !important; gap:8px !important; width:fit-content !important; max-width:100% !important; margin-inline:auto !important; }
+  #profileSection #profileSocialSummary .social-summary-action,
+  #connectSection #homeSocialSummary .social-summary-action { flex:none !important; width:112px !important; min-width:112px !important; max-width:112px !important; min-height:34px !important; padding:3px 5px !important; gap:5px !important; font-size:11px !important; }
+}
+/* Keep all My Profile social links the same width while fitting the row. */
+#profileSection .profile-socials > a { box-sizing:border-box !important; flex:0 0 122px !important; width:122px !important; min-width:122px !important; max-width:122px !important; justify-content:flex-start !important; }
+@media (max-width:700px) { #profileSection .profile-socials { grid-template-columns:repeat(2,minmax(0,122px)) !important; width:fit-content !important; max-width:100% !important; margin-inline:auto !important; } #profileSection .profile-socials > a { flex:none !important; width:122px !important; min-width:122px !important; max-width:122px !important; } }
+/* Match My Network list tabs to the 112px people-count buttons. */
+#socialConnectionsSection .social-directory-tab { box-sizing:border-box !important; flex:0 0 112px !important; width:112px !important; min-width:112px !important; max-width:112px !important; justify-content:center !important; text-align:center !important; }
+@media (max-width:700px) {
+  #socialConnectionsSection .social-directory-toolbar .social-directory-tabs { display:grid !important; grid-template-columns:repeat(2,minmax(0,112px)) !important; justify-content:center !important; gap:8px !important; width:fit-content !important; max-width:100% !important; margin-inline:auto !important; }
+  #socialConnectionsSection .social-directory-tab { flex:none !important; width:112px !important; min-width:112px !important; max-width:112px !important; min-height:38px !important; padding-inline:6px !important; white-space:nowrap !important; }
+}
+/* Unify only the width of Back and Forward buttons across sections. */
+body .page-back-btn[onclick*="goBack"],
+body .page-back-btn.section-forward-btn,
+body #searchPostViewSection .page-back-btn { width:112px !important; min-width:112px !important; max-width:112px !important; }</style></head>
 
 
 <body>
@@ -19038,8 +19073,9 @@ ownerChatForm.addEventListener("submit", async event => {
     style.setProperty("padding", "0", "important");
     style.setProperty("object-fit", "contain", "important");
     style.setProperty("z-index", "2", "important");
-    style.setProperty("opacity", ".90", "important");
-    style.setProperty("filter", "brightness(0) invert(1) drop-shadow(0 3px 5px rgba(0,0,0,.96))", "important");
+    style.setProperty("opacity", mobile ? "1" : ".90", "important");
+    style.setProperty("filter", mobile ? "grayscale(1) brightness(0) invert(1) contrast(1.15) drop-shadow(0 2px 4px rgba(0,0,0,.88))" : "brightness(0) invert(1) drop-shadow(0 3px 5px rgba(0,0,0,.96))", "important");
+    style.setProperty("mix-blend-mode", "normal", "important");
     style.setProperty("transform", "none", "important");
     style.setProperty("translate", "none", "important");
     style.setProperty("animation", "none", "important");
