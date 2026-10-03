@@ -8029,7 +8029,7 @@ body .page-back-btn[onclick*="homeSection"]:hover {
   position: absolute;
   top: 32px; right: 18px; width: 175px; height: 138px;
   z-index: 3; overflow: hidden; pointer-events: none;
-  -webkit-mask-image: url("logo.png"); mask-image: url("logo.png");
+  -webkit-mask-image: url("Logo.png"); mask-image: url("Logo.png");
   -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
   -webkit-mask-size: contain; mask-size: contain;
   -webkit-mask-position: center; mask-position: center;
@@ -9098,7 +9098,7 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
     left:50% !important; right:auto !important;
     width:min(420px,calc(100vw - 28px)) !important; max-width:none !important;
     display:flex !important; flex-wrap:nowrap !important; align-items:stretch !important;
-    justify-content:stretch !important; gap:4px !important; padding:7px !important;
+    justify-content:flex-start !important; gap:4px !important; padding:7px !important;
     box-sizing:border-box !important; transform:translateX(-50%) !important;
   }
   body > header .global-search .global-search-quick-filters button {
@@ -9119,6 +9119,30 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
     white-space:normal !important; text-align:center !important; overflow-wrap:anywhere !important;
   }
 }
+/* Keep minimized dock titles readable on phones with actual text nodes. */
+.owner-chat-minimized-title { display:none; }
+@media (max-width:700px) {
+  #ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-header h3 { display:flex !important; align-items:center !important; visibility:visible !important; opacity:1 !important; }
+  #ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-title { display:inline-block !important; visibility:visible !important; opacity:1 !important; color:#fff !important; font-size:13px !important; font-weight:700 !important; line-height:1.2 !important; }
+  #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading #ownerChatHeaderName,
+  #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading #ownerChatHeaderStatus { display:none !important; }
+  #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading .owner-chat-minimized-title { display:block !important; visibility:visible !important; opacity:1 !important; flex:1 1 auto !important; min-width:0 !important; overflow:hidden !important; color:#f2d35d !important; font-size:13px !important; font-weight:700 !important; line-height:1.2 !important; white-space:nowrap !important; text-overflow:ellipsis !important; }
+  #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading strong::after { content:none !important; }
+}
+
+/* Mobile card scroll tracks, compact feedback headers, and profile action mark colors. */
+@media (max-width:700px) {
+  #shareIdeasSection .feedback-header { flex-wrap:nowrap !important; min-width:0 !important; width:100% !important; max-width:100% !important; overflow:hidden !important; }
+  #shareIdeasSection .feedback-header strong { flex:1 1 0 !important; min-width:0 !important; overflow:hidden !important; text-overflow:ellipsis !important; white-space:nowrap !important; }
+  #shareIdeasSection .feedback-header .post-owner-badge { flex:0 1 auto !important; min-width:0 !important; max-width:clamp(58px,24vw,96px) !important; overflow:hidden !important; text-overflow:ellipsis !important; white-space:nowrap !important; }
+  #shareIdeasSection .feedback-card .post-content { max-height:230px; overflow-x:hidden; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#d6b84c #f4f4f4; }
+  #shareIdeasSection .feedback-card .post-content::-webkit-scrollbar { width:10px; }
+  #shareIdeasSection .feedback-card .post-content::-webkit-scrollbar-track { border-radius:8px; background:linear-gradient(90deg,#e2e2e2 0%,#f7f7f7 38%,#ededed 100%); box-shadow:inset 1px 0 3px rgba(0,0,0,.13),inset -1px 0 2px rgba(255,255,255,.95); }
+  #shareIdeasSection .feedback-card .post-content::-webkit-scrollbar-thumb { border:2px solid #f4f4f4; border-radius:8px; background:linear-gradient(180deg,#f1d66b,#b9952e); }
+  #shareIdeasSection .feedback-card .post-content::-webkit-scrollbar-thumb:hover { background:linear-gradient(180deg,#ffe88a,#d0ad3c); }
+}
+#memberProfileSection #memberConnectionAction .member-connection-button.member-action-primary:not(.member-action-message)::before { color:#111 !important; -webkit-text-stroke:0 !important; }
+#memberProfileSection #memberConnectionAction .member-follow-button::before { color:#fff !important; -webkit-text-stroke:0 !important; }
 </style></head>
 
 
@@ -9180,7 +9204,7 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
 ===================================================== -->
 
 <img
-    src="logo.png"
+    src="Logo.png"
     class="corner-logo"
     alt="EJ Designs Community"
 >
@@ -9497,14 +9521,14 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
             <!-- MEMBERS -->
 
 <div class="connect-view-switch" role="tablist" aria-label="Connect directory">
-  <button type="button" class="connect-view-tab is-active" role="tab" aria-selected="true" onclick="showConnectView('members', this)">Members</button>
-  <button type="button" class="connect-view-tab" role="tab" aria-selected="false" onclick="showConnectView('opportunities', this)">Job Opportunities</button>
-  <button type="button" class="connect-view-tab" role="tab" aria-selected="false" onclick="showConnectView('messages', this)">Messages</button>
+  <button id="connectMembersTab" type="button" class="connect-view-tab is-active" role="tab" aria-selected="true" aria-controls="membersGrid" onclick="showConnectView('members', this)">Members</button>
+  <button id="connectOpportunitiesTab" type="button" class="connect-view-tab" role="tab" aria-selected="false" aria-controls="opportunitiesList" onclick="showConnectView('opportunities', this)">Job Opportunities</button>
+  <button id="connectMessagesTab" type="button" class="connect-view-tab" role="tab" aria-selected="false" aria-controls="memberInbox" onclick="showConnectView('messages', this)">Messages</button>
 </div>
 
             <div
                 id="membersGrid"
-                class="members-grid"
+                class="members-grid" role="tabpanel" aria-labelledby="connectMembersTab" tabindex="0"
             >
 
                 <div class="empty-members">
@@ -9513,8 +9537,8 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
 
             </div>
 
-            <div id="opportunitiesList" class="opportunities-list" hidden></div>
-            <div id="memberInbox" class="member-inbox" hidden></div>
+            <div id="opportunitiesList" class="opportunities-list" role="tabpanel" aria-labelledby="connectOpportunitiesTab" tabindex="0" hidden></div>
+            <div id="memberInbox" class="member-inbox" role="tabpanel" aria-labelledby="connectMessagesTab" tabindex="0" hidden></div>
 
         </div>
 
@@ -10909,6 +10933,7 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
       <div class="owner-chat-heading">
         <strong id="ownerChatHeaderName">Site Owner</strong>
         <span id="ownerChatHeaderStatus">Site Owner</span>
+        <span class="owner-chat-minimized-title" aria-hidden="true">My Inbox</span>
       </div>
 
       
@@ -11469,7 +11494,10 @@ function showConnectView(view, button) {
   });
   const showJobs = view === "opportunities";
   const showMessages = view === "messages";
-  if (searchInput) searchInput.placeholder = showJobs ? "Search job opportunities..." : "Search professionals...";
+  const searchLabel = showMessages ? "Search messages" : showJobs ? "Search job opportunities" : "Search professionals";
+  if (searchInput) { searchInput.placeholder = searchLabel + "..."; searchInput.setAttribute("aria-label", searchLabel); }
+  const searchButton = document.querySelector("#connectSection .community-search button");
+  if (searchButton) { searchButton.setAttribute("aria-label", searchLabel); searchButton.title = searchLabel; }
   members.hidden = showJobs || showMessages;
   opportunities.hidden = !showJobs;
   inbox.hidden = !showMessages;
@@ -11511,6 +11539,37 @@ let activeMemberConversationName = "";
 let memberConversationRefreshTimer = null;
 let memberPresenceRefreshTimer = null;
 
+function clearPrivateMemberMessageState() {
+  clearInterval(memberConversationRefreshTimer);
+  clearInterval(memberPresenceRefreshTimer);
+  memberConversationRefreshTimer = null;
+  memberPresenceRefreshTimer = null;
+  activeMemberConversationId = null;
+  activeMemberConversationName = "";
+  const inbox = document.getElementById("memberInbox");
+  if (inbox) { inbox.replaceChildren(); inbox.hidden = true; }
+  const dialog = document.getElementById("memberMessageDialog");
+  if (dialog) dialog.hidden = true;
+  const list = document.getElementById("memberMessageList");
+  if (list) { list.replaceChildren(); delete list.dataset.messageFingerprint; }
+  const status = document.getElementById("memberMessageStatus");
+  if (status) status.textContent = "";
+  const members = document.getElementById("membersGrid");
+  const opportunities = document.getElementById("opportunitiesList");
+  if (members) members.hidden = false;
+  if (opportunities) opportunities.hidden = true;
+  document.getElementById("connectMembersTab")?.classList.add("is-active");
+  document.getElementById("connectMembersTab")?.setAttribute("aria-selected", "true");
+  document.getElementById("connectOpportunitiesTab")?.classList.remove("is-active");
+  document.getElementById("connectOpportunitiesTab")?.setAttribute("aria-selected", "false");
+  document.getElementById("connectMessagesTab")?.classList.remove("is-active");
+  document.getElementById("connectMessagesTab")?.setAttribute("aria-selected", "false");
+  const search = document.getElementById("connectSearch");
+  if (search) { search.placeholder = "Search professionals..."; search.setAttribute("aria-label", "Search professionals"); }
+  const searchButton = document.querySelector("#connectSection .community-search button");
+  if (searchButton) { searchButton.setAttribute("aria-label", "Search professionals"); searchButton.title = "Search professionals"; }
+}
+
 async function isMemberConnection(memberId) {
   if (!currentUser || !memberId || String(memberId) === String(currentUser.id)) return false;
   const { data, error } = await db.from("connections").select("id")
@@ -11542,12 +11601,14 @@ async function loadMemberInbox() {
     return;
   }
 
+    const viewerId = String(currentUser.id);
   inbox.innerHTML = '<p class="global-search-empty">Loading messages...</p>';
   const { data: messages, error } = await db.from("member_messages")
     .select("id,sender_id,recipient_id,body,created_at")
-    .or(`sender_id.eq.${currentUser.id},recipient_id.eq.${currentUser.id}`)
+     .or(`sender_id.eq.${viewerId},recipient_id.eq.${viewerId}`)
     .order("created_at", { ascending: false })
     .limit(500);
+  if (!currentUser || String(currentUser.id) !== viewerId) return;
   if (error) {
     console.error("Load private messages failed:", error);
     inbox.innerHTML = '<p class="global-search-empty">Private messaging is not set up yet. Run the updated job-opportunities.sql setup.</p>';
@@ -11564,7 +11625,9 @@ async function loadMemberInbox() {
   }
   const ids = [...latestByMember.keys()];
   const { data: profiles } = await db.from("profiles").select("id,full_name").in("id", ids);
+  if (!currentUser || String(currentUser.id) !== viewerId) return;
   await loadMemberPresence(ids);
+  if (!currentUser || String(currentUser.id) !== viewerId) return;
   const names = new Map((profiles || []).map(profile => [String(profile.id), profile.full_name || "Community Member"]));
   inbox.innerHTML = [...latestByMember.values()].map(message => {
     const name = names.get(message.otherId) || "Community Member";
@@ -11577,11 +11640,13 @@ async function openMemberChat(memberId) {
     showSignupPrompt();
     return;
   }
-  if (!memberId || String(memberId) === String(currentUser.id)) return;
+  const viewerId = String(currentUser.id);
+  if (!memberId || String(memberId) === viewerId) return;
   if (!await isMemberConnection(memberId)) {
     alert("Private messages are available to connections only. Send a connection request first.");
     return;
   }
+  if (!currentUser || String(currentUser.id) !== viewerId) return;
   clearInterval(memberConversationRefreshTimer);
   clearInterval(memberPresenceRefreshTimer);
   activeMemberConversationId = String(memberId);
@@ -11590,7 +11655,9 @@ async function openMemberChat(memberId) {
   const list = document.getElementById("memberMessageList");
   const status = document.getElementById("memberMessageStatus");
   const { data: profile } = await db.from("profiles").select("full_name").eq("id", memberId).maybeSingle();
+  if (!currentUser || String(currentUser.id) !== viewerId || String(activeMemberConversationId) !== String(memberId)) return;
   await loadMemberPresence([memberId]);
+  if (!currentUser || String(currentUser.id) !== viewerId || String(activeMemberConversationId) !== String(memberId)) return;
   activeMemberConversationName = profile?.full_name || "Community Member";
   const isOwner = String(memberId) === OWNER_CHAT_ID;
   title.innerHTML = `Message ${memberMessageEscape(activeMemberConversationName)}${isOwner ? ' <span class="member-owner-verified" role="img" aria-label="Verified community owner" title="Verified community owner"></span>' : ""}`;
@@ -11630,12 +11697,14 @@ async function loadMemberConversation(quiet = false) {
   if (!currentUser || !activeMemberConversationId) return;
   const list = document.getElementById("memberMessageList");
   if (!quiet) list.innerHTML = '<p class="global-search-empty">Loading conversation...</p>';
-  const otherId = activeMemberConversationId;
+  const viewerId = String(currentUser.id);
+  const otherId = String(activeMemberConversationId);
   const { data: messages, error } = await db.from("member_messages")
     .select("id,sender_id,recipient_id,body,created_at")
-    .or(`and(sender_id.eq.${currentUser.id},recipient_id.eq.${otherId}),and(sender_id.eq.${otherId},recipient_id.eq.${currentUser.id})`)
+     .or(`and(sender_id.eq.${viewerId},recipient_id.eq.${otherId}),and(sender_id.eq.${otherId},recipient_id.eq.${viewerId})`)
     .order("created_at", { ascending: true })
     .limit(300);
+  if (!currentUser || String(currentUser.id) !== viewerId || String(activeMemberConversationId || "") !== otherId) return;
   if (error) {
     console.error("Load conversation failed:", error);
     if (!quiet) list.innerHTML = '<p class="global-search-empty">Could not load messages. Check the private-message SQL setup.</p>';
@@ -13820,6 +13889,7 @@ document
 
         currentUser =
             null;
+        clearPrivateMemberMessageState();
 
 
         currentProfile =
@@ -14115,6 +14185,7 @@ document
 
                 currentUser =
                     null;
+                clearPrivateMemberMessageState();
 
                 clearInterval(memberPresenceHeartbeatTimer);
                 memberPresenceHeartbeatTimer = null;
@@ -15119,6 +15190,15 @@ document
     ?.addEventListener(
         "input",
         async function() {
+
+            const inbox = document.getElementById("memberInbox");
+            if (inbox && !inbox.hidden) {
+                const needle = this.value.trim().toLocaleLowerCase();
+                inbox.querySelectorAll(".member-inbox-item").forEach(item => {
+                    item.hidden = !item.textContent.toLocaleLowerCase().includes(needle);
+                });
+                return;
+            }
 
             if (!document.getElementById("opportunitiesList")?.hidden) {
                 await loadJobOpportunities(this.value);
@@ -19152,7 +19232,7 @@ ownerChatForm.addEventListener("submit", async event => {
   }, true);
   document.addEventListener('dragstart', event => { if (!isEditable(event.target)) event.preventDefault(); }, true);
 })();
-<script>
+</script><script>
 /* Capture prompt close taps before any overlapping UI or inline-handler issue. */
 document.addEventListener("click", function(event) {
   const closeButton = event.target.closest("#signupPromptCloseButton");
@@ -19164,7 +19244,7 @@ document.addEventListener("click", function(event) {
   overlay.classList.remove("is-visible");
   overlay.setAttribute("aria-hidden", "true");
 }, true);
-</script></script></body>
+</script></body>
 </html>
 
 
