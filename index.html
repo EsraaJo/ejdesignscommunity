@@ -9130,6 +9130,11 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
   #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading strong::after { content:none !important; }
 }
 
+/* Mobile navigation gesture and explicit white logo rendering. */
+@media (max-width:700px) {
+  body > header img.corner-logo { opacity:1 !important; filter:brightness(0) invert(1) drop-shadow(0 3px 5px rgba(0,0,0,.96)) !important; -webkit-filter:brightness(0) invert(1) drop-shadow(0 3px 5px rgba(0,0,0,.96)) !important; mix-blend-mode:normal !important; }
+  body .quick-tabs { touch-action:none; }
+}
 /* Mobile card scroll tracks, compact feedback headers, and profile action mark colors. */
 @media (max-width:700px) {
   #shareIdeasSection .feedback-header { flex-wrap:nowrap !important; min-width:0 !important; width:100% !important; max-width:100% !important; overflow:hidden !important; }
@@ -17613,15 +17618,20 @@ function playQuickTabSound(sectionId) {
 }
 
 function selectQuickTab(button, sectionId) {
+  const mobileTouch = window.matchMedia("(hover:none) and (pointer:coarse)").matches;
+  const wasSelected = button.classList.contains("selected");
+  if (mobileTouch && Date.now() < (window.quickTabIgnoreClickUntil || 0)) return;
   playQuickTabSound(sectionId);
-  document.querySelectorAll(".quick-tab").forEach(tab => {
-    tab.classList.remove("selected", "is-tapped");
-  });
-  button.classList.add("selected");
-  button.classList.add("is-tapped");
-  window.setTimeout(() => button.classList.remove("is-tapped"), window.matchMedia("(hover:none) and (pointer:coarse)").matches ? 1400 : 850);
+  document.querySelectorAll(".quick-tab").forEach(tab => tab.classList.remove("selected", "is-tapped"));
+  button.classList.add("selected", "is-tapped");
+  if (mobileTouch && !wasSelected) {
+    // Select and expand on first touch; a separate tap opens the destination.
+    button.blur();
+    return;
+  }
+  if (!mobileTouch) window.setTimeout(() => button.classList.remove("is-tapped"), 850);
+  button.classList.remove("is-tapped");
   showSection(sectionId);
-  // Keep the active destination marked, but collapse its quick tab after selection.
   button.blur();
 }
 
@@ -19139,6 +19149,36 @@ ownerChatForm.addEventListener("submit", async event => {
   const tabs = document.querySelector(".quick-tabs");
   if (!tabs) return;
   document.body.appendChild(tabs);
+  let swipeState = null;
+  const touchQuery = window.matchMedia("(hover:none) and (pointer:coarse)");
+  const selectBySwipe = tab => {
+    if (!tab || !tab.matches(".quick-tab")) return;
+    document.querySelectorAll(".quick-tab").forEach(item => item.classList.remove("selected", "is-tapped"));
+    tab.classList.add("selected", "is-tapped");
+  };
+  tabs.addEventListener("pointerdown", event => {
+    if (!touchQuery.matches || !event.target.closest(".quick-tab")) return;
+    swipeState = { pointerId:event.pointerId, startX:event.clientX, startY:event.clientY, moved:false };
+  }, { passive:true });
+  document.addEventListener("pointermove", event => {
+    if (!swipeState || event.pointerId !== swipeState.pointerId || !touchQuery.matches) return;
+    if (Math.hypot(event.clientX - swipeState.startX, event.clientY - swipeState.startY) > 9) swipeState.moved = true;
+    if (!swipeState.moved) return;
+    const tab = document.elementFromPoint(event.clientX, event.clientY)?.closest(".quick-tab");
+    if (tab && tabs.contains(tab)) selectBySwipe(tab);
+    event.preventDefault();
+  }, { passive:false, capture:true });
+  document.addEventListener("pointerup", event => {
+    if (!swipeState || event.pointerId !== swipeState.pointerId) return;
+    const tab = document.elementFromPoint(event.clientX, event.clientY)?.closest(".quick-tab");
+    if (swipeState.moved && tab && tabs.contains(tab)) {
+      selectBySwipe(tab);
+      window.quickTabIgnoreClickUntil = Date.now() + 1000;
+      window.setTimeout(() => { window.quickTabIgnoreClickUntil = 0; }, 0);
+    }
+    swipeState = null;
+  }, { passive:true, capture:true });
+  document.addEventListener("pointercancel", () => { swipeState = null; }, { passive:true, capture:true });
   const updateQuickTabs = () => {
     const mobile = window.matchMedia("(max-width: 600px)").matches;
     const style = tabs.style;
@@ -19193,7 +19233,7 @@ ownerChatForm.addEventListener("submit", async event => {
     style.setProperty("padding", "0", "important");
     style.setProperty("object-fit", "contain", "important");
     style.setProperty("z-index", "2", "important");
-    style.setProperty("opacity", ".90", "important");
+    style.setProperty("opacity", "1", "important");
     style.setProperty("filter", "brightness(0) invert(1) drop-shadow(0 3px 5px rgba(0,0,0,.96))", "important");
     style.setProperty("mix-blend-mode", "normal", "important");
     style.setProperty("transform", "none", "important");
