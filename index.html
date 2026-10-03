@@ -9091,7 +9091,35 @@ body .quick-tabs > .quick-tab:nth-child(1) { order:1 !important; }
 body .quick-tabs > .quick-tab:nth-child(2) { order:2 !important; }
 body .quick-tabs > .quick-tab:nth-child(3) { order:3 !important; }
 body .quick-tabs > .quick-tab:nth-child(4) { order:4 !important; }
-body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }</style></head>
+body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
+/* Keep Home search chips and Search results filters in one aligned row on phones. */
+@media (max-width:700px) {
+  body > header .global-search .global-search-quick-filters {
+    left:50% !important; right:auto !important;
+    width:min(420px,calc(100vw - 28px)) !important; max-width:none !important;
+    display:flex !important; flex-wrap:nowrap !important; align-items:stretch !important;
+    justify-content:stretch !important; gap:4px !important; padding:7px !important;
+    box-sizing:border-box !important; transform:translateX(-50%) !important;
+  }
+  body > header .global-search .global-search-quick-filters button {
+    flex:1 1 0 !important; width:0 !important; min-width:0 !important; max-width:none !important;
+    min-height:34px !important; padding:5px 2px !important;
+    font-size:clamp(8px,2.8vw,10px) !important; line-height:1.05 !important;
+    white-space:normal !important; text-align:center !important; overflow-wrap:anywhere !important;
+  }
+  #searchResultsSection .search-results-toolbar { align-items:stretch !important; flex-direction:column !important; }
+  #searchResultsSection .global-search-filters {
+    display:flex !important; flex-wrap:nowrap !important; align-items:stretch !important;
+    gap:4px !important; width:100% !important; min-width:0 !important; box-sizing:border-box !important;
+  }
+  #searchResultsSection .global-search-filter {
+    flex:1 1 0 !important; width:0 !important; min-width:0 !important; max-width:none !important;
+    min-height:36px !important; padding:6px 2px !important;
+    font-size:clamp(8px,2.8vw,10px) !important; line-height:1.05 !important;
+    white-space:normal !important; text-align:center !important; overflow-wrap:anywhere !important;
+  }
+}
+</style></head>
 
 
 <body>
