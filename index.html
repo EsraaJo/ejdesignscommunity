@@ -9156,6 +9156,13 @@ body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }
   #ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-title { display:block !important; flex:1 1 auto !important; width:auto !important; min-width:0 !important; max-width:100% !important; color:#fff !important; -webkit-text-fill-color:#fff !important; font:700 14px/1.2 "Space Grotesk",sans-serif !important; white-space:nowrap !important; text-overflow:ellipsis !important; visibility:visible !important; opacity:1 !important; }
   #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading .owner-chat-minimized-title { display:block !important; flex:1 1 auto !important; width:auto !important; min-width:0 !important; max-width:100% !important; margin:0 !important; padding:0 !important; color:#f2d35d !important; -webkit-text-fill-color:#f2d35d !important; font:700 14px/1.2 "Space Grotesk",sans-serif !important; white-space:nowrap !important; text-overflow:ellipsis !important; visibility:visible !important; opacity:1 !important; position:static !important; }
 }
+
+/* Hide minimized chat titles on mobile as requested. */
+@media (max-width:700px) {
+  #ownerChatWidget #socialSidebarPanel.is-minimized .social-sidebar-title { font-size:0 !important; color:transparent !important; -webkit-text-fill-color:transparent !important; text-shadow:none !important; }
+  #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-minimized-title { display:none !important; }
+  #ownerChatWidget #ownerChatPanel.is-minimized .owner-chat-heading strong::after { content:none !important; }
+}
 </style></head>
 
 
