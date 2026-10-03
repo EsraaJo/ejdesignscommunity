@@ -9053,7 +9053,7 @@ body.has-post-zoomed { overflow:hidden !important; }
 }
 @media (max-width:380px) { #searchPostViewSection .post-identity-band { gap:6px !important; padding-inline:9px !important; } #searchPostViewSection .post-owner-badge { max-width:100%; overflow:hidden; text-overflow:ellipsis; } #searchPostViewSection .post-type-badge { max-width:32% !important; font-size:8px !important; } }@media (max-width:700px) {
   /* Keep the Home logo pure white on mobile browsers. */
-  body > header img.corner-logo { opacity:1 !important; filter:grayscale(1) brightness(0) invert(1) contrast(1.15) drop-shadow(0 2px 4px rgba(0,0,0,.88)) !important; -webkit-filter:grayscale(1) brightness(0) invert(1) contrast(1.15) drop-shadow(0 2px 4px rgba(0,0,0,.88)) !important; mix-blend-mode:normal !important; }
+  body > header img.corner-logo { opacity:.90 !important; filter:brightness(0) invert(1) drop-shadow(0 3px 5px rgba(0,0,0,.96)) !important; -webkit-filter:brightness(0) invert(1) drop-shadow(0 3px 5px rgba(0,0,0,.96)) !important; mix-blend-mode:normal !important; }
   body > header .corner-logo-shine::before { display:none !important; animation:none !important; }
   /* On touch, expand the selected quick button to the left just like desktop hover. */
   body .quick-tabs { right:12px !important; left:auto !important; width:155px !important; align-items:flex-end !important; transform:translateY(-50%) !important; }
@@ -9086,7 +9086,12 @@ body.has-post-zoomed { overflow:hidden !important; }
 /* Unify only the width of Back and Forward buttons across sections. */
 body .page-back-btn[onclick*="goBack"],
 body .page-back-btn.section-forward-btn,
-body #searchPostViewSection .page-back-btn { width:112px !important; min-width:112px !important; max-width:112px !important; }</style></head>
+body #searchPostViewSection .page-back-btn { width:112px !important; min-width:112px !important; max-width:112px !important; }/* Preserve the desktop quick-navigation order on every screen size. */
+body .quick-tabs > .quick-tab:nth-child(1) { order:1 !important; }
+body .quick-tabs > .quick-tab:nth-child(2) { order:2 !important; }
+body .quick-tabs > .quick-tab:nth-child(3) { order:3 !important; }
+body .quick-tabs > .quick-tab:nth-child(4) { order:4 !important; }
+body .quick-tabs > .quick-tab:nth-child(5) { order:5 !important; }</style></head>
 
 
 <body>
@@ -11827,13 +11832,20 @@ async function runGlobalSearch() {
   if (collections.opportunities.length) {
     sections.push(`<section class="global-search-group"><h3>Job Opportunities</h3><div class="global-search-list">${collections.opportunities.map(post => {
       const detail = [post.job_company, post.job_location, post.job_workplace, post.job_employment_type].filter(Boolean).join(" · ") || (post.content || "").trim().slice(0, 150);
-      return `<button type="button" class="global-search-item" onclick="showSection('connectSection'); showConnectView('opportunities', document.querySelectorAll('.connect-view-tab')[1])"><span class="global-search-thumb">J</span><span class="global-search-item-copy"><strong>${escapeHtml(post.job_title || "Job opportunity")}</strong><span>${escapeHtml(detail)}</span></span></button>`;
+      return `<button type="button" class="global-search-item" onclick="openSearchOpportunities()"><span class="global-search-thumb">J</span><span class="global-search-item-copy"><strong>${escapeHtml(post.job_title || "Job opportunity")}</strong><span>${escapeHtml(detail)}</span></span></button>`;
     }).join("")}</div></section>`);
   }
 
   resultsBox.innerHTML = sections.join("") || `<div class="global-search-empty">${failedQueries ? "Some results could not be loaded. Check your Supabase read policies and try again." : "No results found. Try another search."}</div>`;
 }
 
+function openSearchOpportunities() {
+  const searchInput = document.getElementById("connectSearch");
+  if (searchInput) searchInput.value = globalSearchTerm;
+  showSection("connectSection");
+  const opportunitiesTab = document.querySelector('#connectSection .connect-view-tab[onclick*="opportunities"]');
+  showConnectView("opportunities", opportunitiesTab);
+}
 async function openSearchPost(postId) {
   const view = document.getElementById("searchPostViewContainer");
   if (!view) return;
@@ -19073,8 +19085,8 @@ ownerChatForm.addEventListener("submit", async event => {
     style.setProperty("padding", "0", "important");
     style.setProperty("object-fit", "contain", "important");
     style.setProperty("z-index", "2", "important");
-    style.setProperty("opacity", mobile ? "1" : ".90", "important");
-    style.setProperty("filter", mobile ? "grayscale(1) brightness(0) invert(1) contrast(1.15) drop-shadow(0 2px 4px rgba(0,0,0,.88))" : "brightness(0) invert(1) drop-shadow(0 3px 5px rgba(0,0,0,.96))", "important");
+    style.setProperty("opacity", ".90", "important");
+    style.setProperty("filter", "brightness(0) invert(1) drop-shadow(0 3px 5px rgba(0,0,0,.96))", "important");
     style.setProperty("mix-blend-mode", "normal", "important");
     style.setProperty("transform", "none", "important");
     style.setProperty("translate", "none", "important");
