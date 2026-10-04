@@ -2941,7 +2941,7 @@ select {
   background: #fff;
   border: 1px solid #e8e8e8;
   border-radius: 14px;
-  text-align: left;
+  text-align: center;
   box-shadow: 0 5px 18px rgba(0, 0, 0, .05);
 }
 
@@ -2991,7 +2991,7 @@ select {
   background: #fff;
   border: 1px solid #e8e8e8;
   border-radius: 13px;
-  text-align: left;
+  text-align: center;
 }
 
 .project-card img {
@@ -4233,6 +4233,8 @@ margin: 36px auto 18px !important;}
   font-size: 14px;
   line-height: 1.65;
 }
+.about-card > p.about-creator-copy,
+.about-card > p.about-creator-copy * { font-size:12.5px !important; }
 
 .about-card > p.about-intro {
   max-width: 620px;
@@ -9427,7 +9429,12 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
 .member-projects-visitor-intro .member-projects-visitor-search button { flex-basis:36px; width:36px; min-width:36px; height:36px; min-height:36px; }
 #memberProfileSection .member-profile-navigation .page-back-btn.member-projects-navigation-back:nth-child(2) { flex:0 0 160px !important; width:160px !important; min-width:160px !important; max-width:160px !important; color:#111 !important; background:linear-gradient(135deg,#f4db76,#d6b84c) !important; border-color:#d6b84c !important; white-space:nowrap !important; }
 #memberProfileSection .member-profile-navigation .page-back-btn.member-projects-navigation-back:nth-child(2):hover { color:#111 !important; background:linear-gradient(135deg,#ffe88a,#e1c34b) !important; border-color:#e1c34b !important; }
-.member-projects-visitor-page .member-projects-visitor-grid { display:grid !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important; align-content:start; justify-items:stretch; gap:16px; width:100%; margin-top:12px; max-height:min(70dvh,760px); overflow-x:hidden !important; overflow-y:auto !important; scrollbar-gutter:stable; padding:4px 8px 10px 4px; box-sizing:border-box; }
+.member-projects-visitor-scroll-wrap { position:relative; width:100%; min-width:0; margin-top:12px; padding-right:15px; box-sizing:border-box; }
+.member-projects-visitor-page .member-projects-visitor-grid { display:grid !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important; align-content:start; justify-items:stretch; gap:16px; width:100%; margin:0; max-height:min(70dvh,760px); overflow-x:hidden !important; overflow-y:auto !important; scrollbar-width:none; scrollbar-gutter:auto; padding:4px 5px 10px 4px; box-sizing:border-box; }
+.member-projects-visitor-page .member-projects-visitor-grid::-webkit-scrollbar { display:none; width:0; height:0; }
+.member-projects-visitor-scroll-track { position:absolute; top:4px; right:2px; bottom:10px; width:8px; overflow:hidden; border-radius:999px; background:rgba(153,132,60,.2); box-shadow:inset 0 0 0 1px rgba(153,132,60,.18); }
+.member-projects-visitor-scroll-track[hidden] { display:none !important; }
+.member-projects-visitor-scroll-thumb { position:absolute; top:0; left:0; display:block; width:100%; min-height:34px; border-radius:999px; background:linear-gradient(180deg,#f0d66b,#bf9d2e); box-shadow:0 1px 4px rgba(65,51,10,.28),inset 0 1px 0 rgba(255,255,255,.48); will-change:transform,height; }
 .member-projects-visitor-page .member-projects-visitor-grid .project-card { display:flex !important; flex-direction:column; flex:initial !important; width:100% !important; min-width:0 !important; max-width:none !important; justify-self:stretch; box-sizing:border-box; cursor:pointer; }
 .member-projects-visitor-page .member-projects-visitor-grid .project-card img { display:block; width:100% !important; height:180px; flex:0 0 180px; object-fit:cover; }
 .member-projects-visitor-grid .project-card[hidden] { display:none !important; }
@@ -9454,7 +9461,9 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
   .member-projects-visitor-intro .member-projects-visitor-title h3 { font-size:14px !important; }
   .member-projects-visitor-intro .community-page-subtitle { margin-left:0 !important; font-size:10px; }
   .member-projects-visitor-intro .member-projects-visitor-search { margin-top:8px; }
-  .member-projects-visitor-page .member-projects-visitor-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:12px; margin-top:10px; max-height:min(68dvh,680px); padding:3px 5px 8px 3px; }
+  .member-projects-visitor-scroll-wrap { margin-top:10px; padding-right:16px; }
+  .member-projects-visitor-scroll-track { right:1px; width:9px; background:rgba(153,132,60,.26); }
+  .member-projects-visitor-page .member-projects-visitor-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:12px; max-height:min(68dvh,680px); padding:3px 4px 8px 3px; }
   .member-projects-profile-summary-card { margin-bottom:12px !important; padding:12px 10px !important; }
   .member-projects-profile-summary-card .member-projects-visitor-profile-header { grid-template-columns:56px minmax(0,1fr) !important; grid-template-rows:auto auto auto !important; gap:9px !important; margin:0 auto !important; padding:8px 2px 10px !important; }
   .member-projects-profile-summary-card .member-profile-header > .member-profile-avatar-wrap { grid-column:1 !important; grid-row:1 !important; width:56px !important; }
@@ -9474,7 +9483,7 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
   #memberProfileSection .member-profile-navigation .page-back-btn.member-projects-navigation-back:nth-child(2) { flex-basis:150px !important; width:150px !important; min-width:150px !important; max-width:150px !important; }
 }
 @media (max-width:520px) {
-  .member-projects-visitor-page .member-projects-visitor-grid { grid-template-columns:minmax(0,1fr) !important; gap:12px; margin-top:10px; }
+  .member-projects-visitor-page .member-projects-visitor-grid { grid-template-columns:minmax(0,1fr) !important; gap:12px; }
   .member-projects-visitor-page .member-projects-visitor-grid .project-card img { height:clamp(160px,52vw,230px); flex-basis:clamp(160px,52vw,230px); }
 }
 /* Keep the connection and follower cards visible while giving the header divider breathing room. */
@@ -11374,7 +11383,7 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
 </div>
 
     <div id="ownerChatContacts" class="owner-chat-contacts" hidden></div>
-    <div id="ownerChatResizeHandle" class="owner-chat-resize-handle" role="separator" aria-orientation="horizontal" aria-label="Drag up or down to resize the conversation list" title="Drag up or down to resize the conversation list" aria-valuemin="90" aria-valuemax="260" aria-valuenow="190" tabindex="0"></div>
+    <div id="ownerChatResizeHandle" class="owner-chat-resize-handle" role="separator" aria-orientation="horizontal" aria-label="Drag up or down to resize the conversation list" aria-valuemin="90" aria-valuemax="260" aria-valuenow="190" tabindex="0"></div>
 
     <div id="ownerChatMessages" class="owner-chat-messages">
       <p class="owner-chat-empty">Loading conversation...</p>
@@ -11395,7 +11404,7 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
 
   <div id="ownerChatImagePreview" class="owner-chat-image-preview" hidden><img id="ownerChatImagePreviewThumb" alt="Selected image preview"><span id="ownerChatImagePreviewName"></span><button type="button" onclick="ownerChatClearImageSelection()" aria-label="Remove selected image">×</button></div>
   <div id="ownerChatAudioPreview" class="owner-chat-audio-preview" hidden><audio id="ownerChatAudioPreviewPlayer" controls preload="metadata"></audio><span>Voice recording ready</span><button type="button" onclick="ownerChatClearAudioSelection()" aria-label="Remove voice recording">×</button></div>
-  <div id="ownerChatComposerResizeHandle" class="owner-chat-composer-resize-handle" role="separator" aria-orientation="horizontal" aria-label="Drag up or down to expand the message box" title="Drag up or down to expand the message box" aria-valuemin="44" aria-valuemax="180" aria-valuenow="44" tabindex="0"></div>
+  <div id="ownerChatComposerResizeHandle" class="owner-chat-composer-resize-handle" role="separator" aria-orientation="horizontal" aria-label="Drag up or down to expand the message box" aria-valuemin="44" aria-valuemax="180" aria-valuenow="44" tabindex="0"></div>
   <div class="owner-chat-send-row">
     <input id="ownerChatImageInput" type="file" accept="image/*" hidden onchange="ownerChatHandleImageSelection(this)">
     <textarea id="ownerChatInput" rows="1" maxlength="2000" placeholder="Write a message..." autocomplete="off" aria-label="Write a message"></textarea>
@@ -11653,6 +11662,17 @@ function maybeShowSocialConnectOnboarding() {
    let isNavigatingBack = false;
    let isNavigatingForward = false;
 
+function getStartupSection(defaultSection) {
+    const navEntry = performance.getEntriesByType?.("navigation")?.[0];
+    if (navEntry?.type === "reload") {
+        try {
+            const savedSection = sessionStorage.getItem("ej-community-active-section");
+            if (savedSection && document.getElementById(savedSection)) return savedSection;
+        } catch (_) {}
+    }
+    return window.matchMedia("(max-width:700px)").matches ? "homeSection" : defaultSection;
+}
+
    function animateHomeWelcome() {
     const home = document.getElementById("homeSection");
     const heading = home?.querySelector(".home-content > h2");
@@ -11692,6 +11712,10 @@ function maybeShowSocialConnectOnboarding() {
    } else {
     animateHomeWelcome();
    }
+   window.addEventListener("load", () => {
+    const navEntry = performance.getEntriesByType?.("navigation")?.[0];
+    if (window.matchMedia("(max-width:700px)").matches && navEntry?.type !== "reload") showSection("homeSection");
+   }, { once: true });
    function showSection(sectionId) {
 
     if (sectionId !== "memberProfileSection") {
@@ -11755,6 +11779,7 @@ function maybeShowSocialConnectOnboarding() {
     if (selectedSection) {
 
         selectedSection.classList.add("active");
+        try { sessionStorage.setItem("ej-community-active-section", sectionId); } catch (_) {}
         if (sectionId === "homeSection") animateHomeWelcome();
         if (sectionId === "socialConnectionsSection" ) maybeShowSocialConnectOnboarding();
 
@@ -12925,7 +12950,7 @@ document
 
 
                 showSection(
-                    "profileSection"
+                    window.matchMedia("(max-width:700px)").matches ? "homeSection" : "profileSection"
                 );
 
 
@@ -13046,7 +13071,7 @@ document
 
 
                     showSection(
-                        "profileSection"
+                        window.matchMedia("(max-width:700px)").matches ? "homeSection" : "profileSection"
                     );
 
 
@@ -14547,9 +14572,30 @@ document
             await loadProfile();
 
 
-            showSection(
-                "profileSection"
-            );
+            const startupSection = getStartupSection("profileSection");
+            let restoredMemberProjects = false;
+            if (startupSection === "memberProfileSection") {
+                let memberId = null;
+                try { memberId = sessionStorage.getItem("ej-community-active-member-id"); } catch (_) {}
+                if (memberId) {
+                    await viewMemberProfile(memberId);
+                    let shouldRestoreProjects = false;
+                    try { shouldRestoreProjects = sessionStorage.getItem("ej-community-member-projects-open") === "1"; } catch (_) {}
+                    if (shouldRestoreProjects) {
+                        openMemberProjectsVisitorPage();
+                        restoredMemberProjects = true;
+                    }
+                } else {
+                    showSection("homeSection");
+                }
+            } else {
+                showSection(startupSection);
+            }
+            sectionNavigationHistory.length = 0;
+            sectionForwardHistory.length = 0;
+            if (restoredMemberProjects) {
+                document.querySelectorAll("#memberProfileSection .section-forward-btn").forEach(button => { button.disabled = true; button.hidden = true; });
+            }
 
 
         } else {
@@ -14559,9 +14605,9 @@ document
             );
 
 
-            showSection(
-                "homeSection"
-            );
+            showSection(getStartupSection("homeSection"));
+            sectionNavigationHistory.length = 0;
+            sectionForwardHistory.length = 0;
 
         }
     }
@@ -18299,6 +18345,7 @@ async function viewMemberProfile(memberId, options = {}) {
   const content = document.getElementById("memberProfileContent");
 
   showSection("memberProfileSection");
+  try { sessionStorage.setItem("ej-community-active-member-id", String(memberId)); } catch (_) {}
   content.textContent = "Loading profile and projects...";
 
   let { data: profile, error } = await db
@@ -18518,6 +18565,7 @@ function openMemberProjectsVisitorPage(fromForward = false) {
   const projectGrid = profileCard?.querySelector(".member-projects-grid");
   if (!currentUser || !profileCard || !projectGrid || !projectGrid.children.length) return;
   if (!fromForward) memberProjectsVisitorForward = false;
+  try { sessionStorage.setItem("ej-community-member-projects-open", "1"); } catch (_) {}
   content.querySelector(".member-projects-visitor-page")?.remove();
   const profileName = profileCard.querySelector(".member-profile-heading h2")?.textContent || "Community Member";
   const page = document.createElement("section");
@@ -18576,7 +18624,31 @@ function openMemberProjectsVisitorPage(fromForward = false) {
   card.appendChild(projectIntro);
   const gallery = projectGrid.cloneNode(true);
   gallery.classList.add("member-projects-visitor-grid");
-  card.appendChild(gallery);
+  const scrollWrap = document.createElement("div");
+  scrollWrap.className = "member-projects-visitor-scroll-wrap";
+  const scrollTrack = document.createElement("div");
+  scrollTrack.className = "member-projects-visitor-scroll-track";
+  scrollTrack.setAttribute("aria-hidden", "true");
+  const scrollThumb = document.createElement("span");
+  scrollThumb.className = "member-projects-visitor-scroll-thumb";
+  scrollTrack.appendChild(scrollThumb);
+  const updateProjectScrollIndicator = () => {
+    const maxScroll = Math.max(0, gallery.scrollHeight - gallery.clientHeight);
+    const trackHeight = scrollTrack.clientHeight;
+    if (maxScroll <= 1 || !trackHeight) {
+      scrollTrack.hidden = true;
+      return;
+    }
+    scrollTrack.hidden = false;
+    const thumbHeight = Math.max(34, trackHeight * gallery.clientHeight / gallery.scrollHeight);
+    const thumbRange = Math.max(0, trackHeight - thumbHeight);
+    scrollThumb.style.height = `${thumbHeight}px`;
+    scrollThumb.style.transform = `translateY(${thumbRange * gallery.scrollTop / maxScroll}px)`;
+  };
+  page._updateMemberProjectsScrollIndicator = updateProjectScrollIndicator;
+  gallery.addEventListener("scroll", updateProjectScrollIndicator, { passive: true });
+  scrollWrap.append(gallery, scrollTrack);
+  card.appendChild(scrollWrap);
   const empty = document.createElement("p");
   empty.className = "member-projects-visitor-empty";
   empty.textContent = "No projects match that keyword.";
@@ -18585,6 +18657,13 @@ function openMemberProjectsVisitorPage(fromForward = false) {
   page.appendChild(card);
   profileCard.hidden = true;
   content.appendChild(page);
+  requestAnimationFrame(updateProjectScrollIndicator);
+  if ("ResizeObserver" in window) {
+    const scrollObserver = new ResizeObserver(updateProjectScrollIndicator);
+    scrollObserver.observe(gallery);
+    scrollObserver.observe(scrollTrack);
+    page._memberProjectsScrollObserver = scrollObserver;
+  }
   document.querySelectorAll("#memberProfileSection .section-forward-btn").forEach(button => { button.disabled = true; button.hidden = true; });
   page.scrollIntoView({ block: "start" });
 }
@@ -18601,11 +18680,15 @@ function filterMemberVisitorProjects(query, page = document.querySelector(".memb
   });
   const empty = page.querySelector(".member-projects-visitor-empty");
   if (empty) empty.hidden = visibleCount > 0;
+  page._updateMemberProjectsScrollIndicator?.();
 }
 
 function closeMemberProjectsVisitorPage() {
   const content = document.getElementById("memberProfileContent");
-  content?.querySelector(".member-projects-visitor-page")?.remove();
+  const projectsPage = content?.querySelector(".member-projects-visitor-page");
+  projectsPage?._memberProjectsScrollObserver?.disconnect();
+  projectsPage?.remove();
+  try { sessionStorage.removeItem("ej-community-member-projects-open"); } catch (_) {}
   const navigation = document.querySelector("#memberProfileSection .member-profile-navigation");
   navigation?.querySelector(".member-projects-navigation-back")?.remove();
   const sectionBackButton = navigation?.querySelector("button:not(.section-forward-btn)");
@@ -20399,7 +20482,7 @@ ownerChatForm.addEventListener("submit", async event => {
         <p class="about-eyebrow">THE CREATOR</p>
         <h3 class="creator-name">Created by <span class="creator-signature"><strong>M.Arch. Esra'a E. Al-Johari</strong></span></h3>
 
-        <p>
+        <p class="about-creator-copy">
           I’m <strong>Esra’a E. Al-Johari</strong>, a <strong>BIM Architect</strong> with
           <strong>over eight years of experience</strong> in the construction industry,
           specializing in BIM project delivery.
@@ -20408,11 +20491,13 @@ ownerChatForm.addEventListener("submit", async event => {
           the University of Jordan.
         </p>
 
-        <p>
+        <p class="about-creator-copy">
           The idea for <strong>EJ Designs Community began in 2021</strong>: a platform where
           architects and designers can connect, exchange ideas, and showcase
           their work. I created this community to make creative collaboration
-          and professional connection more accessible.
+          and professional connection more accessible. Members can share freelance
+          opportunities, exchange professional services, and find collaborators
+          for architecture and design projects.
         </p>
       </div>
     </div>
