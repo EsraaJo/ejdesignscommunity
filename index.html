@@ -5022,6 +5022,8 @@ box-shadow:
 }
 
 .social-sidebar-launcher { position: relative; display: grid; place-items: center; width: 64px; height: 64px; border: 1px solid rgba(44,156,104,.72); border-radius: 50%; color: #14784d; background: rgba(91,190,143,.3); backdrop-filter: blur(10px); box-shadow: 1px 3px 0 rgba(29,106,71,.38), 3px 8px 16px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.82), inset 0 -2px 5px rgba(29,106,71,.1); cursor: pointer; transition: transform .18s ease, background .18s ease, box-shadow .18s ease; }
+.social-sidebar-notification-badge { position: absolute; z-index: 4; top: -5px; right: -5px; min-width: 22px; height: 22px; box-sizing: border-box; display: grid; place-items: center; padding: 0 5px; border: 2px solid #f8f5eb; border-radius: 999px; color: #fff; background: #d9434b; font: 700 10px/1 Arial, sans-serif; box-shadow: 0 2px 7px rgba(0,0,0,.36); pointer-events: none; }
+.social-sidebar-notification-badge[hidden] { display: none !important; }
 .social-sidebar-launcher:hover { transform: translateY(-2px); background: rgba(91,190,143,.4); box-shadow: 2px 4px 0 rgba(29,106,71,.42), 4px 10px 17px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.88), inset 0 -2px 5px rgba(29,106,71,.12); }
 .social-sidebar-launcher:active { transform: translateY(1px); box-shadow: 0 2px 8px rgba(29,106,71,.2), inset 0 1px 0 rgba(255,255,255,.68); }
 .social-sidebar-launcher { animation: socialLauncherFloat 4.2s ease-in-out infinite; }
@@ -11334,6 +11336,7 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
   <span class="chat-hover-layer" aria-hidden="true"></span>
   <button id="socialSidebarLauncher" class="social-sidebar-launcher" type="button" aria-label="Open connections and followers" hidden onclick="toggleSocialSidebar()">
     <svg aria-hidden="true" viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.8 20a6.2 6.2 0 0 1 12.4 0M16 5.2a3.5 3.5 0 0 1 0 6.6M17.2 14.2a5.8 5.8 0 0 1 4 5.6"></path></svg>
+    <span id="socialSidebarNotificationBadge" class="social-sidebar-notification-badge" hidden aria-hidden="true"></span>
     <span class="launcher-hint" aria-hidden="true">Meet your connections</span>
   </button>
   <span id="socialSidebarHint" class="social-sidebar-hint" role="status" hidden>Meet and connect with people</span>
@@ -18417,6 +18420,21 @@ function updateProfileNotificationBell() {
   const messageCount = currentUser ? (ownerChatUnreadCount || 0) + (memberUnreadMessageCount || 0) : 0;
   const ownerMessageCount = currentUser ? (ownerChatUnreadCount || 0) : 0;
   const total = requestCount + messageCount;
+  const socialBadge = document.getElementById("socialSidebarNotificationBadge");
+  const socialLauncher = document.getElementById("socialSidebarLauncher");
+  const socialNotificationCount = currentUser ? requestCount + (memberUnreadMessageCount || 0) : 0;
+  if (socialBadge) {
+    socialBadge.hidden = socialNotificationCount < 1;
+    socialBadge.textContent = socialNotificationCount > 99 ? "99+" : String(socialNotificationCount);
+  }
+  if (socialLauncher) {
+    socialLauncher.setAttribute(
+      "aria-label",
+      socialNotificationCount
+        ? `Open connections and followers, ${socialNotificationCount} unread notifications`
+        : "Open connections and followers"
+    );
+  }
   badges.forEach(badge => {
     badge.hidden = total < 1;
     badge.textContent = total > 9 ? "9+" : String(total);
