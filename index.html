@@ -4235,6 +4235,13 @@ margin: 36px auto 18px !important;}
 }
 .about-card > p.about-creator-copy,
 .about-card > p.about-creator-copy * { font-size:12.5px !important; }
+.about-card > p.about-creator-copy {
+  max-width: 620px;
+  text-align: justify;
+  text-align-last: center;
+  margin-right: auto;
+  margin-left: auto;
+}
 
 .about-card > p.about-intro {
   max-width: 620px;
@@ -14567,6 +14574,12 @@ document
             updateNavigation(
                 true
             );
+
+            // Reveal the Connections launcher as soon as authentication is
+            // known, while profile data continues loading below.
+            const socialLauncher = document.getElementById("socialSidebarLauncher");
+            if (socialLauncher) socialLauncher.hidden = false;
+            loadSocialConnections();
 
 
             await loadProfile();
