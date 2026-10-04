@@ -9399,6 +9399,90 @@ body .quick-tabs .quick-tab.selected:not(.is-tapped) .quick-icon {
 #memberProfileSection .member-profile-links a.member-social-link:hover { color:#111 !important; background:#fff !important; }
 body > header .global-search input { box-shadow:inset 0 3px 7px rgba(0,0,0,.29), inset 0 0 0 1px rgba(0,0,0,.055); }
 body > header .global-search input:focus { box-shadow:inset 0 2px 5px rgba(0,0,0,.32); }
+#homeNav:hover, #profileNav:hover, #logoutNav:hover { border-color:#d6b84c !important; color:#111 !important; background:linear-gradient(135deg,#f4db76,#d6b84c) !important; }
+body > header nav button#homeNav:hover, body > header nav button#registerNav:hover, body > header nav button#loginNav:hover, body > header nav button#profileNav:hover, body > header nav button#logoutNav:hover,
+body > header nav button#homeNav:focus-visible, body > header nav button#registerNav:focus-visible, body > header nav button#loginNav:focus-visible, body > header nav button#profileNav:focus-visible, body > header nav button#logoutNav:focus-visible { color:#111 !important; background:linear-gradient(155deg,#f7e58a 0%,#e4c84e 100%) !important; border-color:#f2dc79 !important; box-shadow:inset 0 1px 0 rgba(255,255,255,.48),0 2px 0 #9f8120,0 7px 14px rgba(0,0,0,.42) !important; }
+html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important; color:#111 !important; background:linear-gradient(155deg,#f7e58a 0%,#e4c84e 100%) !important; box-shadow:inset 0 1px 0 rgba(255,255,255,.48),0 2px 0 #9f8120,0 7px 14px rgba(0,0,0,.42) !important; }
+.member-visitor-projects-button { min-height:36px; padding:7px 12px; border:1px solid #d6b84c; border-radius:8px; color:#222; background:#fffdf5; font:inherit; font-size:12px; font-weight:700; cursor:pointer; }
+.member-projects-visitor-page { width:min(1094px,calc(100% - 24px)); margin:12px auto; padding:0; box-sizing:border-box; }
+.member-projects-visitor-page > h2, .member-projects-visitor-page > .community-page-subtitle { text-align:center; }
+.member-projects-visitor-page > h2 { margin:0 0 6px; }
+.member-projects-visitor-page > .community-page-subtitle { margin:0 0 16px; }
+.member-projects-visitor-search { display:flex; align-items:center; gap:8px; width:100%; min-height:52px; margin:0 0 14px; padding:5px 6px 5px 18px; box-sizing:border-box; border:1px solid #d6b84c; border-radius:999px; background:rgba(255,255,255,.96); box-shadow:0 5px 16px rgba(35,32,22,.08); }
+.member-projects-visitor-search input { flex:1 1 auto; width:100%; min-width:0; height:40px; margin:0; padding:0 15px; box-sizing:border-box; border:0; border-radius:999px; outline:none; color:#171717; background:#fff; box-shadow:inset 0 3px 7px rgba(0,0,0,.2); font:inherit; font-size:14px; }
+.member-projects-visitor-search button { display:grid; flex:0 0 40px; width:40px; min-width:40px; height:40px; min-height:40px; place-items:center; margin:0; padding:0; border:0; border-radius:50%; color:#111; background:#d6b84c; cursor:pointer; box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 2px 4px rgba(0,0,0,.24); }
+.member-projects-visitor-search button:hover { background:#ead578; }
+.member-projects-visitor-search svg { width:19px; height:19px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; }
+.member-projects-visitor-card { width:100%; padding:18px; box-sizing:border-box; border:1px solid #e3dfd2; border-radius:18px; background:#fff; }
+#memberProfileSection .member-projects-visitor-card { width:100%; max-width:none !important; margin:0 !important; box-sizing:border-box; }
+.member-projects-visitor-profile-header { width:100%; margin:0 auto 18px !important; }
+.member-projects-profile-summary-card { width:100% !important; max-width:none !important; margin:0 0 18px !important; padding:18px !important; box-sizing:border-box !important; }
+.member-projects-profile-summary-card .member-projects-visitor-profile-header { margin-bottom:12px !important; }
+.member-projects-visitor-intro { min-width:0; margin:8px 0 4px; padding:2px 0 12px; border-bottom:1px solid rgba(214,184,76,.34); text-align:left; }
+.member-projects-visitor-intro .member-projects-visitor-title { display:flex; flex-direction:column; align-items:flex-start; gap:2px; min-width:0; margin:0 0 8px; }
+.member-projects-visitor-intro .member-projects-visitor-title h3 { margin:0 !important; color:#8a7225 !important; font-size:14px !important; font-weight:700; text-align:left; }
+.member-projects-visitor-intro .community-page-subtitle { margin:0 !important; color:#777; font-size:11px; line-height:1.4; text-align:left; overflow-wrap:anywhere; }
+.member-projects-visitor-intro .member-projects-visitor-search { min-height:44px; margin:9px 0 0; padding-top:3px; padding-bottom:3px; }
+.member-projects-visitor-intro .member-projects-visitor-search input { height:36px; }
+.member-projects-visitor-intro .member-projects-visitor-search button { flex-basis:36px; width:36px; min-width:36px; height:36px; min-height:36px; }
+#memberProfileSection .member-profile-navigation .page-back-btn.member-projects-navigation-back:nth-child(2) { flex:0 0 160px !important; width:160px !important; min-width:160px !important; max-width:160px !important; color:#111 !important; background:linear-gradient(135deg,#f4db76,#d6b84c) !important; border-color:#d6b84c !important; white-space:nowrap !important; }
+#memberProfileSection .member-profile-navigation .page-back-btn.member-projects-navigation-back:nth-child(2):hover { color:#111 !important; background:linear-gradient(135deg,#ffe88a,#e1c34b) !important; border-color:#e1c34b !important; }
+.member-projects-visitor-page .member-projects-visitor-grid { display:grid !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important; align-content:start; justify-items:stretch; gap:16px; width:100%; margin-top:12px; max-height:min(70dvh,760px); overflow-x:hidden !important; overflow-y:auto !important; scrollbar-gutter:stable; padding:4px 8px 10px 4px; box-sizing:border-box; }
+.member-projects-visitor-page .member-projects-visitor-grid .project-card { display:flex !important; flex-direction:column; flex:initial !important; width:100% !important; min-width:0 !important; max-width:none !important; justify-self:stretch; box-sizing:border-box; cursor:pointer; }
+.member-projects-visitor-page .member-projects-visitor-grid .project-card img { display:block; width:100% !important; height:180px; flex:0 0 180px; object-fit:cover; }
+.member-projects-visitor-grid .project-card[hidden] { display:none !important; }
+.member-projects-visitor-empty { margin:14px 0 0; color:#666; text-align:center; }
+@media (max-width:700px) {
+  #memberProfileSection .member-profile-navigation { display:flex; flex-wrap:wrap; justify-content:center; gap:6px; width:100%; }
+  #memberProfileSection .member-profile-navigation .member-projects-navigation-back { flex-basis:148px !important; width:148px !important; min-width:148px !important; max-width:148px !important; padding-inline:8px !important; }
+  #shareIdeasSection .page-navigation-row { display:flex; flex-wrap:wrap; justify-content:center; gap:7px; }
+  #shareIdeasSection .page-navigation-row .page-back-btn { flex:0 1 112px; min-width:100px; }
+  #searchResultsSection .search-results-toolbar { display:flex !important; flex-direction:column !important; align-items:stretch !important; }
+  #searchResultsSection .global-search-filters { display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)) !important; width:100% !important; min-width:0 !important; overflow:visible !important; }
+  #searchResultsSection .global-search-filter { width:100% !important; min-width:0 !important; min-height:38px; white-space:normal !important; overflow-wrap:anywhere !important; }
+  #searchResultsSection .search-results-search { width:100% !important; min-width:0 !important; }
+  .contact-links, .home-copyright .contact-links { z-index:20 !important; pointer-events:auto !important; }
+  .contact-links a { position:relative; z-index:21; pointer-events:auto !important; touch-action:manipulation; }
+  #shareSection .post-actions, #shareIdeasSection .feedback-card .post-actions { display:grid !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important; width:100% !important; gap:6px !important; }
+  #shareSection .post-actions .post-action-button, #shareIdeasSection .feedback-card .post-actions .post-action-button { width:100% !important; min-width:0 !important; max-width:none !important; box-sizing:border-box !important; padding-inline:4px !important; text-align:center !important; }
+  #ownerChatWidget .social-sidebar-panel.is-minimized .social-sidebar-title,
+  #ownerChatWidget .owner-chat-panel.is-minimized .owner-chat-heading strong { font-size:0 !important; color:transparent !important; }
+  #ownerChatWidget .social-sidebar-panel.is-minimized .social-sidebar-title::after { content:""; }
+  .member-projects-visitor-page { width:calc(100% - 20px); }
+  .member-projects-visitor-intro { padding-bottom:10px; }
+  .member-projects-visitor-intro .member-projects-visitor-title { align-items:flex-start; flex-wrap:nowrap; gap:2px; }
+  .member-projects-visitor-intro .member-projects-visitor-title h3 { font-size:14px !important; }
+  .member-projects-visitor-intro .community-page-subtitle { margin-left:0 !important; font-size:10px; }
+  .member-projects-visitor-intro .member-projects-visitor-search { margin-top:8px; }
+  .member-projects-visitor-page .member-projects-visitor-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:12px; margin-top:10px; max-height:min(68dvh,680px); padding:3px 5px 8px 3px; }
+  .member-projects-profile-summary-card { margin-bottom:12px !important; padding:12px 10px !important; }
+  .member-projects-profile-summary-card .member-projects-visitor-profile-header { grid-template-columns:56px minmax(0,1fr) !important; grid-template-rows:auto auto auto !important; gap:9px !important; margin:0 auto !important; padding:8px 2px 10px !important; }
+  .member-projects-profile-summary-card .member-profile-header > .member-profile-avatar-wrap { grid-column:1 !important; grid-row:1 !important; width:56px !important; }
+  .member-projects-profile-summary-card .member-profile-photo,
+  .member-projects-profile-summary-card .member-profile-placeholder { width:52px !important; height:52px !important; }
+  .member-projects-profile-summary-card .member-profile-header > .member-profile-heading { grid-column:2 !important; grid-row:1 !important; min-width:0 !important; }
+  .member-projects-profile-summary-card .member-profile-heading h2 { font-size:clamp(17px,5vw,22px) !important; overflow-wrap:anywhere; }
+  .member-projects-profile-summary-card .member-profile-header > .member-profile-actions { position:static !important; grid-column:1 / -1 !important; grid-row:2 !important; justify-self:stretch !important; flex-wrap:wrap !important; }
+  .member-projects-profile-summary-card .member-profile-header > .member-social-preview { position:static !important; grid-column:1 / -1 !important; grid-row:3 !important; width:auto !important; margin:0 !important; }
+  #memberProfileSection .member-projects-profile-summary-card .member-profile-header { grid-template-columns:56px minmax(0,1fr) !important; grid-template-rows:auto auto auto !important; }
+  #memberProfileSection .member-projects-profile-summary-card .member-profile-header > #memberConnectionAction { position:static !important; grid-column:1 / -1 !important; grid-row:2 !important; justify-self:stretch !important; }
+  #memberProfileSection .member-projects-profile-summary-card .member-profile-header > .member-social-preview { position:static !important; grid-column:1 / -1 !important; grid-row:3 !important; width:auto !important; margin:0 !important; }
+  .member-projects-visitor-search { min-height:46px; padding:3px 4px 3px 13px; }
+  .member-projects-visitor-search input { height:38px; font-size:13px; }
+  .member-projects-visitor-search button { flex-basis:36px; width:36px; min-width:36px; height:36px; min-height:36px; }
+  .member-projects-visitor-card { padding:14px; }
+  #memberProfileSection .member-profile-navigation .page-back-btn.member-projects-navigation-back:nth-child(2) { flex-basis:150px !important; width:150px !important; min-width:150px !important; max-width:150px !important; }
+}
+@media (max-width:520px) {
+  .member-projects-visitor-page .member-projects-visitor-grid { grid-template-columns:minmax(0,1fr) !important; gap:12px; margin-top:10px; }
+  .member-projects-visitor-page .member-projects-visitor-grid .project-card img { height:clamp(160px,52vw,230px); flex-basis:clamp(160px,52vw,230px); }
+}
+/* Keep the connection and follower cards visible while giving the header divider breathing room. */
+#memberProfileSection .member-profile-card .member-profile-header > .member-social-preview { margin-top:-44px !important; }
+@media (max-width:600px) {
+  #memberProfileSection .member-profile-card .member-profile-header > .member-social-preview { margin:0 0 5px !important; }
+  #memberProfileSection .member-profile-card .member-profile-header { padding-bottom:14px !important; }
+}
 </style></head>
 
 
@@ -9712,6 +9796,7 @@ body > header .global-search input:focus { box-shadow:inset 0 2px 5px rgba(0,0,0
         <div class="community-page">
 
             <div class="connect-page-navigation">
+                <button type="button" class="page-back-btn" onclick="goBackFromPreviousSection()">← Back</button>
                 <button
                     type="button"
                     class="page-back-btn section-home-button"
@@ -9956,6 +10041,7 @@ body > header .global-search input:focus { box-shadow:inset 0 2px 5px rgba(0,0,0
         <div class="community-page">
 
             <div class="page-navigation-row">
+              <button type="button" class="page-back-btn" onclick="goBackFromPreviousSection()">← Back</button>
               <button
                   class="page-back-btn section-home-button"
                   onclick="showSection('homeSection')"
@@ -11563,6 +11649,7 @@ function maybeShowSocialConnectOnboarding() {
   button.addEventListener("blur", hide);
 }let sectionNavigationHistory = [];
    let sectionForwardHistory = [];
+   let memberProjectsVisitorForward = false;
    let isNavigatingBack = false;
    let isNavigatingForward = false;
 
@@ -11708,13 +11795,19 @@ function maybeShowSocialConnectOnboarding() {
         }
     }
     const hasForwardPage = sectionForwardHistory.length > 0;
+    const hasMemberProjectsForward = sectionId === "memberProfileSection" && memberProjectsVisitorForward && !document.querySelector(".member-projects-visitor-page");
     document.querySelectorAll(".section-forward-btn").forEach(button => {
-        button.disabled = !hasForwardPage;
-        button.hidden = !hasForwardPage;
+        button.disabled = !(hasForwardPage || hasMemberProjectsForward);
+        button.hidden = !(hasForwardPage || hasMemberProjectsForward);
     });
 }
 
 function goForwardFromSection() {
+    if (document.querySelector(".page-section.active")?.id === "memberProfileSection" && memberProjectsVisitorForward && !document.querySelector(".member-projects-visitor-page")) {
+        memberProjectsVisitorForward = false;
+        openMemberProjectsVisitorPage(true);
+        return;
+    }
     while (sectionForwardHistory.length) {
         const nextId = sectionForwardHistory.pop();
         if (nextId && document.getElementById(nextId)) {
@@ -11724,6 +11817,20 @@ function goForwardFromSection() {
             return;
         }
     }
+}
+
+function goBackFromPreviousSection() {
+  const currentId = document.querySelector(".page-section.active")?.id;
+  while (sectionNavigationHistory.length) {
+    const previousId = sectionNavigationHistory.pop();
+    if (previousId && previousId !== currentId && document.getElementById(previousId)) {
+      isNavigatingBack = true;
+      showSection(previousId);
+      isNavigatingBack = false;
+      return;
+    }
+  }
+  showSection("homeSection");
 }
 
 function goBackFromPostsPage() {
@@ -18185,6 +18292,7 @@ async function cancelOwnProfileVisitorMode() {
 }
 
 async function viewMemberProfile(memberId, options = {}) {
+  memberProjectsVisitorForward = false;
   memberProfileVisitorPreview = Boolean(
     options.visitorPreview && currentUser && String(currentUser.id) === String(memberId)
   );
@@ -18359,6 +18467,7 @@ async function viewMemberProfile(memberId, options = {}) {
       <section class="member-projects">
         <div class="member-projects-heading">
           <h3>Projects</h3>
+          ${currentUser && projects && projects.length ? '<button type="button" class="member-visitor-projects-button" onclick="openMemberProjectsVisitorPage()">View all projects</button>' : ""}
         </div>
 
         ${
@@ -18401,6 +18510,117 @@ await loadMembers();
 await loadMemberConnectionButton(memberId);
 
   if (projectError) console.error(projectError);
+}
+
+function openMemberProjectsVisitorPage(fromForward = false) {
+  const content = document.getElementById("memberProfileContent");
+  const profileCard = content?.querySelector(".member-profile-card");
+  const projectGrid = profileCard?.querySelector(".member-projects-grid");
+  if (!currentUser || !profileCard || !projectGrid || !projectGrid.children.length) return;
+  if (!fromForward) memberProjectsVisitorForward = false;
+  content.querySelector(".member-projects-visitor-page")?.remove();
+  const profileName = profileCard.querySelector(".member-profile-heading h2")?.textContent || "Community Member";
+  const page = document.createElement("section");
+  page.className = "member-projects-visitor-page community-page";
+  page.style.width = `${Math.ceil(profileCard.getBoundingClientRect().width)}px`;
+  page.style.maxWidth = "calc(100vw - 24px)";
+  const backButton = document.createElement("button");
+  backButton.type = "button";
+  backButton.className = "page-back-btn member-projects-navigation-back";
+  backButton.textContent = "Back to profile";
+  backButton.addEventListener("click", closeMemberProjectsVisitorPage);
+  const navigation = document.querySelector("#memberProfileSection .member-profile-navigation");
+  const sectionBackButton = navigation?.querySelector("button:not(.section-forward-btn):not(.member-projects-navigation-back)");
+  if (sectionBackButton) {
+    if (!sectionBackButton.hasAttribute("data-member-projects-original-onclick")) {
+      sectionBackButton.setAttribute("data-member-projects-original-onclick", sectionBackButton.getAttribute("onclick") || "");
+    }
+    sectionBackButton.setAttribute("onclick", "closeMemberProjectsVisitorPage()");
+  }
+  navigation?.querySelector(".member-projects-navigation-back")?.remove();
+  const forwardButton = navigation?.querySelector(".section-forward-btn");
+  if (navigation && forwardButton) navigation.insertBefore(backButton, forwardButton);
+  else navigation?.appendChild(backButton);
+  const profileHeader = profileCard.querySelector(".member-profile-header")?.cloneNode(true);
+  if (profileHeader) {
+    profileHeader.classList.add("member-projects-visitor-profile-header");
+    profileHeader.querySelectorAll("details.profile-options-menu").forEach(menu => menu.remove());
+    profileHeader.querySelectorAll("[id]").forEach(element => element.removeAttribute("id"));
+    const visitorActions = profileHeader.querySelector(".member-profile-actions");
+    const originalActions = profileCard.querySelector("#memberConnectionAction");
+    if (visitorActions) visitorActions.id = "memberConnectionAction";
+    if (originalActions) originalActions.id = "memberConnectionActionHidden";
+  }
+  const projectIntro = document.createElement("div");
+  projectIntro.className = "member-projects-visitor-intro";
+  const titleRow = document.createElement("div");
+  titleRow.className = "member-projects-heading member-projects-visitor-title";
+  const heading = document.createElement("h3");
+  heading.textContent = "Projects";
+  titleRow.appendChild(heading);
+  const subtitle = document.createElement("p");
+  subtitle.className = "community-page-subtitle";
+  subtitle.textContent = `Public projects shared by ${profileName}.`;
+  titleRow.appendChild(subtitle);
+  projectIntro.appendChild(titleRow);
+  const search = document.createElement("form");
+  search.className = "member-projects-visitor-search";
+  search.setAttribute("role", "search");
+  search.innerHTML = `<input type="search" aria-label="Search this member’s projects" placeholder="Search projects by keyword..."><button type="submit" aria-label="Search projects" title="Search projects"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg></button>`;
+  search.addEventListener("submit", event => { event.preventDefault(); filterMemberVisitorProjects(search.querySelector("input")?.value || "", page); });
+  search.querySelector("input")?.addEventListener("input", event => filterMemberVisitorProjects(event.target.value, page));
+  projectIntro.appendChild(search);
+  const card = document.createElement("article");
+  card.className = "member-profile-card member-projects-visitor-card member-projects-profile-summary-card";
+  if (profileHeader) card.appendChild(profileHeader);
+  card.appendChild(projectIntro);
+  const gallery = projectGrid.cloneNode(true);
+  gallery.classList.add("member-projects-visitor-grid");
+  card.appendChild(gallery);
+  const empty = document.createElement("p");
+  empty.className = "member-projects-visitor-empty";
+  empty.textContent = "No projects match that keyword.";
+  empty.hidden = true;
+  card.appendChild(empty);
+  page.appendChild(card);
+  profileCard.hidden = true;
+  content.appendChild(page);
+  document.querySelectorAll("#memberProfileSection .section-forward-btn").forEach(button => { button.disabled = true; button.hidden = true; });
+  page.scrollIntoView({ block: "start" });
+}
+
+function filterMemberVisitorProjects(query, page = document.querySelector(".member-projects-visitor-page")) {
+  if (!page) return;
+  const normalized = String(query || "").trim().toLowerCase();
+  const cards = [...page.querySelectorAll(".member-projects-visitor-grid .project-card")];
+  let visibleCount = 0;
+  cards.forEach(card => {
+    const matches = !normalized || card.textContent.toLowerCase().includes(normalized);
+    card.hidden = !matches;
+    if (matches) visibleCount += 1;
+  });
+  const empty = page.querySelector(".member-projects-visitor-empty");
+  if (empty) empty.hidden = visibleCount > 0;
+}
+
+function closeMemberProjectsVisitorPage() {
+  const content = document.getElementById("memberProfileContent");
+  content?.querySelector(".member-projects-visitor-page")?.remove();
+  const navigation = document.querySelector("#memberProfileSection .member-profile-navigation");
+  navigation?.querySelector(".member-projects-navigation-back")?.remove();
+  const sectionBackButton = navigation?.querySelector("button:not(.section-forward-btn)");
+  if (sectionBackButton?.hasAttribute("data-member-projects-original-onclick")) {
+    sectionBackButton.setAttribute("onclick", sectionBackButton.getAttribute("data-member-projects-original-onclick") || "goBackFromMemberProfile()");
+    sectionBackButton.removeAttribute("data-member-projects-original-onclick");
+  }
+  const profileCard = content?.querySelector(".member-profile-card");
+  if (profileCard) {
+    const originalActions = profileCard.querySelector("#memberConnectionActionHidden");
+    if (originalActions) originalActions.id = "memberConnectionAction";
+    profileCard.hidden = false;
+    memberProjectsVisitorForward = true;
+    showSection("memberProfileSection");
+  }
 }
 
 async function loadMemberConnectionButton(memberId) {
@@ -20026,6 +20246,7 @@ ownerChatForm.addEventListener("submit", async event => {
     <div class="community-page">
 
       <div class="page-navigation-row">
+        <button type="button" class="page-back-btn" onclick="goBackFromPreviousSection()">← Back</button>
         <button class="page-back-btn" onclick="showSection('homeSection')">Home</button>
         <button type="button" class="page-back-btn section-forward-btn" onclick="goForwardFromSection()" aria-label="Go forward" title="Go forward" disabled hidden>Forward →</button>
       </div>
