@@ -4236,7 +4236,7 @@ margin: 36px auto 18px !important;}
 .about-card > p.about-creator-copy,
 .about-card > p.about-creator-copy * { font-size:12.5px !important; }
 .about-card > p.about-creator-copy {
-  max-width: 620px;
+  max-width: 600px;
   text-align: justify;
   text-align-last: center;
   margin-right: auto;
@@ -9439,9 +9439,9 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
 .member-projects-visitor-scroll-wrap { position:relative; width:100%; min-width:0; margin-top:12px; padding-right:15px; box-sizing:border-box; }
 .member-projects-visitor-page .member-projects-visitor-grid { display:grid !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important; align-content:start; justify-items:stretch; gap:16px; width:100%; margin:0; max-height:min(70dvh,760px); overflow-x:hidden !important; overflow-y:auto !important; scrollbar-width:none; scrollbar-gutter:auto; padding:4px 5px 10px 4px; box-sizing:border-box; }
 .member-projects-visitor-page .member-projects-visitor-grid::-webkit-scrollbar { display:none; width:0; height:0; }
-.member-projects-visitor-scroll-track { position:absolute; top:4px; right:2px; bottom:10px; width:8px; overflow:hidden; border-radius:999px; background:rgba(153,132,60,.2); box-shadow:inset 0 0 0 1px rgba(153,132,60,.18); }
+.member-projects-visitor-scroll-track { position:absolute; top:4px; right:2px; bottom:10px; width:6px; overflow:hidden; border-radius:999px; background:rgba(153,132,60,.2); box-shadow:inset 0 0 0 1px rgba(153,132,60,.18); }
 .member-projects-visitor-scroll-track[hidden] { display:none !important; }
-.member-projects-visitor-scroll-thumb { position:absolute; top:0; left:0; display:block; width:100%; min-height:34px; border-radius:999px; background:linear-gradient(180deg,#f0d66b,#bf9d2e); box-shadow:0 1px 4px rgba(65,51,10,.28),inset 0 1px 0 rgba(255,255,255,.48); will-change:transform,height; }
+.member-projects-visitor-scroll-thumb { position:absolute; top:0; left:0; display:block; width:100%; min-height:34px; border-radius:999px; background:linear-gradient(180deg,#ead77f,#c3a949); box-shadow:0 1px 2px rgba(65,51,10,.2),inset 0 1px 0 rgba(255,255,255,.48); will-change:transform,height; }
 .member-projects-visitor-page .member-projects-visitor-grid .project-card { display:flex !important; flex-direction:column; flex:initial !important; width:100% !important; min-width:0 !important; max-width:none !important; justify-self:stretch; box-sizing:border-box; cursor:pointer; }
 .member-projects-visitor-page .member-projects-visitor-grid .project-card img { display:block; width:100% !important; height:180px; flex:0 0 180px; object-fit:cover; }
 .member-projects-visitor-grid .project-card[hidden] { display:none !important; }
@@ -9469,8 +9469,8 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
   .member-projects-visitor-intro .community-page-subtitle { margin-left:0 !important; font-size:10px; }
   .member-projects-visitor-intro .member-projects-visitor-search { margin-top:8px; }
   .member-projects-visitor-scroll-wrap { margin-top:10px; padding-right:16px; }
-  .member-projects-visitor-scroll-track { right:1px; width:9px; background:rgba(153,132,60,.26); }
-  .member-projects-visitor-page .member-projects-visitor-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:12px; max-height:min(68dvh,680px); padding:3px 4px 8px 3px; }
+  .member-projects-visitor-scroll-track { right:2px; width:4px; background:rgba(153,132,60,.15); box-shadow:none; }
+  .member-projects-visitor-page .member-projects-visitor-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:12px; max-height:min(68dvh,680px); padding:3px 4px 8px 3px; scrollbar-width:thin; }
   .member-projects-profile-summary-card { margin-bottom:12px !important; padding:12px 10px !important; }
   .member-projects-profile-summary-card .member-projects-visitor-profile-header { grid-template-columns:56px minmax(0,1fr) !important; grid-template-rows:auto auto auto !important; gap:9px !important; margin:0 auto !important; padding:8px 2px 10px !important; }
   .member-projects-profile-summary-card .member-profile-header > .member-profile-avatar-wrap { grid-column:1 !important; grid-row:1 !important; width:56px !important; }
@@ -9498,6 +9498,24 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
 @media (max-width:600px) {
   #memberProfileSection .member-profile-card .member-profile-header > .member-social-preview { margin:0 0 5px !important; }
   #memberProfileSection .member-profile-card .member-profile-header { padding-bottom:14px !important; }
+}
+/* Phone-only: make the floating window controls sit as a compact group at the
+   upper-right of each open connections/chat window. */
+@media (max-width:700px) {
+  #ownerChatWidget .social-sidebar-panel:not(.is-minimized) .social-sidebar-header,
+  #ownerChatWidget .owner-chat-panel:not(.is-minimized) .owner-chat-header { display:flex !important; align-items:center !important; width:100% !important; box-sizing:border-box !important; }
+  #ownerChatWidget .social-sidebar-panel:not(.is-minimized) .social-sidebar-header-actions,
+  #ownerChatWidget .owner-chat-panel:not(.is-minimized) .owner-chat-header-actions { display:flex !important; flex:0 0 auto !important; flex-wrap:nowrap !important; justify-content:flex-end !important; gap:4px !important; margin-left:auto !important; }
+  #ownerChatWidget .social-sidebar-panel:not(.is-minimized) .social-sidebar-header-actions button,
+  #ownerChatWidget .owner-chat-panel:not(.is-minimized) .owner-chat-header-actions button { flex:0 0 30px !important; width:30px !important; min-width:30px !important; height:30px !important; min-height:30px !important; padding:0 !important; }
+  #ownerChatWidget .social-sidebar-panel:not(.is-minimized) .social-sidebar-header h3,
+  #ownerChatWidget .owner-chat-panel:not(.is-minimized) .owner-chat-heading { flex:1 1 auto !important; min-width:0 !important; }
+  .quick-tabs { pointer-events:none !important; }
+  .quick-tabs .quick-tab { pointer-events:auto !important; }
+  .member-projects-visitor-scroll-track { width:4px !important; }
+}
+@media (min-width:701px) {
+  .member-projects-visitor-scroll-track { width:6px; }
 }
 </style></head>
 
@@ -11688,7 +11706,7 @@ function getStartupSection(defaultSection) {
     const phrase = heading.dataset.welcomeText || heading.textContent.trim().replace(/\s+/g, " ");
     heading.dataset.welcomeText = phrase;
     heading.setAttribute("aria-label", phrase);
-    heading.replaceChildren(...Array.from(phrase, (character, index) => {
+    if (heading.dataset.welcomeInitialized !== "1") heading.replaceChildren(...Array.from(phrase, (character, index) => {
         if (character === " ") return document.createTextNode(" ");
         const letter = document.createElement("span");
         letter.className = "home-welcome-letter";
@@ -11697,6 +11715,7 @@ function getStartupSection(defaultSection) {
         letter.style.setProperty("--home-letter-delay", `${index * 42}ms`);
         return letter;
     }));
+    heading.dataset.welcomeInitialized = "1";
     const updateSweepGeometry = () => {
         const headingRect = heading.getBoundingClientRect();
         const width = Math.max(1, headingRect.width);
@@ -14570,6 +14589,9 @@ document
             currentUser =
                 session.user;
 
+            const quickAvatar = currentUser.user_metadata?.avatar_url || currentUser.user_metadata?.picture || currentUser.user_metadata?.avatar;
+            if (quickAvatar) ownerChatSetLauncherAvatar({ avatar_url: quickAvatar, full_name: currentUser.user_metadata?.full_name || currentUser.user_metadata?.name });
+
 
             updateNavigation(
                 true
@@ -14583,6 +14605,8 @@ document
 
 
             await loadProfile();
+
+            if (currentProfile) ownerChatSetLauncherAvatar(currentProfile);
 
 
             const startupSection = getStartupSection("profileSection");
@@ -19510,7 +19534,11 @@ async function ownerChatSetLauncherAvatar(profile) {
 
   box.classList.remove("is-guest-avatar");
 
-  const displayAvatarUrl = await getMemberAvatarUrl(profile?.avatar_url);
+  const avatarUrl = profile?.avatar_url || profile?.picture || profile?.avatar;
+  if (avatarUrl) {
+    box.innerHTML = `<img src="${ownerChatEscape(avatarUrl)}" alt="${ownerChatEscape(profile?.full_name || "Member")}">`;
+  }
+  const displayAvatarUrl = await getMemberAvatarUrl(avatarUrl);
   if (displayAvatarUrl) {
     box.innerHTML = `
       <img
@@ -19529,7 +19557,9 @@ async function ownerChatSetLauncherAvatar(profile) {
   }
 }
 
-ownerChatGetProfile(OWNER_CHAT_ID).then(ownerChatSetLauncherAvatar);
+ownerChatGetProfile(OWNER_CHAT_ID).then(profile => {
+  if (!currentUser) ownerChatSetLauncherAvatar(profile);
+});
 
 async function ownerChatGetProfile(userId) {
   if (ownerChatProfiles[userId]) {
@@ -20603,7 +20633,7 @@ ownerChatForm.addEventListener("submit", async event => {
     style.setProperty("bottom", "auto", "important");
     style.setProperty("z-index", "30000", "important");
     style.setProperty("transform", "translateY(-50%)", "important");
-    style.setProperty("pointer-events", "auto", "important");
+    style.setProperty("pointer-events", mobile ? "none" : "auto", "important");
   };
   updateQuickTabs();
   window.addEventListener("resize", updateQuickTabs, { passive: true });
