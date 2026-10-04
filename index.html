@@ -8251,7 +8251,7 @@ body .page-back-btn[onclick*="homeSection"]:hover {
   grid-template-rows:auto auto !important;
   align-items:start !important;
   column-gap:12px !important;
-  row-gap:0 !important;
+  row-gap:10px !important;
   min-height:0 !important;
   box-sizing:border-box !important;
   padding:6px 12px 5px !important;
@@ -8268,7 +8268,7 @@ body .page-back-btn[onclick*="homeSection"]:hover {
   align-self:start !important;
   width:100% !important;
   min-width:0 !important;
-  margin:-34px 0 0 !important;
+  margin:8px 0 0 !important;
 }
 @media (max-width:900px) and (min-width:601px) {
   #memberProfileSection .member-profile-card .member-profile-header { grid-template-columns:64px minmax(0,1fr) minmax(300px,360px) !important; column-gap:9px !important; }
@@ -14929,7 +14929,7 @@ async function loadConnectionRequests() {
             profile.displayAvatarUrl = await getMemberAvatarUrl(profile.avatar_url);
         }));
 
-        await loadMemberPresence(userIds);
+        await loadMemberPresence(requesterIds);
 
         container.innerHTML = "";
 
@@ -14938,9 +14938,8 @@ async function loadConnectionRequests() {
             const profile =
                 profileMap[request.requester_id];
 
-            const isCommunityOwnerPost = String(post.user_id) === OWNER_CHAT_ID;
             const fullName =
-                profile?.full_name?.trim() || (isCommunityOwnerPost ? "Esra'a E. Al-Johari" : "User");
+                profile?.full_name?.trim() || "Community member";
 
             const firstName =
                 fullName.split(/\s+/)[0];
@@ -14980,14 +14979,14 @@ async function loadConnectionRequests() {
                     <div class="connection-request-info">
 
                         <div class="connection-request-name">
-                            ${firstName}
+                            ${escapeHtml(firstName)}
                         </div>
 
                         ${
                             profession
                             ? `
                                 <div class="connection-request-profession">
-                                    ${profession}
+                                    ${escapeHtml(profession)}
                                 </div>
                               `
                             : ""
@@ -15146,7 +15145,7 @@ async function loadSocialConnections() {
   document.getElementById("connectDiscoveryGroup")?.classList.add("has-community");
   targets.forEach(target => target.innerHTML = '<span class="social-summary-loading">Loading connections...</span>');
 
-  const [requestResult, connectionResult, followerResult, followingResult] = await Promise.all([
+  const [requestResult, connectionResult, followerResult, followingResult, settingsResult] = await Promise.all([
     db.from("connections").select("id,requester_id,recipient_id,created_at")
       .eq("recipient_id", currentUser.id).eq("status", "pending").order("created_at", { ascending: false }),
     db.from("connections").select("id,requester_id,recipient_id,created_at")
@@ -15541,13 +15540,17 @@ async function acceptConnection(connectionId) {
                 error.message
             );
 
-            return;
+            return false;
         }
 
         await loadConnectionRequests();
         await loadSocialConnections();
+        if (document.getElementById("socialConnectionsSection")?.classList.contains("active")) {
+            await loadSocialDirectory();
+        }
 
         alert("Connection accepted!");
+        return true;
 
     } catch (error) {
 
@@ -15556,8 +15559,17 @@ async function acceptConnection(connectionId) {
         alert(
             "Something went wrong."
         );
+        return false;
     }
 }
+
+async function acceptMemberRequest(connectionId, memberId) {
+  if (!currentUser) return showSignupPrompt();
+
+  const accepted = await acceptConnection(connectionId);
+  if (accepted) await loadMemberConnectionButton(memberId);
+}
+
 async function rejectConnection(connectionId) {
 
     if (!currentUser) {
