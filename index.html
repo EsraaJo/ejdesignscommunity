@@ -10427,7 +10427,7 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
 </button>
 
 <div id="otpBox" class="hidden">
-
+؟
     <input
         type="text"
         id="verificationCode"
@@ -12551,6 +12551,8 @@ document
 
             event.preventDefault();
 
+            if (document.getElementById("registerBtn").disabled) return;
+
             clearMessage(
                 "registerMessage"
             );
@@ -12610,10 +12612,10 @@ document
                 return;
             }
 
+            const isResend = registerBtn.dataset.codeRequested === "true";
             registerBtn.disabled = true;
-
-            registerBtn.textContent =
-                "Sending Code...";
+            registerBtn.textContent = isResend ? "Sending New Code..." : "Sending Code...";
+            if (isResend) document.getElementById("verificationCode").value = "";
 
             // Show the code field as soon as the visitor requests an email code.
             document.getElementById("otpBox").classList.remove("hidden");
@@ -12686,8 +12688,9 @@ document
                         "hidden"
                     );
 
-                registerBtn.textContent =
-                    "Code Sent";
+                registerBtn.dataset.codeRequested = "true";
+                registerBtn.disabled = false;
+                registerBtn.textContent = "Resend Code";
 
             } catch (error) {
 
@@ -12708,7 +12711,7 @@ document
                 registerBtn.disabled =
                     false;
 
-                registerBtn.textContent = "Create Account";
+                registerBtn.textContent = registerBtn.dataset.codeRequested === "true" ? "Resend Code" : "Create Account";
             } finally {
                 window.clearTimeout(sendCodeTimeout);
             }
@@ -12719,6 +12722,13 @@ document
 /* =====================================================
    VERIFY OTP
 ===================================================== */
+
+document.getElementById("verificationCode").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById("verifyBtn").click();
+    }
+});
 
 document
     .getElementById("verifyBtn")
@@ -12948,47 +12958,15 @@ document
                    SUCCESS
                 ========================= */
 
+                document.getElementById("loginEmail").value = email;
+                document.getElementById("loginPassword").value = "";
+                document.getElementById("registerPassword").value = "";
+                document.getElementById("verificationCode").value = "";
+                showSection("loginSection");
                 showMessage(
-                    "registerMessage",
+                    "loginMessage",
                     "success",
-                    "Email verified. Creating your account..."
-                );
-
-
-                const {
-                    data: loginData,
-                    error: loginError
-                } =
-                    await db.auth
-                        .signInWithPassword({
-
-                            email: email,
-
-                            password: password
-
-                        });
-
-
-                if (loginError) {
-
-                    throw loginError;
-                }
-
-
-                currentUser =
-                    loginData.user;
-
-
-                updateNavigation(
-                    true
-                );
-
-
-                await loadProfile();
-
-
-                showSection(
-                    window.matchMedia("(max-width:700px)").matches ? "homeSection" : "profileSection"
+                    "Email verified and account created. Please log in."
                 );
 
 
