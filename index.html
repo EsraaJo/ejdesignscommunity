@@ -10426,7 +10426,7 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
     Create Account
 </button>
 
-<div id="otpBox">
+<div id="otpBox" class="hidden">
 
     <input
         type="text"
@@ -12614,6 +12614,11 @@ document
 
             registerBtn.textContent =
                 "Sending Code...";
+
+            // Show the code field as soon as the visitor requests an email code.
+            document.getElementById("otpBox").classList.remove("hidden");
+            document.getElementById("otpBox").scrollIntoView({ behavior: "smooth", block: "center" });
+            document.getElementById("verificationCode").focus({ preventScroll: true });
 
             const sendCodeController = new AbortController();
             const sendCodeTimeout = window.setTimeout(() => sendCodeController.abort(), 25000);
