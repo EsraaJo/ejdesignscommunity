@@ -12615,6 +12615,9 @@ document
             registerBtn.textContent =
                 "Sending Code...";
 
+            const sendCodeController = new AbortController();
+            const sendCodeTimeout = window.setTimeout(() => sendCodeController.abort(), 25000);
+
             try {
 
                 const response =
@@ -12639,7 +12642,8 @@ document
                                 JSON.stringify({
                                     email:
                                         email
-                                })
+                                }),
+                            signal: sendCodeController.signal
                         }
                     );
 
@@ -12687,6 +12691,8 @@ document
                     error
                 );
 
+                if (error.name === "AbortError") error.message = "Supabase did not respond within 25 seconds. Please try again.";
+
                 showMessage(
                     "registerMessage",
                     "error",
@@ -12697,8 +12703,9 @@ document
                 registerBtn.disabled =
                     false;
 
-                registerBtn.textContent =
-                    "Create Account";
+                registerBtn.textContent = "Create Account";
+            } finally {
+                window.clearTimeout(sendCodeTimeout);
             }
         }
     );
