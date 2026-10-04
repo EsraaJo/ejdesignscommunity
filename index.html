@@ -5472,7 +5472,7 @@ box-shadow:
 .member-message-header { display: flex; flex: 0 0 auto; align-items: center; justify-content: space-between; gap: 10px; min-height: 58px; box-sizing: border-box; padding: 10px 12px 10px 14px; border-bottom: 1px solid rgba(214,184,76,.3); border-radius: 15px 15px 0 0; background: #111; color: #fff; }
 .member-message-header h2 { margin: 0; color: #e6cb59; font-size: 15px; line-height: 1.25; }
 .member-message-header p { margin: 4px 0 0; color: #c6c6c6; font-size: 11px; line-height: 1.35; }
-.member-message-close { display: grid; flex: 0 0 34px; place-items: center; width: 34px; height: 34px; padding: 0; border: 1px solid #4b4b4b; border-radius: 9px; background: #1d1d1d; color: #eee; font-size: 21px; line-height: 1; cursor: pointer; transition: border-color .16s ease, color .16s ease, background .16s ease; }
+.member-message-close { position: relative; z-index: 2; display: grid; flex: 0 0 34px; place-items: center; width: 34px; height: 34px; padding: 0; border: 1px solid #4b4b4b; border-radius: 9px; background: #1d1d1d; color: #eee; font-size: 21px; line-height: 1; cursor: pointer; pointer-events: auto; touch-action: manipulation; transition: border-color .16s ease, color .16s ease, background .16s ease; }
 .member-message-close:hover, .member-message-close:focus-visible { border-color: #d6b84c; background: #2c281b; color: #f0d96a; }
 .member-message-list { display: flex; flex: 1 1 auto; flex-direction: column; gap: 9px; min-height: 0; overflow-y: scroll; padding: 14px; background: #f7f7f5; scrollbar-width: auto; scrollbar-color: #d6b84c rgba(214,184,76,.32); overscroll-behavior: contain; }
 .member-message-list::-webkit-scrollbar { width: 12px; }
@@ -11312,7 +11312,7 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
         <h2 id="memberMessageTitle">Private message</h2>
         <p id="memberPresenceInfo">Only you and this member can see this conversation.</p>
       </div>
-      <button id="memberMessageCloseButton" type="button" class="member-message-close" aria-label="Close messages" title="Close conversation">×</button>
+      <button id="memberMessageCloseButton" type="button" class="member-message-close" aria-label="Close messages" title="Close conversation" onclick="document.getElementById('memberMessageDialog').hidden = true; closeMemberChat();">×</button>
     </header>
     <div id="memberMessageList" class="member-message-list" aria-live="polite"></div>
     <p id="memberMessageStatus" class="member-message-status" aria-live="polite"></p>
