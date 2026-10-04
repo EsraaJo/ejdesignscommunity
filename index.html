@@ -5481,6 +5481,30 @@ box-shadow:
 .member-message-form { display: flex; align-items: flex-end; gap: 8px; padding: 12px; border-top: 1px solid #e5e3dd; background: #fff; }
 .member-message-form textarea { flex: 1; min-width: 0; max-height: 110px; resize: vertical; padding: 10px 12px; border: 1px solid #d5d2ca; border-radius: 8px; font: inherit; }
 .member-message-form button { min-height: 42px; padding: 0 17px; border: 0; border-radius: 8px; background: #111; color: #fff; font: inherit; cursor: pointer; }
+.member-message-form { flex-direction: column; align-items: stretch; }
+.member-message-form .member-chat-composer-row { display: flex; align-items: flex-end; gap: 7px; width: 100%; }
+.member-chat-composer-row textarea { box-sizing: border-box; min-height: 44px; max-height: 140px; resize: vertical; font-size: 14px; }
+.member-chat-media-button { flex: 0 0 42px; width: 42px; min-height: 42px; padding: 0 !important; border: 1px solid #d6b84c !important; border-radius: 10px !important; color: #222 !important; background: #f1df8c !important; font-size: 21px !important; }
+.member-chat-media-preview { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 7px; border: 1px solid #e5dfcc; border-radius: 9px; background: #fffdf7; color: #555; font-size: 12px; }
+.member-chat-media-preview[hidden] { display: none !important; }
+.member-chat-media-preview img { width: 40px; height: 40px; flex: 0 0 40px; object-fit: cover; border-radius: 6px; }
+.member-chat-media-preview audio { width: min(280px, 65%); height: 36px; }
+.member-chat-media-preview span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.member-chat-media-preview button { flex: 0 0 30px; min-height: 30px; padding: 0; border: 0; border-radius: 50%; color: #444; background: #eee; font-size: 20px; }
+.member-message-bubble .owner-chat-image-frame { display: inline-flex; max-width: 100%; padding: 5px; border-radius: 9px; background: rgba(0,0,0,.08); }
+.member-message-bubble .owner-chat-message-image { display: block; max-width: min(220px,100%); max-height: 180px; border-radius: 6px; object-fit: contain; }
+.member-message-bubble .owner-chat-message-audio { display: block; width: min(280px,100%); max-width: 100%; height: 38px; }
+.member-message-bubble .owner-chat-image-caption { margin-top: 6px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.member-inbox-item.is-unread { border-color: #d6b84c; background: #fffbed; }
+.member-inbox-unread { margin-left: auto; padding: 4px 8px; border-radius: 99px; background: #c83942; color: #fff; font-size: 11px; font-weight: 700; }
+.is-scrollable-social-preview { max-height: min(42vh, 360px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+@media (max-width: 600px) {
+  .member-chat-composer-row { flex-wrap: wrap; }
+  .member-chat-composer-row textarea { flex: 1 1 100%; width: 100%; font-size: 16px; }
+  .member-chat-composer-row .member-chat-media-button { flex: 0 0 40px; width: 40px; }
+  .member-chat-composer-row button[type="submit"] { margin-left: auto; }
+  .is-scrollable-social-preview { max-height: min(42dvh, 320px); }
+}
 .home-copyright { display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .home-copyright .contact-links { position: static; transform: none; z-index: auto; flex-wrap: wrap; justify-content: center; gap: 8px; }
 .home-copyright .contact-links a { flex: 0 0 38px; }
@@ -11281,8 +11305,14 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
     <div id="memberMessageList" class="member-message-list" aria-live="polite"></div>
     <p id="memberMessageStatus" class="member-message-status" aria-live="polite"></p>
     <form id="memberMessageForm" class="member-message-form" onsubmit="sendMemberMessage(event)">
-      <textarea id="memberMessageInput" rows="2" maxlength="4000" placeholder="Write a private message..." required></textarea>
+      <input id="memberMessageImageInput" type="file" accept="image/*" hidden onchange="ownerChatHandleImageSelection(this, 'memberMessage')">
+      <div id="memberMessageImagePreview" class="member-chat-media-preview" hidden><img id="memberMessageImagePreviewThumb" alt="Selected image preview"><span id="memberMessageImagePreviewName"></span><button type="button" onclick="ownerChatClearImageSelection('memberMessage')" aria-label="Remove selected image">×</button></div>
+      <div id="memberMessageAudioPreview" class="member-chat-media-preview" hidden><audio id="memberMessageAudioPreviewPlayer" controls preload="metadata"></audio><span>Voice recording ready</span><button type="button" onclick="ownerChatClearAudioSelection('memberMessage')" aria-label="Remove voice recording">×</button></div>
+      <div class="member-chat-composer-row"><textarea id="memberMessageInput" rows="2" maxlength="4000" placeholder="Write a private message..."></textarea>
+      <button type="button" class="member-chat-media-button" onclick="ownerChatOpenImagePicker('memberMessage')" aria-label="Add image" title="Add image">+</button>
+      <button id="memberMessageAudioButton" type="button" class="member-chat-media-button" onclick="ownerChatToggleAudioRecording('memberMessage')" aria-label="Record voice message" title="Record voice message">🎙</button>
       <button type="submit">Send</button>
+      </div>
     </form>
   </section>
 </div>
@@ -12132,7 +12162,8 @@ async function loadMemberInbox() {
   const names = new Map((profiles || []).map(profile => [String(profile.id), profile.full_name || "Community Member"]));
   inbox.innerHTML = [...latestByMember.values()].map(message => {
     const name = names.get(message.otherId) || "Community Member";
-    return `<button type="button" class="member-inbox-item" onclick="openMemberChat('${memberMessageEscape(message.otherId)}')"><span class="member-inbox-copy"><strong>${memberMessageEscape(name)}${memberPresenceMarkup(message.otherId)}</strong><span>${memberMessageEscape(message.body)}</span></span></button>`;
+    const unread = String(message.recipient_id) === viewerId && (!memberMessageReadTimestampMap()[message.otherId] || Date.parse(message.created_at) > Date.parse(memberMessageReadTimestampMap()[message.otherId]));
+    return `<button type="button" class="member-inbox-item${unread ? " is-unread" : ""}" onclick="openMemberChat('${memberMessageEscape(message.otherId)}')"><span class="member-inbox-copy"><strong>${memberMessageEscape(name)}${memberPresenceMarkup(message.otherId)}</strong><span class="member-inbox-preview">${ownerChatRenderMessageBody(message.body)}</span></span>${unread ? '<span class="member-inbox-unread">New</span>' : ""}</button>`;
   }).join("");
 }
 
@@ -12173,8 +12204,15 @@ async function openMemberChat(memberId) {
   dialog.hidden = false;
   document.getElementById("memberMessageInput").focus();
   await loadMemberConversation();
-  memberConversationRefreshTimer = setInterval(() => {
-    if (activeMemberConversationId && !dialog.hidden) loadMemberConversation(true);
+  memberMarkConversationRead(memberId, window.memberConversationMessages || []);
+  await refreshMemberMessageNotifications();
+  await loadMemberInbox();
+  memberConversationRefreshTimer = setInterval(async () => {
+    if (activeMemberConversationId && !dialog.hidden) {
+      await loadMemberConversation(true);
+      memberMarkConversationRead(activeMemberConversationId, window.memberConversationMessages || []);
+      await refreshMemberMessageNotifications();
+    }
   }, 5000);
   memberPresenceRefreshTimer = setInterval(() => {
     if (activeMemberConversationId && !dialog.hidden) refreshActiveMemberPresence();
@@ -12211,6 +12249,7 @@ async function loadMemberConversation(quiet = false) {
     if (!quiet) list.innerHTML = '<p class="global-search-empty">Could not load messages. Check the private-message SQL setup.</p>';
     return;
   }
+  window.memberConversationMessages = messages || [];
   if (!messages?.length) {
     if (!quiet && !list.dataset.messageFingerprint) list.innerHTML = '<p class="global-search-empty">Start the conversation with a private message.</p>';
     return;
@@ -12221,7 +12260,7 @@ async function loadMemberConversation(quiet = false) {
   list.innerHTML = messages.map(message => {
     const mine = String(message.sender_id) === String(currentUser.id);
     const time = new Date(message.created_at).toLocaleString();
-    return `<div class="member-message-bubble${mine ? " is-mine" : ""}">${memberMessageEscape(message.body)}<span class="member-message-time">${memberMessageEscape(time)}</span></div>`;
+    return `<div class="member-message-bubble${mine ? " is-mine" : ""}">${ownerChatRenderMessageBody(message.body)}<span class="member-message-time">${memberMessageEscape(time)}</span></div>`;
   }).join("");
   list.dataset.messageFingerprint = fingerprint;
   if (!quiet || wasNearBottom) list.scrollTop = list.scrollHeight;
@@ -12236,20 +12275,46 @@ async function sendMemberMessage(event) {
     showSignupPrompt();
     return;
   }
-  if (!activeMemberConversationId || !body) return;
+  const imageFile = ownerChatSelectedImageFile;
+  const audioFile = ownerChatSelectedAudioFile;
+  if (!activeMemberConversationId || (!body && !imageFile && !audioFile)) return;
   status.textContent = "";
+  let outgoingBody = body;
+  const markers = [];
+  const uploadedPaths = [];
+  for (const media of [imageFile && { file: imageFile, folder: "chat-images", kind: "image" }, audioFile && { file: audioFile, folder: "chat-audio", kind: "audio" }].filter(Boolean)) {
+    const fileName = (media.file.name || `voice-message.${media.kind === "audio" ? "webm" : "image"}`).replace(/[^a-zA-Z0-9._-]/g, "_").slice(-100);
+    const uniqueId = globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    const path = `${currentUser.id}/${media.folder}/${uniqueId}-${fileName}`;
+    const { error: uploadError } = await db.storage.from("post-media").upload(path, media.file, { contentType: media.file.type || "application/octet-stream", upsert: false });
+    if (uploadError) {
+      console.error(`Could not upload chat ${media.kind}:`, uploadError);
+      if (uploadedPaths.length) await db.storage.from("post-media").remove(uploadedPaths);
+      status.textContent = `Could not upload the ${media.kind}. Please try again.`;
+      return;
+    }
+    uploadedPaths.push(path);
+    const { data: publicUrlData } = db.storage.from("post-media").getPublicUrl(path);
+    markers.push(`[[ej-chat-${media.kind}:${publicUrlData.publicUrl}]]`);
+  }
+  if (markers.length) outgoingBody = `${markers.join("\n")}${body ? `\n${body}` : ""}`;
   const { error } = await db.from("member_messages").insert({
     sender_id: currentUser.id,
     recipient_id: activeMemberConversationId,
-    body
+    body: outgoingBody
   });
   if (error) {
     console.error("Send private message failed:", error);
+    if (uploadedPaths.length) await db.storage.from("post-media").remove(uploadedPaths);
     status.textContent = "Could not send the message. Please try again.";
     return;
   }
   input.value = "";
+  ownerChatClearImageSelection("memberMessage");
+  ownerChatClearAudioSelection("memberMessage");
   await loadMemberConversation();
+  memberMarkConversationRead(activeMemberConversationId, window.memberConversationMessages || []);
+  await refreshMemberMessageNotifications();
   await loadMemberInbox();
 }
 
@@ -14753,6 +14818,32 @@ document
    CONNECT - LOAD MEMBERS
 ===================================================== */
 
+async function fetchAllCommunityProfiles() {
+    const fullSelection = "id, full_name, profession, location, bio, avatar_url, headline, cv_is_public, work_status";
+    const fallbackSelection = "id, full_name, profession, location, bio, avatar_url, headline";
+    const fetchPages = async selection => {
+        const pageSize = 500;
+        const all = [];
+        for (let offset = 0; ; offset += pageSize) {
+            const result = await db.from("profiles").select(selection)
+                .order("full_name", { ascending: true })
+                .order("id", { ascending: true })
+                .range(offset, offset + pageSize - 1);
+            if (result.error) return { data: null, error: result.error };
+            const page = result.data || [];
+            all.push(...page);
+            if (page.length < pageSize) break;
+        }
+        return { data: all, error: null };
+    };
+    let result = await fetchPages(fullSelection);
+    if (result.error && /cv_is_public|work_status|column/i.test(result.error.message || "")) {
+        result = await fetchPages(fallbackSelection);
+        if (result.data) result.data.forEach(member => { member.cv_is_public = false; member.work_status = null; });
+    }
+    return result;
+}
+
 async function loadMembers() {
 
     const membersGrid =
@@ -14771,38 +14862,7 @@ async function loadMembers() {
 
     try {
 
-        let {
-            data: members,
-            error
-        } = await db
-            .from("profiles")
-            .select(`
-                id,
-                full_name,
-                profession,
-                location,
-                bio,
-                avatar_url,
-                headline,
-                cv_is_public,
-                work_status
-            `)
-            .order(
-                "full_name",
-                {
-                    ascending: true
-                }
-            );
-
-        if (error && /cv_is_public|column/i.test(error.message || "")) {
-            const fallback = await db
-                .from("profiles")
-                .select("id, full_name, profession, location, bio, avatar_url, headline")
-                .order("full_name", { ascending: true });
-            members = fallback.data;
-            error = fallback.error;
-            if (members) members.forEach(member => { member.cv_is_public = false; });
-        }
+        const { data: members, error } = await fetchAllCommunityProfiles();
 
         if (error) {
             throw error;
@@ -15360,7 +15420,7 @@ function showSocialList(type, listId) {
     list.innerHTML = `<p class="social-list-empty">${type === "requests" ? "No new requests." : "No connections yet."}</p>`;
     return;
   }
-  list.innerHTML = records.slice(0, 4).map(({ row, profile }) => {
+  list.innerHTML = records.map(({ row, profile }) => {
     const memberId = type === "requests" ? row.requester_id : type === "followers" ? row.follower_id : type === "following" ? row.following_id : (String(row.requester_id) === String(currentUser.id) ? row.recipient_id : row.requester_id);
     const name = profile?.full_name || "Community member";
     const avatar = profile?.displayAvatarUrl
@@ -15371,9 +15431,22 @@ function showSocialList(type, listId) {
       : `<button type="button" class="social-list-action" onclick="viewMemberProfile('${escapeHtml(memberId)}')">View profile</button>${type === "connections" ? `<button type="button" class="social-list-action is-primary" onclick="openMemberChat('${escapeHtml(memberId)}')">Message</button>` : ""}`;
     const relationship = type === "connections" ? "Connection" : type === "followers" ? "Follower" : type === "following" ? "Following" : "";
     const ownerVerification = String(memberId) === OWNER_CHAT_ID ? '<span class="member-owner-verified" role="img" aria-label="Verified community owner" title="Verified community owner"></span>' : "";
-    return `<article class="social-list-person"><button type="button" class="social-list-identity" onclick="viewMemberProfile('${escapeHtml(memberId)}')"><span class="social-avatar-wrap">${avatar}${memberPresenceMarkup(memberId).replace('member-presence-badge', 'member-presence-badge social-avatar-presence')}</span><span><strong>${escapeHtml(name)}${ownerVerification}</strong><small>${escapeHtml(profile?.profession || "Community member")}${relationship ? ` · <em class="social-relationship-badge">${relationship}</em>` : ""}</small></span></button><div class="social-list-actions">${actions}</div></article>`;
+    return `<article class="social-list-person" data-search-text="${escapeHtml(`${name} ${profile?.profession || ""}`.toLocaleLowerCase())}"><button type="button" class="social-list-identity" onclick="viewMemberProfile('${escapeHtml(memberId)}')"><span class="social-avatar-wrap">${avatar}${memberPresenceMarkup(memberId).replace('member-presence-badge', 'member-presence-badge social-avatar-presence')}</span><span><strong>${escapeHtml(name)}${ownerVerification}</strong><small>${escapeHtml(profile?.profession || "Community member")}${relationship ? ` · <em class="social-relationship-badge">${relationship}</em>` : ""}</small></span></button><div class="social-list-actions">${actions}</div></article>`;
   }).join("");
   list.insertAdjacentHTML("beforeend", `<button type="button" class="social-view-all" onclick="openSocialPage('${type}', currentUser.id)">View all ${type}</button>`);
+  list.classList.add("is-scrollable-social-preview");
+  list.style.maxHeight = "min(42vh, 360px)";
+  list.style.overflowY = "auto";
+  list.style.overscrollBehavior = "contain";
+  list.style.scrollbarWidth = "thin";
+  filterSocialPreview(list, document.getElementById("socialSidebarSearch")?.value || "");
+}
+
+function filterSocialPreview(list, query) {
+  const normalizedQuery = String(query || "").trim().toLocaleLowerCase();
+  list.querySelectorAll(".social-list-person").forEach(entry => {
+    entry.hidden = Boolean(normalizedQuery) && !(entry.dataset.searchText || entry.textContent.toLocaleLowerCase()).includes(normalizedQuery);
+  });
 }
 
 async function updateSocialListVisibility(visible) {
@@ -15767,38 +15840,7 @@ document
                     .trim()
                     .toLowerCase();
 
-            let {
-                data: members,
-                error
-            } = await db
-                .from("profiles")
-                .select(`
-                    id,
-                    full_name,
-                    profession,
-                    location,
-                    bio,
-                    avatar_url,
-                    headline,
-                    cv_is_public,
-                    work_status
-                `)
-                .order(
-                    "full_name",
-                    {
-                        ascending: true
-                    }
-                );
-
-            if (error && /cv_is_public|column/i.test(error.message || "")) {
-                const fallback = await db
-                    .from("profiles")
-                    .select("id, full_name, profession, location, bio, avatar_url, headline")
-                    .order("full_name", { ascending: true });
-                members = fallback.data;
-                error = fallback.error;
-                if (members) members.forEach(member => { member.cv_is_public = false; });
-            }
+            const { data: members, error } = await fetchAllCommunityProfiles();
 
             if (error) {
 
@@ -18313,11 +18355,42 @@ function openEditMyProfileFromConnect() {
 function closeProfileNotificationsMenu() {
   document.querySelectorAll("#profileNotificationsMenu, #connectNotificationsMenu").forEach(menu => { menu.open = false; });
 }
+let memberUnreadMessageCount = 0;
+let memberMessageReadAtCache = null;
+function memberMessageReadTimestampMap() {
+  if (memberMessageReadAtCache) return memberMessageReadAtCache;
+  try { memberMessageReadAtCache = JSON.parse(localStorage.getItem("ej-member-message-read-at") || "{}"); }
+  catch (_) { memberMessageReadAtCache = {}; }
+  return memberMessageReadAtCache;
+}
+function memberMarkConversationRead(memberId, messages = []) {
+  if (!memberId) return;
+  const latest = messages.reduce((value, message) => !value || Date.parse(message.created_at) > Date.parse(value) ? message.created_at : value, null) || new Date().toISOString();
+  const readAt = memberMessageReadTimestampMap();
+  readAt[String(memberId)] = latest;
+  try { localStorage.setItem("ej-member-message-read-at", JSON.stringify(readAt)); } catch (_) {}
+}
+async function refreshMemberMessageNotifications() {
+  if (!currentUser) { memberUnreadMessageCount = 0; updateProfileNotificationBell(); return; }
+  const viewerId = String(currentUser.id);
+  const { data, error } = await db.from("member_messages").select("sender_id,created_at")
+    .eq("recipient_id", viewerId).order("created_at", { ascending: false }).limit(500);
+  if (error) { console.error("Could not refresh private-message notifications:", error); return; }
+  if (!currentUser || String(currentUser.id) !== viewerId) return;
+  const readAt = memberMessageReadTimestampMap();
+  memberUnreadMessageCount = (data || []).filter(message => {
+    const lastRead = readAt[String(message.sender_id)] || "";
+    return !lastRead || Date.parse(message.created_at) > Date.parse(lastRead);
+  }).length;
+  updateProfileNotificationBell();
+}
+
 function updateProfileNotificationBell() {
   const badges = ["profileNotificationBadge", "connectNotificationBadge"].map(id => document.getElementById(id)).filter(Boolean);
   const lists = ["profileNotificationList", "connectNotificationList"].map(id => document.getElementById(id)).filter(Boolean);
   const requestCount = currentUser ? Math.max(profileNotificationRequestCount, memberSocialState?.requests?.length || 0) : 0;
-  const messageCount = currentUser ? (ownerChatUnreadCount || 0) : 0;
+  const messageCount = currentUser ? (ownerChatUnreadCount || 0) + (memberUnreadMessageCount || 0) : 0;
+  const ownerMessageCount = currentUser ? (ownerChatUnreadCount || 0) : 0;
   const total = requestCount + messageCount;
   badges.forEach(badge => {
     badge.hidden = total < 1;
@@ -18326,7 +18399,8 @@ function updateProfileNotificationBell() {
   });
   const items = [];
   if (requestCount) items.push(`<button type="button" class="profile-notification-item" onclick="closeProfileNotificationsMenu(); openSocialPage('requests', currentUser?.id)"><span>${requestCount} connection ${requestCount === 1 ? "request" : "requests"}</span><strong>View</strong></button>`);
-  if (messageCount) items.push(`<button type="button" class="profile-notification-item" onclick="closeProfileNotificationsMenu(); document.getElementById('ownerChatLauncher')?.click()"><span>${messageCount} unread ${messageCount === 1 ? "message" : "messages"}</span><strong>Open</strong></button>`);
+  if (ownerMessageCount) items.push(`<button type="button" class="profile-notification-item" onclick="closeProfileNotificationsMenu(); document.getElementById('ownerChatLauncher')?.click()"><span>${ownerMessageCount} unread owner ${ownerMessageCount === 1 ? "message" : "messages"}</span><strong>Open</strong></button>`);
+  if (memberUnreadMessageCount) items.push(`<button type="button" class="profile-notification-item" onclick="closeProfileNotificationsMenu(); showSection('connectSection'); showConnectView('messages')"><span>${memberUnreadMessageCount} unread Connects ${memberUnreadMessageCount === 1 ? "message" : "messages"}</span><strong>View</strong></button>`);
   lists.forEach(list => { list.innerHTML = items.length ? items.join("") : '<p class="profile-notification-empty">You’re all caught up.</p>'; });
 }
 let profileNotificationRequestCount = 0;
@@ -18343,6 +18417,8 @@ async function refreshProfileNotificationRequests() {
   updateProfileNotificationBell();
 }
 setTimeout(refreshProfileNotificationRequests, 5000);
+setTimeout(refreshMemberMessageNotifications, 2500);
+setInterval(refreshMemberMessageNotifications, 45000);
 setInterval(refreshProfileNotificationRequests, 45000);
 
 document.addEventListener("click", event => {
@@ -19212,29 +19288,29 @@ function ownerChatEscape(value) {
 
 let ownerChatSelectedImageFile = null;
 let ownerChatImagePreviewUrl = null;
-function ownerChatOpenImagePicker() {
+function ownerChatOpenImagePicker(prefix = "ownerChat") {
   if (!currentUser) { alert("Please sign in to attach an image to the conversation."); return; }
-  document.getElementById("ownerChatImageInput")?.click();
+  document.getElementById(`${prefix}ImageInput`)?.click();
 }
-function ownerChatHandleImageSelection(input) {
+function ownerChatHandleImageSelection(input, prefix = "ownerChat") {
   const file = input?.files?.[0]; if (!file) return;
   if (!file.type.startsWith("image/") || file.size > 10 * 1024 * 1024) {
     alert("Choose an image no larger than 10 MB."); input.value = ""; return;
   }
-  ownerChatClearImageSelection();
+  ownerChatClearImageSelection(prefix);
   ownerChatSelectedImageFile = file;
   ownerChatImagePreviewUrl = URL.createObjectURL(file);
-  document.getElementById("ownerChatImagePreviewThumb").src = ownerChatImagePreviewUrl;
-  document.getElementById("ownerChatImagePreviewName").textContent = file.name;
-  document.getElementById("ownerChatImagePreview").hidden = false;
+  document.getElementById(`${prefix}ImagePreviewThumb`).src = ownerChatImagePreviewUrl;
+  document.getElementById(`${prefix}ImagePreviewName`).textContent = file.name;
+  document.getElementById(`${prefix}ImagePreview`).hidden = false;
 }
-function ownerChatClearImageSelection() {
+function ownerChatClearImageSelection(prefix = "ownerChat") {
   if (ownerChatImagePreviewUrl) URL.revokeObjectURL(ownerChatImagePreviewUrl);
   ownerChatImagePreviewUrl = null; ownerChatSelectedImageFile = null;
-  const preview = document.getElementById("ownerChatImagePreview"); if (preview) preview.hidden = true;
-  const thumb = document.getElementById("ownerChatImagePreviewThumb"); if (thumb) thumb.removeAttribute("src");
-  const name = document.getElementById("ownerChatImagePreviewName"); if (name) name.textContent = "";
-  const input = document.getElementById("ownerChatImageInput"); if (input) input.value = "";
+  const preview = document.getElementById(`${prefix}ImagePreview`); if (preview) preview.hidden = true;
+  const thumb = document.getElementById(`${prefix}ImagePreviewThumb`); if (thumb) thumb.removeAttribute("src");
+  const name = document.getElementById(`${prefix}ImagePreviewName`); if (name) name.textContent = "";
+  const input = document.getElementById(`${prefix}ImageInput`); if (input) input.value = "";
 }
 let ownerChatSelectedAudioFile = null;
 let ownerChatAudioPreviewUrl = null;
@@ -19243,36 +19319,38 @@ let ownerChatAudioStream = null;
 let ownerChatAudioChunks = [];
 let ownerChatAudioRecordingTimer = null;
 let ownerChatAudioRecordingStartedAt = 0;
+let ownerChatAudioTarget = "ownerChat";
 function ownerChatAudioStopTracks() {
   ownerChatAudioStream?.getTracks().forEach(track => track.stop());
   ownerChatAudioStream = null;
 }
-function ownerChatResetAudioButton() {
-  const button = document.getElementById("ownerChatAudioButton");
+function ownerChatResetAudioButton(prefix = ownerChatAudioTarget) {
+  const button = document.getElementById(`${prefix}AudioButton`);
   if (!button) return;
   button.classList.remove("is-recording");
   button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3"></rect><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21m-4 0h8"></path></svg>';
   button.setAttribute("aria-label", "Record voice message");
   button.title = "Record voice message";
 }
-function ownerChatClearAudioSelection() {
+function ownerChatClearAudioSelection(prefix = "ownerChat") {
   if (ownerChatAudioPreviewUrl) URL.revokeObjectURL(ownerChatAudioPreviewUrl);
   ownerChatAudioPreviewUrl = null;
   ownerChatSelectedAudioFile = null;
-  const preview = document.getElementById("ownerChatAudioPreview");
+  const preview = document.getElementById(`${prefix}AudioPreview`);
   if (preview) preview.hidden = true;
-  const player = document.getElementById("ownerChatAudioPreviewPlayer");
+  const player = document.getElementById(`${prefix}AudioPreviewPlayer`);
   if (player) { player.pause(); player.removeAttribute("src"); player.load(); }
 }
-async function ownerChatToggleAudioRecording() {
+async function ownerChatToggleAudioRecording(prefix = "ownerChat") {
   if (ownerChatAudioRecorder?.state === "recording") { ownerChatAudioRecorder.stop(); return; }
   if (!currentUser) { alert("Please sign in to send a voice recording."); return; }
   if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) {
     alert("Voice recording is not supported by this browser."); return;
   }
-  const button = document.getElementById("ownerChatAudioButton");
+  ownerChatAudioTarget = prefix;
+  const button = document.getElementById(`${prefix}AudioButton`);
   try {
-    ownerChatClearAudioSelection();
+    ownerChatClearAudioSelection(prefix);
     ownerChatAudioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
     const candidates = ["audio/webm;codecs=opus", "audio/webm", "audio/ogg;codecs=opus", "audio/mp4"];
     const mimeType = candidates.find(type => MediaRecorder.isTypeSupported?.(type));
@@ -19281,14 +19359,14 @@ async function ownerChatToggleAudioRecording() {
     ownerChatAudioRecorder.ondataavailable = event => { if (event.data?.size) ownerChatAudioChunks.push(event.data); };
     ownerChatAudioRecorder.onerror = event => {
       console.error("Voice recording failed:", event.error);
-      ownerChatAudioStopTracks(); ownerChatResetAudioButton();
+      ownerChatAudioStopTracks(); ownerChatResetAudioButton(prefix);
       alert("The voice recording failed. Please try again.");
     };
     ownerChatAudioRecorder.onstop = () => {
       clearInterval(ownerChatAudioRecordingTimer);
       ownerChatAudioRecordingTimer = null;
       ownerChatAudioStopTracks();
-      ownerChatResetAudioButton();
+      ownerChatResetAudioButton(prefix);
       const blob = new Blob(ownerChatAudioChunks, { type: ownerChatAudioRecorder?.mimeType || "audio/webm" });
       ownerChatAudioChunks = [];
       if (!blob.size) return;
@@ -19296,9 +19374,9 @@ async function ownerChatToggleAudioRecording() {
       const extension = /ogg/i.test(blob.type) ? "ogg" : /mp4|m4a/i.test(blob.type) ? "m4a" : "webm";
       ownerChatSelectedAudioFile = new File([blob], `voice-message.${extension}`, { type: blob.type || "audio/webm" });
       ownerChatAudioPreviewUrl = URL.createObjectURL(ownerChatSelectedAudioFile);
-      const player = document.getElementById("ownerChatAudioPreviewPlayer");
+      const player = document.getElementById(`${prefix}AudioPreviewPlayer`);
       if (player) player.src = ownerChatAudioPreviewUrl;
-      const preview = document.getElementById("ownerChatAudioPreview");
+      const preview = document.getElementById(`${prefix}AudioPreview`);
       if (preview) preview.hidden = false;
     };
     ownerChatAudioRecordingStartedAt = Date.now();
@@ -19311,7 +19389,7 @@ async function ownerChatToggleAudioRecording() {
       if (elapsed >= 90 && ownerChatAudioRecorder?.state === "recording") ownerChatAudioRecorder.stop();
     }, 1000);
   } catch (error) {
-    ownerChatAudioStopTracks(); ownerChatResetAudioButton();
+    ownerChatAudioStopTracks(); ownerChatResetAudioButton(prefix);
     console.error("Could not access the microphone:", error);
     alert("Microphone access was blocked. Allow microphone access and try again.");
   }
