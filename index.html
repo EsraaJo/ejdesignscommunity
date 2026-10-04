@@ -5474,10 +5474,10 @@ box-shadow:
 .member-message-header p { margin: 4px 0 0; color: #c6c6c6; font-size: 11px; line-height: 1.35; }
 .member-message-close { display: grid; flex: 0 0 34px; place-items: center; width: 34px; height: 34px; padding: 0; border: 1px solid #4b4b4b; border-radius: 9px; background: #1d1d1d; color: #eee; font-size: 21px; line-height: 1; cursor: pointer; transition: border-color .16s ease, color .16s ease, background .16s ease; }
 .member-message-close:hover, .member-message-close:focus-visible { border-color: #d6b84c; background: #2c281b; color: #f0d96a; }
-.member-message-list { display: flex; flex: 1 1 auto; flex-direction: column; gap: 9px; min-height: 0; overflow-y: auto; padding: 14px; background: #f7f7f5; scrollbar-width: thin; scrollbar-color: #d6b84c rgba(214,184,76,.22); overscroll-behavior: contain; }
-.member-message-list::-webkit-scrollbar { width: 9px; }
-.member-message-list::-webkit-scrollbar-track { border-radius: 999px; background: rgba(214,184,76,.22); }
-.member-message-list::-webkit-scrollbar-thumb { border: 2px solid transparent; border-radius: 999px; background: #d6b84c; background-clip: padding-box; }
+.member-message-list { display: flex; flex: 1 1 auto; flex-direction: column; gap: 9px; min-height: 0; overflow-y: scroll; padding: 14px; background: #f7f7f5; scrollbar-width: auto; scrollbar-color: #d6b84c rgba(214,184,76,.32); overscroll-behavior: contain; }
+.member-message-list::-webkit-scrollbar { width: 12px; }
+.member-message-list::-webkit-scrollbar-track { border-radius: 999px; background: rgba(214,184,76,.32); }
+.member-message-list::-webkit-scrollbar-thumb { min-height: 28px; border: 1px solid rgba(114,88,4,.55); border-radius: 999px; background: #d6b84c; background-clip: padding-box; }
 .member-message-bubble { max-width: 82%; padding: 9px 12px; border-radius: 14px; background: #fff; color: #222; font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
 .member-message-bubble.is-mine { align-self: flex-end; background: #d6b84c; color: #111; }
 .member-message-time { display: block; margin-top: 5px; color: #696969; font-size: 10px; }
@@ -5489,6 +5489,9 @@ box-shadow:
 .member-message-form .member-chat-composer-row { display: flex; align-items: flex-end; gap: 6px; width: 100%; }
 .member-chat-composer-row textarea { box-sizing: border-box; flex: 1 1 0; width: 0; min-width: 0; min-height: 44px; max-height: 110px; resize: vertical; margin: 0; padding: 11px 14px; border: 1px solid #333; border-radius: 22px; color: #eee; background: #1d1d1d; font: inherit; font-size: 13px; line-height: 1.35; }
 .member-chat-media-button { flex: 0 0 42px; width: 42px; min-height: 42px; padding: 0 !important; border: 1px solid #d6b84c !important; border-radius: 10px !important; color: #222 !important; background: #f1df8c !important; font-size: 21px !important; }
+.member-chat-composer-row .owner-chat-audio-button { display: inline-flex !important; align-items: center; justify-content: center; box-sizing: border-box; flex: 0 0 42px !important; width: 42px !important; min-width: 42px !important; max-width: 42px !important; height: 42px !important; min-height: 42px !important; max-height: 42px !important; padding: 0 !important; border: 1px solid rgba(218,185,65,.75) !important; border-radius: 12px !important; color: #181818 !important; background: #e2c548 !important; box-shadow: 0 2px 7px rgba(0,0,0,.12) !important; cursor: pointer; }
+.member-chat-composer-row .owner-chat-audio-button svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.member-chat-composer-row .owner-chat-audio-button.is-recording { border-color: #c83e43 !important; color: #fff !important; background: #c83e43 !important; }
 .member-chat-media-preview { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 7px; border: 1px solid #e5dfcc; border-radius: 9px; background: #fffdf7; color: #555; font-size: 12px; }
 .member-chat-media-preview[hidden] { display: none !important; }
 .member-chat-media-preview img { width: 40px; height: 40px; flex: 0 0 40px; object-fit: cover; border-radius: 6px; }
@@ -5497,10 +5500,6 @@ box-shadow:
 .member-chat-media-preview button { flex: 0 0 30px; min-height: 30px; padding: 0; border: 0; border-radius: 50%; color: #444; background: #eee; font-size: 20px; }
 .member-chat-composer-row button[type="submit"] { flex: 0 0 auto; height: 42px; min-height: 42px; padding: 0 14px; border: 0; border-radius: 12px; color: #fff; background: #111; font-size: 13px; }
 .member-chat-composer-row button[type="submit"]:hover { background: #333; }
-.member-chat-resize-handle { display: flex; flex: 0 0 14px; align-items: center; justify-content: center; height: 14px; min-height: 14px; border-top: 1px solid rgba(214,184,76,.3); border-bottom: 1px solid rgba(214,184,76,.3); background: linear-gradient(180deg,#fffdf6,#f5f1e3); cursor: ns-resize; touch-action: none; user-select: none; }
-.member-chat-resize-handle::after { width: 42px; height: 2px; border-radius: 999px; background: #d6b84c; content: ""; transition: width .15s ease,height .15s ease; }
-.member-chat-resize-handle:hover::after, .member-chat-resize-handle:focus-visible::after { width: 58px; height: 3px; }
-.member-message-dialog.is-resizing, .member-message-dialog.is-resizing * { user-select: none !important; }
 .member-message-bubble .owner-chat-image-frame { display: inline-flex; max-width: 100%; padding: 5px; border-radius: 9px; background: rgba(0,0,0,.08); }
 .member-message-bubble .owner-chat-message-image { display: block; max-width: min(220px,100%); max-height: 180px; border-radius: 6px; object-fit: contain; }
 .member-message-bubble .owner-chat-message-audio { display: block; width: min(280px,100%); max-width: 100%; height: 38px; }
@@ -5512,6 +5511,7 @@ box-shadow:
   .member-chat-composer-row { flex-wrap: wrap; }
   .member-chat-composer-row textarea { flex: 1 1 100%; width: 100%; font-size: 16px; }
   .member-chat-composer-row .member-chat-media-button { flex: 0 0 40px; width: 40px; }
+  .member-chat-composer-row .owner-chat-audio-button { flex: 0 0 38px !important; width: 38px !important; min-width: 38px !important; max-width: 38px !important; height: 38px !important; min-height: 38px !important; max-height: 38px !important; }
   .member-chat-composer-row button[type="submit"] { margin-left: auto; }
   .is-scrollable-social-preview { max-height: min(42dvh, 320px); }
 }
@@ -11315,7 +11315,6 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
       <button id="memberMessageCloseButton" type="button" class="member-message-close" aria-label="Close messages" title="Close conversation">×</button>
     </header>
     <div id="memberMessageList" class="member-message-list" aria-live="polite"></div>
-    <div id="memberMessageResizeHandle" class="member-chat-resize-handle" role="separator" aria-orientation="horizontal" aria-label="Drag up or down to resize the conversation" aria-valuemin="360" aria-valuemax="720" aria-valuenow="510" tabindex="0"></div>
     <p id="memberMessageStatus" class="member-message-status" aria-live="polite"></p>
     <form id="memberMessageForm" class="member-message-form" onsubmit="sendMemberMessage(event)">
       <input id="memberMessageImageInput" type="file" accept="image/*" hidden onchange="ownerChatHandleImageSelection(this, 'memberMessage')">
@@ -11323,7 +11322,7 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
       <div id="memberMessageAudioPreview" class="member-chat-media-preview" hidden><audio id="memberMessageAudioPreviewPlayer" controls preload="metadata"></audio><span>Voice recording ready</span><button type="button" onclick="ownerChatClearAudioSelection('memberMessage')" aria-label="Remove voice recording">×</button></div>
       <div class="member-chat-composer-row"><textarea id="memberMessageInput" rows="2" maxlength="4000" placeholder="Write a private message..."></textarea>
       <button type="button" class="member-chat-media-button" onclick="ownerChatOpenImagePicker('memberMessage')" aria-label="Add image" title="Add image">+</button>
-      <button id="memberMessageAudioButton" type="button" class="member-chat-media-button" onclick="ownerChatToggleAudioRecording('memberMessage')" aria-label="Record voice message" title="Record voice message">🎙</button>
+      <button id="memberMessageAudioButton" type="button" class="owner-chat-audio-button" onclick="ownerChatToggleAudioRecording('memberMessage')" aria-label="Record voice message" title="Record voice message"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3"></rect><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21m-4 0h8"></path></svg></button>
       <button type="submit">Send</button>
       </div>
     </form>
@@ -12338,7 +12337,6 @@ function closeMemberChat() {
   memberPresenceRefreshTimer = null;
   const dialog = document.getElementById("memberMessageDialog");
   if (!dialog) return;
-  dialog.classList.remove("is-resizing");
   dialog.hidden = true;
   activeMemberConversationId = null;
   activeMemberConversationName = "";
@@ -12346,75 +12344,13 @@ function closeMemberChat() {
   document.getElementById("memberMessageInput")?.blur();
 }
 
-function setupMemberMessageResizeHandle() {
-  const handle = document.getElementById("memberMessageResizeHandle");
-  const dialog = document.getElementById("memberMessageDialog");
-  if (!handle || !dialog) return;
-  const storageKey = "ej-member-message-dialog-height";
-  const minimum = 360;
-  const maximum = () => Math.max(minimum, Math.min(720, window.innerHeight * 0.86));
-  const applyHeight = (value, persist = false) => {
-    const maxHeight = maximum();
-    const minHeight = Math.min(minimum, maxHeight);
-    const height = Math.round(Math.min(maxHeight, Math.max(minHeight, Number(value) || 510)));
-    dialog.style.height = `${height}px`;
-    dialog.style.maxHeight = `${maxHeight}px`;
-    handle.setAttribute("aria-valuemax", String(Math.round(maxHeight)));
-    handle.setAttribute("aria-valuenow", String(height));
-    if (persist) { try { localStorage.setItem(storageKey, String(height)); } catch (_) {} }
-    return height;
-  };
-  let initialHeight = 510;
-  let hasSavedHeight = false;
-  try {
-    const savedHeight = Number(localStorage.getItem(storageKey));
-    if (savedHeight > 0) { initialHeight = savedHeight; hasSavedHeight = true; }
-  } catch (_) {}
-  if (!hasSavedHeight && window.matchMedia("(max-width: 600px)").matches) {
-    initialHeight = Math.min(560, window.innerHeight * 0.62);
-  }
-  applyHeight(initialHeight);
-
-  let dragStartY = 0;
-  let dragStartHeight = 0;
-  let activePointerId = null;
-  handle.addEventListener("pointerdown", event => {
-    if (event.button !== undefined && event.button !== 0) return;
-    event.preventDefault();
-    dragStartY = event.clientY;
-    dragStartHeight = dialog.getBoundingClientRect().height || 510;
-    activePointerId = event.pointerId;
-    dialog.classList.add("is-resizing");
-    handle.setPointerCapture?.(event.pointerId);
-  });
-  handle.addEventListener("pointermove", event => {
-    if (activePointerId === null || event.pointerId !== activePointerId) return;
-    event.preventDefault();
-    applyHeight(dragStartHeight + dragStartY - event.clientY);
-  });
-  const finishResize = event => {
-    if (activePointerId === null || (event?.pointerId !== undefined && event.pointerId !== activePointerId)) return;
-    activePointerId = null;
-    dialog.classList.remove("is-resizing");
-    applyHeight(dialog.getBoundingClientRect().height || dragStartHeight, true);
-  };
-  handle.addEventListener("pointerup", finishResize);
-  handle.addEventListener("pointercancel", finishResize);
-  handle.addEventListener("lostpointercapture", finishResize);
-  handle.addEventListener("keydown", event => {
-    if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
-    event.preventDefault();
-    const delta = event.key === "ArrowUp" ? 20 : -20;
-    applyHeight(dialog.getBoundingClientRect().height + delta, true);
-  });
-  window.addEventListener("resize", () => applyHeight(dialog.getBoundingClientRect().height || initialHeight));
-}
-setupMemberMessageResizeHandle();
-
-document.getElementById("memberMessageCloseButton")?.addEventListener("click", event => {
+document.addEventListener("click", event => {
+  const closeButton = event.target.closest?.("#memberMessageCloseButton");
+  if (!closeButton) return;
   event.preventDefault();
+  event.stopImmediatePropagation();
   closeMemberChat();
-});
+}, true);
 
 document.getElementById("memberMessageDialog")?.addEventListener("click", event => {
   if (event.target.id === "memberMessageDialog") closeMemberChat();
