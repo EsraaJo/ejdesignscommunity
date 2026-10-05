@@ -5038,6 +5038,7 @@ box-shadow:
 .social-sidebar-hint[hidden] { display: none !important; }
 .social-sidebar-panel { position: absolute; left: 0; bottom: 98px; display: flex; flex-direction: column; width: min(350px, calc(100vw - 32px)); max-height: min(560px, calc(100dvh - 130px)); overflow: hidden; border: 1px solid rgba(214,184,76,.72); border-radius: 14px; background: #111; color: #f4f2e8; backdrop-filter: blur(10px); box-shadow: 0 14px 40px rgba(0,0,0,.28); }
 .social-sidebar-panel[hidden] { display: none !important; }
+.social-sidebar-panel.is-expanded { position: fixed; z-index: 3100; left: 50%; right: auto; bottom: 50%; width: min(900px, calc(100vw - 40px)); height: min(820px, calc(100dvh - 40px)); max-height: none; transform: translate(-50%, 50%); }
 .social-sidebar-panel.is-minimized { max-height: none; }
 .social-sidebar-panel.is-minimized .social-sidebar-tabs,
 .social-sidebar-panel.is-minimized .social-sidebar-search,
@@ -6110,9 +6111,10 @@ box-shadow:
 .owner-chat-widget:has(.owner-chat-launcher:hover)::after,
 .owner-chat-widget:has(.social-sidebar-launcher:focus-visible)::after,
 .owner-chat-widget:has(.owner-chat-launcher:focus-visible)::after { opacity: 1; transform: scale(1); }
-#ownerChatWidget.has-both-panels .social-sidebar-panel { max-height: max(160px, calc((100dvh - 220px) / 2)); }
+#ownerChatWidget.has-both-panels .social-sidebar-panel:not(.is-expanded) { max-height: max(160px, calc((100dvh - 220px) / 2)); }
 #ownerChatWidget.has-both-panels .owner-chat-panel:not(.is-expanded):not(.is-minimized) { height: max(160px, calc((100dvh - 220px) / 2)); max-height: max(160px, calc((100dvh - 220px) / 2)); }
 #ownerChatWidget.has-both-panels .social-sidebar-panel:not(.is-minimized) { width: min(420px, calc(100vw - 44px)); }
+#ownerChatWidget .social-sidebar-panel.is-expanded { position: fixed; z-index: 3100; top: 50%; right: auto; bottom: auto; left: 50%; width: min(900px, calc(100vw - 40px)); height: min(820px, calc(100dvh - 40px)); max-height: none; transform: translate(-50%, -50%); }
 @media (max-width: 600px) {
   .owner-chat-launcher { width: 86px; height: 86px; min-width: 86px; min-height: 86px; max-width: 86px; max-height: 86px; flex-basis: 86px; }
   .owner-chat-launcher > .owner-chat-avatar.is-guest-avatar svg { width: 56px; height: 56px; }
@@ -11361,7 +11363,7 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
   </button>
   <span id="socialSidebarHint" class="social-sidebar-hint" role="status" hidden>Meet and connect with people</span>
   <section id="socialSidebarPanel" class="social-sidebar-panel" aria-label="Connections and followers" hidden>
-    <header class="social-sidebar-header"><h3><span class="social-sidebar-title">My Network</span></h3><div class="social-sidebar-header-actions"><button id="socialSidebarMinimize" type="button" aria-label="Minimize connections" title="Minimize">−</button><button id="socialSidebarClose" type="button" aria-label="Close connections" title="Close">×</button></div></header>
+    <header class="social-sidebar-header"><h3><span class="social-sidebar-title">My Network</span></h3><div class="social-sidebar-header-actions"><button id="socialSidebarExpand" type="button" aria-label="Expand connections" aria-pressed="false" title="Expand connections">⛶</button><button id="socialSidebarMinimize" type="button" aria-label="Minimize connections" title="Minimize">−</button><button id="socialSidebarClose" type="button" aria-label="Close connections" title="Close">×</button></div></header>
     <nav class="social-sidebar-tabs" aria-label="Community lists">
       <button type="button" class="social-sidebar-tab is-active" data-social-type="connections">Connections <span id="socialSidebarConnectionCount">0</span></button>
       <button type="button" class="social-sidebar-tab" data-social-type="requests">Requests <span id="socialSidebarRequestCount">0</span></button>
@@ -15380,9 +15382,24 @@ function closeSocialSidebar() {
   const panel = document.getElementById("socialSidebarPanel");
   if (panel) {
     panel.hidden = true;
-    panel.classList.remove("is-minimized");
+    panel.classList.remove("is-minimized", "is-expanded");
   }
+  const expandButton = document.getElementById("socialSidebarExpand");
+  expandButton?.setAttribute("aria-pressed", "false");
+  expandButton?.setAttribute("aria-label", "Expand connections");
+  if (expandButton) expandButton.title = "Expand connections";
   document.getElementById("socialSidebarLauncher")?.setAttribute("aria-expanded", "false");
+}
+
+function toggleSocialSidebarExpanded() {
+  const panel = document.getElementById("socialSidebarPanel");
+  const button = document.getElementById("socialSidebarExpand");
+  if (!panel || panel.hidden || !button) return;
+  const expanded = panel.classList.toggle("is-expanded");
+  button.setAttribute("aria-pressed", String(expanded));
+  button.setAttribute("aria-label", expanded ? "Restore connections size" : "Expand connections");
+  button.title = expanded ? "Restore connections size" : "Expand connections";
+  layoutCommunityFloatingPanels();
 }
 
 function setFloatingWindowMinimizeIcon(button, isMinimized) {
@@ -15412,7 +15429,7 @@ function layoutCommunityFloatingPanels() {
   if (!widget || !connections || !chat) return;
 
   const connectionsMinimized = connections.classList.contains("is-minimized");
-  const connectionsExpanded = !connections.hidden && !connectionsMinimized;
+  const connectionsExpanded = !connections.hidden && !connectionsMinimized && !connections.classList.contains("is-expanded");
   const chatExpanded = !chat.hidden && !chat.classList.contains("is-minimized");
   const bothExpanded = connectionsExpanded && chatExpanded;
   widget.classList.toggle("has-both-panels", bothExpanded);
@@ -15638,7 +15655,7 @@ async function loadSocialDirectory() {
       p_list_type: socialDirectoryType
     });
     if (result.error) return socialDirectoryError(container, result.error);
-    rows = (result.data || []).map(row => ({ member_id: row.follower_id, created_at: row.created_at }));
+    rows = (result.data || []).map(row => ({ member_id: row.member_id, created_at: row.created_at }));
     ids = rows.map(row => row.member_id);
   }
   if (!ids.length) { container.innerHTML = `<p class="global-search-empty">No ${socialDirectoryType} yet.</p>`; return; }
@@ -16016,6 +16033,13 @@ async function connectWithMember(memberId) {
             }
 
             return;
+        }
+
+        if (data?.id) {
+            const { error: emailError } = await db.functions.invoke("notify-connection-request-email", {
+                body: { connectionId: data.id }
+            });
+            if (emailError) console.warn("Connection request was saved, but its email notification could not be sent:", emailError);
         }
 
 await loadMembers();
@@ -18341,36 +18365,36 @@ async function memberSocialPreviewMarkup(memberId) {
   if (settingsError) console.error("Could not load member social visibility:", settingsError);
   const showMemberLists = Boolean(settings?.show_lists);
 
-  const [connectionsResult, followersResult] = await Promise.all([
-    db.from("connections")
-      .select("requester_id,recipient_id,created_at")
-      .or(`requester_id.eq.${memberId},recipient_id.eq.${memberId}`)
-      .eq("status", "accepted")
-      .order("created_at", { ascending: false }),
-    db.from("member_follows")
-      .select("follower_id,following_id,created_at")
-      .eq("following_id", memberId)
-      .order("created_at", { ascending: false })
-  ]);
-
-  if (connectionsResult.error || followersResult.error) {
-    console.error("Could not load public connections and followers:", connectionsResult.error || followersResult.error);
+  const countsResult = await db.rpc("get_member_social_counts", { p_user_id: memberId });
+  if (countsResult.error) {
+    console.error("Could not load public social counts:", countsResult.error);
     return `
       <section class="member-profile-info member-social-preview">
         <h3>Connections &amp; Followers</h3>
-        <p>Could not load these lists right now.</p>
+        <p>Could not load these counts right now.</p>
       </section>
     `;
   }
-
-  const connectionRows = connectionsResult.data || [];
-  const connectionIds = connectionRows.map(row =>
-    String(row.requester_id) === String(memberId) ? row.recipient_id : row.requester_id
-  );
-  const followerRows = (followersResult.data || []).map(row => ({
-    member_id: row.follower_id,
-    created_at: row.created_at
-  }));
+  const socialCounts = Array.isArray(countsResult.data) ? countsResult.data[0] || {} : countsResult.data || {};
+  let connectionIds = [];
+  let followerRows = [];
+  if (showMemberLists) {
+    const [connectionsResult, followersResult] = await Promise.all([
+      db.rpc("get_member_social_connections", { p_user_id: memberId }),
+      db.rpc("get_member_social_list", { p_user_id: memberId, p_list_type: "followers" })
+    ]);
+    if (connectionsResult.error || followersResult.error) {
+      console.error("Could not load public connections and followers:", connectionsResult.error || followersResult.error);
+      return `
+        <section class="member-profile-info member-social-preview">
+          <h3>Connections &amp; Followers</h3>
+          <p>Could not load these lists right now.</p>
+        </section>
+      `;
+    }
+    connectionIds = (connectionsResult.data || []).map(row => row.member_id);
+    followerRows = (followersResult.data || []).map(row => ({ member_id: row.member_id, created_at: row.created_at }));
+  }
   const memberIds = showMemberLists ? [...new Set([...connectionIds, ...followerRows.map(row => row.member_id)].map(String))] : [];
   const { data: profiles, error: profilesError } = memberIds.length
     ? await db.from("profiles").select("id,full_name,profession,avatar_url").in("id", memberIds)
@@ -18408,11 +18432,11 @@ async function memberSocialPreviewMarkup(memberId) {
       <h3>Connections &amp; Followers</h3>
       <div class="member-social-preview-grid">
         <div class="member-social-group">
-          <h4><span class="member-social-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"></circle><path d="M2.8 20a6.2 6.2 0 0 1 12.4 0M16 5.5a3.3 3.3 0 0 1 0 6.2M17 14.4a5.4 5.4 0 0 1 4.2 5.2"></path></svg></span> Connections <span class="member-social-count">${connectionIds.length}</span></h4>
+          <h4><span class="member-social-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"></circle><path d="M2.8 20a6.2 6.2 0 0 1 12.4 0M16 5.5a3.3 3.3 0 0 1 0 6.2M17 14.4a5.4 5.4 0 0 1 4.2 5.2"></path></svg></span> Connections <span class="member-social-count">${Number(socialCounts.connection_count) || 0}</span></h4>
           ${showMemberLists ? renderPeople(connectionIds, "No connections yet.") : '<p class="member-social-empty">Member list hidden.</p>'}
         </div>
         <div class="member-social-group">
-          <h4><span class="member-social-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="7.5" r="3.2"></circle><path d="M5.5 20a6.5 6.5 0 0 1 13 0"></path><path d="M19 4.5v5m-2.5-2.5h5"></path></svg></span> Followers <span class="member-social-count">${followerRows.length}</span></h4>
+          <h4><span class="member-social-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="7.5" r="3.2"></circle><path d="M5.5 20a6.5 6.5 0 0 1 13 0"></path><path d="M19 4.5v5m-2.5-2.5h5"></path></svg></span> Followers <span class="member-social-count">${Number(socialCounts.follower_count) || 0}</span></h4>
           ${showMemberLists ? renderPeople(followerRows.map(row => row.member_id), "No followers yet.") : '<p class="member-social-empty">Member list hidden.</p>'}
         </div>
       </div>
@@ -20746,9 +20770,18 @@ ownerChatForm.addEventListener("submit", async event => {
       event.preventDefault();
       event.stopPropagation();
       closeSocialSidebar();
+    } else if (button.id === "socialSidebarExpand") {
+      event.preventDefault();
+      event.stopPropagation();
+      toggleSocialSidebarExpanded();
     } else if (button.id === "socialSidebarMinimize") {
       event.preventDefault();
       event.stopPropagation();
+      document.getElementById("socialSidebarPanel")?.classList.remove("is-expanded");
+      const expandButton = document.getElementById("socialSidebarExpand");
+      expandButton?.setAttribute("aria-pressed", "false");
+      expandButton?.setAttribute("aria-label", "Expand connections");
+      if (expandButton) expandButton.title = "Expand connections";
       minimizeSocialSidebar();
     } else if (button.matches(".social-sidebar-tab")) {
       event.preventDefault();
