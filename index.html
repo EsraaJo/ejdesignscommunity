@@ -7017,7 +7017,7 @@ body > header .global-search .global-search-quick-filters button {
   transform: translateY(-50%) !important;
   pointer-events: auto !important;
 }
-#ownerChatWidget .social-sidebar-panel,
+#ownerChatWidget .social-sidebar-panel:not(.is-expanded),
 #ownerChatWidget .owner-chat-panel {
   max-width: calc(100vw - 92px);
 }
@@ -7047,7 +7047,7 @@ body > header .global-search .global-search-quick-filters button {
 #ownerChatWidget {
   --floating-panel-left: clamp(80px, 18vw, 94px);
 }
-#ownerChatWidget .social-sidebar-panel,
+#ownerChatWidget .social-sidebar-panel:not(.is-expanded),
 #ownerChatWidget .owner-chat-panel:not(.is-expanded) {
   left: var(--floating-panel-left) !important;
   right: auto !important;
@@ -7055,7 +7055,7 @@ body > header .global-search .global-search-quick-filters button {
   max-width: calc(100vw - var(--floating-panel-left) - 34px) !important;
   transform: none !important;
 }
-#ownerChatWidget .social-sidebar-panel:not(.is-minimized) { bottom: clamp(145px, 18vh, 185px); }
+#ownerChatWidget .social-sidebar-panel:not(.is-minimized):not(.is-expanded) { bottom: clamp(145px, 18vh, 185px); }
 #projectSection .project-list-navigation .page-back-btn:nth-child(2),
 #projectDetailsSection .project-detail-navigation .page-back-btn:nth-child(2),
 .member-profile-navigation .page-back-btn:nth-child(2),
