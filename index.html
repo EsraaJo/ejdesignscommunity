@@ -17452,13 +17452,19 @@ async function editFeedback(feedbackId) {
     alert("Feedback cannot be empty.");
     return;
   }
-  const { error } = await db
+  const { data: updatedItem, error } = await db
     .from("community_feedback")
     .update({ content })
     .eq("id", feedbackId)
-    .eq("user_id", currentUser.id);
+    .eq("user_id", currentUser.id)
+    .select("id")
+    .maybeSingle();
   if (error) {
     alert("Couldn't update feedback: " + error.message);
+    return;
+  }
+  if (!updatedItem) {
+    alert("Your feedback was not updated. Check the community_feedback update policy in Supabase and allow owners to update their own feedback.");
     return;
   }
   await loadFeedback();
