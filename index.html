@@ -5466,7 +5466,10 @@ box-shadow:
 .member-inbox { display: grid; gap: 8px; text-align: left; }
 .member-inbox-item { display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px; border: 1px solid #e1ded6; border-radius: 8px; background: #fff; color: #222; text-align: left; cursor: pointer; }
 .member-inbox-item:hover { border-color: #d6b84c; background: #fffdf6; }
+.member-inbox-avatar { display: grid; width: 42px; height: 42px; flex: 0 0 42px; place-items: center; overflow: hidden; border: 2px solid rgba(214,184,76,.72); border-radius: 50%; background: #111; color: #d6b84c; font-weight: 700; }
+.member-inbox-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .member-inbox-copy { display: grid; min-width: 0; gap: 3px; }
+.member-inbox-copy strong { display: flex; align-items: center; gap: 6px; min-width: 0; }
 .member-inbox-copy strong, .member-inbox-copy span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .member-inbox-copy span { color: #777; font-size: 13px; }
 .member-message-overlay { position: fixed; inset: 0; z-index: 6000; display: grid; place-items: center; padding: 16px; background: rgba(0,0,0,.48); }
@@ -5508,6 +5511,18 @@ box-shadow:
 .member-message-bubble .owner-chat-image-caption { margin-top: 6px; white-space: pre-wrap; overflow-wrap: anywhere; }
 .member-inbox-item.is-unread { border-color: #d6b84c; background: #fffbed; }
 .member-inbox-unread { margin-left: auto; padding: 4px 8px; border-radius: 99px; background: #c83942; color: #fff; font-size: 11px; font-weight: 700; }
+.member-inbox-unread-count { display: grid; min-width: 22px; height: 22px; box-sizing: border-box; place-items: center; margin-left: auto; padding: 0 6px; border: 2px solid #fff; border-radius: 999px; background: #c83942; color: #fff; font-size: 11px; font-weight: 700; line-height: 1; }
+.member-inbox-item.is-unread .member-inbox-unread-count { border-color: #fffbed; }
+.connect-pending-requests { margin: 10px 0 2px; padding: 10px; border: 1px solid rgba(214,184,76,.42); border-radius: 11px; background: rgba(255,255,255,.76); }
+.connect-pending-requests[hidden] { display: none !important; }
+.connect-pending-requests-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0 0 8px; color: #26231b; font-size: 13px; }
+.connect-pending-requests-heading span { display: grid; min-width: 22px; height: 22px; place-items: center; padding: 0 5px; border-radius: 999px; background: #c83942; color: #fff; font-size: 11px; }
+.connect-pending-requests-list { display: grid; gap: 7px; }
+.connect-pending-requests .social-list-person { padding: 7px; }
+.connect-pending-requests .social-list-identity img, .connect-pending-requests .social-list-initial { width: 34px; height: 34px; flex-basis: 34px; }
+.connect-pending-requests .social-list-action { min-height: 30px; padding: 4px 8px; }
+.connect-pending-requests .social-list-action.is-reject { color: #8f2229; border-color: rgba(200,62,67,.35); background: #fff; }
+.social-list-action.is-reject { color: #8f2229; border-color: rgba(200,62,67,.35); background: #fff; }
 .is-scrollable-social-preview { max-height: min(42vh, 360px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
 @media (max-width: 600px) {
   .member-chat-composer-row { flex-wrap: wrap; }
@@ -9902,6 +9917,11 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
                 <h3>Connect with <span class="home-social-hub-title-accent">EJ Community</span></h3>
                 <p class="home-social-hub-note">Quick counts from your community. Select any count to open that list.</p>
                 <div id="homeSocialSummary" class="social-summary"></div>
+                <section id="connectPendingRequests" class="connect-pending-requests" aria-labelledby="connectPendingRequestsHeading" hidden>
+                  <h4 id="connectPendingRequestsHeading" class="connect-pending-requests-heading">Connection requests <span id="connectPendingRequestCount">0</span></h4>
+                  <div id="connectPendingRequestsList" class="connect-pending-requests-list"></div>
+                  <button type="button" class="social-view-all" onclick="openSocialPage('requests', currentUser?.id)">View all requests</button>
+                </section>
                 <div id="homeSocialList" class="social-list" hidden></div>
                 <div class="home-social-actions" aria-label="Community actions">
                   <details class="profile-notifications-menu" id="connectNotificationsMenu">
@@ -12161,24 +12181,38 @@ async function loadMemberInbox() {
     return;
   }
   const latestByMember = new Map();
+  const readAtByMember = memberMessageReadTimestampMap();
   for (const message of messages || []) {
     const otherId = String(message.sender_id) === String(currentUser.id) ? message.recipient_id : message.sender_id;
-    if (!latestByMember.has(String(otherId))) latestByMember.set(String(otherId), { ...message, otherId: String(otherId) });
+    const memberId = String(otherId);
+    if (!latestByMember.has(memberId)) latestByMember.set(memberId, { ...message, otherId: memberId, unreadCount: 0 });
+    if (String(message.recipient_id) === viewerId) {
+      const lastRead = readAtByMember[memberId] || "";
+      if (!lastRead || Date.parse(message.created_at) > Date.parse(lastRead)) latestByMember.get(memberId).unreadCount += 1;
+    }
   }
   if (!latestByMember.size) {
     inbox.innerHTML = '<p class="global-search-empty">No private conversations yet. Open a member profile and choose Message.</p>';
     return;
   }
   const ids = [...latestByMember.keys()];
-  const { data: profiles } = await db.from("profiles").select("id,full_name").in("id", ids);
+  const { data: profiles } = await db.from("profiles").select("id,full_name,avatar_url").in("id", ids);
   if (!currentUser || String(currentUser.id) !== viewerId) return;
   await loadMemberPresence(ids);
   if (!currentUser || String(currentUser.id) !== viewerId) return;
-  const names = new Map((profiles || []).map(profile => [String(profile.id), profile.full_name || "Community Member"]));
+  await Promise.all((profiles || []).map(async profile => { profile.displayAvatarUrl = await getMemberAvatarUrl(profile.avatar_url); }));
+  const profileById = new Map((profiles || []).map(profile => [String(profile.id), profile]));
   inbox.innerHTML = [...latestByMember.values()].map(message => {
-    const name = names.get(message.otherId) || "Community Member";
-    const unread = String(message.recipient_id) === viewerId && (!memberMessageReadTimestampMap()[message.otherId] || Date.parse(message.created_at) > Date.parse(memberMessageReadTimestampMap()[message.otherId]));
-    return `<button type="button" class="member-inbox-item${unread ? " is-unread" : ""}" onclick="openMemberChat('${memberMessageEscape(message.otherId)}')"><span class="member-inbox-copy"><strong>${memberMessageEscape(name)}${memberPresenceMarkup(message.otherId)}</strong><span class="member-inbox-preview">${ownerChatRenderMessageBody(message.body)}</span></span>${unread ? '<span class="member-inbox-unread">New</span>' : ""}</button>`;
+    const profile = profileById.get(message.otherId);
+    const name = profile?.full_name || "Community Member";
+    const avatar = profile?.displayAvatarUrl
+      ? `<img src="${memberMessageEscape(profile.displayAvatarUrl)}" alt="${memberMessageEscape(name)}" loading="lazy">`
+      : `<span aria-hidden="true">${memberMessageEscape(getInitials(name))}</span>`;
+    const unreadCount = message.unreadCount || 0;
+    const unreadBadge = unreadCount
+      ? `<span class="member-inbox-unread-count" aria-label="${unreadCount} unread messages">${unreadCount > 99 ? "99+" : unreadCount}</span>`
+      : "";
+    return `<button type="button" class="member-inbox-item${unreadCount ? " is-unread" : ""}" onclick="openMemberChat('${memberMessageEscape(message.otherId)}')"><span class="member-inbox-avatar">${avatar}</span><span class="member-inbox-copy"><strong>${memberMessageEscape(name)}${memberPresenceMarkup(message.otherId)}</strong><span class="member-inbox-preview">${ownerChatRenderMessageBody(message.body)}</span></span>${unreadBadge}</button>`;
   }).join("");
 }
 
@@ -15182,6 +15216,27 @@ function socialSummaryMarkup(requestCount, connectionCount, followerCount, listI
     </button>`;
 }
 
+function renderConnectPendingRequests(requestRows, profileMap) {
+  const section = document.getElementById("connectPendingRequests");
+  const list = document.getElementById("connectPendingRequestsList");
+  const count = document.getElementById("connectPendingRequestCount");
+  if (!section || !list) return;
+  const rows = requestRows || [];
+  section.hidden = !currentUser || rows.length === 0;
+  if (count) count.textContent = String(rows.length);
+  list.innerHTML = rows.map(row => {
+    const profile = profileMap.get(String(row.requester_id));
+    const name = profile?.full_name || "Community member";
+    const avatar = profile?.displayAvatarUrl
+      ? `<img src="${escapeHtml(profile.displayAvatarUrl)}" alt="${escapeHtml(name)}" loading="lazy">`
+      : `<span class="social-list-initial" aria-hidden="true">${escapeHtml(getInitials(name))}</span>`;
+    const profession = profile?.profession || "Community member";
+    const requesterId = escapeHtml(row.requester_id);
+    const requestId = escapeHtml(row.id);
+    return `<article class="social-list-person" data-search-text="${escapeHtml(`${name} ${profession}`.toLocaleLowerCase())}"><button type="button" class="social-list-identity" onclick="viewMemberProfile('${requesterId}')">${avatar}<span><strong>${escapeHtml(name)}${memberPresenceMarkup(row.requester_id)}</strong><small>${escapeHtml(profession)}</small></span></button><div class="social-list-actions"><button type="button" class="social-list-action is-primary" onclick="acceptConnection('${requestId}')">Accept</button><button type="button" class="social-list-action is-reject" onclick="rejectConnection('${requestId}')">Decline</button></div></article>`;
+  }).join("");
+}
+
 function setSocialVisibilityStatus(visible) {
   const status = document.getElementById("socialVisibilityStatus");
   if (!status) return;
@@ -15277,6 +15332,7 @@ async function loadSocialConnections() {
     followers: followerRows.map(row => ({ row, profile: profileMap.get(String(row.follower_id)) })),
     following: followingRows.map(row => ({ row, profile: profileMap.get(String(row.following_id)) }))
   };
+  renderConnectPendingRequests(requestRows, profileMap);
   profileNotificationRequestCount = requestRows.length;
   updateProfileNotificationBell();
   const connectSummary = document.getElementById("connectSocialSummary");
@@ -15600,7 +15656,7 @@ async function loadSocialDirectory() {
     const searchText = escapeHtml(`${name} ${profession}`.toLocaleLowerCase());
     const isConnection = socialDirectoryType === "connections";
     const actions = socialDirectoryType === "requests"
-      ? `<button type="button" class="social-list-action" onclick="viewMemberProfile('${escapeHtml(id)}')">View profile</button><button type="button" class="social-list-action is-primary" onclick="acceptConnection('${escapeHtml(row.id)}')">Accept</button>`
+      ? `<button type="button" class="social-list-action" onclick="viewMemberProfile('${escapeHtml(id)}')">View profile</button><button type="button" class="social-list-action is-primary" onclick="acceptConnection('${escapeHtml(row.id)}')">Accept</button><button type="button" class="social-list-action is-reject" onclick="rejectConnection('${escapeHtml(row.id)}')">Decline</button>`
       : `<button type="button" class="social-list-action" onclick="viewMemberProfile('${escapeHtml(id)}')">View profile</button>${isConnection ? `<button type="button" class="social-list-action is-primary" onclick="openMemberChat('${escapeHtml(id)}')">Message</button>` : ""}`;
     return `<article class="social-list-person" data-search-text="${searchText}"><button type="button" class="social-list-identity" onclick="viewMemberProfile('${escapeHtml(id)}')">${avatar}<span><strong>${escapeHtml(name)}</strong><small>${escapeHtml(profession)}</small></span></button><div class="social-list-actions">${actions}</div></article>`;
   }).join("");
@@ -15712,6 +15768,9 @@ async function rejectConnection(connectionId) {
 
         await loadConnectionRequests();
         await loadSocialConnections();
+        if (document.getElementById("socialConnectionsSection")?.classList.contains("active")) {
+            await loadSocialDirectory();
+        }
 
     } catch (error) {
 
