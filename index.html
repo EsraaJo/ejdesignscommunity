@@ -9573,6 +9573,17 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
 @media (min-width:701px) {
   .member-projects-visitor-scroll-track { width:6px; }
 }
+.site-visitor-stats-card { width:min(720px,calc(100% - 24px)); margin:22px auto 8px; padding:16px; border:1px solid rgba(214,184,76,.45); border-radius:14px; background:rgba(255,255,255,.94); box-shadow:0 8px 24px rgba(0,0,0,.08); color:#222; }
+.site-visitor-stats-card[hidden] { display:none; }
+.site-visitor-stats-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.site-visitor-stats-heading h3 { margin:0; font-size:16px; }
+.site-visitor-stats-heading button { padding:7px 12px; border:1px solid #d6b84c; border-radius:8px; background:#fff8dc; color:#222; cursor:pointer; }
+.site-visitor-stats-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:12px; }
+.site-visitor-stats-grid > div { display:grid; gap:6px; padding:12px; border-radius:10px; background:#f7f5ef; }
+.site-visitor-stats-grid span { color:#666; font-size:12px; }
+.site-visitor-stats-grid strong { font-size:22px; }
+.site-visitor-stats-card > p { margin:12px 0 0; color:#777; font-size:11px; }
+@media(max-width:520px) { .site-visitor-stats-grid { grid-template-columns:1fr; } }
 </style></head>
 
 
@@ -9855,6 +9866,19 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
     </div>
 
         </div>
+
+        <section id="siteVisitorStatsCard" class="site-visitor-stats-card" hidden aria-label="Site visitor statistics">
+          <div class="site-visitor-stats-heading">
+            <h3>Site visitors</h3>
+            <button type="button" onclick="loadSiteVisitorStats()">Refresh</button>
+          </div>
+          <div class="site-visitor-stats-grid">
+            <div><span>Unique visitors</span><strong id="siteVisitorTotalCount">—</strong></div>
+            <div><span>Not registered</span><strong id="siteVisitorGuestCount">—</strong></div>
+            <div><span>Registered</span><strong id="siteVisitorRegisteredCount">—</strong></div>
+          </div>
+          <p id="siteVisitorStatsStatus" role="status">Loading visitor totals…</p>
+        </section>
 
     </main>
 
@@ -11619,6 +11643,53 @@ function togglePassword(inputId, button) {
             SUPABASE_KEY
         );
 
+    const SITE_VISITOR_ID_STORAGE_KEY = "ej-community-site-visitor-id";
+    let fallbackSiteVisitorId = null;
+
+    function getSiteVisitorId() {
+        try {
+            let visitorId = localStorage.getItem(SITE_VISITOR_ID_STORAGE_KEY);
+            if (!visitorId) {
+                visitorId = crypto.randomUUID();
+                localStorage.setItem(SITE_VISITOR_ID_STORAGE_KEY, visitorId);
+            }
+            return visitorId;
+        } catch (_) {
+            fallbackSiteVisitorId ||= crypto.randomUUID();
+            return fallbackSiteVisitorId;
+        }
+    }
+
+    async function recordSiteVisit() {
+        try {
+            const { error } = await db.rpc("record_site_visit", {
+                p_visitor_id: getSiteVisitorId()
+            });
+            if (error) console.warn("Site visit analytics could not be recorded:", error.message);
+        } catch (error) {
+            console.warn("Site visit analytics could not be recorded:", error.message);
+        }
+    }
+
+    async function loadSiteVisitorStats() {
+        if (!currentUser || String(currentUser.id) !== OWNER_CHAT_ID) return;
+        const card = document.getElementById("siteVisitorStatsCard");
+        if (!card) return;
+        card.hidden = false;
+        const status = document.getElementById("siteVisitorStatsStatus");
+        if (status) status.textContent = "Loading visitor totals…";
+        const { data, error } = await db.rpc("get_site_visitor_stats");
+        if (error || !data?.length) {
+            if (status) status.textContent = "Visitor statistics need the Supabase setup script.";
+            console.warn("Site visitor statistics could not be loaded:", error?.message || "No data returned");
+            return;
+        }
+        document.getElementById("siteVisitorTotalCount").textContent = Number(data[0].total_unique_visitors || 0).toLocaleString();
+        document.getElementById("siteVisitorGuestCount").textContent = Number(data[0].guests_without_registration || 0).toLocaleString();
+        document.getElementById("siteVisitorRegisteredCount").textContent = Number(data[0].registered_visitors || 0).toLocaleString();
+        if (status) status.textContent = "Unique browsers since visitor tracking was enabled.";
+    }
+
 
     /* =====================================================
        PROFILE STATE
@@ -11874,6 +11945,7 @@ function getStartupSection(defaultSection) {
         selectedSection.classList.add("active");
         try { sessionStorage.setItem("ej-community-active-section", sectionId); } catch (_) {}
         if (sectionId === "homeSection") animateHomeWelcome();
+        if (sectionId === "homeSection" && currentUser && String(currentUser.id) === OWNER_CHAT_ID) loadSiteVisitorStats();
         if (sectionId === "socialConnectionsSection" ) maybeShowSocialConnectOnboarding();
 
         if (!currentUser) {
@@ -14844,7 +14916,11 @@ document
 
 
             if ((event === "SIGNED_IN" || event === "INITIAL_SESSION") && String(session?.user?.id || "") === OWNER_CHAT_ID) {
-                setTimeout(() => { ownerChatRefreshLauncherUnreadCount(); }, 0);
+                setTimeout(() => { ownerChatRefreshLauncherUnreadCount(); loadSiteVisitorStats(); }, 0);
+            }
+
+            if (event === "SIGNED_IN" || event === "INITIAL_SESSION") {
+                setTimeout(() => { recordSiteVisit(); }, 0);
             }
 
             if (
