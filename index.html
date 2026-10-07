@@ -9573,17 +9573,16 @@ html body > header nav button#logoutNav:hover { border-color:#f2dc79 !important;
 @media (min-width:701px) {
   .member-projects-visitor-scroll-track { width:6px; }
 }
-.site-visitor-stats-card { width:min(720px,calc(100% - 24px)); margin:22px auto 8px; padding:16px; border:1px solid rgba(214,184,76,.45); border-radius:14px; background:rgba(255,255,255,.94); box-shadow:0 8px 24px rgba(0,0,0,.08); color:#222; }
+.site-visitor-stats-card { width:min(460px,calc(100% - 20px)); margin:12px auto 6px; padding:10px 12px; border:1px solid rgba(214,184,76,.45); border-radius:12px; background:rgba(255,255,255,.94); box-shadow:0 5px 16px rgba(0,0,0,.07); color:#222; }
 .site-visitor-stats-card[hidden] { display:none; }
-.site-visitor-stats-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; }
-.site-visitor-stats-heading h3 { margin:0; font-size:16px; }
-.site-visitor-stats-heading button { padding:7px 12px; border:1px solid #d6b84c; border-radius:8px; background:#fff8dc; color:#222; cursor:pointer; }
-.site-visitor-stats-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:12px; }
-.site-visitor-stats-grid > div { display:grid; gap:6px; padding:12px; border-radius:10px; background:#f7f5ef; }
-.site-visitor-stats-grid span { color:#666; font-size:12px; }
-.site-visitor-stats-grid strong { font-size:22px; }
-.site-visitor-stats-card > p { margin:12px 0 0; color:#777; font-size:11px; }
-@media(max-width:520px) { .site-visitor-stats-grid { grid-template-columns:1fr; } }
+.site-visitor-stats-heading { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.site-visitor-stats-heading h3 { margin:0; font-size:14px; }
+.site-visitor-stats-heading button { min-height:30px; padding:5px 9px; border:1px solid #d6b84c; border-radius:7px; background:#fff8dc; color:#222; font-size:11px; cursor:pointer; }
+.site-visitor-stats-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; margin-top:8px; }
+.site-visitor-stats-grid > div { display:grid; gap:4px; min-width:0; padding:8px 7px; border-radius:8px; background:#f7f5ef; }
+.site-visitor-stats-grid span { color:#666; font-size:10px; }
+.site-visitor-stats-grid strong { font-size:18px; }
+.site-visitor-stats-card > p { margin:7px 0 0; color:#777; font-size:9px; }
 </style></head>
 
 
@@ -11672,9 +11671,11 @@ function togglePassword(inputId, button) {
     }
 
     async function loadSiteVisitorStats() {
-        if (!currentUser || String(currentUser.id) !== OWNER_CHAT_ID) return;
         const card = document.getElementById("siteVisitorStatsCard");
         if (!card) return;
+        const isSiteOwner = Boolean(currentUser && String(currentUser.id) === OWNER_CHAT_ID);
+        card.hidden = !isSiteOwner;
+        if (!isSiteOwner) return;
         card.hidden = false;
         const status = document.getElementById("siteVisitorStatsStatus");
         if (status) status.textContent = "Loading visitor totals…";
@@ -11945,7 +11946,7 @@ function getStartupSection(defaultSection) {
         selectedSection.classList.add("active");
         try { sessionStorage.setItem("ej-community-active-section", sectionId); } catch (_) {}
         if (sectionId === "homeSection") animateHomeWelcome();
-        if (sectionId === "homeSection" && currentUser && String(currentUser.id) === OWNER_CHAT_ID) loadSiteVisitorStats();
+        if (sectionId === "homeSection") loadSiteVisitorStats();
         if (sectionId === "socialConnectionsSection" ) maybeShowSocialConnectOnboarding();
 
         if (!currentUser) {
